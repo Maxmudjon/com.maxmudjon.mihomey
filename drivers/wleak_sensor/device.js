@@ -1,6 +1,6 @@
 const Homey = require('homey')
 
-class DoubleButton86Switch extends Homey.Device {
+class WleakSensor extends Homey.Device {
   async onInit() {
     this.log('Mi Homey device init')
     this.log('name:', this.getName())
@@ -25,7 +25,6 @@ class DoubleButton86Switch extends Homey.Device {
     }
   }
 
- 
   handleStateChange(deviceIO) {
     const { triggers } = this.driver;
     var battery = (deviceIO.voltage-2800)/5
@@ -36,13 +35,9 @@ class DoubleButton86Switch extends Homey.Device {
       lowBattery = true
     }
 
-    this.updateCapabilityValue('button.left', deviceIO['channel_0'], triggers.left_click)
-    this.updateCapabilityValue('button.right', deviceIO['channel_1'], triggers.right_click)
-    this.updateCapabilityValue('button.both', deviceIO['dual_channel'], triggers.both_click)
+    this.updateCapabilityValue('alarm_water', deviceIO['leaked'])
     this.updateCapabilityValue('measure_battery', battery);
     this.updateCapabilityValue('alarm_battery', lowBattery)
-
-
   }
 
   registerAuthChangeListener() {
@@ -72,6 +67,7 @@ class DoubleButton86Switch extends Homey.Device {
     if (!trigger) {
       return
     }
+    this.log(trigger)
     if(value) {
       trigger.trigger( this, {}, true )
     }
@@ -79,9 +75,7 @@ class DoubleButton86Switch extends Homey.Device {
     this.log('trigger:', name, value)
 
     switch(name) {
-      case 'left_click_db86_switch':
-      case 'right_click_db86_switch': 
-      case 'both_click_db86_switch':   
+      case 'alarm_water':
     }
   }
 
@@ -96,4 +90,4 @@ class DoubleButton86Switch extends Homey.Device {
   }
 }
 
-module.exports = DoubleButton86Switch
+module.exports = WleakSensor
