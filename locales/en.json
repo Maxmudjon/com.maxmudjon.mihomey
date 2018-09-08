@@ -11,9 +11,11 @@
 		"nosettings": "Please fill in all the fields.",
 		"unknownerror": "Unknown Error.",
 		"add": "Add device",
+		"no_devices_found": "No devices found.",
 		"device": {
 			"add": "Add device"
 		}
+
 	},
 	"settings": {
 		"title": "Mi Homey App settings",

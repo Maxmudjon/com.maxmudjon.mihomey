@@ -1,7 +1,7 @@
 const Homey = require('homey');
 const model = "86sw2"
 
-class MagnetSensor extends Homey.Driver {
+class DoubleButton86Switch extends Homey.Driver {
 
   onInit() {
     this.triggers = {
@@ -18,7 +18,7 @@ class MagnetSensor extends Homey.Driver {
   }
 
   onPairListDevices(data, callback) {
-    Homey.app.mihub.getDevicesForTypes(model)
+    Homey.app.mihub.getDevicesByModel(model)
       .then(devices => callback(null, this.deviceList(devices)))
       .catch(() => callback(Homey.__('pair.no_devices_found')))
   }   
@@ -26,14 +26,11 @@ class MagnetSensor extends Homey.Driver {
   deviceList(devices) {
     let sortDevices = []
     for (var sid in devices) {
-      
       let device = devices[sid]
-      console.log(device)
       let deviceList = {
         "name": device.name,
         "data": { 
-          "sid": device.sid,
-          "gatewaysid": device.gatewaysid
+          "sid": device.sid
         }
       }
       sortDevices.push(deviceList)
@@ -42,4 +39,4 @@ class MagnetSensor extends Homey.Driver {
   }
 }
 
-module.exports = MagnetSensor;
+module.exports = DoubleButton86Switch;

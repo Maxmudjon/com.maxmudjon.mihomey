@@ -16,8 +16,9 @@ class DoubleButton86Switch extends Homey.Device {
   }
 
   async initialize() {
-    if (Homey.app.mihub.auth) {
+    if (Homey.app.mihub.hubs) {
       this.device = await Homey.app.mihub.getDevice(this.data.sid)
+      this.log("initialize: ",this.device)
       this.registerStateChangeListener()
     } else {
       this.unregisterStateChangeListener()
@@ -35,10 +36,10 @@ class DoubleButton86Switch extends Homey.Device {
       lowBattery = true
     }
 
-    this.updateCapabilityValue('get_left_click_db86_switch', deviceIO['channel_0'], triggers.left_click)
-    this.updateCapabilityValue('get_right_click_db86_switch', deviceIO['channel_1'], triggers.right_click)
-    this.updateCapabilityValue('get_both_click_db86_switch', deviceIO['dual_channel'], triggers.both_click)
-    this.setCapabilityValue('measure_battery', battery);
+    this.updateCapabilityValue('button.left', deviceIO['channel_0'], triggers.left_click)
+    this.updateCapabilityValue('button.right', deviceIO['channel_1'], triggers.right_click)
+    this.updateCapabilityValue('button.both', deviceIO['dual_channel'], triggers.both_click)
+    this.updateCapabilityValue('measure_battery', battery);
     this.updateCapabilityValue('alarm_battery', lowBattery)
 
 

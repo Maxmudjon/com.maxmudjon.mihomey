@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -21,38 +21,30 @@
     "name": "Maxmudjon Payziyev",
     "email": "bio42@mail.ru"
   },
-  "capabilities": {
-    "get_left_click_db86_switch": {
-        "type": "boolean",
-        "title": {
-          "en": "Get left click"
-        },
-        "getable": true,
-        "setable": false
-    },
-    "get_right_click_db86_switch": {
-        "type": "boolean",
-        "title": {
-          "en": "Get right click"
-        },
-        "getable": true,
-        "setable": false
-    },
-    "get_both_click_db86_switch": {
-        "type": "boolean",
-        "title": {
-          "en": "Get both click"
-        },
-        "getable": true,
-        "setable": false
-    }
+  "contributors": {
+      "developers": [
+          {
+              "name": "Maxmudjon Payziyev",
+              "email": "bio42@mail.ru"
+          }
+      ]
+  },
+  "contributing": {
+      "donate": {
+          "paypal": {
+              "username": "paypal.me/maxmudjon"
+          }
+      }
+  },
+  "bugs": {
+      "url": "https://github.com/Maxmudjon/com.maxmudjon.mihomey/issues"
   },
   "flow": {
     "triggers": [
       {
         "id": "left_click_db86_switch",
         "title": {
-          "en": "On left click"
+          "en": "Left button clicked"
         },
         "args": [
           {
@@ -65,7 +57,7 @@
       {
         "id": "right_click_db86_switch",
         "title": {
-          "en": "On right click"
+          "en": "Right button clicked"
         },
         "args": [
           {
@@ -78,7 +70,7 @@
       {
         "id": "both_click_db86_switch",
         "title": {
-          "en": "On both click"
+          "en": "Both buttons clicked"
         },
         "args": [
           {
@@ -100,29 +92,29 @@
     {
       "id": "db86_switch",
       "name": {
-        "en": "Duplex button"
+        "en": "AQara Wireless Switch"
       },
       "class": "sensor",
       "capabilities": [
-        "get_left_click_db86_switch",
-        "get_right_click_db86_switch",
-        "get_both_click_db86_switch",
+        "button.left",
+        "button.right",
+        "button.both",
         "measure_battery",
         "alarm_battery"
         
       ],
       "capabilitiesOptions": {
-        "get_left_click_db86_switch": {
+        "button.left": {
           "title": {
             "en": "Left click"
           }
         },
-        "get_right_click_db86_switch": {
+        "button.right": {
           "title": {
             "en": "Right click"
           }
         },
-        "get_both_click_db86_switch": {
+        "button.both": {
           "title": {
             "en": "Both click"
           }
@@ -142,13 +134,13 @@
           },
           {
             "id": "sensor",
-            "capabilities": [ "get_left_click_db86_switch", "get_right_click_db86_switch", "get_both_click_db86_switch", "alarm_battery"],
+            "capabilities": [ "button.left", "button.right", "button.both", "alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
-                  "get_left_click_db86_switch": "/drivers/db86_switch/assets/db86_switch_left_click_icon.svg",
-                  "get_right_click_db86_switch": "/drivers/db86_switch/assets/db86_switch_right_click_icon.svg",
-                  "get_both_click_db86_switch": "/drivers/db86_switch/assets/db86_switch_both_click_icon.svg",
+                  "button.left": "/drivers/db86_switch/assets/db86_switch_left_click_icon.svg",
+                  "button.right": "/drivers/db86_switch/assets/db86_switch_right_click_icon.svg",
+                  "button.both": "/drivers/db86_switch/assets/db86_switch_both_click_icon.svg",
                   "alarm_battery": "/drivers/db86_switch/assets/alarm_battery.svg"
               }
             }
