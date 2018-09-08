@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -92,7 +92,7 @@
     {
       "id": "db86_switch",
       "name": {
-        "en": "AQara Wireless Switch"
+        "en": "Aqara Wireless Switch"
       },
       "class": "sensor",
       "capabilities": [
@@ -150,6 +150,136 @@
       "images": {
         "large": "/drivers/db86_switch/assets/images/large.png",
         "small": "/drivers/db86_switch/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "mi_motion_sensor",
+      "name": {
+        "en": "Mi Motion Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "measure_battery",
+        "alarm_battery"
+        
+      ],
+      "capabilitiesOptions": {
+        "alarm_motion": {
+          "title": {
+            "en": "Motion"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_motion", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_motion": "/drivers/mi_motion_sensor/assets/mi_motion_sensor_icon.svg",
+                  "alarm_battery": "/drivers/mi_motion_sensor/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/mi_motion_sensor/assets/images/large.png",
+        "small": "/drivers/mi_motion_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "wleak_sensor",
+      "name": {
+        "en": "Aqara Water Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_water",
+        "measure_battery",
+        "alarm_battery"
+        
+      ],
+      "capabilitiesOptions": {
+        "alarm_water": {
+          "title": {
+            "en": "Water"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_water", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_water": "/drivers/wleak_sensor/assets/wleak_sensor_icon.svg",
+                  "alarm_battery": "/drivers/wleak_sensor/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/wleak_sensor/assets/images/large.png",
+        "small": "/drivers/wleak_sensor/assets/images/small.png"
       },
       "pair": [
         {
