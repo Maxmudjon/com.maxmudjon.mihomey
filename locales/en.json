@@ -1,0 +1,40 @@
+{
+	"pair": {
+		"name": "Device name",
+		"label": "Add SID and Token",
+		"addlabel": "Select Device",
+		"mac": "Add device SID address",
+		"token": "Add device token",
+		"title": "Enter the details of your Mi Home device.",
+		"test": "Test Connection",
+		"testing" : "Connection test successfull, you can now connect the device.",
+		"nosettings": "Please fill in all the fields.",
+		"unknownerror": "Unknown Error.",
+		"add": "Add device",
+		"device": {
+			"add": "Add device"
+		}
+	},
+	"settings": {
+		"title": "Mi Homey App settings",
+		"list": {
+			"title": "Add or delete gateways",
+			"description": "Enter you sid and token from MiHome App",
+			"sid": "SID",
+			"token": "Token",
+			"addGateway": "ADD",
+			"onAddGatewaySidListLabel": "SID: ",
+			"onAddGatewayTokenListLabel": "TOKEN: ",
+			"editOnList": "EDIT1",
+			"removeFromList": "REMOVE1"
+		},
+		"messages": {
+			"savingBusy": "Saving gateway settings to Homey...",
+			"savingError": "Oops... Something went wrong saving your settings",
+			"sidDuplicateError": "Duplicate device SID",
+			"invalidSidError": "Invalid device SID",
+			"savingSuccessRestart": "Settings saved successfully. Need restart this app",
+			"savingSuccess": "Settings saved successfully."
+		}
+	}
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<script type="text/javascript" src="js/settings.js"></script>
+
+		<link rel="stylesheet" href="css/settings.css">
+	</head>
+	<body>
+		<h1 data-i18n="settings.title">Mi Homey App settings</h1>
+		<fieldset>
+			<br />
+			<h2 data-i18n="settings.list.title">Gateway list</h2>
+			<p data-i18n="settings.list.description">this is gateways list</p>
+			<div>
+				<header id="header" class="header">
+					<label id="h1" class="h1">Gateway SID and Token's</label>
+				</header>
+				<ul id="sid-list">
+            	</ul>
+				<form id="newGatewayAddForm">
+					<label for="SID" data-i18n="settings.list.onAddGatewaySidListLabel">SID: </label>
+					<input id="add-sid" type="text">
+					<label for="TOKEN" data-i18n="settings.list.onAddGatewayTokenListLabel">TOKEN: </label>
+					<input id="add-token" type="text">
+					<button id="add-button" type="submit" data-i18n="settings.list.addGateway">ADD</button>
+				</form>
+			</div>
+		</fieldset>
+		<script>
+			function tokenMatch(f) {
+			    if (f.value.match(/\b[0-9A-Fa-f]{16}\b/g)) {
+			    	$(f).removeClass("shake");
+			    } else {
+					//$(f).select();
+        			$(f).addClass("shake").focus();
+			    }
+		    }
+
+		    function sidMatch(f) {
+			    if (f.value.match(/\b[0-9A-Fa-f]{12}\b/g)) {
+			    	$(f).removeClass("shake");
+			    }
+
+			    else {
+					//$(f).select();
+        			$(f).addClass("shake").focus();
+			    }
+		    }
+		</script>
+	</body>
+</html>

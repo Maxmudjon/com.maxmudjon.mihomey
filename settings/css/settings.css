@@ -1,0 +1,255 @@
+body {
+  position: relative;
+}
+
+#sid-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+fieldset {
+  background: #fff;
+  width: 100%
+  margin: 5px 5px;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+label {
+  background: 0 0;
+  color: #757575;
+  position: relative;
+  height: 36px;
+  margin: 0;
+  min-width: 30px;
+  padding: 0 16px;
+  display: inline-block;
+  font-family: "Consolas","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  overflow: hidden;
+  will-change: box-shadow;
+  transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+}
+
+input {
+  font-family: 'Consolas', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  color: #757575;
+  padding: .5em;
+  border-radius: 2px;
+  border: 1px solid lightgray;
+  outline: none;
+}
+
+.gatewayList {
+  display: flex;
+  font-size: 1rem;
+  border-top: 1px solid rgba(0,0,0,.1);
+  background-color: #fff;
+  transition: all .2s;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 0.5em;
+  align-items: center;
+}
+
+.active, .gatewayList:hover {
+  background-color: #fffee3
+}
+
+.gatewayList.completed .sid {
+  text-decoration: line-through;
+}
+
+.gatewayList.editing .sid {
+  display: none;
+}
+
+.gatewayList .sid,
+.gatewayList .sidInput {
+  margin-right: auto;
+}
+
+.gatewayList .sidInput {
+  display: none;
+}
+
+.gatewayList.editing .sidInput {
+  display: block;
+  flex: 1;
+  margin-right: 16px;
+}
+
+.gatewayList.completed .token {
+  text-decoration: line-through;
+}
+
+.gatewayList.editing .token {
+  display: none;
+}
+
+.gatewayList .token,
+.gatewayList .tokenInput {
+  margin-right: auto;
+}
+
+.gatewayList .tokenInput {
+  display: none;
+}
+
+.gatewayList.editing .tokenInput {
+  display: block;
+  flex: 1;
+  margin-right: 16px;
+}
+
+
+.gatewayList button {
+  opacity: 0;
+  transition: all .2s;
+}
+
+.gatewayList:hover button:not(.checkbox) {
+  opacity: 1;
+}
+
+#header {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: #757575;
+  background-color: #d5e4ff;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#h1 {
+  display: inline-block;
+  color: #757575;
+  margin: 1rem auto;
+  font-size: 25px
+}
+
+#add-button {
+  background: 0 0;
+  border: none;
+  border-radius: 2px;
+  color: #757575;
+  position: relative;
+  height: 36px;
+  margin: 0;
+  min-width: 64px;
+  padding: 0 16px;
+  display: inline-block;
+  font-family: "Consolas","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  overflow: hidden;
+  will-change: box-shadow;
+  transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+}
+
+#add-button:hover {
+  background-color: rgba(158,158,158,.2);
+}
+
+#add-button:active {
+  background-color: rgba(158,158,158,.4);
+}
+
+#gatewayslist {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 60%;
+}
+
+#gatewayslist td, #gatewayslist th {
+  padding: 8px;
+}
+
+#gatewayslist tr:hover {background-color: #ddd;}
+
+#gatewayslist th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #fff7e7;
+  color: #757575;
+}
+
+#newGatewayAddForm {
+  display: flex;
+  background-color: #FAFAFA;
+  border-top: 1px solid rgba(0,0,0,.1);
+  padding: 10px;
+}
+
+#newGatewayAddForm input {
+  flex: 1;
+  outline: none;
+  transition: all .2s;
+}
+
+#newGatewayAddForm input:focus {
+  border: 1px solid #f0db4f;
+}
+
+#newGatewayAddForm button {
+  margin-left: 10px;
+}
+
+
+#tokenInput.shake {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  outline-color: red;
+  border: 1px solid red;
+}
+
+#sidInput.shake {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  outline-color: red;
+  border: 1px solid red;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
