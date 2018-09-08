@@ -4,6 +4,7 @@ Adds support for Mi Gateways child devices.
 
 ## Version 0.0.1 (ALHPA TEST - Supperted device:
 * Double Button Wirelles Remote Switch (DuplexButton86)
+*
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 
 ## Add devices
