@@ -2,47 +2,47 @@ const Homey = require('homey')
 
 class DoubleButton86Switch extends Homey.Device {
   async onInit() {
-    this.log('Mi Homey device init')
-    this.log('name:', this.getName())
-    this.log('class:', this.getClass())
-    this.log('data:', this.getData())
-
     this.initialize = this.initialize.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
-
     this.driver = this.getDriver()
     this.data = this.getData()
     this.initialize()
+    this.log('Mi Homey device init | ' + 'name: ' + this.getName() + ' - ' + 'class: ' + this.getClass() + ' - ' + 'data: ' + JSON.stringify(this.data));
   }
 
   async initialize() {
     if (Homey.app.mihub.hubs) {
-      this.device = await Homey.app.mihub.getDevice(this.data.sid)
-      this.log("initialize: ",this.device)
       this.registerStateChangeListener()
     } else {
       this.unregisterStateChangeListener()
     }
   }
 
- 
-  handleStateChange(deviceIO) {
+  handleStateChange(device) {
     const { triggers } = this.driver;
-    var battery = (deviceIO.voltage-2800)/5
-    var lowBattery
-    if(battery > 20) {
-      lowBattery = false
-    } else {
-      lowBattery = true
+    if (device['data']['voltage']) {
+      var battery = (device['data']['voltage']-2800)/5
+      var lowBattery
+      if(battery > 20) {
+        lowBattery = false
+      } else {
+        lowBattery = true
+      }
+      this.updateCapabilityValue('measure_battery', battery);
+      this.updateCapabilityValue('alarm_battery', lowBattery)
     }
 
-    this.updateCapabilityValue('button.left', deviceIO['channel_0'], triggers.left_click)
-    this.updateCapabilityValue('button.right', deviceIO['channel_1'], triggers.right_click)
-    this.updateCapabilityValue('button.both', deviceIO['dual_channel'], triggers.both_click)
-    this.updateCapabilityValue('measure_battery', battery);
-    this.updateCapabilityValue('alarm_battery', lowBattery)
+    if (device['data']['channel_0'] == 'click') {
+      this.triggerFlow(triggers.left_click, 'left_click', true)
+    }
 
+    if (device['data']['channel_1'] == 'click') {
+      this.triggerFlow(triggers.right_click, 'right_click', true)
+    }
 
+    if (device['data']['dual_channel'] == 'both_click') {
+      this.triggerFlow(triggers.both_click, 'both_click', true)
+    } 
   }
 
   registerAuthChangeListener() {

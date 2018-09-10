@@ -14,6 +14,9 @@
 			<h2 data-i18n="settings.list.title">Gateway list</h2>
 			<p data-i18n="settings.list.description">this is gateways list</p>
 			<div>
+				<form id="donateButtonYandex">
+					<button id="donat-button-yandex" type="submit" >Donate - Yandex.Money</button>
+				</form>
 				<header id="header" class="header">
 					<label id="h1" class="h1">Gateway SID and Token's</label>
 				</header>
@@ -33,7 +36,6 @@
 			    if (f.value.match(/\b[0-9A-Fa-f]{16}\b/g)) {
 			    	$(f).removeClass("shake");
 			    } else {
-					//$(f).select();
         			$(f).addClass("shake").focus();
 			    }
 		    }
@@ -41,10 +43,7 @@
 		    function sidMatch(f) {
 			    if (f.value.match(/\b[0-9A-Fa-f]{12}\b/g)) {
 			    	$(f).removeClass("shake");
-			    }
-
-			    else {
-					//$(f).select();
+			    } else {
         			$(f).addClass("shake").focus();
 			    }
 		    }

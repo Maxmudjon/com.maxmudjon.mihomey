@@ -2,14 +2,16 @@
 
 Adds support for Mi Gateways child devices.
 
-## Version 0.1.1 (BETA TEST - Supperted device:
+## Version 0.2.0 (BETA TEST - Supperted device:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
+* Plug zigbee (PlugBase)
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/LeakSensor.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiPlugZigbee.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device.jpg)
@@ -21,6 +23,13 @@ Adds support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.0_beta (2018.09.10)
+1. fixed device updates by event.
+2. added support for Plug zigbee.
+3. minor fixes and improvements.
+4. fixed: leakage sensor displays status incorrectly.
+5. fixed: sometimes Double Button Wirelles Remote Switch was not updated.
+
 ### 0.1.1_beta (2018-09-08)
 1. added support for Motion Sensor (1 version).
 2. added support for Leak Sensor.

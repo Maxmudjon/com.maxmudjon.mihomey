@@ -3,17 +3,6 @@ const model = "motion";
 
 class MiMotionSensor extends Homey.Driver {
 
-  onInit() {
-    this.triggers = {
-    }
-    this.conditions = {
-
-    }
-    this.actions = {
-
-    }
-  }
-
   onPairListDevices(data, callback) {
     Homey.app.mihub.getDevicesByModel(model)
       .then(devices => callback(null, this.deviceList(devices)))

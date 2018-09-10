@@ -9,12 +9,6 @@ class DoubleButton86Switch extends Homey.Driver {
       right_click: new Homey.FlowCardTriggerDevice('right_click_db86_switch').register(),
       both_click: new Homey.FlowCardTriggerDevice('both_click_db86_switch').register()
     }
-    this.conditions = {
-
-    }
-    this.actions = {
-
-    }
   }
 
   onPairListDevices(data, callback) {

@@ -11,7 +11,6 @@ function initSettings () {
   clearBusy()
   clearError()
   clearSuccess()
-
   loadSettings()
 
   var gatewaySid = $("#add-sid");
@@ -36,7 +35,10 @@ function initSettings () {
     }
     addGateway()
   });
-
+  $('#donateButtonYandex').submit(function() {
+    var url = 'https://money.yandex.ru/to/410013864894090/'
+    HomeyObj.popup(url, { width: 500, height: 900 });
+  });
 }
 
 function sidFormat(e) {
@@ -69,12 +71,13 @@ function addGateway () {
 
   $('#add-sid').val('')
   $('#add-token').val('')
-  var newDevice = {id: gatewaySid+token, sid: gatewaySid, token: token}
+  var newDevice = {id: gatewaySid+token, sid: gatewaySid, token: token.toUpperCase()}
   gatewaysList.push(newDevice)
   gatewaysList.forEach(addGatewaysToList)
 
   saveGatewaysList()
   showSuccess(__('settings.messages.savingSuccess'), 1500)
+
 }
 
 

@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -79,13 +79,89 @@
             "filter": "driver_id=db86_switch"
           }
         ]
+      },
+      {
+        "id": "power_on",
+        "title": {
+          "en": "Power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "power_off",
+        "title": {
+          "en": "Power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "power_toggle",
+        "title": {
+          "en": "Power changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
       }
     ],
     "conditions": [
-      
+      {
+        "id": "power_active",
+        "title": {
+          "en": "Power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      }
     ],
     "actions": [
-        
+      {
+        "id": "power_on",
+        "title": {
+          "en": "Power turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "power_off",
+        "title": {
+          "en": "Power turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      }
     ]
   },
   "drivers": [
@@ -96,30 +172,10 @@
       },
       "class": "sensor",
       "capabilities": [
-        "button.left",
-        "button.right",
-        "button.both",
         "measure_battery",
         "alarm_battery"
         
       ],
-      "capabilitiesOptions": {
-        "button.left": {
-          "title": {
-            "en": "Left click"
-          }
-        },
-        "button.right": {
-          "title": {
-            "en": "Right click"
-          }
-        },
-        "button.both": {
-          "title": {
-            "en": "Both click"
-          }
-        }
-      },
       "mobile": {
         "components": [
           {
@@ -134,13 +190,10 @@
           },
           {
             "id": "sensor",
-            "capabilities": [ "button.left", "button.right", "button.both", "alarm_battery"],
+            "capabilities": [ "alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
-                  "button.left": "/drivers/db86_switch/assets/db86_switch_left_click_icon.svg",
-                  "button.right": "/drivers/db86_switch/assets/db86_switch_right_click_icon.svg",
-                  "button.both": "/drivers/db86_switch/assets/db86_switch_both_click_icon.svg",
                   "alarm_battery": "/drivers/db86_switch/assets/alarm_battery.svg"
               }
             }
@@ -280,6 +333,80 @@
       "images": {
         "large": "/drivers/wleak_sensor/assets/images/large.png",
         "small": "/drivers/wleak_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "plug",
+      "name": {
+        "en": "Plug Base"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "meter_power",
+        "measure_power"        
+      ],
+      "capabilitiesOptions": {
+        "meter_power": {
+          "title": {
+            "en": "KWh"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        },
+        "onoff": {
+            "title": {
+                "en": "Power"
+            }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "meter_power", "measure_power"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "meter_power": "/drivers/plug/assets/plug_kwh_icon.svg",
+                  "measure_power": "/drivers/plug/assets/plug_watt_hour_icon.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/plug/assets/images/large.png",
+        "small": "/drivers/plug/assets/images/small.png"
       },
       "pair": [
         {
