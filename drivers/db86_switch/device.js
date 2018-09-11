@@ -42,7 +42,24 @@ class DoubleButton86Switch extends Homey.Device {
 
     if (device['data']['dual_channel'] == 'both_click') {
       this.triggerFlow(triggers.both_click, 'both_click', true)
-    } 
+    }
+
+    let gateways = Homey.app.mihub.gateways
+    for (let sid in gateways) {
+      gateways[sid]['childDevices'].forEach(deviceSid => {
+        if (this.data.sid == deviceSid) {
+          this.setSettings({
+            deviceFromGatewaySid: sid
+          })
+        }
+      })
+    }
+    
+    this.setSettings({
+      deviceSid: device.sid,
+      deviceModelName: 'lumi.sensor_' + device.model,
+      deviceModelCodeName: device.modelCode,
+    })
   }
 
   registerAuthChangeListener() {

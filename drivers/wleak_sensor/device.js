@@ -38,6 +38,23 @@ class WleakSensor extends Homey.Device {
     if (device['data']['status'] == 'no_leak') {
       this.updateCapabilityValue('alarm_water', false)
     }
+
+    let gateways = Homey.app.mihub.gateways
+    for (let sid in gateways) {
+      gateways[sid]['childDevices'].forEach(deviceSid => {
+        if (this.data.sid == deviceSid) {
+          this.setSettings({
+            deviceFromGatewaySid: sid
+          })
+        }
+      })
+    }
+    
+    this.setSettings({
+      deviceSid: device.sid,
+      deviceModelName: 'lumi.' + device.model,
+      deviceModelCodeName: device.modelCode,
+    })
   }
 
   registerAuthChangeListener() {

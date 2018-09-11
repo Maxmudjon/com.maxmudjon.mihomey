@@ -54,6 +54,23 @@ class Plug extends Homey.Device {
     if (device['data']['power_consumed']) {
       this.updateCapabilityValue('meter_power', parseInt(device['data']['power_consumed'] / 1000));
     }
+
+    let gateways = Homey.app.mihub.gateways
+    for (let sid in gateways) {
+      gateways[sid]['childDevices'].forEach(deviceSid => {
+        if (this.data.sid == deviceSid) {
+          this.setSettings({
+            deviceFromGatewaySid: sid
+          })
+        }
+      })
+    }
+    
+    this.setSettings({
+      deviceSid: device.sid,
+      deviceModelName: 'lumi.' + device.model,
+      deviceModelCodeName: device.modelCode,
+    })
   }
 
   registerAuthChangeListener() {

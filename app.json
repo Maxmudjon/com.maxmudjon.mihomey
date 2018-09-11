@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -118,6 +118,136 @@
             "filter": "driver_id=plug"
           }
         ]
+      },
+            {
+        "id": "click_button_switch",
+        "title": {
+          "en": "Single click button swtich"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch"
+          }
+        ]
+      },
+      {
+        "id": "double_click_click_button_switch",
+        "title": {
+          "en": "Double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch"
+          }
+        ]
+      },
+      {
+        "id": "long_click_press_click_button_switch",
+        "title": {
+          "en": "Long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch"
+          }
+        ]
+      },
+      {
+        "id": "click_sb86_switch",
+        "title": {
+          "en": "Click single swtich"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=sb86_switch"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_on",
+        "title": {
+          "en": "Left switch power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_off",
+        "title": {
+          "en": "Left switch power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_toggle",
+        "title": {
+          "en": "Left switch power changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_on",
+        "title": {
+          "en": "Right switch power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_off",
+        "title": {
+          "en": "Right switch power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_toggle",
+        "title": {
+          "en": "Right switch power changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -131,6 +261,32 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_active",
+        "title": {
+          "en": "Left switch power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_active",
+        "title": {
+          "en": "Right switch power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
           }
         ]
       }
@@ -161,6 +317,58 @@
             "filter": "driver_id=plug"
           }
         ]
+      },
+      {
+        "id": "left_switch_on",
+        "title": {
+          "en": "Left switch power turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_off",
+        "title": {
+          "en": "Left switch power turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_on",
+        "title": {
+          "en": "Right switch power turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_off",
+        "title": {
+          "en": "Right switch power turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1"
+          }
+        ]
       }
     ]
   },
@@ -168,7 +376,7 @@
     {
       "id": "db86_switch",
       "name": {
-        "en": "Aqara Wireless Switch"
+        "en": "Aqara Wireless Double Switch"
       },
       "class": "sensor",
       "capabilities": [
@@ -200,6 +408,48 @@
           }
         ]
       },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
       "images": {
         "large": "/drivers/db86_switch/assets/images/large.png",
         "small": "/drivers/db86_switch/assets/images/small.png"
@@ -265,6 +515,71 @@
           }
         ]
       },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Duration of the motion alarm"
+          },
+          "children": [
+            {
+              "id": "alarm_duration_number",
+              "type": "number",
+              "label": {
+                  "en": "Disable after"
+              },
+              "hint": {
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 60,
+                  "max": 86400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
       "images": {
         "large": "/drivers/mi_motion_sensor/assets/images/large.png",
         "small": "/drivers/mi_motion_sensor/assets/images/small.png"
@@ -330,6 +645,48 @@
           }
         ]
       },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
       "images": {
         "large": "/drivers/wleak_sensor/assets/images/large.png",
         "small": "/drivers/wleak_sensor/assets/images/small.png"
@@ -354,13 +711,13 @@
     {
       "id": "plug",
       "name": {
-        "en": "Plug Base"
+        "en": "Mi Smart Plug"
       },
       "class": "socket",
       "capabilities": [
         "onoff",
         "meter_power",
-        "measure_power"        
+        "measure_power"
       ],
       "capabilitiesOptions": {
         "meter_power": {
@@ -404,10 +761,976 @@
           }
         ]
       },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
       "images": {
         "large": "/drivers/plug/assets/images/large.png",
         "small": "/drivers/plug/assets/images/small.png"
       },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "magnet_sensor",
+      "name": {
+        "en": "Mi Window and Door Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_contact",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "alarm_contact": {
+          "title": {
+            "en": "Open"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_contact", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_contact": "/drivers/magnet_sensor/assets/magnet_sensor_icon.svg",
+                  "alarm_battery": "/drivers/magnet_sensor/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/magnet_sensor/assets/images/large.png",
+        "small": "/drivers/magnet_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "button_switch",
+      "name": {
+        "en": "Mi Wireless Switch"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/db86_switch/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/db86_switch/assets/images/large.png",
+        "small": "/drivers/db86_switch/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "temp_hum_sensor",
+      "name": {
+        "en": "Aqara Temperature and Humidity Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "alarm_battery"
+        
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature": {
+          "title": {
+            "en": "Temperature"
+          }
+        },
+        "measure_humidity": {
+          "title": {
+            "en": "Humidity"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_temperature", "measure_humidity", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "measure_temperature": "/drivers/temp_hum_sensor/assets/temperature_sensor_icon.svg",
+                  "measure_humidity": "/drivers/temp_hum_sensor/assets/humidity_sensor_icon.svg",
+                  "alarm_battery": "/drivers/temp_hum_sensor/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/temp_hum_sensor/assets/images/large.png",
+        "small": "/drivers/temp_hum_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "ctrl_ln1.aq1",
+      "name": {
+        "en": "Aqara Wall Switch, With Neutral, Single Rocker"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"     
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+            "title": {
+                "en": "On/Off"
+            }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/ctrl_ln1.aq1/assets/images/large.png",
+        "small": "/drivers/ctrl_ln1.aq1/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "sb86_switch",
+      "name": {
+        "en": "Aqara Wireless Single Switch"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+        
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/sb86_switch/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/sb86_switch/assets/images/large.png",
+        "small": "/drivers/sb86_switch/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "ctrl_86plug.aq1",
+      "name": {
+        "en": "Aqara Wall Outlet"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "meter_power",
+        "measure_power"
+      ],
+      "capabilitiesOptions": {
+        "meter_power": {
+          "title": {
+            "en": "KWh"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        },
+        "onoff": {
+            "title": {
+                "en": "Power"
+            }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "meter_power", "measure_power"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "meter_power": "/drivers/ctrl_86plug.aq1/assets/plug_kwh_icon.svg",
+                  "measure_power": "/drivers/ctrl_86plug.aq1/assets/plug_watt_hour_icon.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/ctrl_86plug.aq1/assets/images/large.png",
+        "small": "/drivers/ctrl_86plug.aq1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "ctrl_ln2.aq1",
+      "name": {
+        "en": "Aqara Wall Switch, With Neutral, Double Rocker"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "onoff.1"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Left On/Off"
+          }
+        },
+        "onoff.1": {
+          "title": {
+              "en": "Right On/Off"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff", "onoff.1" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/ctrl_ln2.aq1/assets/images/large.png",
+        "small": "/drivers/ctrl_ln2.aq1/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "ctrl_neutral1",
+      "name": {
+        "en": "Aqara Wall Switch, No Neutral, Single Rocker"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "On/Off"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/ctrl_neutral1/assets/images/large.png",
+        "small": "/drivers/ctrl_neutral1/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "ctrl_neutral2",
+      "name": {
+        "en": "Aqara Wall Switch, No Neutral, Double Rocker"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "onoff.1"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Left On/Off"
+          }, 
+          "greyout": false
+        },
+        "onoff.1": {
+          "title": {
+              "en": "Right On/Off"
+          }, 
+          "greyout": false
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.1" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/ctrl_neutral2/assets/images/large.png",
+        "small": "/drivers/ctrl_neutral2/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
       "pair": [
         {
           "id": "list_devices",

@@ -22,7 +22,7 @@ class DoubleButton86Switch extends Homey.Driver {
     for (var sid in devices) {
       let device = devices[sid]
       let deviceList = {
-        "name": device.name,
+        "name": device.name + ' | ' + device.sid,
         "data": { 
           "sid": device.sid
         }

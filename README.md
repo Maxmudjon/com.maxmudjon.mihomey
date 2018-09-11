@@ -1,20 +1,38 @@
 # Mi Homey
 
-Adds support for Mi Gateways child devices.
+Added support for Mi Gateways child devices.
 
-## Version 0.2.0 (BETA TEST - Supperted device:
+## Version 0.2.1 (BETA TEST - Supperted device:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
-* Plug zigbee (PlugBase)
+* Plug zigbee (PlugBase).
+* Contact Sensor (Magnet).
+* Button Swotch (Switch).
+* Mi Temperature and Humidity Sensor (Sensor_HT).
+* Aqara Smart Light Switch With Neutral (SingleSwitchLN).
+* Aqara Wirelles Single Switch (SingleButton86).
+* Aqara Wall Outlet (PlugBase86)ю
+* Aqara Smart Light Switch With Neutral (DoubleSwitchLN).
+* Aqara Smart Light Switch (DoubleSwitch).
+* Aqara Smart Light Switch (SingleSwitch).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/LeakSensor.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiPlugZigbee.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiContactSensor.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiButtonSwtich.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiTempHumSensor.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchWithNeutralSingleRocker.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/SingleButton86.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSmartSocketZiGBee.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchWithNeutralDoubleRocker2.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchDoubleRocker.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchSingleRocker.jpg)
 
 ## Add devices
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
 
 ## On Mobile
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/on%20mobile.jpg)
@@ -23,6 +41,18 @@ Adds support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.1_beta (2018.09.12)
+1. added settings for motion sensor and information for all devices
+2. added support for Contact Sensor.
+3. added support for Button Switch.
+4. added support for Mi Temperature and Humidity Sensor.
+5. added support for Aqara Wall Switch With Neutral Single Rocker.
+6. added support for Aqara Wirelles Single Switch.
+7. added support for Aqara Wall Outlet.
+8. added support for Aqara Wall Switch With Neutral Double Rocker.
+9. added support for Aqara Wall Switch Single Rocker
+10. added support for Aqara Wall Switch Double Rocker.
+
 ### 0.2.0_beta (2018.09.10)
 1. fixed device updates by event.
 2. added support for Plug zigbee.

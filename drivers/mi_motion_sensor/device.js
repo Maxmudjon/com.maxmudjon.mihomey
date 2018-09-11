@@ -34,12 +34,14 @@ class MiMotionSensor extends Homey.Device {
       this.updateCapabilityValue('alarm_battery', lowBattery)
     }
 
+    var settings = this.getSettings();
+
     if (device['data']['status'] == 'motion') {
       this.updateCapabilityValue('alarm_motion', true)
       var width = 0;
-      var id = setInterval(frame.bind(this), 20);
+      var id = setInterval(frame.bind(this), settings.alarm_duration_number);
       function frame() {
-        if (width == 100) {
+        if (width == 1000) {
           clearInterval(id);
           this.updateCapabilityValue('alarm_motion', false);
         } else {
@@ -47,6 +49,23 @@ class MiMotionSensor extends Homey.Device {
         }
       }
     }
+
+    let gateways = Homey.app.mihub.gateways
+    for (let sid in gateways) {
+      gateways[sid]['childDevices'].forEach(deviceSid => {
+        if (this.data.sid == deviceSid) {
+          this.setSettings({
+            deviceFromGatewaySid: sid
+          })
+        }
+      })
+    }
+    
+    this.setSettings({
+      deviceSid: device.sid,
+      deviceModelName: 'lumi.sensor_' + device.model,
+      deviceModelCodeName: device.modelCode,
+    })
   }
 
   registerAuthChangeListener() {
