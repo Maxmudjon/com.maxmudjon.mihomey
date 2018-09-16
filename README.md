@@ -8,7 +8,7 @@ Added support for Mi Gateways child devices.
 * Leak Sensor (WaterDetector).
 * Plug zigbee (PlugBase).
 * Contact Sensor (MagnetSensor).
-* Button Swotch (Switch).
+* Button Switch (Switch).
 * Mi Temperature and Humidity Sensor (Sensor_HT).
 * Aqara Smart Light Switch With Neutral (SingleSwitchLN).
 * Aqara Wirelles Single Switch (SingleButton86).
