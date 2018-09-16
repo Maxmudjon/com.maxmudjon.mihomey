@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "motion";
+const model = [ 'motion' ];
 
 class MiMotionSensor extends Homey.Driver {
 

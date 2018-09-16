@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.2 (BETA TEST - Supperted device:
+## Version 0.2.3 (BETA TEST - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -19,7 +19,7 @@ Added support for Mi Gateways child devices.
 * Aqara Temperature and Humidity Sensor (WeatherSensor).
 * Aqara Door and Window Sensor (MagnetSensor2).
 * Aqara Motion Sensor (MotionSensor2).
-* Mi Cube (Cube).
+* Mi / Aqara Cube (Cube).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -49,6 +49,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.3_beta (2018.09.17)
+1. added filter for Mi and Aqara devices.
+2. fixed: flow for some devices.
+
 ### 0.2.2_beta (2018.09.16)
 1. fixed: flow for some devices.
 2. added support for Aqara Temperature and Humidity Sensor.

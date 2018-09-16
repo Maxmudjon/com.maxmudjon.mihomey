@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "ctrl_neutral2";
+const model = [ 'ctrl_neutral2' ];
 
 const initToggleFlowTriggers = (on, off, toggle) => ({
   on: new Homey.FlowCardTriggerDevice(on).register(),
@@ -11,9 +11,10 @@ const initFlowCondition = (name) => (
   new Homey.FlowCardCondition(name).register()
 )
 
-const initToggleFlowAction = (on, off) => ({
+const initToggleFlowAction = (on, off, toggle) => ({
   on: new Homey.FlowCardAction(on).register(),
   off: new Homey.FlowCardAction(off).register(),
+  toggle: new Homey.FlowCardAction(toggle).register(),
 })
 
 class DoubleSwitch extends Homey.Driver {
@@ -28,8 +29,8 @@ class DoubleSwitch extends Homey.Driver {
       right_switch: initFlowCondition('right_switch_active')
     }
     this.actions = {
-      left_switch: initToggleFlowAction('left_switch_on', 'left_switch_off'),
-      right_switch: initToggleFlowAction('right_switch_on', 'right_switch_off')
+      left_switch: initToggleFlowAction('left_switch_on', 'left_switch_off', 'left_switch_toggle'),
+      right_switch: initToggleFlowAction('right_switch_on', 'right_switch_off', 'right_switch_toggle')
     }
   }
 

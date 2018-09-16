@@ -118,14 +118,32 @@ class DoubleSwitch extends Homey.Device {
   registerToggleAction(name, channel, valueOn = true, valueOff = false, action) {
     let sid = this.data.sid
     action.on.registerRunListener(async (args, state) => {
+      this.log('action.on')
       const data = {[channel]: valueOn}
       await Homey.app.mihub.sendWrite(sid, data)
       return true
     })
     action.off.registerRunListener(async (args, state) => {
+      this.log('action.off')
       const data = {[channel]: valueOff}
       await Homey.app.mihub.sendWrite(sid, data)
       return true
+    })
+    action.toggle.registerRunListener(async (args, state) => { 
+      this.log('action.toggle')
+      let leftPoweredOn = args.device.getCapabilityValue('onoff') 
+      let rightPoweredOn = args.device.getCapabilityValue('onoff.1') 
+      if (action.toggle.id == 'left_switch_toggle') { 
+        const data = {[channel]: leftPoweredOn ? 'off' : 'on'}
+        args.device.setCapabilityValue('onoff', !leftPoweredOn) 
+        await Homey.app.mihub.sendWrite(sid, data) 
+        return true 
+      } else if (action.toggle.id == 'right_switch_toggle') { 
+        const data = {[channel]: rightPoweredOn ? 'off' : 'on'} 
+        args.device.setCapabilityValue('onoff.1', !rightPoweredOn) 
+        await Homey.app.mihub.sendWrite(sid, data) 
+        return true 
+      } 
     })
   }
 

@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "sensor_magnet.aq2";
+const model = [ 'sensor_magnet.aq2' ];
 
 class MagnetSensor extends Homey.Driver {
 

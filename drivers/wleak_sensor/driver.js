@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "sensor_wleak.aq1";
+const model = [ 'sensor_wleak.aq1' ];
 
 class WleakSensor extends Homey.Driver {
 

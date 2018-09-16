@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "sensor_ht";
+const model = [ 'sensor_ht' ];
 
 class TemperatureHumiditySensor extends Homey.Driver {
 

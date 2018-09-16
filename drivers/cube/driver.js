@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "cube"
+const modelTypes = [ 'cube', 'sensor_cube.aqgl01', 'sensor_cube' ];
 
 class DoubleButton86Switch extends Homey.Driver {
 
@@ -18,7 +18,7 @@ class DoubleButton86Switch extends Homey.Driver {
   }
 
   onPairListDevices(data, callback) {
-    Homey.app.mihub.getDevicesByModel(model)
+    Homey.app.mihub.getDevicesByModel(modelTypes)
       .then(devices => callback(null, this.deviceList(devices)))
       .catch(() => callback(Homey.__('pair.no_devices_found')))
   }   

@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -390,7 +390,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -403,7 +403,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       }
@@ -444,7 +444,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -457,7 +457,20 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_toggle",
+        "title": {
+          "en": "Left switch power toggle"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -470,7 +483,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -483,7 +496,20 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_toggle",
+        "title": {
+          "en": "Right switch power toggle"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       }

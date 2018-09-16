@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "86sw2"
+const model = [ '86sw2' ];
 
 class DoubleButton86Switch extends Homey.Driver {
 

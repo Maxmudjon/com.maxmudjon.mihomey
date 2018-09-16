@@ -1,5 +1,5 @@
 const Homey = require('homey');
-const model = "switch"
+const model = [ 'switch' ]
 
 class ButtonSwitch extends Homey.Driver {
 
