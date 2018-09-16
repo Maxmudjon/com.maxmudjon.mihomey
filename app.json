@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -89,7 +89,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=plug"
+            "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
           }
         ]
       },
@@ -102,7 +102,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=plug"
+            "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
           }
         ]
       },
@@ -115,11 +115,11 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=plug"
+            "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
           }
         ]
       },
-            {
+      {
         "id": "click_button_switch",
         "title": {
           "en": "Single click button swtich"
@@ -180,7 +180,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -193,7 +193,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -206,7 +206,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -219,7 +219,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -232,7 +232,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
       },
@@ -245,7 +245,124 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "shake_air_cube",
+        "title": {
+          "en": "Cube shake air"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "tap_twice_cube",
+        "title": {
+          "en": "Cube twice tap"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "move_cube",
+        "title": {
+          "en": "Cube move"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "flip180_cube",
+        "title": {
+          "en": "Cube flip to 180°"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "flip90_cube",
+        "title": {
+          "en": "Cube flip to 90°"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "free_fall_cube",
+        "title": {
+          "en": "Cube free fall"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "alert_cube",
+        "title": {
+          "en": "Cube alert"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "rotate_positive_cube",
+        "title": {
+          "en": "Cube rotate to positive °"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "rotate_negative_cube",
+        "title": {
+          "en": "Cube rotate to negative °"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
           }
         ]
       }
@@ -371,6 +488,19 @@
         ]
       }
     ]
+  },
+  "capabilities": {
+    "measure_pressure_hhmg": {
+      "title": {
+        "en": "Pressure"
+      },
+      "type": "number",
+      "units": {
+        "en": "mm Hg"
+      },
+      "getable": true,
+      "setable": false
+    }
   },
   "drivers": [
     {
@@ -827,7 +957,7 @@
     {
       "id": "magnet_sensor",
       "name": {
-        "en": "Mi Window and Door Sensor"
+        "en": "Mi Door and Window Sensor"
       },
       "class": "sensor",
       "capabilities": [
@@ -1030,7 +1160,7 @@
     {
       "id": "temp_hum_sensor",
       "name": {
-        "en": "Aqara Temperature and Humidity Sensor"
+        "en": "Mi Temperature and Humidity Sensor"
       },
       "class": "sensor",
       "capabilities": [
@@ -1731,6 +1861,466 @@
           ]
         }
       ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "weather_temp_hum_sensor",
+      "name": {
+        "en": "Aqara Temperature and Humidity Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_pressure_hhmg",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature": {
+          "title": {
+            "en": "Temperature"
+          }
+        },
+        "measure_humidity": {
+          "title": {
+            "en": "Humidity"
+          }
+        },
+        "measure_pressure_hhmg": {
+          "title": {
+            "en": "Pressure"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_temperature", "measure_humidity", "measure_pressure_hhmg", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "measure_temperature": "/drivers/weather_temp_hum_sensor/assets/temperature_sensor_icon.svg",
+                  "measure_humidity": "/drivers/weather_temp_hum_sensor/assets/humidity_sensor_icon.svg",
+                  "measure_pressure_hhmg": "/drivers/weather_temp_hum_sensor/assets/pressure_hhmg_sensor_icon.svg",
+                  "alarm_battery": "/drivers/weather_temp_hum_sensor/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/weather_temp_hum_sensor/assets/images/large.png",
+        "small": "/drivers/weather_temp_hum_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "magnet_sensor.aq2",
+      "name": {
+        "en": "Aqara Door and Window Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_contact",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "alarm_contact": {
+          "title": {
+            "en": "Open"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_contact", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_contact": "/drivers/magnet_sensor.aq2/assets/magnet_sensor_icon.svg",
+                  "alarm_battery": "/drivers/magnet_sensor.aq2/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/magnet_sensor.aq2/assets/images/large.png",
+        "small": "/drivers/magnet_sensor.aq2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "motion_sensor.aq2",
+      "name": {
+        "en": "Aqara Motion Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "measure_luminance",
+        "measure_battery",
+        "alarm_battery"
+        
+      ],
+      "capabilitiesOptions": {
+        "alarm_motion": {
+          "title": {
+            "en": "Motion"
+          }
+        },
+        "measure_luminance": {
+          "title": {
+            "en": "Lux"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_motion", "measure_luminance", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_motion": "/drivers/motion_sensor.aq2/assets/aqara_motion_sensor_icon.svg",
+                  "alarm_battery": "/drivers/motion_sensor.aq2/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Duration of the motion alarm"
+          },
+          "children": [
+            {
+              "id": "alarm_duration_number",
+              "type": "number",
+              "label": {
+                  "en": "Disable after"
+              },
+              "hint": {
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 60,
+                  "max": 86400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/motion_sensor.aq2/assets/images/large.png",
+        "small": "/drivers/motion_sensor.aq2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "cube",
+      "name": {
+        "en": "Mi Cube"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+        
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/cube/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            { 
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            { 
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            { 
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            { 
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/cube/assets/images/large.png",
+        "small": "/drivers/cube/assets/images/small.png"
+      },
       "pair": [
         {
           "id": "list_devices",
