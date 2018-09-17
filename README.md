@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.3 (BETA TEST - Supported devices:
+## Version 0.2.4 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -20,6 +20,8 @@ Added support for Mi Gateways child devices.
 * Aqara Door and Window Sensor (MagnetSensor2).
 * Aqara Motion Sensor (MotionSensor2).
 * Mi / Aqara Cube (Cube).
+* Aqara Curtain Motor (Curtain).
+* Aqara Button Switch (SwitchSensor)
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -38,6 +40,8 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraDoorAndWindow.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraMotion.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiCube.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraCurtainMotor.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitch.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -49,18 +53,22 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.2.3_beta (2018.09.17)
+### 0.2.4 (17.09.2018)
+1. added support for Aqara Curtain Motor.
+2. added support for Aqara Button Switch.
+
+### 0.2.3_beta (17.09.2018)
 1. added filter for Mi and Aqara devices.
 2. fixed: flow for some devices.
 
-### 0.2.2_beta (2018.09.16)
+### 0.2.2_beta (16.09.2018)
 1. fixed: flow for some devices.
 2. added support for Aqara Temperature and Humidity Sensor.
 3. added support for Aqara Door and Window Sensor.
 4. added support for Aqara Motion Sensor.
 5. added support for Mi Cube.
 
-### 0.2.1_beta (2018.09.12)
+### 0.2.1_beta (12.09.2018)
 1. added settings for motion sensor and information for all devices
 2. added support for Contact Sensor.
 3. added support for Button Switch.
@@ -72,25 +80,25 @@ Added support for Mi Gateways child devices.
 9. added support for Aqara Wall Switch Single Rocker
 10. added support for Aqara Wall Switch Double Rocker.
 
-### 0.2.0_beta (2018.09.10)
+### 0.2.0_beta (10.09.2018)
 1. fixed: device updates by event.
 2. added support for Plug zigbee.
 3. minor fixes and improvements.
 4. fixed: leakage sensor displays status incorrectly.
 5. fixed: sometimes Double Button Wirelles Remote Switch was not updated.
 
-### 0.1.1_beta (2018-09-08)
+### 0.1.1_beta (8.09.2018)
 1. added support for Motion Sensor (1 version).
 2. added support for Leak Sensor.
 3. minor fixes.
 
-### 0.1.0_beta (2018-09-08)
+### 0.1.0_beta (8.09.2018)
 1. fixed: crash when the user did not add anything in the settings in the program.
 2. fixed: when the user added a SID and a TOKEN but he had to reboot the application in the application section.
 3. added mimorelinks node_module and rewrited mihub.js.
 4. added event for ManagerSettings.
 
-### 0.0.1_alpha (2018-09-265)
+### 0.0.1_alpha (5.09.2018)
 1. added support for DuplexButton86.
 2. added trigger for left, right and both clicks.
 3. added Mobile.

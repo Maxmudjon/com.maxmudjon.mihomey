@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -128,7 +128,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=button_switch"
+            "filter": "driver_id=button_switch|button_switch.aq2"
           }
         ]
       },
@@ -141,7 +141,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=button_switch"
+            "filter": "driver_id=button_switch|button_switch.aq2"
           }
         ]
       },
@@ -154,7 +154,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=button_switch"
+            "filter": "driver_id=button_switch|button_switch.aq2"
           }
         ]
       },
@@ -538,7 +538,7 @@
       "capabilities": [
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "mobile": {
         "components": [
@@ -571,7 +571,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -579,7 +579,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -587,7 +587,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -595,7 +595,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -637,7 +637,7 @@
         "alarm_motion",
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "capabilitiesOptions": {
         "alarm_motion": {
@@ -701,7 +701,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -709,7 +709,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -717,7 +717,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -725,7 +725,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -767,7 +767,7 @@
         "alarm_water",
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "capabilitiesOptions": {
         "alarm_water": {
@@ -808,7 +808,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -816,7 +816,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -824,7 +824,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -832,7 +832,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -924,7 +924,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -932,7 +932,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -940,7 +940,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -948,7 +948,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1030,7 +1030,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1038,7 +1038,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1046,7 +1046,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1054,7 +1054,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1114,15 +1114,15 @@
             "options": {
               "showTitle": true,
               "icons": {
-                  "alarm_battery": "/drivers/db86_switch/assets/alarm_battery.svg"
+                  "alarm_battery": "/drivers/button_switch/assets/alarm_battery.svg"
               }
             }
           }
         ]
       },
       "images": {
-        "large": "/drivers/db86_switch/assets/images/large.png",
-        "small": "/drivers/db86_switch/assets/images/small.png"
+        "large": "/drivers/button_switch/assets/images/large.png",
+        "small": "/drivers/button_switch/assets/images/small.png"
       },
       "settings":[
         {
@@ -1131,7 +1131,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1139,7 +1139,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1147,7 +1147,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1155,7 +1155,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1194,7 +1194,7 @@
         "measure_humidity",
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "capabilitiesOptions": {
         "measure_temperature": {
@@ -1241,7 +1241,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1249,7 +1249,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1257,7 +1257,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1265,7 +1265,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1304,7 +1304,7 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"     
+        "onoff"
       ],
       "capabilitiesOptions": {
         "onoff": {
@@ -1338,7 +1338,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1346,7 +1346,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1354,7 +1354,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1362,7 +1362,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1399,7 +1399,7 @@
       "capabilities": [
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "mobile": {
         "components": [
@@ -1436,7 +1436,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1444,7 +1444,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1452,7 +1452,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1460,7 +1460,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1548,7 +1548,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1556,7 +1556,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1564,7 +1564,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1572,7 +1572,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1651,7 +1651,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1659,7 +1659,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1667,7 +1667,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1675,7 +1675,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1744,7 +1744,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1752,7 +1752,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1760,7 +1760,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1768,7 +1768,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1810,13 +1810,13 @@
         "onoff": {
           "title": {
               "en": "Left On/Off"
-          }, 
+          },
           "greyout": false
         },
         "onoff.1": {
           "title": {
               "en": "Right On/Off"
-          }, 
+          },
           "greyout": false
         }
       },
@@ -1852,7 +1852,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1860,7 +1860,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1868,7 +1868,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1876,7 +1876,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -1968,7 +1968,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -1976,7 +1976,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -1984,7 +1984,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -1992,7 +1992,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -2074,7 +2074,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -2082,7 +2082,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -2090,7 +2090,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -2098,7 +2098,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -2141,7 +2141,7 @@
         "measure_luminance",
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "capabilitiesOptions": {
         "alarm_motion": {
@@ -2210,7 +2210,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -2218,7 +2218,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -2226,7 +2226,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -2234,7 +2234,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -2275,7 +2275,7 @@
       "capabilities": [
         "measure_battery",
         "alarm_battery"
-        
+
       ],
       "mobile": {
         "components": [
@@ -2308,7 +2308,7 @@
             "en": "Device information"
           },
           "children": [
-            { 
+            {
               "id": "deviceSid",
               "type": "label",
               "label": {
@@ -2316,7 +2316,7 @@
               },
               "value": "0123456789abcd"
             },
-            { 
+            {
               "id": "deviceFromGatewaySid",
               "type": "label",
               "label": {
@@ -2324,7 +2324,7 @@
               },
               "value": "0123456789ab"
             },
-            { 
+            {
               "id": "deviceModelName",
               "type": "label",
               "label": {
@@ -2332,7 +2332,7 @@
               },
               "value": "lumi.device"
             },
-            { 
+            {
               "id": "deviceModelCodeName",
               "type": "label",
               "label": {
@@ -2347,6 +2347,219 @@
         "large": "/drivers/cube/assets/images/large.png",
         "small": "/drivers/cube/assets/images/small.png"
       },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "curtain",
+      "name": {
+        "en": "Aqara Curtain Motor"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "windowcoverings_state"
+      ],
+      "capabilitiesOptions": {
+    		"onoff": {
+    		    "title": {
+    		        "en": "Open Close"
+    		    }
+    		},
+    		"dim": {
+    		    "title": {
+    		        "en": "Level"
+    		    }
+    		}
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ]
+          },
+          {
+            "id": "ternary",
+            "capabilities": [
+              "windowcoverings_state"
+            ],
+            "options": {
+              "icons": {
+                "top": "/drivers/curtain/assets/curtain_open_button.svg",
+                "middle": "/drivers/curtain/assets/curtain_stop_button.svg",
+                "bottom": "/drivers/curtain/assets/curtain_close_button.svg"
+              },
+              "values": {
+                "top": "up",
+                "middle": "idle",
+                "bottom": "down"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/curtain/assets/images/large.png",
+        "small": "/drivers/curtain/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "button_switch.aq2",
+      "name": {
+        "en": "Aqara Wireless Switch Button"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/button_switch.aq2/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/button_switch.aq2/assets/images/large.png",
+        "small": "/drivers/button_switch.aq2/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
       "pair": [
         {
           "id": "list_devices",
