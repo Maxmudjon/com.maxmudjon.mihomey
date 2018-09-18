@@ -39,8 +39,6 @@ class Curtain extends Homey.Device {
   }
 
   handleStateChange(device) {
-    this.log(device)
-
     const { triggers } = this.driver;
 
     if (parseInt(device['data']['curtain_level']) > 0) {
@@ -52,7 +50,7 @@ class Curtain extends Homey.Device {
     }
 
     if (device['data']['curtain_level']) {
-      this.updateCapabilityValue('dim', parseInt(device['data']['curtain_level'] / 100));
+      this.updateCapabilityValue('dim', parseInt(device['data']['curtain_level']) / 100)
     }
 
     clearTimeout(this.curtainTernaryTimeout);
@@ -115,21 +113,18 @@ class Curtain extends Homey.Device {
   registerDim(name) {
     let sid = this.data.sid
     this.registerCapabilityListener(name, async (value) => {
-      const data = {"curtain_level":value}
+      const level = Math.round(value * 100);
+      const data = {'curtain_level':level.toString()};
       await Homey.app.mihub.sendWrite(sid, data)
-      // this.triggerFlow(trigger, name, value)
     })
   }
 
   registerCovering(name) {
     let sid = this.data.sid
     this.registerCapabilityListener(name, async (value) => {
-      this.log(value)
       const states = { 'up':'open', 'idle':'stop', 'down':'close' }
       const data = {"curtain_status": states[value]}
-      this.log(data)
       await Homey.app.mihub.sendWrite(sid, data)
-      // this.triggerFlow(trigger, name, value)
     })
   }
 

@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -2377,9 +2377,10 @@
       ],
       "capabilitiesOptions": {
     		"onoff": {
-    		    "title": {
-    		        "en": "Open Close"
-    		    }
+  		    "title": {
+  		        "en": "Open Close"
+  		    },
+          "greyout": false
     		},
     		"dim": {
     		    "title": {
@@ -2391,11 +2392,13 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [ "onoff" ]
+            "capabilities": [ "onoff" ],
+            "options": { "showTitle": true }
           },
           {
             "id": "slider",
-            "capabilities": [ "dim" ]
+            "capabilities": [ "dim" ],
+            "options": { "showTitle": true }
           },
           {
             "id": "ternary",
@@ -2560,6 +2563,136 @@
           ]
         }
       ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "gateway",
+      "name": {
+        "en": "Xiaomi Gateway 3"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "measure_luminance",
+        "button"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Gateway light"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        },
+        "measure_luminance": {
+          "title": {
+              "en": "Lux"
+          }
+        },
+        "button": {
+          "title": {
+              "en": "Join"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_hue", "light_saturation" ]
+          },
+          {
+            "id": "button",
+            "capabilities": [ "button" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "gatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceIp",
+              "type": "label",
+              "label": {
+                "en": "Gateway IP"
+              },
+              "value": "255.255.255.255"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBC01LM"
+            },
+            {
+              "id": "deviceProtoVersion",
+              "type": "label",
+              "label": {
+                "en": "Device proto version"
+              },
+              "value": "0.0.0"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/gateway/assets/images/large.png",
+        "small": "/drivers/gateway/assets/images/small.png"
+      },
       "pair": [
         {
           "id": "list_devices",

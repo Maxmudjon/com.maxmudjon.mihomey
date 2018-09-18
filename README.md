@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.4 - Supported devices:
+## Version 0.2.5 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -21,7 +21,8 @@ Added support for Mi Gateways child devices.
 * Aqara Motion Sensor (MotionSensor2).
 * Mi / Aqara Cube (Cube).
 * Aqara Curtain Motor (Curtain).
-* Aqara Button Switch (SwitchSensor)
+* Aqara Button Switch (SwitchSensor).
+* Mijia Gateway (Gateway).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -42,6 +43,7 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiCube.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraCurtainMotor.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitch.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MijiaGateway.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -53,6 +55,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.5 (19.09.2018)
+1. fixed: Aqara Curtain control.
+2. added support for Gateway.
+
 ### 0.2.4 (17.09.2018)
 1. added support for Aqara Curtain Motor.
 2. added support for Aqara Button Switch.
