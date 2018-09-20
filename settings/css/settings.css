@@ -2,7 +2,7 @@ body {
   position: relative;
 }
 
-#sid-list {
+#mac-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -67,47 +67,47 @@ input {
   background-color: #fffee3
 }
 
-.gatewayList.completed .sid {
+.gatewayList.completed .mac {
   text-decoration: line-through;
 }
 
-.gatewayList.editing .sid {
+.gatewayList.editing .mac {
   display: none;
 }
 
-.gatewayList .sid,
-.gatewayList .sidInput {
+.gatewayList .mac,
+.gatewayList .macInput {
   margin-right: auto;
 }
 
-.gatewayList .sidInput {
+.gatewayList .macInput {
   display: none;
 }
 
-.gatewayList.editing .sidInput {
+.gatewayList.editing .macInput {
   display: block;
   flex: 1;
   margin-right: 16px;
 }
 
-.gatewayList.completed .token {
+.gatewayList.completed .password {
   text-decoration: line-through;
 }
 
-.gatewayList.editing .token {
+.gatewayList.editing .password {
   display: none;
 }
 
-.gatewayList .token,
-.gatewayList .tokenInput {
+.gatewayList .password,
+.gatewayList .passwordInput {
   margin-right: auto;
 }
 
-.gatewayList .tokenInput {
+.gatewayList .passwordInput {
   display: none;
 }
 
-.gatewayList.editing .tokenInput {
+.gatewayList.editing .passwordInput {
   display: block;
   flex: 1;
   margin-right: 16px;
@@ -218,7 +218,7 @@ input {
 }
 
 
-#tokenInput.shake {
+#passwordInput.shake {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -227,7 +227,7 @@ input {
   border: 1px solid red;
 }
 
-#sidInput.shake {
+#macInput.shake {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -287,4 +287,73 @@ input {
 
 #donat-button-yandex:active {
   background-color: rgba(147,255,100);
+}
+
+#howTo {
+  background-color: #39beb9;
+  box-shadow: 0 5px 0 #1d8682;
+  color: white;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 0 0 15px 0
+}
+
+#howTo:hover {
+  background-color: #61e4df;
+  cursor: pointer;
+}
+
+#howTo:active {
+  box-shadow: none;
+  top: 5px;
+}
+
+#closebt-container {
+  position: fixed;
+  width:100%;
+  text-align:right;
+  right: 40px;
+  top:40px;
+  z-index: 99;
+}
+
+.closebt {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  cursor:pointer;
+}
+
+.closebt:hover {
+  transform:rotate(90deg);
+}
+
+#modal-container {
+  position:relative;
+  margin-top:100px;
+  overflow:hidden;
+}
+
+.thumb > img {
+  width:50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+}
+
+#label2 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: #FFFFFF;
+  font-family: "Consolas","Helvetica","Arial",sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+
 }

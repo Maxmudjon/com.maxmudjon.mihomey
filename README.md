@@ -55,6 +55,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.6 (20.09.2018)
+1. fixed: Flow Action for Aqara Smart Light Switch(DoubleSwitch).
+2. fixed: on/off for Gateway.
+3. minor fixes and improvements.
+4. Added an instruction on how to get mac and password from the Mihome application in the configuration.
+
 ### 0.2.5 (19.09.2018)
 1. fixed: Aqara Curtain control.
 2. added support for Gateway.

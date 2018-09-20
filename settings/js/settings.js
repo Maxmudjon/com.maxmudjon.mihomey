@@ -13,24 +13,24 @@ function initSettings () {
   clearSuccess()
   loadSettings()
 
-  var gatewaySid = $("#add-sid");
-  gatewaySid.on("keyup", sidFormat);
-  var gatewayToken = $("#add-token");
-  gatewayToken.on("keyup", tokenFormat);
+  var gatewayMac = $("#add-mac");
+  gatewayMac.on("keyup", macFormat);
+  var gatewayPassword = $("#add-password");
+  gatewayPassword.on("keyup", tokenFormat);
 
   $('#newGatewayAddForm').submit(function() {
-    var sid = $('#add-sid').val()
-    var token = $('#add-token').val()
-    var sidMatch = sid.match(/[0-9A-Fa-f]{12}/g)
-    var tokenMatch = token.match(/[0-9A-Fa-f]{8}/g)
-    if (!sidMatch) {
-      showError(__('settings.messages.invalidSidError'), 3000);
+    var mac = $('#add-mac').val()
+    var password = $('#add-password').val()
+    var macMatch = mac.match(/[0-9A-Fa-f]{12}/g)
+    var tokenMatch = password.match(/[0-9A-Fa-f]{8}/g)
+    if (!macMatch) {
+      showError(__('settings.messages.invalidMacError'), 3000);
       return false
     }
-    var gatewaySid = sidMatch[0]
+    var gatewayMac = macMatch[0]
 
-    if (gatewaysList.some(item => item.sid === sid)) {
-      showError(__('settings.messages.sidDuplicateError'), 3000);
+    if (gatewaysList.some(item => item.mac === mac)) {
+      showError(__('settings.messages.macDuplicateError'), 3000);
       return false
     }
     addGateway()
@@ -41,7 +41,7 @@ function initSettings () {
   });
 }
 
-function sidFormat(e) {
+function macFormat(e) {
   var r = /[0-9A-Fa-f]{6}/g,
     str = e.target.value.replace(/[^a-f0-9]/ig, "");
   e.target.value = str.slice(0, 12);
@@ -54,24 +54,24 @@ function tokenFormat(e) {
 };
 
 function addGateway () {
-  var sid = $('#add-sid').val()
-  var token = $('#add-token').val()
-  var sidMatch = sid.match(/[0-9A-Fa-f]{12}/g)
-  var tokenMatch = token.match(/[0-9A-Fa-f]{8}/g)
-  if (!sidMatch) {
-    showError(__('settings.messages.invalidSidError'), 3000);
+  var mac = $('#add-mac').val()
+  var password = $('#add-password').val()
+  var macMatch = mac.match(/[0-9A-Fa-f]{12}/g)
+  var tokenMatch = password.match(/[0-9A-Fa-f]{8}/g)
+  if (!macMatch) {
+    showError(__('settings.messages.invalidMacError'), 3000);
     return false
   }
-  var gatewaySid = sidMatch[0]
+  var gatewayMac = macMatch[0]
 
-  if (gatewaysList.some(item => item.sid === sid)) {
-    showError(__('settings.messages.sidDuplicateError'), 3000);
+  if (gatewaysList.some(item => item.mac === mac)) {
+    showError(__('settings.messages.macDuplicateError'), 3000);
     return false
   }
 
-  $('#add-sid').val('')
-  $('#add-token').val('')
-  var newDevice = {id: gatewaySid+token, sid: gatewaySid, token: token.toUpperCase()}
+  $('#add-mac').val('')
+  $('#add-password').val('')
+  var newDevice = {id: gatewayMac+password, mac: gatewayMac, password: password.toUpperCase()}
   gatewaysList.push(newDevice)
   gatewaysList.forEach(addGatewaysToList)
 
@@ -83,19 +83,19 @@ function addGateway () {
 
 function addGatewaysToList (gateway) {
   const listItem = createListItem(gateway);
-  const sidList = document.getElementById('sid-list');
+  const macList = document.getElementById('mac-list');
 
-  sidList.appendChild(listItem);
+  macList.appendChild(listItem);
 }
 
 function createListItem (gateway) {
-  const sidLabel = createElement('label', { className: 'sid' }, gateway.sid);
-  const sidEditInput = createElement('input', { id: 'sidInput', type: 'text', className: 'sidInput', 'onkeyup': 'sidMatch(this)' });
-  const tokenLabel = createElement('label', { className: 'token' }, gateway.token);
-  const tokenEditInput = createElement('input', { id: 'tokenInput', type: 'text', className: 'tokenInput', 'onkeyup': 'tokenMatch(this)', 'name': 'tokenInput' });
+  const macLabel = createElement('label', { className: 'mac' }, gateway.mac);
+  const macEditInput = createElement('input', { id: 'macInput', type: 'text', className: 'macInput', 'onkeyup': 'macMatch(this)' });
+  const tokenLabel = createElement('label', { className: 'password' }, gateway.password);
+  const tokenEditInput = createElement('input', { id: 'passwordInput', type: 'text', className: 'passwordInput', 'onkeyup': 'tokenMatch(this)', 'name': 'passwordInput' });
   const editButton = createElement('button', { id: 'add-button', className: 'edit', 'data-i18n': 'settings.list.editOnList' }, 'EDIT');
   const deleteButton = createElement('button', { id: 'add-button', className: 'remove', 'data-i18n': 'settings.list.removeFromList' }, 'REMOVE');
-  const item = createElement('li', { className: `gatewayList`, 'data-id': gateway.id }, sidLabel, sidEditInput, tokenLabel, tokenEditInput, editButton, deleteButton);
+  const item = createElement('li', { className: `gatewayList`, 'data-id': gateway.id }, macLabel, macEditInput, tokenLabel, tokenEditInput, editButton, deleteButton);
 
   return addEventListeners(item);
 }
@@ -141,30 +141,30 @@ function addEventListeners(item) {
 function handleEdit({ target }) {
   const listItem = target.parentNode;
   const id = listItem.getAttribute('data-id');
-  const gatewaySid = listItem.querySelector('.sid');
-  const gatewayToken = listItem.querySelector('.token');
-  const sidInput = listItem.querySelector('.sidInput');
-  const tokenInput = listItem.querySelector('.tokenInput')
+  const gatewayMac = listItem.querySelector('.mac');
+  const gatewayPassword = listItem.querySelector('.password');
+  const macInput = listItem.querySelector('.macInput');
+  const passwordInput = listItem.querySelector('.passwordInput')
   const editButton = listItem.querySelector('button.edit');
-  const sid = sidInput.value;
-  const token = tokenInput.value
-  console.log(sidInput)
+  const mac = macInput.value;
+  const password = passwordInput.value
+  console.log(macInput)
 
   const isEditing = listItem.classList.contains('editing');
 
       
 
   if (isEditing) {
-      const changes = { id: id, sid: sid, token: token };
-      if ($( "#tokenInput.shake" ).hasClass( "tokenInput" ) || $( "#sidInput.shake" ).hasClass( "sidInput" )) {
+      const changes = { id: id, mac: mac, password: password };
+      if ($( "#passwordInput.shake" ).hasClass( "passwordInput" ) || $( "#macInput.shake" ).hasClass( "macInput" )) {
         
       } else {
         editTodo(changes);
       }
       
   } else {
-      sidInput.value = gatewaySid.textContent;
-      tokenInput.value = gatewayToken.textContent;
+      macInput.value = gatewayMac.textContent;
+      passwordInput.value = gatewayPassword.textContent;
       editButton.textContent = 'SAVE';
 
         listItem.classList.add('editing');
@@ -173,10 +173,10 @@ function handleEdit({ target }) {
   }
 }
 
-function editTodo({ id, sid, token }) {
+function editTodo({ id, mac, password }) {
   const data = {
-      sid: sid,
-      token: token
+      mac: mac,
+      password: password
   }
   const item = updateItem(id, data);
   editItem(item);
@@ -197,14 +197,14 @@ function getItem(id) {
 
 function editItem(gateway) {
   const listItem = findListItem(gateway.id);
-  const sid = listItem.querySelector('.sid');
-  const sidInput = listItem.querySelector('.sidInput');
-  const token = listItem.querySelector('.token');
-  const tokenInput = listItem.querySelector('.tokenInput');
+  const mac = listItem.querySelector('.mac');
+  const macInput = listItem.querySelector('.macInput');
+  const password = listItem.querySelector('.password');
+  const passwordInput = listItem.querySelector('.passwordInput');
   const editButton = listItem.querySelector('button.edit');
 
-  sid.textContent = gateway.sid;
-  token.textContent = gateway.token
+  mac.textContent = gateway.mac;
+  password.textContent = gateway.password
   editButton.textContent = 'EDIT';
   listItem.classList.remove('editing');
 }
@@ -218,7 +218,7 @@ function handleRemove({ target }) {
   var index = -1;
   var val = target
   var filteredObj = data.find(function(item, i){
-    if(item.sid === val){
+    if(item.mac === val){
       index = i;
       return i;
     }
@@ -232,14 +232,14 @@ function handleRemove({ target }) {
 
 function removeItem(id) {
   const listItem = findListItem(id);
-  const sidList = document.getElementById('sid-list');
+  const macList = document.getElementById('mac-list');
 
-  sidList.removeChild(listItem);
+  macList.removeChild(listItem);
 }
 
 function findListItem(id) {
-  const sidList = document.getElementById('sid-list');
-  return sidList.querySelector(`[data-id="${id}"]`);
+  const macList = document.getElementById('mac-list');
+  return macList.querySelector(`[data-id="${id}"]`);
 }
 
 

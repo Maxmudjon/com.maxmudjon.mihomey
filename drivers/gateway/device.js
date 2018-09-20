@@ -54,17 +54,19 @@ class Gateway extends Homey.Device {
       this.updateCapabilityValue('measure_luminance', parseInt(device['data']['illumination']))
     }
 
-    const rawRgb = device['data']['rgb']
-    var hexRawRgb = rawRgb.toString(16).length == 8 ? rawRgb.toString(16) : "0" + rawRgb.toString(16);
-    var hexRgb = hexRawRgb.substring(2,8);
-    var hsb = this.rgb2hsb([parseInt(hexRgb.substring(0,2), 16), parseInt(hexRgb.substring(2,4), 16), parseInt(hexRgb.substring(4,6), 16)]);
-    const brightness = parseInt(hexRawRgb.substring(0,2), 16);
-    const dim = brightness / 100;
-    const hue = hsb[0] / 359;
-    const saturation = hsb[1];
-    this.updateCapabilityValue('dim', dim)
-    this.updateCapabilityValue('light_hue', hue)
-    this.updateCapabilityValue('light_saturation', saturation)
+    if (device['data']['rgb']) {
+      const rawRgb = device['data']['rgb']
+      var hexRawRgb = rawRgb.toString(16).length == 8 ? rawRgb.toString(16) : "0" + rawRgb.toString(16);
+      var hexRgb = hexRawRgb.substring(2,8);
+      var hsb = this.rgb2hsb([parseInt(hexRgb.substring(0,2), 16), parseInt(hexRgb.substring(2,4), 16), parseInt(hexRgb.substring(4,6), 16)]);
+      const brightness = parseInt(hexRawRgb.substring(0,2), 16);
+      const dim = brightness / 100;
+      const hue = hsb[0] / 359;
+      const saturation = hsb[1];
+      this.updateCapabilityValue('dim', dim)
+      this.updateCapabilityValue('light_hue', hue)
+      this.updateCapabilityValue('light_saturation', saturation)
+    }
 
     let gateways = Homey.app.mihub.gateways
     for (let sid in gateways) {
@@ -91,16 +93,16 @@ class Gateway extends Homey.Device {
     var maxIndex = 0,minIndex = 0;
     var tmp;        
     for(var i=0;i<2;i++) {
-        for(var j=0;j<2-i;j++)
-            if(rearranged[j]>rearranged[j+1]) {
-                tmp=rearranged[j+1];
-                rearranged[j+1]=rearranged[j];
-                rearranged[j]=tmp;
-            }                
+      for(var j=0;j<2-i;j++)
+      if(rearranged[j]>rearranged[j+1]) {
+        tmp=rearranged[j+1];
+        rearranged[j+1]=rearranged[j];
+        rearranged[j]=tmp;
+      }                
     }
     for(var i=0;i<3;i++) {
-        if(rearranged[0]==rgb[i]) minIndex=i;
-        if(rearranged[2]==rgb[i]) maxIndex=i;
+      if(rearranged[0]==rgb[i]) minIndex=i;
+      if(rearranged[2]==rgb[i]) maxIndex=i;
     }
     hsb[2]=rearranged[2]/255.0;
     hsb[1]=1-rearranged[0]/rearranged[2];

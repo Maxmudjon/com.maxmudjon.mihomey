@@ -1,10 +1,10 @@
 {
 	"pair": {
 		"name": "Device name",
-		"label": "Add SID and Token",
+		"label": "Add MAC and password",
 		"addlabel": "Select Device",
-		"mac": "Add device SID address",
-		"token": "Add device token",
+		"mac": "Add device MAC address",
+		"password": "Add device password",
 		"title": "Enter the details of your Mi Home device.",
 		"test": "Test Connection",
 		"testing" : "Connection test successfull, you can now connect the device.",
@@ -21,20 +21,20 @@
 		"title": "Mi Homey App settings",
 		"list": {
 			"title": "Add or delete gateways",
-			"description": "Enter you sid and token from MiHome App",
-			"sid": "SID",
-			"token": "Token",
+			"description": "Enter you mac and password from MiHome App",
+			"mac": "MAC",
+			"password": "password",
 			"addGateway": "ADD",
-			"onAddGatewaySidListLabel": "SID: ",
-			"onAddGatewayTokenListLabel": "TOKEN: ",
+			"onAddGatewayMacListLabel": "MAC: ",
+			"onAddGatewayPasswordListLabel": "PASSWORD: ",
 			"editOnList": "EDIT1",
 			"removeFromList": "REMOVE1"
 		},
 		"messages": {
 			"savingBusy": "Saving gateway settings to Homey...",
 			"savingError": "Oops... Something went wrong saving your settings",
-			"sidDuplicateError": "Duplicate device SID",
-			"invalidSidError": "Invalid device SID",
+			"sidDuplicateError": "Duplicate device MAC",
+			"invalidSidError": "Invalid device MAC",
 			"savingSuccessRestart": "Settings saved successfully. Need restart this app",
 			"savingSuccess": "Settings saved successfully."
 		}

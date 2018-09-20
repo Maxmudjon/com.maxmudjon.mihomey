@@ -3,8 +3,8 @@
 	<head>
 		<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
 		<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+		<link rel="stylesheet" href="css/animate.min.css">
 		<script type="text/javascript" src="js/settings.js"></script>
-
 		<link rel="stylesheet" href="css/settings.css">
 	</head>
 	<body>
@@ -13,25 +13,108 @@
 			<br />
 			<h2 data-i18n="settings.list.title">Gateway list</h2>
 			<p data-i18n="settings.list.description">this is gateways list</p>
+			<label id="howTo" href="#animatedModal">How to get MAC and Password</label>
 			<div>
 				<form id="donateButtonYandex">
-					<button id="donat-button-yandex" type="submit" >Donate - Yandex.Money</button>
+					<button id="donat-button-yandex" type="submit" style="background: #fc0 url(img/ya-money.png) no-repeat center center; background-size: contain; width: 100px; height: 30px;"></button>
 				</form>
 				<header id="header" class="header">
-					<label id="h1" class="h1">Gateway SID and Token's</label>
+					<label id="h1" class="h1">Gateway Mac and Password's</label>
 				</header>
-				<ul id="sid-list">
+				<ul id="mac-list">
             	</ul>
 				<form id="newGatewayAddForm">
-					<label for="SID" data-i18n="settings.list.onAddGatewaySidListLabel">SID: </label>
-					<input id="add-sid" type="text">
-					<label for="TOKEN" data-i18n="settings.list.onAddGatewayTokenListLabel">TOKEN: </label>
-					<input id="add-token" type="text">
+					<label for="mac" data-i18n="settings.list.onAddGatewayMacListLabel">MAC: </label>
+					<input id="add-mac" type="text">
+					<label for="PASSWORD" data-i18n="settings.list.onAddGatewayPasswordListLabel">PASSWORD: </label>
+					<input id="add-password" type="text">
 					<button id="add-button" type="submit" data-i18n="settings.list.addGateway">ADD</button>
 				</form>
 			</div>
+
+			<div id="animatedModal">
+				<div id="closebt-container" class="close-animatedModal">
+	                <img class="closebt" src="img/closebt.svg">
+	            </div>
+				<div id="modal-container">
+					<table>
+					<tr>
+					   <td>
+						   	<div class="thumb">
+			                	<label id="label2">Open MiHome App on your iPhone</label>
+			                	<label id="label2">and click to gateway</label>
+			                    <img src="img/howTo1.jpg">
+		                	</div>
+		                </td>
+						<td>
+							<div class="thumb">
+			                	<label id="label2">And click on the three points</label>
+			                	<label id="label2">on the top right corner</label>
+			                    <img src="img/howTo2.jpg">
+			                </div>
+					   </td>
+					   <td>
+			                <div class="thumb">
+			                	<label id="label2">Then</label>
+			                	<label id="label2">Click to About</label>
+			                    <img src="img/howTo3.jpg">
+			                </div>
+					   </td>
+					</tr>
+					<tr>
+					   <td>
+						   	<div class="thumb">
+			                	<label id="label2">Press 5 times quickly for the</label>
+			                	<label id="label2">location in the picture</label>
+			                    <img src="img/howTo4.jpg">
+		                	</div>
+		                </td>
+						<td>
+							<div class="thumb">
+			                	<label id="label2">Click the places where the menu</label>
+			                	<label id="label2">appears in the picture</label>
+			                    <img src="img/howTo5.jpg">
+			                </div>
+					   </td>
+					   <td>
+			                <div class="thumb">
+			                	<label id="label2">It's gateway MAC, copy it</label>
+			                	<label id="label2">and click back button</label>
+			                    <img src="img/howTo6.jpg">
+			                </div>
+					   </td>
+					</tr>
+					<tr>
+					   <td>
+						   	<div class="thumb">
+			                	<label id="label2">Click the places where the menu</label>
+			                	<label id="label2">appears in the picture</label>
+			                    <img src="img/howTo7.jpg">
+		                	</div>
+		                </td>
+						<td>
+							<div class="thumb">
+			                	<label id="label2">Click on the slider where</label>
+			                	<label id="label2">it appears in the picture</label>
+			                    <img src="img/howTo8.jpg">
+			                </div>
+					   </td>
+					   <td>
+			                <div class="thumb">
+			                	<label id="label2">It's gateway password, copy it</label>
+			                	<label id="label2">and click OK button</label>
+			                    <img src="img/howTo9.jpg">
+			                </div>
+					   </td>
+					</tr>
+					</table>
+           		</div>
+		    </div>
 		</fieldset>
+		<script src="js/jquery.min.js"></script>
+  		<script src="js/animatedModal.min.js"></script>
 		<script>
+			$("#howTo").animatedModal();
 			function tokenMatch(f) {
 			    if (f.value.match(/\b[0-9A-Fa-f]{16}\b/g)) {
 			    	$(f).removeClass("shake");
@@ -40,7 +123,7 @@
 			    }
 		    }
 
-		    function sidMatch(f) {
+		    function macMatch(f) {
 			    if (f.value.match(/\b[0-9A-Fa-f]{12}\b/g)) {
 			    	$(f).removeClass("shake");
 			    } else {
