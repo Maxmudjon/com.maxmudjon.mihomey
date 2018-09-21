@@ -6,6 +6,9 @@
   "name": {
     "en": "Mi Homey"
   },
+  "tags": {
+      "en": [ "mihomey", "mi", "Xiaomi", "gateway", "mi hub" ]
+  },
   "description": {
     "en": "Adds support for Mi Gateways child devices"
   },
