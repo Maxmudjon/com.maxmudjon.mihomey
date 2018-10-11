@@ -7,6 +7,7 @@ class Gateway extends Homey.Device {
     this.driver = this.getDriver()
     this.data = this.getData()
     this.initialize()
+    this.lux = 0;
     this.log('Mi Homey device init | ' + 'name: ' + this.getName() + ' - ' + 'class: ' + this.getClass() + ' - ' + 'data: ' + JSON.stringify(this.data));
   }
 
@@ -52,14 +53,6 @@ class Gateway extends Homey.Device {
 
     if (device['data']['illumination']) {
       this.lux = parseInt(device['data']['illumination']);
-      var settings = this.getSettings();
-      
-      // thanks to t.me/FantomNotaBene
-      if (!this.interval) {
-        this.interval = setInterval(() => {
-          this.updateCapabilityValue('measure_luminance', parseInt(this.lux));
-        },settings.update_luminance_number * 1000); 
-      }
     }
 
     if (device['data']['rgb']) {
@@ -92,6 +85,18 @@ class Gateway extends Homey.Device {
           })
         }
       }
+    }
+  }
+
+  // Special thanks to t.me/FantomNotaBene
+  onSettings (oldSettings, newSettings, changedKeys, callback) {
+    if (changedKeys.includes('update_luminance_number')) {
+      let newUpdateLuminanceInterval = newSettings['update_luminance_number']
+      clearInterval(this.interval)
+      this.interval = setInterval(() => {
+        this.updateCapabilityValue('measure_luminance', parseInt(this.lux))
+      }, newUpdateLuminanceInterval * 1000)
+      callback(null, true)
     }
   }
 
