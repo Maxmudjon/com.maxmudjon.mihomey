@@ -41,7 +41,7 @@ class Gateway extends Homey.Device {
 
   handleStateChange(device) {
     const { triggers } = this.driver;
-
+    
     if (parseInt(device['data']['rgb']) > 0) {
       this.updateCapabilityValue('onoff', true, triggers.power)
     }
@@ -51,7 +51,15 @@ class Gateway extends Homey.Device {
     }
 
     if (device['data']['illumination']) {
-      this.updateCapabilityValue('measure_luminance', parseInt(device['data']['illumination']))
+      this.lux = parseInt(device['data']['illumination']);
+      var settings = this.getSettings();
+      
+      // thanks to t.me/FantomNotaBene
+      if (!this.interval) {
+        this.interval = setInterval(() => {
+          this.updateCapabilityValue('measure_luminance', parseInt(this.lux));
+        },settings.update_luminance_number * 1000); 
+      }
     }
 
     if (device['data']['rgb']) {

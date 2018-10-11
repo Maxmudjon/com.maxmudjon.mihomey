@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.6 - Supported devices:
+## Version 0.2.7 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -55,6 +55,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.7 (5.10.2018)
+1. added Settings for Gateway devices.
+
+
 ### 0.2.6 (20.09.2018)
 1. fixed: Flow Action for Aqara Smart Light Switch(DoubleSwitch).
 2. fixed: on/off for Gateway.

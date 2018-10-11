@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -35,7 +35,7 @@
   "contributing": {
       "donate": {
           "paypal": {
-              "username": "paypal.me/maxmudjon"
+              "username": "maxmudjon"
           }
       }
   },
@@ -2643,6 +2643,29 @@
         ]
       },
       "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Capability update time"
+          },
+          "children": [
+            {
+              "id": "update_luminance_number",
+              "type": "number",
+              "label": {
+                  "en": "Update after"
+              },
+              "hint": {
+                "en": "Here you can specify the refresh interval for capabilities. Usually it is 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 1,
+                  "max": 86400
+              }
+            }
+          ]
+        },
         {
           "type": "group",
           "label": {
