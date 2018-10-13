@@ -140,7 +140,11 @@ class DoubleSwitchLN extends Homey.Device {
       case 'measure_power':
       case 'meter_power':
       case 'onoff':
+        trigger.toggle.trigger(this)
+        value ? trigger.on.trigger(this) : trigger.off.trigger(this)
       case 'onoff.1':
+        trigger.toggle.trigger(this)
+        value ? trigger.on.trigger(this) : trigger.off.trigger(this)
     }
   }
 

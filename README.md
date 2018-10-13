@@ -55,9 +55,9 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.2.7 (5.10.2018)
+### 0.2.7 (13.10.2018)
 1. added Settings for Gateway devices.
-
+2. fixed: triggers for Aqara Smart Light Switch With Neutral (DoubleSwitchLN) and Aqara Smart Light Switch (DoubleSwitch).
 
 ### 0.2.6 (20.09.2018)
 1. fixed: Flow Action for Aqara Smart Light Switch(DoubleSwitch).

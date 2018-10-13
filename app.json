@@ -2656,7 +2656,7 @@
                   "en": "Update after"
               },
               "hint": {
-                "en": "Here you can specify the refresh interval for capabilities. Usually it is 60 seconds, you can set from 60 to 86400 seconds."
+                "en": "Here you can specify the refresh interval for capabilities. Usually it is 60 seconds, you can set from 1 to 86400 seconds."
               },
               "value": 60,
               "attr": {
