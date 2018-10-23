@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.7 - Supported devices:
+## Version 0.2.8 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -23,6 +23,8 @@ Added support for Mi Gateways child devices.
 * Aqara Curtain Motor (Curtain).
 * Aqara Button Switch (SwitchSensor).
 * Mijia Gateway (Gateway).
+* MiJia Gas Leak Detector (NatgasDetector).
+* MiJia Smoke Detector (SmokeDetector).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -44,6 +46,8 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraCurtainMotor.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitch.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MijiaGateway.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/XioamiMiJiaNatGasDetector.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/XiaomiMijiaSmokeDetectorH.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -55,6 +59,11 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.2.8 (23.10.2017)
+1. added support for MiJia Gas Leak Detector.
+2. added support for MiJia Smoke Detector.
+3. added gateway tones.
+
 ### 0.2.7 (13.10.2018)
 1. added Settings for Gateway devices.
 2. fixed: triggers for Aqara Smart Light Switch With Neutral (DoubleSwitchLN) and Aqara Smart Light Switch (DoubleSwitch).

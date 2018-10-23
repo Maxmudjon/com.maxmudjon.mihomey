@@ -134,8 +134,6 @@ class DoubleSwitchLN extends Homey.Device {
       return
     }
 
-    this.log('trigger:', name, value)
-
     switch(name) {
       case 'measure_power':
       case 'meter_power':

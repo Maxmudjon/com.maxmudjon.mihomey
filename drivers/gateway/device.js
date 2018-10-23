@@ -38,6 +38,7 @@ class Gateway extends Homey.Device {
   registerActions() {
     const { actions } = this.driver
     this.registerToggleAction('onoff', actions.power)
+    this.registerPlayToneAction('play_tone', actions.playTone)
   }
 
   handleStateChange(device) {
@@ -234,6 +235,13 @@ class Gateway extends Homey.Device {
       var saturation = 0;
       var dim = 0;
       await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim)
+    })
+  }
+
+  registerPlayToneAction(name, action) {
+    let sid = this.data.sid
+    action.play.registerRunListener(async (args, state) => {
+       await Homey.app.mihub.controlMid(sid, args.toneID, args.volume * 100)
     })
   }
 

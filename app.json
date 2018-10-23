@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -368,6 +368,32 @@
             "filter": "driver_id=cube"
           }
         ]
+      },
+      {
+        "id": "alarm_ch4_yes",
+        "title": {
+          "en": "Natural gas leak detected"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=natgas_sensor"
+          }
+        ]
+      },
+      {
+        "id": "alarm_ch4_no",
+        "title": {
+          "en": "Natural gas leak not detected"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=natgas_sensor"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -407,6 +433,19 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "alarm_ch4",
+        "title": {
+          "en": "Natural gas leak !{{detected|not detected}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=natgas_sensor"
           }
         ]
       }
@@ -515,7 +554,180 @@
             "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
           }
         ]
-      }
+      },
+      {
+				"id": "play_tone",
+				"title": { 
+          "en": "Play tone"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=gateway" 
+          },
+					{
+						"type": "dropdown",
+						"name": "toneID",
+						"values": [
+							{
+                "id": "0",
+                "label": {
+                  "en": "Police car 1"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Police car 2"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Accident"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Countdown"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Ghost"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Sniper rifle"
+                }
+              },
+              {
+                "id": "6",
+                "label": {
+                  "en": "Battle"
+                }
+              },
+              {
+                "id": "7",
+                "label": {
+                  "en": "Air raid"
+                }
+              },
+              {
+                "id": "8",
+                "label": {
+                  "en": "Bark"
+                }
+              },
+              {
+                "id": "10",
+                "label": {
+                  "en": "Doorbell"
+                }
+              },
+              {
+                "id": "11",
+                "label": {
+                  "en": "Knock at a door"
+                }
+              },
+              {
+                "id": "12",
+                "label": {
+                  "en": "Amuse"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "Alarm clock"
+                }
+              },
+              {
+                "id": "20",
+                "label": {
+                  "en": "MiMix"
+                }
+              },
+              {
+                "id": "21",
+                "label": {
+                  "en": "Enthusiastic"
+                }
+              },
+              {
+                "id": "22",
+                "label": {
+                  "en": "GuitarClassic"
+                }
+              },
+              {
+                "id": "23",
+                "label": {
+                  "en": "IceWorldPiano"
+                }
+              },
+              {
+                "id": "24",
+                "label": {
+                  "en": "LeisureTime"
+                }
+              },
+              {
+                "id": "25",
+                "label": {
+                  "en": "ChildHood"
+                }
+              },
+              {
+                "id": "26",
+                "label": {
+                  "en": "MorningStreamLiet"
+                }
+              },
+              {
+                "id": "27",
+                "label": {
+                  "en": "MusicBox"
+                }
+              },
+              {
+                "id": "28",
+                "label": {
+                  "en": "Orange"
+                }
+              },
+              {
+                "id": "29",
+                "label": {
+                  "en": "Thinker"
+                }
+              },
+              {
+                "id": "10000",
+                "label": {
+                  "en": "MUTE"
+                }
+              }
+						]
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+        }
+				]
+			}
     ]
   },
   "capabilities": {
@@ -526,6 +738,36 @@
       "type": "number",
       "units": {
         "en": "mm Hg"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "alarm_ch4": {
+      "title": {
+        "en": "Gas detected"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false
+    },
+    "measure_gas_density": {
+      "title": {
+        "en": "Gas Density"
+      },
+      "type": "number",
+      "units": {
+        "en": "kg/m3"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_smoke_density": {
+      "title": {
+        "en": "Smoke Density"
+      },
+      "type": "number",
+      "units": {
+        "en": "kg/m3"
       },
       "getable": true,
       "setable": false
@@ -2718,6 +2960,250 @@
       "images": {
         "large": "/drivers/gateway/assets/images/large.png",
         "small": "/drivers/gateway/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "natgas_sensor",
+      "name": {
+        "en": "MiJia Gas Leak Detector"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_ch4",
+        "measure_gas_density"
+
+      ],
+      "capabilitiesOptions": {
+        "alarm_ch4": {
+          "title": {
+            "en": "Gas detected"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_ch4", "measure_gas_density"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_ch4": "/drivers/natgas_sensor/assets/natgas_sensor_icon.svg",
+                  "measure_gas_density": "/drivers/natgas_sensor/assets/measure_gas_density_icon.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Duration of the natural gas detected alarm"
+          },
+          "children": [
+            {
+              "id": "alarm_duration_number",
+              "type": "number",
+              "label": {
+                  "en": "Disable after"
+              },
+              "hint": {
+                "en": "Here you can specify after what time the alarm signal from the natural gas sensor will be stopped, if a natural gas is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 60,
+                  "max": 86400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/natgas_sensor/assets/images/large.png",
+        "small": "/drivers/natgas_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "smoke_sensor",
+      "name": {
+        "en": "MiJia Smoke Detector"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_smoke",
+        "measure_smoke_density"
+
+      ],
+      "capabilitiesOptions": {
+        "alarm_smoke": {
+          "title": {
+            "en": "Smoke detected"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_smoke", "measure_smoke_density"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_smoke": "/drivers/smoke_sensor/assets/smoke_sensor_icon.svg",
+                  "measure_smoke_density": "/drivers/smoke_sensor/assets/measure_smoke_density_icon.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Duration of the smoke detected alarm"
+          },
+          "children": [
+            {
+              "id": "alarm_duration_number",
+              "type": "number",
+              "label": {
+                  "en": "Disable after"
+              },
+              "hint": {
+                "en": "Here you can specify after what time the alarm signal from the smoke detected sensor will be stopped, if a smoke detected is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 60,
+                  "max": 86400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/smoke_sensor/assets/images/large.png",
+        "small": "/drivers/smoke_sensor/assets/images/small.png"
       },
       "pair": [
         {

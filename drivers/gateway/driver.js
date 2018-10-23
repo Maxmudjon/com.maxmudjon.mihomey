@@ -11,6 +11,10 @@ const initFlowCondition = (name) => (
   new Homey.FlowCardCondition(name).register()
 )
 
+const initFlowAction = (play) => ({
+  play: new Homey.FlowCardAction(play).register()
+})
+
 const initToggleFlowAction = (on, off) => ({
   on: new Homey.FlowCardAction(on).register(),
   off: new Homey.FlowCardAction(off).register(),
@@ -26,7 +30,8 @@ class Gateway extends Homey.Driver {
       power: initFlowCondition('power_active')
     }
     this.actions = {
-      power: initToggleFlowAction('power_on', 'power_off')
+      power: initToggleFlowAction('power_on', 'power_off'),
+      playTone: initFlowAction('play_tone')
     }
   }
 
