@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -131,7 +131,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=button_switch|button_switch.aq2"
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
           }
         ]
       },
@@ -144,7 +144,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=button_switch|button_switch.aq2"
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
           }
         ]
       },
@@ -157,7 +157,33 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=button_switch|button_switch.aq2"
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "long_click_release_click_button_switch",
+        "title": {
+          "en": "Long press and release button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "shake_click_button_switch",
+        "title": {
+          "en": "Shake air button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch.aq3"
           }
         ]
       },
@@ -392,6 +418,63 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=natgas_sensor"
+          }
+        ]
+      },
+      {
+        "id": "lockUsed",
+        "title": {
+            "en": "The lock opened with"
+        },
+        "tokens": [
+          {
+            "name": "finger_id",
+            "type": "number",
+            "title": {
+                "en": "finger id"
+            },
+            "example": 65536
+          },
+          {
+            "name": "code_id",
+            "type": "number",
+            "title": {
+                "en": "code id"
+            },
+            "example": 131072
+          },
+          {
+            "name": "card_id",
+            "type": "number",
+            "title": {
+                "en": "card id"
+            },
+            "example": 196608
+          },
+          {
+              "name": "userName",
+              "type": "string",
+              "title": {
+                  "en": "Who opens"
+              },
+              "example": {
+                  "en": "Maxmudjon"
+              }
+          },
+          {
+            "name": "wrong_id",
+            "type": "number",
+            "title": {
+                "en": "wrong id"
+            },
+            "example": 3
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=lock.aq1"
           }
         ]
       }
@@ -3219,6 +3302,258 @@
         {
           "id": "add_devices",
           "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "button_switch.aq3",
+      "name": {
+        "en": "Aqara Wireless Switch Button (advanced)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/button_switch.aq3/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "large": "/drivers/button_switch.aq3/assets/images/large.png",
+        "small": "/drivers/button_switch.aq3/assets/images/small.png"
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "lock.aq1",
+      "name": {
+        "en": "Aqara Lock"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion.finger",
+        "alarm_motion.code",
+        "alarm_motion.card",
+        "alarm_motion.wrongID",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "alarm_motion.finger": {
+          "title": {
+            "en": "Finger"
+          }
+        },
+        "alarm_motion.code": {
+          "title": {
+            "en": "Code"
+          }
+        },
+        "alarm_motion.card": {
+          "title": {
+            "en": "Card"
+          }
+        },
+        "alarm_motion.wrongID": {
+          "title": {
+            "en": "Wrong ID"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_motion.finger", "alarm_motion.code", "alarm_motion.card", "alarm_motion.wrongID", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_motion.finger": "/drivers/lock.aq1/assets/lock_finger_icon.svg",
+                  "alarm_motion.code": "/drivers/lock.aq1/assets/lock_code_icon.svg",
+                  "alarm_motion.card": "/drivers/lock.aq1/assets/lock_card_icon.svg",
+                  "alarm_motion.wrongID": "/drivers/lock.aq1/assets/lock_wrong_id_icon.svg",
+                  "alarm_battery": "/drivers/lock.aq1/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Alarm duration for lock status"
+          },
+          "children": [
+            {
+              "id": "alarm_duration_number",
+              "type": "number",
+              "label": {
+                  "en": "Disable after"
+              },
+              "hint": {
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 60,
+                  "max": 86400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/lock.aq1/assets/images/large.png",
+        "small": "/drivers/lock.aq1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "devices",
+          "navigation": {
+            "next": "users"
+          }
+        },
+        {
+          "id": "users",
+          "navigation": {
+            "next": "done",
+            "prev": "devices"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "devices"
+          }
         }
       ]
     }

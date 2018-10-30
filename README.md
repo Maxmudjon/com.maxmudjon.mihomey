@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.8 - Supported devices:
+## Version 0.3.0 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -25,6 +25,8 @@ Added support for Mi Gateways child devices.
 * Mijia Gateway (Gateway).
 * MiJia Gas Leak Detector (NatgasDetector).
 * MiJia Smoke Detector (SmokeDetector).
+* Aqara Button Switch (SwitchSensor advanced).
+* Aqara Lock (Lock).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -48,6 +50,8 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MijiaGateway.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/XioamiMiJiaNatGasDetector.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/XiaomiMijiaSmokeDetectorH.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitchWithShake.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraLock.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -59,7 +63,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.2.8 (23.10.2017)
+### TEST 0.3.0 (30.10.2018)
+1. rewrited mimorelinks module.
+2. added support for Aqara Button Switch (advanced).
+3. added support for Aqara Lock.
+
+### 0.2.8 (23.10.2018)
 1. added support for MiJia Gas Leak Detector.
 2. added support for MiJia Smoke Detector.
 3. added gateway tones.
