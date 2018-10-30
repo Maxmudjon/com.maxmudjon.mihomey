@@ -146,7 +146,7 @@ class AqaraLock1 extends Homey.Device {
         // this.log("User code id is: ", user.code_id)
         // this.log("User card id is: ", user.card_id)
 
-        if (user.finger_id == device['data']['card_verified']) {
+        if (user.card_id == device['data']['card_verified']) {
           // this.log(user.name + ' uyga keldi')
           let tokens = {
             'finger_id': 0,
