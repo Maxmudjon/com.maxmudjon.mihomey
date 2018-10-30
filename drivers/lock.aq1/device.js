@@ -178,7 +178,7 @@ class AqaraLock1 extends Homey.Device {
         'finger_id': 0,
         'code_id': 0,
         'card_id': 0,
-        'userName': user.name,
+        'userName': 'Not user',
         'wrong_id': parseInt(device['data']['verified_wrong'])
       }
       this.triggerFlow(triggers.lockUsed, 'lockUsed', tokens)
