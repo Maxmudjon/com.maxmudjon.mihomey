@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -125,7 +125,7 @@
       {
         "id": "click_button_switch",
         "title": {
-          "en": "Single click button swtich"
+          "en": "Single click button switch"
         },
         "args": [
           {
@@ -164,7 +164,7 @@
       {
         "id": "click_sb86_switch",
         "title": {
-          "en": "Click single swtich"
+          "en": "Click single switch"
         },
         "args": [
           {
@@ -392,6 +392,84 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=natgas_sensor"
+          }
+        ]
+      },
+      {
+        "id": "left_click_button_switch",
+        "title": {
+          "en": "Left click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "left_double_click_click_button_switch",
+        "title": {
+          "en": "Left double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "left_long_click_press_click_button_switch",
+        "title": {
+          "en": "Left long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_click_button_switch",
+        "title": {
+          "en": "Right click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_double_click_click_button_switch",
+        "title": {
+          "en": "Right double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_long_click_press_click_button_switch",
+        "title": {
+          "en": "Right long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
           }
         ]
       }
@@ -3204,6 +3282,104 @@
       "images": {
         "large": "/drivers/smoke_sensor/assets/images/large.png",
         "small": "/drivers/smoke_sensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "db86_switch_advanced",
+      "name": {
+        "en": "Aqara Wireless Double Switch (2018)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/db86_switch_advanced/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/db86_switch_advanced/assets/images/large.png",
+        "small": "/drivers/db86_switch_advanced/assets/images/small.png"
       },
       "pair": [
         {
