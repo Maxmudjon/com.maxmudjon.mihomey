@@ -125,7 +125,7 @@
       {
         "id": "click_button_switch",
         "title": {
-          "en": "Single click button swtich"
+          "en": "Single click button switch"
         },
         "args": [
           {
@@ -190,7 +190,7 @@
       {
         "id": "click_sb86_switch",
         "title": {
-          "en": "Click single swtich"
+          "en": "Click single switch"
         },
         "args": [
           {
@@ -422,6 +422,84 @@
         ]
       },
       {
+        "id": "left_click_button_switch",
+        "title": {
+          "en": "Left click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "left_double_click_click_button_switch",
+        "title": {
+          "en": "Left double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "left_long_click_press_click_button_switch",
+        "title": {
+          "en": "Left long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_click_button_switch",
+        "title": {
+          "en": "Right click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_double_click_click_button_switch",
+        "title": {
+          "en": "Right double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_long_click_press_click_button_switch",
+        "title": {
+          "en": "Right long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
         "id": "lockUsed",
         "title": {
             "en": "The lock opened with"
@@ -433,7 +511,7 @@
             "title": {
                 "en": "finger id"
             },
-            "example": 65536
+            "example": 0
           },
           {
             "name": "code_id",
@@ -441,7 +519,7 @@
             "title": {
                 "en": "code id"
             },
-            "example": 131072
+            "example": 0
           },
           {
             "name": "card_id",
@@ -449,7 +527,7 @@
             "title": {
                 "en": "card id"
             },
-            "example": 196608
+            "example": 0
           },
           {
               "name": "userName",
@@ -3306,6 +3384,104 @@
       ]
     },
     {
+      "id": "db86_switch_advanced",
+      "name": {
+        "en": "Aqara Wireless Double Switch (2018)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery"
+
+      ],
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "alarm_battery": "/drivers/db86_switch_advanced/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/db86_switch_advanced/assets/images/large.png",
+        "small": "/drivers/db86_switch_advanced/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
       "id": "button_switch.aq3",
       "name": {
         "en": "Aqara Wireless Switch Button (advanced)"
@@ -3529,6 +3705,334 @@
               "value": "AABBCC01LM"
             }
           ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Lock users"
+          },
+          "children": [
+            {
+              "id": "lock0UserName",
+              "type": "text",
+              "label": {
+                "en": "1 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user0FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user0CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user0CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock1UserName",
+              "type": "text",
+              "label": {
+                "en": "2 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user1FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user1CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user1CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock2UserName",
+              "type": "text",
+              "label": {
+                "en": "3 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user2FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user2CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user2CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock3UserName",
+              "type": "text",
+              "label": {
+                "en": "4 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user3FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user3CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user3CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock4UserName",
+              "type": "text",
+              "label": {
+                "en": "5 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user4FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user4CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user4CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock5UserName",
+              "type": "text",
+              "label": {
+                "en": "6 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user5FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user5CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user5CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock6UserName",
+              "type": "text",
+              "label": {
+                "en": "7 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user6FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user6CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user6CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock7UserName",
+              "type": "text",
+              "label": {
+                "en": "8 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user7FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user7CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user7CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock8UserName",
+              "type": "text",
+              "label": {
+                "en": "9 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user8FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user8CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user8CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "lock9UserName",
+              "type": "text",
+              "label": {
+                "en": "10 - User name"
+              },
+              "value": ""
+            },
+            {
+              "id": "user9FingerID",
+              "type": "text",
+              "label": {
+                "en": "Finger ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user9CodeID",
+              "type": "text",
+              "label": {
+                "en": "Code ID"
+              },
+              "value": ""
+            },
+            {
+              "id": "user9CardID",
+              "type": "text",
+              "label": {
+                "en": "Card ID"
+              },
+              "value": ""
+            }
+          ]
         }
       ],
       "images": {
@@ -3537,23 +4041,18 @@
       },
       "pair": [
         {
-          "id": "devices",
+          "id": "list_devices",
+          "template": "list_devices",
           "navigation": {
-            "next": "users"
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
           }
         },
         {
-          "id": "users",
-          "navigation": {
-            "next": "done",
-            "prev": "devices"
-          }
-        },
-        {
-          "id": "done",
-          "navigation": {
-            "prev": "devices"
-          }
+          "id": "add_devices",
+          "template": "add_devices"
         }
       ]
     }
