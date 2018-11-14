@@ -71,7 +71,7 @@ function addGateway () {
 
   $('#add-mac').val('')
   $('#add-password').val('')
-  var newDevice = {id: gatewayMac+password, mac: gatewayMac, password: password.toUpperCase()}
+  var newDevice = {id: gatewayMac+password, mac: gatewayMac.toLowerCase(), password: password.toUpperCase()}
   gatewaysList.push(newDevice)
   gatewaysList.forEach(addGatewaysToList)
 
@@ -155,7 +155,7 @@ function handleEdit({ target }) {
       
 
   if (isEditing) {
-      const changes = { id: id, mac: mac, password: password };
+      const changes = { id: id, mac: mac.toLowerCase(), password: password.toUpperCase() };
       if ($( "#passwordInput.shake" ).hasClass( "passwordInput" ) || $( "#macInput.shake" ).hasClass( "macInput" )) {
         
       } else {

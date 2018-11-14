@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h1 data-i18n="settings.title">Mi Homey App settings</h1>
-		<fieldset>
+		<fieldset style="padding: 0">
 			<br />
 			<h2 data-i18n="settings.list.title">Gateway list</h2>
 			<p data-i18n="settings.list.description">this is gateways list</p>
@@ -30,6 +30,23 @@
 					<input id="add-password" type="text">
 					<button id="add-button" type="submit" data-i18n="settings.list.addGateway">ADD</button>
 				</form>
+				<fieldset>
+					<legend>Info</legend>
+					<div style="display: flex">
+						<label for="example-mac" data-i18n="settings.list.macExample" style="text-transform: lowercase;"></label>
+						<label for="not-valid-mac" style="text-decoration: line-through; text-transform: lowercase; color: crimson"> 34:00:d1:86:f7:ea!</label>
+						<label for="valid-mac" style="text-transform: lowercase; color: seagreen"> 3400d186f7ea</label>
+					</div>
+					<div style="display: flex">
+						<label for="example-password" data-i18n="settings.list.passwordExample" style="text-transform: lowercase;"></label>
+						<label for="example-password-1" style="padding:0">0123456789ABCDEF</label>
+						<label for="not-valid-password" style="text-decoration: line-through; text-transform: lowercase; color: crimson"> z5q3wwfg88h6v3l9!</label>
+						<label for="valid-password" style="color: seagreen"> f2ba45a80a9e4b3f</label>
+					</div>
+					<div style="display: flex">
+							<label for="example-password-renew" data-i18n="settings.list.passwordOtherSymbols" style="text-transform: lowercase;"></label>
+						</div>
+				</fieldset>
 			</div>
 
 			<div id="animatedModal">

@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.2.9 - Supported devices:
+## Version 0.3.0 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -26,6 +26,8 @@ Added support for Mi Gateways child devices.
 * MiJia Gas Leak Detector (NatgasDetector).
 * MiJia Smoke Detector (SmokeDetector).
 * Aqara Wireless Remote Switch Double Button (DuplexButton862) (advanced 2018)
+* Aqara Button Switch (SwitchSensor) (advanced 2018).
+* Aqara Lock (Lock).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -49,7 +51,9 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MijiaGateway.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/XioamiMiJiaNatGasDetector.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/XiaomiMijiaSmokeDetectorH.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton862-advanced.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86-2018.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitchWithShake.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraLock.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -61,6 +65,11 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.3.0 (13.11.2018)
+1. rewrited mimorelinks module.
+2. added support for Aqara Button Switch (advanced).
+3. added support for Aqara Lock.
+
 ### 0.2.9 (8.11.2018)
 1. added support for Aqara Wireless Remote Switch Double Button (advanced 2018)
 

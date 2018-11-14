@@ -28,7 +28,10 @@
 			"onAddGatewayMacListLabel": "MAC: ",
 			"onAddGatewayPasswordListLabel": "PASSWORD: ",
 			"editOnList": "EDIT1",
-			"removeFromList": "REMOVE1"
+			"removeFromList": "REMOVE1",
+			"macExample": "* Mac address should be without two points",
+			"passwordExample": "** Password must contain characters",
+			"passwordOtherSymbols": "if the password contains other characters try to update the password, and if the situation does not change try in your iOS device"
 		},
 		"messages": {
 			"savingBusy": "Saving gateway settings to Homey...",
