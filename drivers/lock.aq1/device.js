@@ -59,7 +59,7 @@ class AqaraLock1 extends Homey.Device {
                     'code_id': 404,
                     'card_id': 404,
                     'userName': userUN,
-                    'wrong_id': 404
+                    'wrong_id': 0
                   }
                   that.triggerFlow(triggers.lockUsed, 'lockUsed', tokens)
                 }
@@ -100,7 +100,7 @@ class AqaraLock1 extends Homey.Device {
                     'code_id': i,
                     'card_id': 404,
                     'userName': userUN,
-                    'wrong_id': 404
+                    'wrong_id': 0
                   }
                   that.triggerFlow(triggers.lockUsed, 'lockUsed', tokens)
                 }
@@ -140,7 +140,7 @@ class AqaraLock1 extends Homey.Device {
                     'code_id': 404,
                     'card_id': i,
                     'userName': userUN,
-                    'wrong_id': 404
+                    'wrong_id': 0
                   }
                   that.triggerFlow(triggers.lockUsed, 'lockUsed', tokens)
                 }
