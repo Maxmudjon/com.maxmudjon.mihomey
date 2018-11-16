@@ -1038,6 +1038,19 @@
             "labelDecimals": 0
           }
         ]
+      },
+      {
+        "id": "play_toggle",
+        "title": {
+          "en": "Play or Pause"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=gateway_radio"
+          }
+        ]
       }
     ]
   },
@@ -4248,11 +4261,12 @@
           },
           {
 						"id": "button",
-						"capabilities": [ "speaker_playing", "speaker_next" ],
+						"capabilities": [ "speaker_prev", "speaker_playing", "speaker_next" ],
 						"options": {
-							"hideTitle": [ "speaker_playing", "speaker_next" ],
+							"hideTitle": [ "speaker_prev", "speaker_playing", "speaker_next" ],
 							"toggle": [ "speaker_playing" ],
 							"icons": {
+                "speaker_prev": "drivers/gateway_radio/assets/prev.svg",
 								"speaker_next": "drivers/gateway_radio/assets/next.svg",
 								"speaker_playing": {
 									"true": "drivers/gateway_radio/assets/pause.svg",

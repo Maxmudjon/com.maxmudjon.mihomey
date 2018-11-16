@@ -9,12 +9,24 @@ const initFlowAction2 = (customRadioListSend) => ({
   customRadioListSend: new Homey.FlowCardAction(customRadioListSend).register()
 })
 
+const initToggleFlowAction = (toggle) => ({
+  toggle: new Homey.FlowCardAction(toggle).register()
+})
+
+function randomGUID() {
+  function id() {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  }
+  return id() + id() + '-' + id() + '-' + id() + '-' + id() + '-' + id() + id() + id();
+}
+
 class GatewayRadio extends Homey.Driver {
 
   onInit() {
     this.actions = {
       playRadio: initFlowAction('play_radio'),
-      customRadioListSend: initFlowAction2('customRadioListSend')
+      customRadioListSend: initFlowAction2('customRadioListSend'),
+      toggle: initToggleFlowAction('play_toggle')
     }
   }
 
@@ -56,7 +68,8 @@ class GatewayRadio extends Homey.Driver {
         });
     });
     socket.on('done', function( data, callback ) {
-        callback( null, pairingDevice );
+      pairingDevice.data.id = randomGUID();
+      callback( null, pairingDevice );
     });
   }
 }

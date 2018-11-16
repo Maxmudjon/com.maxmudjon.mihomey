@@ -22,6 +22,7 @@ class GatewayRadio extends Homey.Device {
     const { triggers } = this.driver
     this.registerSpeakerPlayingButton('speaker_playing')
     this.registerNextButton('speaker_next')
+    this.registerPrevButton('speaker_prev')
     this.registerVolumeLevel('volume_set')
   }
 
@@ -29,6 +30,7 @@ class GatewayRadio extends Homey.Device {
     const { actions } = this.driver
     this.registerPlayRadioAction('play_radio', actions.playRadio)
     this.customRadioListSend('customRadioListSend', actions.customRadioListSend)
+    this.registerPlayToggleRadioAction('play_toggle', actions.toggle)
   }
 
   getRadioStatus() {
@@ -146,6 +148,29 @@ class GatewayRadio extends Homey.Device {
     })
   }
 
+  registerPrevButton(name) {
+    this.registerCapabilityListener(name, async (value) => {
+      const settings = this.getSettings();
+      var that = this;
+      miio.device({
+        address: settings.gatewayIP,
+        token: settings.gatewayToken
+      }).then(device => {
+          device.call('play_fm', [ 'prev' ]).then(result => {
+            that.log('Sending ' + name + ' commmand: ' + value);
+          }).catch(function(error) {
+            that.log("Sending commmand error: ", error);
+          });
+      }).catch(function (error) {
+          if(error == "Error: Could not connect to device, handshake timeout") {
+            that.log("Device timeout error: ", error);
+          } else {
+            that.log("Device error: ", error);
+          }
+      });
+    })
+  }
+
   registerVolumeLevel(name) {
     this.registerCapabilityListener(name, async (value) => {
       let volume = parseInt(value * 100);
@@ -220,6 +245,29 @@ class GatewayRadio extends Homey.Device {
             that.log('Set volume: ', volume);
           }).catch(function(error) {
             that.log("Set volume error: ", error);
+          });
+      }).catch(function (error) {
+          if(error == "Error: Could not connect to device, handshake timeout") {
+            that.log("Device timeout error: ", error);
+          } else {
+            that.log("Device error: ", error);
+          }
+      });
+    })
+  }
+
+  registerPlayToggleRadioAction(name, action) {
+    action.toggle.registerRunListener(async (args, state) => {
+      const settings = this.getSettings();
+      var that = this;
+      miio.device({
+        address: settings.gatewayIP,
+        token: settings.gatewayToken
+      }).then(device => {
+          device.call('play_fm', [ 'toggle' ]).then(result => {
+            that.log('Sending ' + name + ' commmand: ' + state);
+          }).catch(function(error) {
+            that.log("Sending commmand error: ", error);
           });
       }).catch(function (error) {
           if(error == "Error: Could not connect to device, handshake timeout") {
