@@ -43,7 +43,6 @@ class GatewayRadio extends Homey.Device {
         token: settings.gatewayToken
       }).then(device => {
           device.call('get_prop_fm', []).then(result => {
-            that.log('result: ', result);
             this.setCapabilityValue('volume_set', result.current_volume / 100)
             if (result.current_status == 'run') {
               this.setCapabilityValue('speaker_playing', true)
@@ -79,14 +78,12 @@ class GatewayRadio extends Homey.Device {
           token: newUpdatedGatewayToken
         }).then(device => {
           device.call('get_prop_fm', []).then(result => {
-            that.log('result: ', result);
             this.setCapabilityValue('volume_set', result.current_volume / 100)
             if (result.current_status == 'run') {
               this.setCapabilityValue('speaker_playing', true)
             } else if (result.current_status == 'pause') {
               this.setCapabilityValue('speaker_playing', false)
             }
-            
           }).catch(function(error) {
             that.log("Sending commmand error: ", error);
           });
@@ -277,18 +274,6 @@ class GatewayRadio extends Homey.Device {
           }
       });
     })
-  }
-
-  triggerFlow(trigger, name, value) {
-    if (!trigger) {
-      return
-    }
-
-    this.log('trigger:', name, value)
-
-    switch(name) {
-      case 'onoff':
-    }
   }
 
   onAdded() {
