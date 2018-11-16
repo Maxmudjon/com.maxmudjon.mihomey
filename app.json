@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -888,7 +888,157 @@
             "labelDecimals": 0
         }
 				]
-			}
+			},
+      {
+				"id": "play_radio",
+				"title": { 
+          "en": "Radio list"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=gateway_radio" 
+          },
+					{
+						"type": "dropdown",
+						"name": "radioID",
+						"values": [
+							{
+                "id": "527782008",
+                "label": {
+                  "en": "Авторадио (RU)"
+                }
+              },
+              {
+                "id": "527782010",
+                "label": {
+                  "en": "Эхо Москвы (RU)"
+                }
+              },
+              {
+                "id": "527782011",
+                "label": {
+                  "en": "Наше Радио (RU)"
+                }
+              },
+              {
+                "id": "527782019",
+                "label": {
+                  "en": "Дорожное (RU)"
+                }
+              },
+              {
+                "id": "527782020",
+                "label": {
+                  "en": "Байкер ФМ (RU)"
+                }
+              },
+              {
+                "id": "527782022",
+                "label": {
+                  "en": "Радио Маяк (RU)"
+                }
+              },
+              {
+                "id": "527782023",
+                "label": {
+                  "en": "Коммерсант FM (RU)"
+                }
+              },
+              {
+                "id": "527782024",
+                "label": {
+                  "en": "Европа Плюс (RU)"
+                }
+              },
+              {
+                "id": "527782025",
+                "label": {
+                  "en": "Радио Ultra (RU)"
+                }
+              },
+              {
+                "id": "527782028",
+                "label": {
+                  "en": "Радио Свобода (RU)"
+                }
+              },
+              {
+                "id": "527782030",
+                "label": {
+                  "en": "Radio Record (RU)"
+                }
+              },
+              {
+                "id": "527782038",
+                "label": {
+                  "en": "Русское Радио UA (RU)"
+                }
+              },
+              {
+                "id": "527782063",
+                "label": {
+                  "en": "DJFM UA (RU)"
+                }
+              },
+              {
+                "id": "527782099",
+                "label": {
+                  "en": "Ретро FM (Москва) (RU)"
+                }
+              }
+						]
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+				]
+      },
+      {
+        "id": "customRadioListSend",
+        "title": {
+          "en": "Custom radio"
+        },
+        "args": [
+          {
+            "name": "id",
+            "type": "text",
+            "placeholder": {
+              "en": "ID"
+            }
+          },
+          {
+            "name": "url",
+            "type": "text",
+            "placeholder": {
+              "en": "URL"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=gateway_radio"
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      }
     ]
   },
   "capabilities": {
@@ -4053,6 +4203,125 @@
         {
           "id": "add_devices",
           "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "gateway_radio",
+      "name": {
+        "en": "Xiaomi Gateway 3 Radio"
+      },
+      "class": "speaker",
+      "capabilities": [ 
+        "speaker_playing",
+        "speaker_prev",
+        "speaker_next",
+        "volume_set"
+      ],
+      "capabilitiesOptions": {
+        "speaker_playing": {
+          "title": {
+              "en": "Radio"
+          }
+        },
+        "volume_set": {
+          "title": {
+              "en": "Volume"
+          }
+        },
+        "speaker_prev": {
+          "title": {
+              "en": "Prev"
+          }
+        },
+        "speaker_next": {
+          "title": {
+              "en": "Next"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": []
+          },
+          {
+						"id": "button",
+						"capabilities": [ "speaker_playing", "speaker_next" ],
+						"options": {
+							"hideTitle": [ "speaker_playing", "speaker_next" ],
+							"toggle": [ "speaker_playing" ],
+							"icons": {
+								"speaker_next": "drivers/gateway_radio/assets/next.svg",
+								"speaker_playing": {
+									"true": "drivers/gateway_radio/assets/pause.svg",
+									"false": "drivers/gateway_radio/assets/play.svg"
+								}
+							}
+						}
+					},
+					{
+						"id": "slider",
+						"capabilities": [ "volume_set" ]
+					}
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Gateway Settings"
+          },
+					"children": [
+				    {
+				      "id": "gatewayIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "gatewayToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Gateway Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Gateway update timer"
+					    }
+				    }
+		      ]
+        }
+        
+      ],
+      "images": {
+        "large": "/drivers/gateway_radio/assets/images/large.png",
+        "small": "/drivers/gateway_radio/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "gateways",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "gateways"
+          }
         }
       ]
     }

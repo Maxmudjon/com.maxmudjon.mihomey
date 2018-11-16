@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.0 - Supported devices:
+## Version 0.3.1 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -65,7 +65,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.3.0 (13.11.2018)
+### 0.3.1 (16.11.2018)
+1. added gateway radio.
+2. minor fixes.
+3. added module miio.
+
+### 0.3.0 (14.11.2018)
 1. rewrited mimorelinks module.
 2. added support for Aqara Button Switch (advanced).
 3. added support for Aqara Lock.
