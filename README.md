@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.1 - Supported devices:
+## Version 0.3.2 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -65,6 +65,9 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.3.2 (17.11.2018)
+1. added function for add or remove favorite radio list to gateway.
+
 ### 0.3.1 (16.11.2018)
 1. added gateway radio.
 2. minor fixes.

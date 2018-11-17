@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -892,7 +892,7 @@
       {
 				"id": "play_radio",
 				"title": { 
-          "en": "Radio list"
+          "en": "Favorite radio lists"
         },
 				"args": [
 					{ 
@@ -902,90 +902,126 @@
           },
 					{
 						"type": "dropdown",
-						"name": "radioID",
+						"name": "favoriteID",
 						"values": [
 							{
-                "id": "527782008",
+                "id": "0",
                 "label": {
-                  "en": "Авторадио (RU)"
+                  "en": "1 - favorite radio"
                 }
               },
               {
-                "id": "527782010",
+                "id": "1",
                 "label": {
-                  "en": "Эхо Москвы (RU)"
+                  "en": "2 - favorite radio"
                 }
               },
               {
-                "id": "527782011",
+                "id": "2",
                 "label": {
-                  "en": "Наше Радио (RU)"
+                  "en": "3 - favorite radio"
                 }
               },
               {
-                "id": "527782019",
+                "id": "3",
                 "label": {
-                  "en": "Дорожное (RU)"
+                  "en": "4 - favorite radio"
                 }
               },
               {
-                "id": "527782020",
+                "id": "4",
                 "label": {
-                  "en": "Байкер ФМ (RU)"
+                  "en": "5 - favorite radio"
                 }
               },
               {
-                "id": "527782022",
+                "id": "5",
                 "label": {
-                  "en": "Радио Маяк (RU)"
+                  "en": "6 - favorite radio"
                 }
               },
               {
-                "id": "527782023",
+                "id": "6",
                 "label": {
-                  "en": "Коммерсант FM (RU)"
+                  "en": "7 - favorite radio"
                 }
               },
               {
-                "id": "527782024",
+                "id": "7",
                 "label": {
-                  "en": "Европа Плюс (RU)"
+                  "en": "8 - favorite radio"
                 }
               },
               {
-                "id": "527782025",
+                "id": "8",
                 "label": {
-                  "en": "Радио Ultra (RU)"
+                  "en": "9 - favorite radio"
                 }
               },
               {
-                "id": "527782028",
+                "id": "9",
                 "label": {
-                  "en": "Радио Свобода (RU)"
+                  "en": "10 - favorite radio"
                 }
               },
               {
-                "id": "527782030",
+                "id": "10",
                 "label": {
-                  "en": "Radio Record (RU)"
+                  "en": "11 - favorite radio"
                 }
               },
               {
-                "id": "527782038",
+                "id": "11",
                 "label": {
-                  "en": "Русское Радио UA (RU)"
+                  "en": "12 - favorite radio"
                 }
               },
               {
-                "id": "527782063",
+                "id": "12",
                 "label": {
-                  "en": "DJFM UA (RU)"
+                  "en": "13 - favorite radio"
                 }
               },
               {
-                "id": "527782099",
+                "id": "13",
                 "label": {
-                  "en": "Ретро FM (Москва) (RU)"
+                  "en": "14 - favorite radio"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "15 - favorite radio"
+                }
+              },
+              {
+                "id": "15",
+                "label": {
+                  "en": "16 - favorite radio"
+                }
+              },
+              {
+                "id": "16",
+                "label": {
+                  "en": "17 - favorite radio"
+                }
+              },
+              {
+                "id": "17",
+                "label": {
+                  "en": "18 - favorite radio"
+                }
+              },
+              {
+                "id": "18",
+                "label": {
+                  "en": "19 - favorite radio"
+                }
+              },
+              {
+                "id": "19",
+                "label": {
+                  "en": "20 - favorite radio"
                 }
               }
 						]
@@ -4317,8 +4353,175 @@
 					    }
 				    }
 		      ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Gateway favorite radio list"
+          },
+					"children": [
+				    {
+				      "id": "favorite0ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "1 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite1ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "2 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite2ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "3 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite3ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "4 - Favorite Radio"
+				      }
+            },
+            {
+				      "id": "favorite4ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "5 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite5ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "6 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite6ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "7 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite7ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "8 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite8ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "9 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite9ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "10 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite10ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "11 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite11ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "12 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite12ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "13 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite13ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "14 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite14ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "15 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite15ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "16 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite16ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "17 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite17ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "18 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite18ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "19 - Favorite Radio"
+				      }
+				    },
+				    {
+				      "id": "favorite19ID",
+				      "type": "text",
+				      "value": "",
+				      "label": {
+				        "en": "20 - Favorite Radio"
+				      }
+				    }
+		      ]
         }
-        
       ],
       "images": {
         "large": "/drivers/gateway_radio/assets/images/large.png",
