@@ -21,7 +21,7 @@ new Vue({
         let gatewayToken = document.getElementById(`gatewayToken`)
         let checkConnection = 'check'
 
-        let data = { key: checkConnection, ip: gatewayIP.value, token: gatewayToken.value }
+        let data = { key: checkConnection, ip: gatewayIP.value, token: gatewayToken.value, model: 'lumi.gateway.v3' }
         Homey.emit('connect', data, function (error, result) {
           if(error) {
             alert.classList.remove('alert-light')
@@ -54,8 +54,8 @@ new Vue({
             alertTitle[0].innerHTML = 'Wrong token';
             addDevice.style.setProperty('display','none')
           }
-
-          if(result.lux) {
+          
+          if(result.volume) {
             alert.classList.remove('alert-light')
             alert.classList.remove('alert-danger')
             alert.classList.remove('alert-warning')

@@ -42,21 +42,28 @@ class GatewayRadio extends Homey.Driver {
             address: data.ip,
             token: data.token
         }).then(device => {
-          const getData = async () => {
-            try {
-                const luxLevel = await device.illuminance();
+          device.call("miIO.info", []).then(value => {
+            if (value.model == this.data.model) {
+              device.call("get_prop_fm", []).then(value => {
                 let result = {
-                    lux: luxLevel.lux
+                  volume: value.current_volume
                 }
                 pairingDevice.settings.gatewayIP = this.data.ip;
                 pairingDevice.settings.gatewayToken = this.data.token;
-
+    
                 callback(null, result);
-            } catch (error) {
-                callback(error, null);
+              }).catch(function(error) {
+                callback(null, error);
+              });
+            } else {
+              let result = {
+                notDevice: 'It is not Mi Gateway with radio'
+              }
+              callback(null, result)
             }
-          }
-          getData();
+          }).catch(function(error) {
+            callback(null, error);
+          });
         }).catch(function (error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, 'timeout')

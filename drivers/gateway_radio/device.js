@@ -35,6 +35,10 @@ class GatewayRadio extends Homey.Device {
 
   getRadioStatus() {
     var that = this;
+    let settings  = this.getSettings();
+    this.log('---------------------------------------------------')
+    this.log('ip from setting: ' + settings.gatewayIP + ' token from settings: ' + settings.gatewayToken)
+    this.log('---------------------------------------------------')
     miio.device({
       address: that.getSetting('gatewayIP'),
       token: that.getSetting('gatewayToken')
@@ -58,9 +62,6 @@ class GatewayRadio extends Homey.Device {
 
       device.call('get_channels', {'start':0}).then(result => {
         result.chs.forEach(function(item, i, radios) {
-          // that.log('foreach: ', item)
-          // that.log('selected text area: ', [`favorite${i}ID`])
-          // that.log('Radios: ' + [`favorite${i}ID`] + ' | ' + item.id + ',' + item.url)
           that.setSettings({
             [`favorite${i}ID`]: item.id + ', ' + item.url
           })
@@ -110,9 +111,6 @@ class GatewayRadio extends Homey.Device {
 
       that.device.call('get_channels', {'start':0}).then(result => {
         result.chs.forEach(function(item, i, radios) {
-          // that.log('foreach: ', item)
-          // that.log('selected text area: ', [`favorite${i}ID`])
-          // that.log('Radios: ' + [`favorite${i}ID`] + ' | ' + item.id + ',' + item.url)
           that.setSettings({
             [`favorite${i}ID`]: item.id + ', ' + item.url
           })
