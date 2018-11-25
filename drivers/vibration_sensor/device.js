@@ -1,6 +1,6 @@
 const Homey = require('homey')
 
-class NatGasSensor extends Homey.Device {
+class VibrationSensor extends Homey.Device {
   async onInit() {
     this.initialize = this.initialize.bind(this)
     this.handleStateChange = this.handleStateChange.bind(this)
@@ -13,21 +13,12 @@ class NatGasSensor extends Homey.Device {
   async initialize() {
     if (Homey.app.mihub.hubs) {
       this.registerStateChangeListener()
-      this.registerConditions()
     } else {
       this.unregisterStateChangeListener()
     }
   }
 
-  registerConditions() {
-    const { conditions } = this.driver
-    this.registerCondition('alarm_ch4', conditions.alarm_natgas)
-  }
-
   handleStateChange(device) {
-    const { triggers } = this.driver;
-    var settings = this.getSettings();
-
     if (device['data']['voltage']) {
       var battery = (device['data']['voltage']-2800)/5
       if (battery > 100) {
@@ -43,22 +34,48 @@ class NatGasSensor extends Homey.Device {
       this.updateCapabilityValue('alarm_battery', lowBattery)
     }
 
-    if (device['data']['alarm'] == '1') {
-      this.updateCapabilityValue('alarm_ch4', true, triggers.alarm_natgas)
+    var settings = this.getSettings();
+
+    if (device['data']['status'] == 'vibrate') {
+      this.updateCapabilityValue('alarm_motion.vibrate', true)
       var width = 0;
       var id = setInterval(frame.bind(this), settings.alarm_duration_number);
       function frame() {
         if (width == 1000) {
           clearInterval(id);
-          this.updateCapabilityValue('alarm_ch4', false, triggers.alarm_natgas);
+          this.updateCapabilityValue('alarm_motion.vibrate', false);
         } else {
           width++; 
         }
       }
     }
 
-    if (device['data']['density']) {
-      this.updateCapabilityValue('measure_gas_density', parseInt(device['data']['density']))
+    if (device['data']['status'] == 'tilt') {
+      this.updateCapabilityValue('alarm_motion.tilt', true)
+      var width = 0;
+      var id = setInterval(frame.bind(this), settings.alarm_duration_number);
+      function frame() {
+        if (width == 1000) {
+          clearInterval(id);
+          this.updateCapabilityValue('alarm_motion.tilt', false);
+        } else {
+          width++; 
+        }
+      }
+    }
+
+    if (device['data']['status'] == 'free_fall') {
+      this.updateCapabilityValue('alarm_motion.freeFall', true)
+      var width = 0;
+      var id = setInterval(frame.bind(this), settings.alarm_duration_number);
+      function frame() {
+        if (width == 1000) {
+          clearInterval(id);
+          this.updateCapabilityValue('alarm_motion.freeFall', false);
+        } else {
+          width++; 
+        }
+      }
     }
 
     let gateways = Homey.app.mihub.gateways
@@ -74,7 +91,7 @@ class NatGasSensor extends Homey.Device {
     
     this.setSettings({
       deviceSid: device.sid,
-      deviceModelName: 'lumi.sensor_' + device.model,
+      deviceModelName: 'lumi.' + device.model,
       deviceModelCodeName: device.modelCode,
     })
   }
@@ -102,12 +119,6 @@ class NatGasSensor extends Homey.Device {
     }
   }
 
-  registerCondition(name, condition) {
-    condition.registerRunListener((args, state, callback) => {
-      callback(null, this.getCapabilityValue(name))
-    })
-  }
-
   triggerFlow(trigger, name, value) {
     if (!trigger) {
       return
@@ -116,8 +127,9 @@ class NatGasSensor extends Homey.Device {
     this.log('trigger:', name, value)
 
     switch(name) {
-      case 'alarm_ch4':
-        value ? trigger.on.trigger(this) : trigger.off.trigger(this)
+      case 'alarm_motion.vibrate':
+      case 'alarm_motion.tilt':
+      case 'alarm_motion.freeFall':
     }
   }
 
@@ -132,4 +144,4 @@ class NatGasSensor extends Homey.Device {
   }
 }
 
-module.exports = NatGasSensor
+module.exports = VibrationSensor

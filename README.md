@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.2 - Supported devices:
+## Version 0.3.3 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -28,6 +28,7 @@ Added support for Mi Gateways child devices.
 * Aqara Wireless Remote Switch Double Button (DuplexButton862) (advanced 2018)
 * Aqara Button Switch (SwitchSensor) (advanced 2018).
 * Aqara Lock (Lock).
+* Aqara Vibration sensor (Vibration).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -54,6 +55,7 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86-2018.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitchWithShake.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraLock.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraVibration.jpg)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -65,6 +67,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.3.3 (25.11.2018)
+1. added support for Xioami Gateway Security.
+2. added support for Aqara Vibration Sensor.
+3. minor fixes.
+4. added device list soon.
+
 ### 0.3.2 (17.11.2018)
 1. added function for add or remove favorite radio list to gateway.
 

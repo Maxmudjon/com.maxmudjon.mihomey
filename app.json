@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -2880,7 +2880,6 @@
       "capabilities": [
         "measure_battery",
         "alarm_battery"
-
       ],
       "mobile": {
         "components": [
@@ -2892,11 +2891,13 @@
             "capabilities": [
               "measure_battery"
             ],
-            "options": { "showTitle": true }
+            "options": {
+              "showTitle": true
+            }
           },
           {
             "id": "sensor",
-            "capabilities": [ "alarm_battery"],
+            "capabilities": [ "alarm_battery" ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3346,8 +3347,9 @@
       "class": "sensor",
       "capabilities": [
         "alarm_ch4",
-        "measure_gas_density"
-
+        "measure_gas_density",
+        "measure_battery",
+        "alarm_battery"
       ],
       "capabilitiesOptions": {
         "alarm_ch4": {
@@ -3362,13 +3364,21 @@
             "id": "icon"
           },
           {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
             "id": "sensor",
-            "capabilities": [ "alarm_ch4", "measure_gas_density"],
+            "capabilities": [ "alarm_ch4", "measure_gas_density", "alarm_battery" ],
             "options": {
               "showTitle": true,
               "icons": {
                   "alarm_ch4": "/drivers/natgas_sensor/assets/natgas_sensor_icon.svg",
-                  "measure_gas_density": "/drivers/natgas_sensor/assets/measure_gas_density_icon.svg"
+                  "measure_gas_density": "/drivers/natgas_sensor/assets/measure_gas_density_icon.svg",
+                  "alarm_battery": "/drivers/natgas_sensor/assets/alarm_battery.svg"
               }
             }
           }
@@ -3468,8 +3478,9 @@
       "class": "sensor",
       "capabilities": [
         "alarm_smoke",
-        "measure_smoke_density"
-
+        "measure_smoke_density",
+        "measure_battery",
+        "alarm_battery"
       ],
       "capabilitiesOptions": {
         "alarm_smoke": {
@@ -3485,12 +3496,13 @@
           },
           {
             "id": "sensor",
-            "capabilities": [ "alarm_smoke", "measure_smoke_density"],
+            "capabilities": [ "alarm_smoke", "measure_smoke_density", "alarm_battery" ],
             "options": {
               "showTitle": true,
               "icons": {
                   "alarm_smoke": "/drivers/smoke_sensor/assets/smoke_sensor_icon.svg",
-                  "measure_smoke_density": "/drivers/smoke_sensor/assets/measure_smoke_density_icon.svg"
+                  "measure_smoke_density": "/drivers/smoke_sensor/assets/measure_smoke_density_icon.svg",
+                  "alarm_battery": "/drivers/smoke_sensor/assets/alarm_battery.svg"
               }
             }
           }
@@ -4539,6 +4551,288 @@
           "navigation": {
             "prev": "gateways"
           }
+        }
+      ]
+    },
+    {
+      "id": "gateway_security",
+      "name": {
+        "en": "Xiaomi Gateway Security"
+      },
+      "class": "homealarm",
+      "capabilities": [ 
+        "homealarm_state"
+      ],
+      "capabilitiesOptions": {
+        "homealarm_state": {
+          "title": {
+              "en": "Security"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+						"id": "picker",
+						"capabilities": [ "homealarm_state" ]
+					}
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Gateway Settings"
+          },
+					"children": [
+				    {
+				      "id": "gatewayIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "gatewayToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Gateway Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Gateway update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/gateway_security/assets/images/large.png",
+        "small": "/drivers/gateway_security/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "gateways",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "gateways"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vibration_sensor",
+      "name": {
+        "en": "Aqara Vibration Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion.vibrate",
+        "alarm_motion.tilt",
+        "alarm_motion.freeFall",
+        "measure_battery",
+        "alarm_battery"
+
+      ],
+      "capabilitiesOptions": {
+        "alarm_motion.vibrate": {
+          "title": {
+            "en": "Vibrate"
+          }
+        },
+        "alarm_motion.tilt": {
+          "title": {
+            "en": "Tilt"
+          }
+        },
+        "alarm_motion.freeFall": {
+          "title": {
+            "en": "Free fall"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "alarm_motion.vibrate", "alarm_motion.tilt", "alarm_motion.freeFall", "alarm_battery"],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                "alarm_motion.vibrate": "/drivers/vibration_sensor/assets/vibration.svg",
+                "alarm_motion.tilt": "/drivers/vibration_sensor/assets/tilt.svg",
+                "alarm_motion.freeFall": "/drivers/vibration_sensor/assets/free_fall.svg",
+                "alarm_battery": "/drivers/vibration_sensor/assets/alarm_battery.svg"
+              }
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+              "en": "Duration of the sensor alarm"
+          },
+          "children": [
+            {
+              "id": "alarm_duration_number",
+              "type": "number",
+              "label": {
+                  "en": "Disable after"
+              },
+              "hint": {
+                "en": "Here you can specify after what time the alarm signal from the vibration sensor will be stopped, if a vibration, tilt, free fall is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+              },
+              "value": 60,
+              "attr": {
+                  "min": 60,
+                  "max": 86400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/motion_sensor.aq2/assets/images/large.png",
+        "small": "/drivers/motion_sensor.aq2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "aqara_light_bulb",
+      "name": {
+        "en": "Aqara Light Bulb"
+      },
+      "class": "other",
+      "capabilities": [],
+      "pair": [
+				{
+          "id": "comingSoon"
+        }
+      ]
+    },
+    {
+      "id": "aqara_smart_plug",
+      "name": {
+        "en": "Aqara Smart Plug"
+      },
+      "class": "other",
+      "capabilities": [],
+      "pair": [
+				{
+          "id": "comingSoon"
+        }
+      ]
+    },
+    {
+      "id": "aqara_smart_lock_2",
+      "name": {
+        "en": "Aqara Smart Lock S2"
+      },
+      "class": "other",
+      "capabilities": [],
+      "pair": [
+				{
+          "id": "comingSoon"
+        }
+      ]
+    },
+    {
+      "id": "xioami_vima_lock",
+      "name": {
+        "en": "Xiaomi Vima Lock"
+      },
+      "class": "other",
+      "capabilities": [],
+      "pair": [
+				{
+          "id": "comingSoon"
         }
       ]
     }
