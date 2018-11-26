@@ -396,6 +396,29 @@
         ]
       },
       {
+        "id": "cubeRotated",
+        "title": {
+            "en": "Cube rotated"
+        },
+        "tokens": [
+          {
+            "name": "cube_rotated",
+            "type": "number",
+            "title": {
+                "en": "cube rotated"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
         "id": "alarm_ch4_yes",
         "title": {
           "en": "Natural gas leak detected"
