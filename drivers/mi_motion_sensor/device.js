@@ -38,16 +38,12 @@ class MiMotionSensor extends Homey.Device {
 
     if (device['data']['status'] == 'motion') {
       this.updateCapabilityValue('alarm_motion', true)
-      var width = 0;
-      var id = setInterval(frame.bind(this), settings.alarm_duration_number);
-      function frame() {
-        if (width == 1000) {
-          clearInterval(id);
-          this.updateCapabilityValue('alarm_motion', false);
-        } else {
-          width++; 
-        }
+      if (this.timeout) {
+        clearTimeout(this.timeout)
       }
+      this.timeout = setTimeout(() => {
+        this.updateCapabilityValue('alarm_motion', false);
+      }, settings.alarm_duration_number * 1000)
     }
 
     let gateways = Homey.app.mihub.gateways

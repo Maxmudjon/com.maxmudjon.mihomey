@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -1110,6 +1110,273 @@
             "filter": "driver_id=gateway_radio"
           }
         ]
+      },
+      {
+				"id": "favorite_flow_color1_bulb",
+				"title": { 
+          "en": "Favorite Flows"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=yeelight_light_color1" 
+          },
+					{
+						"type": "dropdown",
+						"name": "favoriteFlowID",
+						"values": [
+							{
+                "id": "flash_notify",
+                "label": {
+                  "en": "Flash Notify"
+                }
+              },
+              {
+                "id": "sunset",
+                "label": {
+                  "en": "Sunset"
+                }
+              },
+              {
+                "id": "sunrise",
+                "label": {
+                  "en": "Sunrise"
+                }
+              },
+              {
+                "id": "disco",
+                "label": {
+                  "en": "Disco"
+                }
+              },
+              {
+                "id": "dating_night",
+                "label": {
+                  "en": "Dating Night"
+                }
+              },
+              {
+                "id": "romance",
+                "label": {
+                  "en": "Romance"
+                }
+              },
+              {
+                "id": "candle_flicker",
+                "label": {
+                  "en": "Candle Flicker"
+                }
+              },
+              {
+                "id": "happy_birthday",
+                "label": {
+                  "en": "Happy Birthday"
+                }
+              },
+              {
+                "id": "police_1",
+                "label": {
+                  "en": "Police 1"
+                }
+              },
+              {
+                "id": "police_2",
+                "label": {
+                  "en": "Police 2"
+                }
+              },
+              {
+                "id": "alarm",
+                "label": {
+                  "en": "Alarm"
+                }
+              },
+              {
+                "id": "gaming",
+                "label": {
+                  "en": "Gaming"
+                }
+              },
+              {
+                "id": "calm",
+                "label": {
+                  "en": "Calm"
+                }
+              },
+              {
+                "id": "rainbow",
+                "label": {
+                  "en": "Rainbow"
+                }
+              },
+              {
+                "id": "flash_notify_red",
+                "label": {
+                  "en": "Flash Notify RED"
+                }
+              },
+              {
+                "id": "flash_notify_green",
+                "label": {
+                  "en": "Flash Notify GREEN"
+                }
+              },
+              {
+                "id": "flash_notify_blue",
+                "label": {
+                  "en": "Flash Notify BLUE"
+                }
+              }
+						]
+          }
+				]
+      },
+      {
+				"id": "favorite_flow_mono1_bulb",
+				"title": { 
+          "en": "Favorite Flows"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=yeelight_light_mono1" 
+          },
+					{
+						"type": "dropdown",
+						"name": "favoriteFlowID",
+						"values": [
+							{
+                "id": "flash_notify_mono",
+                "label": {
+                  "en": "Flash Notify"
+                }
+              },
+              {
+                "id": "sunset",
+                "label": {
+                  "en": "Sunset"
+                }
+              },
+              {
+                "id": "sunrise",
+                "label": {
+                  "en": "Sunrise"
+                }
+              },
+              {
+                "id": "candle_flicker",
+                "label": {
+                  "en": "Candle Flicker"
+                }
+              }
+						]
+          }
+				]
+      },
+      {
+				"id": "ambilight_level",
+				"title": { 
+          "en": "Ambilight brightness"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=philips_light_sread1" 
+          },
+          {
+            "type": "range",
+            "name": "level",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+				]
+      },
+      {
+				"id": "eyecare_scene",
+				"title": { 
+          "en": "Eyecare scenes"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=philips_light_sread1" 
+          },
+					{
+						"type": "dropdown",
+						"name": "scene",
+						"values": [
+							{
+                "id": "0",
+                "label": {
+                  "en": "Teens Study"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Adults Reading"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Phone/Computer"
+                }
+              }
+						]
+          }
+				]
+      },
+      {
+				"id": "favorite_flow_ceiling1_lamp",
+				"title": { 
+          "en": "Favorite Flows"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=yeelight_light_ceiling1" 
+          },
+					{
+						"type": "dropdown",
+						"name": "favoriteFlowID",
+						"values": [
+							{
+                "id": "flash_notify_mono",
+                "label": {
+                  "en": "Flash Notify"
+                }
+              },
+              {
+                "id": "sunset_ceiling",
+                "label": {
+                  "en": "Sunset"
+                }
+              },
+              {
+                "id": "sunrise_ceiling",
+                "label": {
+                  "en": "Sunrise"
+                }
+              },
+              {
+                "id": "candle_flicker",
+                "label": {
+                  "en": "Candle Flicker"
+                }
+              }
+						]
+          }
+				]
       }
     ]
   },
@@ -1938,7 +2205,8 @@
         "onoff": {
             "title": {
                 "en": "On/Off"
-            }
+            },
+            "greyout": false
         }
       },
       "mobile": {
@@ -2239,19 +2507,21 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff",
-        "onoff.1"
+        "onoff.1",
+        "onoff.2"
       ],
       "capabilitiesOptions": {
-        "onoff": {
-          "title": {
-              "en": "Left On/Off"
-          }
-        },
         "onoff.1": {
           "title": {
+              "en": "Left On/Off"
+          },
+          "greyout": false
+        },
+        "onoff.2": {
+          "title": {
               "en": "Right On/Off"
-          }
+          },
+          "greyout": false
         }
       },
       "mobile": {
@@ -2261,7 +2531,14 @@
           },
           {
             "id": "toggle",
-            "capabilities": [ "onoff", "onoff.1" ],
+            "capabilities": [ "onoff.1"],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.2" ],
             "options": {
                 "showTitle": true
             }
@@ -2431,17 +2708,17 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff",
-        "onoff.1"
+        "onoff.1",
+        "onoff.2"
       ],
       "capabilitiesOptions": {
-        "onoff": {
+        "onoff.1": {
           "title": {
               "en": "Left On/Off"
           },
           "greyout": false
         },
-        "onoff.1": {
+        "onoff.2": {
           "title": {
               "en": "Right On/Off"
           },
@@ -2455,14 +2732,14 @@
           },
           {
             "id": "toggle",
-            "capabilities": [ "onoff" ],
+            "capabilities": [ "onoff.1" ],
             "options": {
                 "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [ "onoff.1" ],
+            "capabilities": [ "onoff.2" ],
             "options": {
                 "showTitle": true
             }
@@ -2822,11 +3099,11 @@
                   "en": "Disable after"
               },
               "hint": {
-                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 5 seconds, you can set from 5 to 86400 seconds."
               },
-              "value": 60,
+              "value": 5,
               "attr": {
-                  "min": 60,
+                  "min": 5,
                   "max": 86400
               }
             }
@@ -4856,6 +5133,421 @@
       "pair": [
 				{
           "id": "comingSoon"
+        }
+      ]
+    },
+    {
+      "id": "yeelight_light_color1",
+      "name": {
+        "en": "Yeelight Color Bulb"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_hue", "light_saturation", "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Color Bulb Settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_color1/assets/images/large.png",
+        "small": "/drivers/yeelight_light_color1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yeelight_light_mono1",
+      "name": {
+        "en": "Yeelight White Bulb"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight White Bulb Settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_mono1/assets/images/large.png",
+        "small": "/drivers/yeelight_light_mono1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yeelight_light_ceiling1",
+      "name": {
+        "en": "Yeelight Ceiling Lamp"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Ceiling Lamp Settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_ceiling1/assets/images/large.png",
+        "small": "/drivers/yeelight_light_ceiling1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "philips_light_sread1",
+      "name": {
+        "en": "Philips EyeCare Desk Lamp 2"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "onoff.eyecare",
+        "onoff.ambilight"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        },
+        "onoff.eyecare": {
+          "title": {
+              "en": "Eyecare"
+          }
+        },
+        "onoff.ambilight": {
+          "title": {
+              "en": "Ambilight"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.eyecare" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.ambilight" ],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips EyeCare Desk Lamp 2 Settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_sread1/assets/images/large.png",
+        "small": "/drivers/philips_light_sread1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
         }
       ]
     }
