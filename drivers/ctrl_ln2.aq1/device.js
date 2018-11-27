@@ -23,8 +23,8 @@ class DoubleSwitchLN extends Homey.Device {
 
   registerCapabilities() {
     const { triggers } = this.driver
-    this.registerToggle('onoff', 'channel', 'on', 'off', triggers.left_switch)
-    this.registerToggle('onoff.1', 'channel', 'on', 'off', triggers.right_switch)
+    this.registerToggle('onoff', 'channel_0', 'on', 'off', triggers.left_switch)
+    this.registerToggle('onoff.1', 'channel_1', 'on', 'off', triggers.right_switch)
   }
 
   registerConditions() {
@@ -35,8 +35,8 @@ class DoubleSwitchLN extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver
-    this.registerToggleAction('onoff', 'channel', 'on', 'off', actions.left_switch)
-    this.registerToggleAction('onoff.1', 'channel', 'on', 'off', actions.right_switch)
+    this.registerToggleAction('onoff', 'channel_0', 'on', 'off', actions.left_switch)
+    this.registerToggleAction('onoff.1', 'channel_1', 'on', 'off', actions.right_switch)
   }
 
   handleStateChange(device) {
