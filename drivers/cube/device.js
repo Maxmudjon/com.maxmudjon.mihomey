@@ -68,6 +68,13 @@ class DoubleButton86Switch extends Homey.Device {
       this.triggerFlow(triggers.rotateNegative, 'rotateNegative', true)
     }
 
+    if (device['data']['rotate']) {
+      let tokens = {
+        'cube_rotated': parseInt(device['data']['rotate'])
+      }
+      this.triggerFlow(triggers.cubeRotated, 'cubeRotated', tokens)
+    }
+
     let gateways = Homey.app.mihub.gateways
     for (let sid in gateways) {
       gateways[sid]['childDevices'].forEach(deviceSid => {
@@ -113,16 +120,15 @@ class DoubleButton86Switch extends Homey.Device {
     if (!trigger) {
       return
     }
+
     if(value) {
-      trigger.trigger( this, {}, true )
+      trigger.trigger( this, value, true )
     }
 
     this.log('trigger:', name, value)
 
     switch(name) {
-      case 'left_click_db86_switch':
-      case 'right_click_db86_switch': 
-      case 'both_click_db86_switch':   
+      case '':
     }
   }
 

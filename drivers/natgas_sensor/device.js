@@ -28,6 +28,21 @@ class NatGasSensor extends Homey.Device {
     const { triggers } = this.driver;
     var settings = this.getSettings();
 
+    if (device['data']['voltage']) {
+      var battery = (device['data']['voltage']-2800)/5
+      if (battery > 100) {
+        battery = 100
+      }
+      var lowBattery
+      if(battery > 20) {
+        lowBattery = false
+      } else {
+        lowBattery = true
+      }
+      this.updateCapabilityValue('measure_battery', battery);
+      this.updateCapabilityValue('alarm_battery', lowBattery)
+    }
+
     if (device['data']['alarm'] == '1') {
       this.updateCapabilityValue('alarm_ch4', true, triggers.alarm_natgas)
       var width = 0;

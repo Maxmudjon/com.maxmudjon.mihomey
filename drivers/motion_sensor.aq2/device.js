@@ -20,6 +20,11 @@ class MiMotionSensor extends Homey.Device {
 
   handleStateChange(device) {
     if(device['data']['no_motion']) {
+      // 120
+      // 180
+      // 300
+      // 600
+      // ...
       this.log("NO MOTION: ", device.data.no_motion)
     }
     if (device['data']['voltage']) {
@@ -41,20 +46,16 @@ class MiMotionSensor extends Homey.Device {
 
     if (device['data']['status'] == 'motion') {
       this.updateCapabilityValue('alarm_motion', true)
-      var width = 0;
-      var id = setInterval(frame.bind(this), settings.alarm_duration_number);
-      function frame() {
-        if (width == 1000) {
-          clearInterval(id);
-          this.updateCapabilityValue('alarm_motion', false);
-        } else {
-          width++; 
-        }
+      if (this.timeout) {
+        clearTimeout(this.timeout)
       }
+      this.timeout = setTimeout(() => {
+        this.updateCapabilityValue('alarm_motion', false);
+      }, settings.alarm_duration_number * 1000)
     }
 
     if (device['data']['lux']) {
-      this.updateCapabilityValue('measure_luminance', parseInt(device['data']['lux'] * 1000))
+      this.updateCapabilityValue('measure_luminance', parseInt(device['data']['lux']))
     }
 
     let gateways = Homey.app.mihub.gateways
