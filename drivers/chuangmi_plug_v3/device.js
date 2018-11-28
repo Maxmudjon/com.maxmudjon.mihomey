@@ -40,7 +40,7 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
       that.device = device;
 
       device.call("get_prop", ["power"]).then(result => {
-        that.setCapabilityValue('onoff', result[0] === '100' ? true : false)
+        that.setCapabilityValue('onoff', result[0] == 'on' ? true : false)
       }).catch(function(err) {
       });
 
@@ -55,7 +55,7 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
       });
 
       device.call("get_prop", ["wifi_led"]).then(result => {
-        that.setCapabilityValue('onoff.led', result[0] === 'on' ? true : false)
+        that.setCapabilityValue('onoff.led', result[0] == 'on' ? true : false)
       }).catch(function(err) {
       });
 
@@ -74,24 +74,23 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device.call("get_prop", ["power"]).then(result => {
-        this.setCapabilityValue('onoff', result[0] === '100' ? true : false)
+        this.setCapabilityValue('onoff', result[0] == 'on' ? true : false)
       }).catch(function(err) {
       });
 
       this.device.call("get_prop", ["usb_on"]).then(result => {
-        that.setCapabilityValue('onoff.usb', result[0])
+        this.setCapabilityValue('onoff.usb', result[0])
       }).catch(function(err) {
       });
 
 
       this.device.call("get_prop", ["temperature"]).then(result => {
-        that.setCapabilityValue('measure_temperature', result[0])
+        this.setCapabilityValue('measure_temperature', result[0])
       }).catch(function(err) {
       });
 
       this.device.call("get_prop", ["wifi_led"]).then(result => {
-        var that = this;
-        that.setCapabilityValue('onoff.led', result[0] === 'on' ? true : false)
+        this.setCapabilityValue('onoff.led', result[0] == 'on' ? true : false)
       }).catch(function(err) {
       });
 
