@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.4 - Supported devices:
+## Version 0.3.5 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -75,6 +75,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.3.5 (XX.11.2018)
+1. added support for Mi LED Desk Lamp.
+2. added support for Philips EyeCare Ceiling Lamp.
+
 ### 0.3.4 (27.11.2018)
 1. added support for Yeelight Color Bulb.
 2. added support for Yeelight White Bulb.
