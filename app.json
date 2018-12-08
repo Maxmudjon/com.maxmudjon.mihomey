@@ -5369,7 +5369,7 @@
 						    "en": "Light on/off smooth"
 					    },
               "attr": {
-                "min": 0.1,
+                "min": 0,
                 "max": 3600
               }
 				    },
