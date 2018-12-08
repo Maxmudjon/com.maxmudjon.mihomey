@@ -1,12 +1,8 @@
 const Homey = require('homey');
 const miio = require('miio');
 
-const initFlowAction = (favoriteFlow) => ({
-  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
-})
-
-const initFlowActionSmooth = (smoothAction) => ({
-  smoothAction: new Homey.FlowCardAction(smoothAction).register()
+const initFlowAction = (action) => ({
+  action: new Homey.FlowCardAction(action).register()
 })
 
 function randomGUID() {
@@ -16,18 +12,17 @@ function randomGUID() {
   return id() + id() + '-' + id() + '-' + id() + '-' + id() + '-' + id() + id() + id();
 }
 
-class YeelightColorBulb extends Homey.Driver {
+class PhilipsLightBulb extends Homey.Driver {
 
   onInit() {
     this.actions = {
-      favoriteFlow: initFlowAction('favorite_flow_color1_bulb'),
-      smoothAction: initFlowActionSmooth('smoothOnOff')
+      philipsScenes: initFlowAction('philips_scenes')
     }
   }
 
   onPair( socket ) {
     let pairingDevice = {};
-    pairingDevice.name = 'Yeelight Color Bulb';
+    pairingDevice.name = 'Philips Light Bulb';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -52,7 +47,7 @@ class YeelightColorBulb extends Homey.Driver {
               });
             } else {
               let result = {
-                notDevice: 'It is not Yeelight Color Bulb'
+                notDevice: 'It is not Philips Light Bulb'
               }
               callback(null, result)
             }
@@ -76,4 +71,4 @@ class YeelightColorBulb extends Homey.Driver {
   }
 }
 
-module.exports = YeelightColorBulb;
+module.exports = PhilipsLightBulb;

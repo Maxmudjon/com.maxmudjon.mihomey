@@ -31,7 +31,6 @@ class YeelightColorBulb extends Homey.Device {
   registerActions() {
     const { actions } = this.driver
     this.registerFavoriteFlowsAction('favorite_flow_color1_bulb', actions.favoriteFlow)
-    this.registerSmoothAction('smoothOnOff', actions.smoothAction)
   }
 
   getYeelightStatus() {
@@ -188,7 +187,7 @@ class YeelightColorBulb extends Homey.Device {
   }
 
   onSettings (oldSettings, newSettings, changedKeys, callback) {
-    if (changedKeys.includes('updateTimer') || changedKeys.includes('deviceIP') || changedKeys.includes('smooth') || changedKeys.includes('deviceToken')) {
+    if (changedKeys.includes('updateTimer') || changedKeys.includes('deviceIP') || changedKeys.includes('deviceToken')) {
       this.getYeelightStatus();
       callback(null, true)
     }
@@ -197,7 +196,8 @@ class YeelightColorBulb extends Homey.Device {
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
       var that = this;
-      that.device.call('set_power', [ value ? 'on' : 'off', 'smooth', that.getSetting('smooth') * 1000 ]).then(result => {
+      that.device.call('set_power', [ value ? 'on' : 'off' ]).then(result => {
+        that.log('Sending ' + name + ' commmand: ' + value);
       }).catch(function(error) {
         that.log("Sending commmand error: ", error);
       });
@@ -272,43 +272,6 @@ class YeelightColorBulb extends Homey.Device {
       }).catch(function(error) {
         that.log("Set flow error: ", error);
       });
-    })
-  }
-
-  registerSmoothAction(name, action) {
-    action.smoothAction.registerRunListener(async (args, state) => {
-      var that = this;
-      if (args.smoothMode == 'on') {
-        that.device.call('set_power', [ 'on', 'smooth', args.smoothTime * 1000 ]).then(result => {
-          that.log('Set power: ', args.smoothMode);
-        }).catch(function(error) {
-          that.log("Set power error: ", error);
-        });
-      } else if (args.smoothMode == 'off') {
-        that.device.call('set_power', [ 'off', 'smooth', args.smoothTime * 1000 ]).then(result => {
-          that.log('Set power: ', args.smoothMode);
-        }).catch(function(error) {
-          that.log("Set power error: ", error);
-        });
-      } else if (args.smoothMode == 'toggle') {
-        that.device.call("get_prop", ["power"]).then(result => {
-          if (result[0] === 'on') {
-            that.device.call('set_power', [ 'off', 'smooth', args.smoothTime * 1000 ]).then(result => {
-              that.log('Set power: ', args.smoothMode);
-            }).catch(function(error) {
-              that.log("Set power error: ", error);
-            });
-          } else if (result[0] === 'off') {
-            that.device.call('set_power', [ 'on', 'smooth', args.smoothTime * 1000 ]).then(result => {
-              that.log('Set power: ', args.smoothMode);
-            }).catch(function(error) {
-              that.log("Set power error: ", error);
-            });
-          }
-        }).catch(function(error) {
-          that.log("Set power error: ", error);
-        });
-      }
     })
   }
 

@@ -5,10 +5,6 @@ const initFlowAction = (favoriteFlow) => ({
   favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
 })
 
-const initFlowActionSmooth = (smoothAction) => ({
-  smoothAction: new Homey.FlowCardAction(smoothAction).register()
-})
-
 function randomGUID() {
   function id() {
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -20,14 +16,13 @@ class YeelightColorBulb extends Homey.Driver {
 
   onInit() {
     this.actions = {
-      favoriteFlow: initFlowAction('favorite_flow_color1_bulb'),
-      smoothAction: initFlowActionSmooth('smoothOnOff')
+      favoriteFlow: initFlowAction('favorite_flow_color1_bulb')
     }
   }
 
   onPair( socket ) {
     let pairingDevice = {};
-    pairingDevice.name = 'Yeelight Color Bulb';
+    pairingDevice.name = 'Yeelight Bedside Lamp';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -52,7 +47,7 @@ class YeelightColorBulb extends Homey.Driver {
               });
             } else {
               let result = {
-                notDevice: 'It is not Yeelight Color Bulb'
+                notDevice: 'It is not Yeelight bedside lamp'
               }
               callback(null, result)
             }

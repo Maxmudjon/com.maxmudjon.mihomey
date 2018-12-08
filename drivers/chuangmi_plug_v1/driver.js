@@ -1,12 +1,8 @@
 const Homey = require('homey');
 const miio = require('miio');
 
-const initFlowAction = (favoriteFlow) => ({
-  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
-})
-
-const initFlowActionSmooth = (smoothAction) => ({
-  smoothAction: new Homey.FlowCardAction(smoothAction).register()
+const initFlowAction = (action) => ({
+  action: new Homey.FlowCardAction(action).register()
 })
 
 function randomGUID() {
@@ -16,18 +12,11 @@ function randomGUID() {
   return id() + id() + '-' + id() + '-' + id() + '-' + id() + '-' + id() + id() + id();
 }
 
-class YeelightColorBulb extends Homey.Driver {
-
-  onInit() {
-    this.actions = {
-      favoriteFlow: initFlowAction('favorite_flow_color1_bulb'),
-      smoothAction: initFlowActionSmooth('smoothOnOff')
-    }
-  }
+class MiSmartPlugWiFiWithUSB extends Homey.Driver {
 
   onPair( socket ) {
     let pairingDevice = {};
-    pairingDevice.name = 'Yeelight Color Bulb';
+    pairingDevice.name = 'Mi Smart Plug WiFi With USB';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -39,9 +28,9 @@ class YeelightColorBulb extends Homey.Driver {
         }).then(device => {
           device.call("miIO.info", []).then(value => {
             if (value.model == this.data.model) {
-              device.call("get_prop", ["bright"]).then(value => {
+              device.call("get_prop", ["power"]).then(value => {
                 let result = {
-                  bright: value[0]
+                  power: value[0]
                 }
                 pairingDevice.settings.deviceIP = this.data.ip;
                 pairingDevice.settings.deviceToken = this.data.token;
@@ -52,7 +41,7 @@ class YeelightColorBulb extends Homey.Driver {
               });
             } else {
               let result = {
-                notDevice: 'It is not Yeelight Color Bulb'
+                notDevice: 'It is not Mi Smart Plug WiFi With USB'
               }
               callback(null, result)
             }
@@ -76,4 +65,4 @@ class YeelightColorBulb extends Homey.Driver {
   }
 }
 
-module.exports = YeelightColorBulb;
+module.exports = MiSmartPlugWiFiWithUSB;

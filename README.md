@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.4 - Supported devices:
+## Version 0.3.5 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -32,7 +32,17 @@ Added support for Mi Gateways child devices.
 * Yeelight Color Bulb.
 * Yeelight White Bulb.
 * Yeelight Ceiling Lamp.
+* Yeelight Bedside Lamp.
+* Yeelight Light Strip.
+* Mi LED Desk Lamp.
 * Philips Eyecare Desk Lapmp 2.
+* Philips Eyecare Ceiling Lamp.
+* Philips Light Bulb.
+* Mi Smart Plug WiFi.
+* Mi Smart Plug With USB WiFi.
+* Mi Smart Plug With 2 USB WiFi.
+* Mi Smart Power Strip.
+* CHINGMI Smart Power Strip.
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -64,6 +74,17 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightWhiteBulb.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightCeilingLamp.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsEyeCareDeskLamp2.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiLEDDeskLamp.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsEyeCareCeilingLamp.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightBedsideLamp.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightLightStrip.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsLightBulb.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPlugWiFi.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPlugWithUSBWiFi.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPlugWith2USBWiFi.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPowerStrip.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/CHINGMISmartPowerStrip.png)
+
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -75,11 +96,24 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+### 0.3.5 (08.12.2018)
+1. added support for Mi LED Desk Lamp.
+2. added support for Philips EyeCare Ceiling Lamp.
+3. added support for Yeelight Bedside Lamp.
+4. added support for Yeelight Light Strip.
+5. added support for Philips Light Bulb.
+6. added support for Mi Smart Plug WiFi.
+7. added support for Mi Smart Plug With USB WiFi.
+8. added support for Mi Smart Plug With 2 USB WiFi.
+9. added support for Mi Smart Power Strip.
+10. added support for CHINGMI Smart Power Strip.
+11. minor fixes.
+
 ### 0.3.4 (27.11.2018)
 1. added support for Yeelight Color Bulb.
 2. added support for Yeelight White Bulb.
 3. added support for Yeelight Ceiling Lamp.
-4. added support for Philips Eyecare Desk Lapmp 2.
+4. added support for Philips Eyecare Desk Lamp 2.
 5. fixed: triggers for Aqara Duplex Switch.
 6. fixed: Mi/Aqara motion sensor update capability. 
 

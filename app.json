@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -578,6 +578,29 @@
             "filter": "driver_id=lock.aq1"
           }
         ]
+      },
+      {
+        "id": "meterAmpere",
+        "title": {
+            "en": "The ampere changed"
+        },
+        "tokens": [
+          {
+            "name": "ampere",
+            "type": "number",
+            "title": {
+                "en": "Ampere"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zimi_powerstrip_v2|qmi_powerstrip_v1"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -1120,7 +1143,7 @@
 					{ 
             "name": "device", 
             "type": "device", 
-            "filter": "driver_id=yeelight_light_color1" 
+            "filter": "driver_id=yeelight_light_color1|yeelight_light_bslamp1|yeelight_light_strip1" 
           },
 					{
 						"type": "dropdown",
@@ -1344,7 +1367,7 @@
 					{ 
             "name": "device", 
             "type": "device", 
-            "filter": "driver_id=yeelight_light_ceiling1" 
+            "filter": "driver_id=yeelight_light_ceiling1|yeelight_light_lamp1" 
           },
 					{
 						"type": "dropdown",
@@ -1377,6 +1400,124 @@
 						]
           }
 				]
+      },
+      {
+				"id": "philips_scenes",
+				"title": { 
+          "en": "Scenes"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=philips_light_ceiling|philips_light_bulb" 
+          },
+					{
+						"type": "dropdown",
+						"name": "scene",
+						"values": [
+							{
+                "id": "1",
+                "label": {
+                  "en": "Bright"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "TV"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Warm"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Midnight"
+                }
+              }
+						]
+          }
+				]
+      },
+      {
+				"id": "philips_light_ac",
+				"title": { 
+          "en": "Auto Adjust Color Temperature"
+        },
+				"args": [
+					{ 
+            "name": "device", 
+            "type": "device", 
+            "filter": "driver_id=philips_light_ceiling" 
+          },
+					{
+						"type": "dropdown",
+						"name": "ac",
+						"values": [
+							{
+                "id": "0",
+                "label": {
+                  "en": "enable"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "disable"
+                }
+              }
+						]
+          }
+				]
+      },
+      {
+        "id": "smoothOnOff",
+        "title": {
+          "en": "Smooth on/off/toggle light"
+        },
+        "args": [
+          {
+						"type": "dropdown",
+						"name": "smoothMode",
+						"values": [
+							{
+                "id": "on",
+                "label": {
+                  "en": "on"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "off"
+                }
+              },
+              {
+                "id": "toggle",
+                "label": {
+                  "en": "toggle"
+                }
+              }
+						]
+          },
+          {
+            "name": "smoothTime",
+            "type": "text",
+            "placeholder": {
+              "en": "seconds"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelight_light_color1"
+          }
+        ]
       }
     ]
   },
@@ -1418,6 +1559,18 @@
       "type": "number",
       "units": {
         "en": "kg/m3"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "meter_ampere": {
+      "title": {
+        "en": "Ampere"
+      },
+      "type": "number",
+      "decimals": 2,
+      "units": {
+        "en": "A"
       },
       "getable": true,
       "setable": false
@@ -1790,10 +1943,7 @@
       "mobile": {
         "components": [
           {
-            "id": "icon"
-          },
-          {
-            "id": "toggle",
+            "id": "icon",
             "capabilities": [ "onoff" ],
             "options": {
                 "showTitle": true
@@ -3795,6 +3945,13 @@
             "id": "icon"
           },
           {
+            "id": "battery",
+            "capabilities": [
+              "measure_battery"
+            ],
+            "options": { "showTitle": true }
+          },
+          {
             "id": "sensor",
             "capabilities": [ "alarm_smoke", "measure_smoke_density", "alarm_battery" ],
             "options": {
@@ -4633,7 +4790,7 @@
         {
           "type": "group",
           "label": {
-            "en": "Gateway Settings"
+            "en": "Gateway settings"
           },
 					"children": [
 				    {
@@ -4885,7 +5042,7 @@
         {
           "type": "group",
           "label": {
-            "en": "Gateway Settings"
+            "en": "Gateway settings"
           },
 					"children": [
 				    {
@@ -5185,7 +5342,7 @@
         {
           "type": "group",
           "label": {
-            "en": "Yeelight Color Bulb Settings"
+            "en": "Yeelight Color Bulb settings"
           },
 					"children": [
 				    {
@@ -5203,6 +5360,18 @@
 					    "label": {
 						    "en": "Device Token"
 					    }
+				    },
+				    {
+					    "id": "smooth",
+					    "type": "number",
+					    "value": 0.5,
+					    "label": {
+						    "en": "Light on/off smooth"
+					    },
+              "attr": {
+                "min": 0.1,
+                "max": 3600
+              }
 				    },
             {
 					    "id": "updateTimer",
@@ -5279,7 +5448,7 @@
         {
           "type": "group",
           "label": {
-            "en": "Yeelight White Bulb Settings"
+            "en": "Yeelight White Bulb settings"
           },
 					"children": [
 				    {
@@ -5378,7 +5547,7 @@
         {
           "type": "group",
           "label": {
-            "en": "Yeelight Ceiling Lamp Settings"
+            "en": "Yeelight Ceiling Lamp settings"
           },
 					"children": [
 				    {
@@ -5415,6 +5584,309 @@
       "images": {
         "large": "/drivers/yeelight_light_ceiling1/assets/images/large.png",
         "small": "/drivers/yeelight_light_ceiling1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yeelight_light_bslamp1",
+      "name": {
+        "en": "Yeelight Bedside Lamp"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_hue", "light_saturation", "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Bedside Lamp settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_bslamp1/assets/images/large.png",
+        "small": "/drivers/yeelight_light_bslamp1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yeelight_light_strip1",
+      "name": {
+        "en": "Yeelight Light Strip"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_hue", "light_saturation", "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Light Strip settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_strip1/assets/images/large.png",
+        "small": "/drivers/yeelight_light_strip1/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yeelight_light_lamp1",
+      "name": {
+        "en": "Mi LED Desk Lamp"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi LED Desk Lamp settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_lamp1/assets/images/large.png",
+        "small": "/drivers/yeelight_light_lamp1/assets/images/small.png"
       },
       "pair": [
 				{
@@ -5498,7 +5970,7 @@
         {
           "type": "group",
           "label": {
-            "en": "Philips EyeCare Desk Lamp 2 Settings"
+            "en": "Philips EyeCare Desk Lamp 2 settings"
           },
 					"children": [
 				    {
@@ -5547,6 +6019,817 @@
           "id": "done",
           "navigation": {
             "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "philips_light_ceiling",
+      "name": {
+        "en": "Philips EyeCare Ceiling Lamp"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips EyeCare Ceiling Lamp settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_ceiling/assets/images/large.png",
+        "small": "/drivers/philips_light_ceiling/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "philips_light_bulb",
+      "name": {
+        "en": "Philips Light Bulb"
+      },
+      "class": "light",
+      "capabilities": [ 
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+              "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [ "dim" ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [ "light_temperature" ]
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips Light Bulb"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_bulb/assets/images/large.png",
+        "small": "/drivers/philips_light_bulb/assets/images/small.png"
+      },
+      "pair": [
+				{
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chuangmi_plug_m1",
+      "name": {
+        "en": "Mi Smart Plug WiFi"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_temperature",
+        "onoff.led"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+              "en": "Temperature"
+          }
+        },
+        "onoff.led": {
+          "title": {
+              "en": "WiFi LED"
+          }
+        }        
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon"
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_temperature" ],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "measure_temperature": "/drivers/chuangmi_plug_m1/assets/temperature.svg"
+              }
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.led" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Plug WiFi settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/chuangmi_plug_m1/assets/images/large.png",
+        "small": "/drivers/chuangmi_plug_m1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chuangmi_plug_v1",
+      "name": {
+        "en": "Mi Smart Plug With USB WiFi"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_temperature",
+        "onoff.usb",
+        "onoff.led"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "onoff.usb": {
+          "title": {
+              "en": "USB power"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+              "en": "Temperature"
+          }
+        },
+        "onoff.led": {
+          "title": {
+              "en": "WiFi LED"
+          }
+        }        
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.usb" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_temperature" ],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "measure_temperature": "/drivers/chuangmi_plug_v1/assets/temperature.svg"
+              }
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.led" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Plug With USB WiFi settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/chuangmi_plug_v1/assets/images/large.png",
+        "small": "/drivers/chuangmi_plug_v1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chuangmi_plug_v3",
+      "name": {
+        "en": "Mi Smart Plug With 2 USB WiFi"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_temperature",
+        "onoff.usb",
+        "onoff.led"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "onoff.usb": {
+          "title": {
+              "en": "USB power"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+              "en": "Temperature"
+          }
+        },
+        "onoff.led": {
+          "title": {
+              "en": "WiFi LED"
+          }
+        }        
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.usb" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_temperature" ],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                  "measure_temperature": "/drivers/chuangmi_plug_v3/assets/temperature.svg"
+              }
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.led" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Plug With 2 USB WiFi settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/chuangmi_plug_v3/assets/images/large.png",
+        "small": "/drivers/chuangmi_plug_v3/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zimi_powerstrip_v2",
+      "name": {
+        "en": "Mi Smart Power Strip"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_ampere",
+        "measure_temperature",
+        "onoff.led"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+              "en": "Temperature"
+          }
+        },
+        "onoff.led": {
+          "title": {
+              "en": "WiFi LED"
+          }
+        }        
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_power", "measure_temperature", "meter_ampere" ],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                "measure_power": "/drivers/zimi_powerstrip_v2/assets/plug_watt_hour_icon.svg",
+                "meter_ampere" : "/drivers/zimi_powerstrip_v2/assets/meter_ampere.svg",
+                "measure_temperature": "/drivers/zimi_powerstrip_v2/assets/temperature.svg"
+              }
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.led" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Power Strip settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/zimi_powerstrip_v2/assets/images/large.png",
+        "small": "/drivers/zimi_powerstrip_v2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "qmi_powerstrip_v1",
+      "name": {
+        "en": "CHINGMI Smart Power Strip"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_ampere",
+        "measure_temperature",
+        "onoff.led"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+              "en": "Power"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+              "en": "Temperature"
+          }
+        },
+        "onoff.led": {
+          "title": {
+              "en": "WiFi LED"
+          }
+        }        
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [ "onoff" ],
+            "options": {
+                "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": [ "measure_power", "meter_ampere", "measure_voltage", "measure_temperature" ],
+            "options": {
+              "showTitle": true,
+              "icons": {
+                "measure_power": "/drivers/qmi_powerstrip_v1/assets/plug_watt_hour_icon.svg",
+                "meter_ampere" : "/drivers/qmi_powerstrip_v1/assets/meter_ampere.svg",
+                "measure_voltage" : "/drivers/qmi_powerstrip_v1/assets/measure_voltage.svg",
+                "measure_temperature": "/drivers/qmi_powerstrip_v1/assets/temperature.svg"
+              }
+            }
+          },
+          {
+            "id": "toggle",
+            "capabilities": [ "onoff.led" ],
+            "options": {
+                "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings":[
+        {
+          "type": "group",
+          "label": {
+            "en": "CHINGMI Smart Power Strip settings"
+          },
+					"children": [
+				    {
+				      "id": "deviceIP",
+				      "type": "text",
+				      "value": "192.168.xxx.xxx",
+				      "label": {
+				        "en": "IP Address"
+				      }
+				    },
+				    {
+					    "id": "deviceToken",
+					    "type": "text",
+					    "value": "",
+					    "label": {
+						    "en": "Device Token"
+					    }
+				    },
+            {
+					    "id": "updateTimer",
+					    "type": "number",
+					    "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+					    "label": {
+						    "en": "Device update timer"
+					    }
+				    }
+		      ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/qmi_powerstrip_v1/assets/images/large.png",
+        "small": "/drivers/qmi_powerstrip_v1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
           }
         }
       ]

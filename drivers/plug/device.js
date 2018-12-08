@@ -23,7 +23,7 @@ class Plug extends Homey.Device {
 
   registerCapabilities() {
     const { triggers } = this.driver
-    this.registerToggle('onoff', 'on', 'off', triggers.power)
+    this.registerToggle('onoff', triggers.power)
   }
 
   registerConditions() {
@@ -33,7 +33,7 @@ class Plug extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver
-    this.registerToggleAction('onoff', 'on', 'off', actions.power)
+    this.registerToggleAction('onoff', actions.power)
   }
 
   handleStateChange(device) {
@@ -96,11 +96,11 @@ class Plug extends Homey.Device {
     }
   }
 
-  registerToggle(name, valueOn = true, valueOff = false, trigger) {
+  registerToggle(name, trigger) {
     let sid = this.data.sid
     this.registerCapabilityListener(name, async (value) => {
-      const newValue = value ? valueOn : valueOff
-      const data = {"status":newValue}
+      const newValue = value ? 'on' : 'off'
+      const data = {"status": newValue}
       await Homey.app.mihub.sendWrite(sid, data)
       this.triggerFlow(trigger, name, value)
     })
@@ -112,15 +112,15 @@ class Plug extends Homey.Device {
     ))
   }
 
-  registerToggleAction(name, valueOn = true, valueOff = false, action) {
+  registerToggleAction(name, action) {
     let sid = this.data.sid
     action.on.registerRunListener(async (args, state) => {
-      const data = {"status":valueOn}
+      const data = {'status': 'on'}
       await Homey.app.mihub.sendWrite(sid, data)
       return true
     })
     action.off.registerRunListener(async (args, state) => {
-      const data = {"status":valueOff}
+      const data = {'status': 'off'}
       await Homey.app.mihub.sendWrite(sid, data)
       return true
     })
