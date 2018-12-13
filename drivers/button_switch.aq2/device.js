@@ -90,7 +90,7 @@ class AqaraButtonSwitch extends Homey.Device {
       return
     }
     if(value) {
-      trigger.trigger( this, {}, true )
+      trigger.trigger( this, value )
     }
 
     this.log('trigger:', name, value)

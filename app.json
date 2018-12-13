@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -599,6 +599,45 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=zimi_powerstrip_v2|qmi_powerstrip_v1"
+          }
+        ]
+      },
+      {
+        "id": "vibrate_sensor_vibrate",
+        "title": {
+          "en": "On vibrate"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=vibration_sensor"
+          }
+        ]
+      },
+      {
+        "id": "vibrate_sensor_tilt",
+        "title": {
+          "en": "On tilt"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=vibration_sensor"
+          }
+        ]
+      },
+      {
+        "id": "vibrate_sensor_free_fall",
+        "title": {
+          "en": "On free fall"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=vibration_sensor"
           }
         ]
       }

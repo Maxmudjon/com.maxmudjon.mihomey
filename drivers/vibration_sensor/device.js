@@ -19,6 +19,8 @@ class VibrationSensor extends Homey.Device {
   }
 
   handleStateChange(device) {
+    const { triggers } = this.driver;
+
     if (device['data']['voltage']) {
       var battery = (device['data']['voltage']-2800)/5
       if (battery > 100) {
@@ -38,6 +40,7 @@ class VibrationSensor extends Homey.Device {
 
     if (device['data']['status'] == 'vibrate') {
       this.updateCapabilityValue('alarm_motion.vibrate', true)
+      this.triggerFlow(triggers.vibrate, 'vibrate_sensor_vibrate', true)
       var width = 0;
       var id = setInterval(frame.bind(this), settings.alarm_duration_number);
       function frame() {
@@ -52,6 +55,7 @@ class VibrationSensor extends Homey.Device {
 
     if (device['data']['status'] == 'tilt') {
       this.updateCapabilityValue('alarm_motion.tilt', true)
+      this.triggerFlow(triggers.tilt, 'vibrate_sensor_tilt', true)
       var width = 0;
       var id = setInterval(frame.bind(this), settings.alarm_duration_number);
       function frame() {
@@ -66,6 +70,7 @@ class VibrationSensor extends Homey.Device {
 
     if (device['data']['status'] == 'free_fall') {
       this.updateCapabilityValue('alarm_motion.freeFall', true)
+      this.triggerFlow(triggers.free_fall, 'vibrate_sensor_free_fall', true)
       var width = 0;
       var id = setInterval(frame.bind(this), settings.alarm_duration_number);
       function frame() {
@@ -122,6 +127,10 @@ class VibrationSensor extends Homey.Device {
   triggerFlow(trigger, name, value) {
     if (!trigger) {
       return
+    }
+
+    if (value) {
+      trigger.trigger( this, value )
     }
 
     this.log('trigger:', name, value)

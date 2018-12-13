@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.5 TEST - Supported devices:
+## Version 0.3.6 for Homey 2.0 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -96,7 +96,13 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.3.5 (07.12.2018 - TEST)
+### 0.3.6 (13.12.2018 - for HOMEY 2.0 TEST)
+1. fixed: app settings page.
+2. fixed: flow triggers.
+3. fixed: miio devices pair page.
+4. minor fixes.
+
+### 0.3.5 (07.12.2018)
 1. added support for Mi LED Desk Lamp.
 2. added support for Philips EyeCare Ceiling Lamp.
 3. added support for Yeelight Bedside Lamp.
