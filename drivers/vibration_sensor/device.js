@@ -130,7 +130,11 @@ class VibrationSensor extends Homey.Device {
     }
 
     if (value) {
-      trigger.trigger( this, value )
+      if (parseInt(Homey.version) === 2) {
+        trigger.trigger(this, value)
+      } else {
+        trigger.trigger(this, {}, value)
+      }
     }
 
     this.log('trigger:', name, value)

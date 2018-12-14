@@ -15,6 +15,7 @@
   "category": [
     "tools"
   ],
+  "brandColor": "#FF6700",
   "permissions": [],
   "images": {
     "large": "/assets/images/large.png",
