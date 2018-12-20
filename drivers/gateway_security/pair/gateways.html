@@ -19,9 +19,9 @@
         let addDevice = document.getElementById('addDevice')
         let gatewayIP = document.getElementById(`gatewayIP`)
         let gatewayToken = document.getElementById(`gatewayToken`)
-        let checkConnection = 'check'
+        let gatewayUpdateTime = document.getElementById(`gatewayUpdateTime`)
 
-        let data = { key: checkConnection, ip: gatewayIP.value, token: gatewayToken.value }
+        let data = { ip: gatewayIP.value, token: gatewayToken.value, timer: gatewayUpdateTime.value || 60 }
         Homey.emit('connect', data, function (error, result) {
           if (error) {
             alert.classList.remove('alert-light')
@@ -80,6 +80,13 @@
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="gatewayToken" aria-describedby="basic-addon3" placeholder="Token">
     </div>
+    <div class="input-group mb-3">
+      <small id="period" class="form-text text-muted">Polling period, seconds</small>
+    </div>
+    <div class="input-group mb-3">
+      <input type="number" class="form-control" id="gatewayUpdateTime" aria-describedby="basic-addon3" placeholder="60"
+        min="5" max="3600">
+    </div>
     <div class="col" style="padding-left: 0px;">
       <div class="statusAlertShow float-left">Not connected!</div>
     </div>
@@ -87,6 +94,6 @@
       <button v-on:click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button>
     </div>
   </div>
-  <button v-on:click="addDevice" type="button" class="btn btn-primary float-right" style="height: auto; display: none;"
+  <button v-on:click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;"
     id="addDevice">Add device</button>
 </div>

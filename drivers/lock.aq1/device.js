@@ -204,19 +204,6 @@ class AqaraLock1 extends Homey.Device {
     })
   }
 
-  onSettings( oldSettingsObj, newSettingsObj, changedKeysArr, callback ) {
-    console.log(newSettingsObj)
-    console.log(changedKeysArr)
-    // run when the user has changed the device's settings in Homey.
-    // changedKeysArr contains an array of keys that have been changed
-
-    // always fire the callback, or the settings won't change!
-    // if the settings must not be saved for whatever reason:
-    // callback( "Your error message", null );
-    // else
-    callback( null, true );
-  }
-
   registerAuthChangeListener() {
     Homey.app.mihub.on('gatewaysList', this.initialize)
   }

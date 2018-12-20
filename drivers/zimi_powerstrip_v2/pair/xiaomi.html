@@ -19,9 +19,9 @@
         let addDevice = document.getElementById('addDevice')
         let XiaomiIP = document.getElementById(`XiaomiIP`)
         let XiaomiToken = document.getElementById(`XiaomiToken`)
-        let checkConnection = 'check'
+        let deviceUpdateTimer = document.getElementById(`deviceUpdateTimer`)
 
-        let data = { key: checkConnection, ip: XiaomiIP.value, token: XiaomiToken.value, model: 'zimi.powerstrip.v2' }
+        let data = { ip: XiaomiIP.value, token: XiaomiToken.value, model: 'zimi.powerstrip.v2', timer: deviceUpdateTimer.value || 60 }
         Homey.emit('connect', data, function (error, result) {
           if (error) {
             alert.classList.remove('alert-light')
@@ -89,6 +89,13 @@
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="XiaomiToken" aria-describedby="basic-addon3" placeholder="Token">
     </div>
+    <div class="input-group mb-3">
+      <small id="period" class="form-text text-muted">Polling period, seconds</small>
+    </div>
+    <div class="input-group mb-3">
+      <input type="number" class="form-control" id="deviceUpdateTimer" aria-describedby="basic-addon3" placeholder="60"
+        min="5" max="3600">
+    </div>
     <div class="col" style="padding-left: 0px;">
       <div class="statusAlertShow float-left">Not connected!</div>
     </div>
@@ -96,6 +103,6 @@
       <button v-on:click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button>
     </div>
   </div>
-  <button v-on:click="addDevice" type="button" class="btn btn-primary float-right" style="height: auto; display: none;"
+  <button v-on:click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;"
     id="addDevice">Add device</button>
 </div>
