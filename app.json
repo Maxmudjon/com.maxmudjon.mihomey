@@ -647,6 +647,58 @@
             "filter": "driver_id=vibration_sensor"
           }
         ]
+      },
+      {
+        "id": "main_brush_work_time",
+        "title": {
+          "en": "Alarm time left main brush"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+          }
+        ]
+      },
+      {
+        "id": "side_brush_work_time",
+        "title": {
+          "en": "Alarm time left side brush"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+          }
+        ]
+      },
+      {
+        "id": "filter_work_time",
+        "title": {
+          "en": "Alarm time left filter"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+          }
+        ]
+      },
+      {
+        "id": "sensor_dirty_time",
+        "title": {
+          "en": "Alarm time left sensor"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -1577,7 +1629,8 @@
         "en": "mm Hg"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "icon": "/drivers/weather_temp_hum_sensor/assets/pressure_hhmg_sensor_icon.svg"
     },
     "alarm_ch4": {
       "title": {
@@ -1585,7 +1638,8 @@
       },
       "type": "boolean",
       "getable": true,
-      "setable": false
+      "setable": false,
+      "icon": "/drivers/natgas_sensor/assets/natgas_sensor_icon.svg"
     },
     "measure_gas_density": {
       "title": {
@@ -1596,7 +1650,8 @@
         "en": "kg/m3"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "icon": "/drivers/natgas_sensor/assets/measure_gas_density_icon.svg"
     },
     "measure_smoke_density": {
       "title": {
@@ -1607,7 +1662,8 @@
         "en": "kg/m3"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "icon": "/drivers/smoke_sensor/assets/measure_smoke_density_icon.svg"
     },
     "meter_ampere": {
       "title": {
@@ -1619,7 +1675,8 @@
         "en": "A"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "icon": "/drivers/qmi_powerstrip_v1/assets/meter_ampere.svg"
     },
     "air_purifier_mode": {
       "type": "enum",
@@ -1651,6 +1708,42 @@
       ],
       "getable": true,
       "setable": true
+    },
+    "alarm_main_brush_work_time": {
+      "title": {
+        "en": "Time left main brush"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/main_brush_icon.svg"
+    },
+    "alarm_side_brush_work_time": {
+      "title": {
+        "en": "Time left side brush"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/side_brush_icon.svg"
+    },
+    "alarm_filter_work_time": {
+      "title": {
+        "en": "Time left filter"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/hepa_filter_icon.svg"
+    },
+    "alarm_sensor_dirty_time": {
+      "title": {
+        "en": "Time left sensor"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/sensor_dirty_icon.svg"
     }
   },
   "drivers": [
@@ -4928,6 +5021,7 @@
         "speaker_playing",
         "speaker_prev",
         "speaker_next",
+        "speaker_track",
         "volume_set"
       ],
       "capabilitiesOptions": {
@@ -7436,6 +7530,207 @@
       "images": {
         "large": "/drivers/mi_air_purifier_ms2/assets/images/large.png",
         "small": "/drivers/mi_air_purifier_ms2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_rockrobo_vacuum_v1",
+      "name": {
+        "en": "Mi Vacuum Cleaner"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Clean"
+          }
+        },
+        "onoff.findme": {
+          "title": {
+            "en": "Find me"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [
+              "onoff"
+            ]
+          },
+          {
+            "id": "toggle",
+            "capabilities": [
+              "onoff.findme"
+            ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [
+              "dim"
+            ]
+          },
+          {
+            "id": "picker",
+            "capabilities": [
+              "vacuumcleaner_state"
+            ]
+          },
+          {
+            "id": "sensor",
+            "capabilities": [
+              "measure_battery"
+            ]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Vacuum Cleaner settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Vacuum life settings"
+          },
+          "children": [
+            {
+              "id": "alarm_threshold",
+              "type": "number",
+              "label": {
+                "en": "Alarm threshold"
+              },
+              "hint": {
+                "en": "Work time to (brush, filter) below which the alarm will be activated."
+              },
+              "value": 20,
+              "attr": {
+                "min": 1,
+                "max": 90
+              }
+            },
+            {
+              "id": "main_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Main brush work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "side_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Side brush work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "filter_work_time",
+              "type": "label",
+              "label": {
+                "en": "Filter work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "sensor_dirty_time",
+              "type": "label",
+              "label": {
+                "en": "Sensor dirty time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "total_work_time",
+              "type": "label",
+              "label": {
+                "en": "Total work time"
+              },
+              "value": "0"
+            },
+            {
+              "id": "total_cleared_area",
+              "type": "label",
+              "label": {
+                "en": "Total cleared area"
+              },
+              "value": "0"
+            },
+            {
+              "id": "total_clean_count",
+              "type": "label",
+              "label": {
+                "en": "Total clean count"
+              },
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_rockrobo_vacuum_v1/assets/images/large.png",
+        "small": "/drivers/mi_rockrobo_vacuum_v1/assets/images/small.png"
       },
       "pair": [
         {

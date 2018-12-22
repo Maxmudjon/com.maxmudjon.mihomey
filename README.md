@@ -45,6 +45,7 @@ Added support for Mi Gateways child devices.
 * CHINGMI Smart Power Strip.
 * Yeelight Jiaoyue 650.
 * Mi Air Purifier S2.
+* Mi Vacuum Cleaner (gen 1).
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -88,6 +89,7 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/CHINGMISmartPowerStrip.png)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightJiaoyue650.jpg)
 ![](https://github.com/Maxmudjon/images/blob/master/MiAirPurifierS2.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiVacuumCleaner(gen1).png)
 
 
 ## Add devices
@@ -100,13 +102,14 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.3.6 (20.12.2018 - for HOMEY 2.0 TEST)
+### 0.3.6 (22.12.2018 - for HOMEY 2.0 TEST)
 1. fixed: app settings page.
 2. fixed: flow triggers.
 3. fixed: miio devices pair page.
 4. added support for Yeelight Jiaoyue 650.
 5. added support for Mi Air Purifier S2.
-6. minor fixes.
+6. added support for Mi Vacuum Cleaner (gen 1).
+7. minor fixes.
 
 ### 0.3.5 (07.12.2018)
 1. added support for Mi LED Desk Lamp.

@@ -45,6 +45,12 @@ class GatewayRadio extends Homey.Device {
         this.device.call('get_prop_fm', [])
           .then(result => {
             that.setCapabilityValue('volume_set', result.current_volume / 100);
+            if (result.current_program == '527782008') {
+              that.setCapabilityValue('speaker_track', 'Авторадио ' + ' id: ' + result.current_program);
+            } else {
+              that.setCapabilityValue('speaker_track', 'Radio ' + ' id: ' + result.current_program);
+            }
+            
             if (result.current_status == 'run') {
               that.setCapabilityValue('speaker_playing', true);
             } else if (result.current_status == 'pause') {
@@ -90,6 +96,12 @@ class GatewayRadio extends Homey.Device {
       this.device.call('get_prop_fm', [])
         .then(result => {
           that.setCapabilityValue('volume_set', result.current_volume / 100);
+          if (result.current_program == '527782008') {
+            that.setCapabilityValue('speaker_track', 'Авторадио ' + ' id: ' + result.current_program);
+          } else {
+            that.setCapabilityValue('speaker_track', 'Radio ' + ' id: ' + result.current_program);
+          }
+          
           if (result.current_status == 'run') {
             that.setCapabilityValue('speaker_playing', true);
           } else if (result.current_status == 'pause') {
