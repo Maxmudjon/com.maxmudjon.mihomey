@@ -1,24 +1,20 @@
 const Homey = require('homey');
 const miio = require('miio');
 
-const initFlowAction = (action) => ({
-  action: new Homey.FlowCardAction(action).register()
-})
-
-class MiAirPurifierS2 extends Homey.Driver {
+class MiVacuumCleanerV2 extends Homey.Driver {
 
   onInit() {
-    this.actions = {
-      purifierOn: initFlowAction('purifier_on'),
-      purifierOff: initFlowAction('purifier_off'),
-      purifierMode: initFlowAction('purifier_mode'),
-      purifierSpeed: initFlowAction('purifier_speed')
+    this.triggers = {
+      main_brush: new Homey.FlowCardTriggerDevice('main_brush_work_time').register(),
+      side_brush: new Homey.FlowCardTriggerDevice('side_brush_work_time').register(),
+      filter: new Homey.FlowCardTriggerDevice('filter_work_time').register(),
+      sensor: new Homey.FlowCardTriggerDevice('sensor_dirty_time').register()
     }
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = 'Mi Air Purifier S2';
+    pairingDevice.name = 'Mi Vacuum Cleaner v2';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -29,11 +25,11 @@ class MiAirPurifierS2 extends Homey.Driver {
           device.call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = 'MA:PM:A2:' + value.mac + ':MA:PM:A2';
-                device.call("get_prop", ["power"])
+                pairingDevice.data.id = 'MI:VC:V2:' + value.mac + ':MI:VC:V2';
+                device.call("get_status", [])
                   .then(value => {
                     let result = {
-                      state: value[0]
+                      battery: value[0]['battery']
                     }
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -50,7 +46,7 @@ class MiAirPurifierS2 extends Homey.Driver {
                   .catch(error => callback(null, error))
               } else {
                 let result = {
-                  notDevice: 'It is not Mi Air Purifier S2'
+                  notDevice: 'It is not Mi Vacuum Cleaner v2'
                 }
                 pairingDevice.data.id = null
                 callback(null, result)
@@ -75,4 +71,4 @@ class MiAirPurifierS2 extends Homey.Driver {
   }
 }
 
-module.exports = MiAirPurifierS2;
+module.exports = MiVacuumCleanerV2;

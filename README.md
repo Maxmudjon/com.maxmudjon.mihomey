@@ -46,6 +46,11 @@ Added support for Mi Gateways child devices.
 * Yeelight Jiaoyue 650.
 * Mi Air Purifier S2.
 * Mi Vacuum Cleaner (gen 1).
+* Mi Vacuum Cleaner V2 (gen 2).
+* Philips Zhirui Smart LED Bulb E14 Candle Lamp.
+* Philips Zhirui Smart LED Bulb E14 Candle Lamp White Crystal.
+* Philips Downlight.
+* Philips Zhirui Bedside Lamp.
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -88,9 +93,13 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPowerStrip.png)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/CHINGMISmartPowerStrip.png)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightJiaoyue650.jpg)
-![](https://github.com/Maxmudjon/images/blob/master/MiAirPurifierS2.jpg)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiAirPurifierS2.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiVacuumCleaner(gen1).png)
-
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiVacuumCleaner(gen2).png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiE14Candle.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiE14CandleCrystal.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsDownlight.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiBedsideLamp.png)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -102,14 +111,19 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.3.6 (22.12.2018 - for HOMEY 2.0 TEST)
+### 0.3.6 (23.12.2018 - for HOMEY 2.0 TEST)
 1. fixed: app settings page.
 2. fixed: flow triggers.
 3. fixed: miio devices pair page.
 4. added support for Yeelight Jiaoyue 650.
 5. added support for Mi Air Purifier S2.
 6. added support for Mi Vacuum Cleaner (gen 1).
-7. minor fixes.
+7. added support for Mi Vacuum Cleaner V2 (gen 2).
+8. added support for Philips Zhirui Smart LED Bulb E14 Candle Lamp.
+9. added support for Philips Zhirui Smart LED Bulb E14 Candle Lamp White Crystal.
+10. added support for Philips Downlight.
+11. added support for Philips Zhirui Bedside Lamp.
+12. minor fixes.
 
 ### 0.3.5 (07.12.2018)
 1. added support for Mi LED Desk Lamp.

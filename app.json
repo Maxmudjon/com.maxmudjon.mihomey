@@ -657,7 +657,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
           }
         ]
       },
@@ -670,7 +670,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
           }
         ]
       },
@@ -683,7 +683,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
           }
         ]
       },
@@ -696,7 +696,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
           }
         ]
       }
@@ -753,7 +753,23 @@
             "filter": "driver_id=natgas_sensor"
           }
         ]
-      }
+      },
+      {
+				"id": "purifier_power",
+				"title": {
+          "en": "Power is !{{on|off}}"
+				},
+				"args": [
+					{
+						"name": "device",
+						"type": "device",
+						"placeholder": {
+							"en": "Select Purifier"
+						},
+						"filter": "driver_id=mi_air_purifier_ma2"
+					}
+				]
+			}
     ],
     "actions": [
       {
@@ -1508,7 +1524,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=philips_light_ceiling|philips_light_bulb"
+            "filter": "driver_id=philips_light_ceiling|philips_light_bulb|philips_light_candle|philips_light_candle2|philips_light_downlight|philips_light_moonlight"
           },
           {
             "type": "dropdown",
@@ -1614,6 +1630,92 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=yeelight_light_color1"
+          }
+        ]
+      },
+      {
+        "id": "purifier_on",
+        "title": {
+          "en": "Power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2"
+          }
+        ]
+      },
+      {
+        "id": "purifier_off",
+        "title": {
+          "en": "Power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2"
+          }
+        ]
+      },
+      {
+        "id": "purifier_mode",
+        "title": {
+          "en": "Set purifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent"
+                }
+              },
+              {
+                "id": "favorite",
+                "label": {
+                  "en": "Favorite"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "purifier_speed",
+        "title": {
+          "en": "Set purifier speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2"
+          },
+          {
+            "type": "range",
+            "name": "speed",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
           }
         ]
       }
@@ -6732,6 +6834,431 @@
       ]
     },
     {
+      "id": "philips_light_candle",
+      "name": {
+        "en": "Philips Candle Lamp"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [
+              "onoff"
+            ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [
+              "dim"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [
+              "light_temperature"
+            ]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips Candle Lamp"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_candle/assets/images/large.png",
+        "small": "/drivers/philips_light_candle/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "philips_light_candle2",
+      "name": {
+        "en": "Philips Candle Lamp Crystal"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [
+              "onoff"
+            ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [
+              "dim"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [
+              "light_temperature"
+            ]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips Candle Lamp Crystal"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_candle2/assets/images/large.png",
+        "small": "/drivers/philips_light_candle2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "philips_light_downlight",
+      "name": {
+        "en": "Philips Downlight"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [
+              "onoff"
+            ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [
+              "dim"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [
+              "light_temperature"
+            ]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips Downlight"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_downlight/assets/images/large.png",
+        "small": "/drivers/philips_light_downlight/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
+      "id": "philips_light_moonlight",
+      "name": {
+        "en": "Philips Bedside Lamp"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [
+              "onoff"
+            ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [
+              "dim"
+            ],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": [
+              "light_hue",
+              "light_saturation",
+              "light_temperature"
+            ]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips Bedside Lamp settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_moonlight/assets/images/large.png",
+        "small": "/drivers/philips_light_moonlight/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ]
+    },
+    {
       "id": "chuangmi_plug_m1",
       "name": {
         "en": "Mi Smart Plug WiFi"
@@ -7388,7 +7915,7 @@
       "name": {
         "en": "Mi Air Purifier S2"
       },
-      "class": "other",
+      "class": "sensor",
       "capabilities": [
         "onoff",
         "dim",
@@ -7616,6 +8143,207 @@
           "type": "group",
           "label": {
             "en": "Mi Vacuum Cleaner settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Vacuum life settings"
+          },
+          "children": [
+            {
+              "id": "alarm_threshold",
+              "type": "number",
+              "label": {
+                "en": "Alarm threshold"
+              },
+              "hint": {
+                "en": "Work time to (brush, filter) below which the alarm will be activated."
+              },
+              "value": 20,
+              "attr": {
+                "min": 1,
+                "max": 90
+              }
+            },
+            {
+              "id": "main_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Main brush work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "side_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Side brush work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "filter_work_time",
+              "type": "label",
+              "label": {
+                "en": "Filter work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "sensor_dirty_time",
+              "type": "label",
+              "label": {
+                "en": "Sensor dirty time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "total_work_time",
+              "type": "label",
+              "label": {
+                "en": "Total work time"
+              },
+              "value": "0"
+            },
+            {
+              "id": "total_cleared_area",
+              "type": "label",
+              "label": {
+                "en": "Total cleared area"
+              },
+              "value": "0"
+            },
+            {
+              "id": "total_clean_count",
+              "type": "label",
+              "label": {
+                "en": "Total clean count"
+              },
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_rockrobo_vacuum_v1/assets/images/large.png",
+        "small": "/drivers/mi_rockrobo_vacuum_v1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_rockrobo_vacuum_s5",
+      "name": {
+        "en": "Mi Vacuum Cleaner v2"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Clean"
+          }
+        },
+        "onoff.findme": {
+          "title": {
+            "en": "Find me"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": [
+              "onoff"
+            ]
+          },
+          {
+            "id": "toggle",
+            "capabilities": [
+              "onoff.findme"
+            ]
+          },
+          {
+            "id": "slider",
+            "capabilities": [
+              "dim"
+            ]
+          },
+          {
+            "id": "picker",
+            "capabilities": [
+              "vacuumcleaner_state"
+            ]
+          },
+          {
+            "id": "sensor",
+            "capabilities": [
+              "measure_battery"
+            ]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Vacuum Cleaner v2 settings"
           },
           "children": [
             {

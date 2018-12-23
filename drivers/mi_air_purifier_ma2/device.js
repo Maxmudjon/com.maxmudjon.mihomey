@@ -12,8 +12,17 @@ class MiAirPurifierS2 extends Homey.Device {
   }
 
   async initialize() {
+    this.registerActions()
     this.registerCapabilities()
     this.getPurifierStatus()
+  }
+
+  registerActions() {
+    const { actions } = this.driver
+    this.registerPurifierOnAction('purifier_on', actions.purifierOn)
+    this.registerPurifierOffAction('purifier_off', actions.purifierOff)
+    this.registerPurifierModeAction('purifier_mode', actions.purifierMode)
+    this.registerPurifierSpeedAction('purifier_speed', actions.purifierSpeed)
   }
 
   registerCapabilities() {
@@ -42,11 +51,11 @@ class MiAirPurifierS2 extends Homey.Device {
             that.setCapabilityValue('measure_luminance', parseInt(result[5]))
             that.setCapabilityValue('air_purifier_mode', result[6]);
             that.setCapabilityValue('dim', parseInt(that.favoriteLevel[result[7]] / 100))
-            that.setSettings({ filter1_life: parseInt(result[8]) })
-            that.setSettings({ purify_volume: parseInt(result[10]) })
-            that.setSettings({ led: parseInt(result[11]) })
-            that.setSettings({ buzzer: parseInt(result[12]) })
-            that.setSettings({ childLock: parseInt(result[13]) })
+            that.setSettings({ filter1_life: result[8] + '%' })
+            that.setSettings({ purify_volume: result[10] + ' m3' })
+            that.setSettings({ led: result[11] == 'on' ? true : false })
+            that.setSettings({ buzzer: result[12] == 'on' ? true : false })
+            that.setSettings({ childLock: result[13] == 'on' ? true : false })
           })
           .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
@@ -76,11 +85,11 @@ class MiAirPurifierS2 extends Homey.Device {
           that.setCapabilityValue('measure_luminance', parseInt(result[5]))
           that.setCapabilityValue('air_purifier_mode', result[6]);
           that.setCapabilityValue('dim', parseInt(that.favoriteLevel[result[7]] / 100))
-          that.setSettings({ filter1_life: parseInt(result[8]) })
-          that.setSettings({ purify_volume: parseInt(result[10]) })
-          that.setSettings({ led: parseInt(result[11]) })
-          that.setSettings({ buzzer: parseInt(result[12]) })
-          that.setSettings({ childLock: parseInt(result[13]) })
+          that.setSettings({ filter1_life: result[8] + '%' })
+          that.setSettings({ purify_volume: result[10] + ' m3' })
+          that.setSettings({ led: result[11] == 'on' ? true : false })
+          that.setSettings({ buzzer: result[12] == 'on' ? true : false })
+          that.setSettings({ childLock: result[13] == 'on' ? true : false })
         })
         .catch(error => {
           this.log("Sending commmand error: ", error);
@@ -160,6 +169,42 @@ class MiAirPurifierS2 extends Homey.Device {
       this.device.call('set_mode', [value])
         .then(() => this.log('Sending ' + name + ' commmand: ' + value))
         .catch(error => this.log("Sending commmand 'set_mode' error: ", error));
+    })
+  }
+
+  registerPurifierOnAction(name, action) {
+    var that = this;
+    action.purifierOn.registerRunListener(async (args, state) => {
+      that.device.call('set_power', ['on'])
+        .then(() => that.log("Set 'set_power': ", args))
+        .catch(error => that.log("Set 'set_power' error: ", error));
+    })
+  }
+
+  registerPurifierOffAction(name, action) {
+    var that = this;
+    action.action.registerRunListener(async (args, state) => {
+      that.device.call('set_power', ['off'])
+        .then(() => that.log("Set 'set_power': ", args))
+        .catch(error => that.log("Set 'set_power' error: ", error));
+    })
+  }
+
+  registerPurifierModeAction(name, action) {
+    var that = this;
+    action.action.registerRunListener(async (args, state) => {
+      that.device.call('set_mode', [args.modes])
+        .then(() => that.log("Set 'set_mode': ", args.modes))
+        .catch(error => that.log("Set 'set_mode' error: ", error));
+    })
+  }
+
+  registerPurifierSpeedAction(name, action) {
+    var that = this;
+    action.action.registerRunListener(async (args, state) => {
+      that.device.call('set_level_favorite', [that.getFavoriteLevel(args.range)])
+        .then(() => that.log("Set 'set_level_favorite': ", that.getFavoriteLevel(args.range)))
+        .catch(error => that.log("Set 'set_level_favorite' error: ", error));
     })
   }
 

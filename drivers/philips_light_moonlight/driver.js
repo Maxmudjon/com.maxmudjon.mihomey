@@ -5,20 +5,17 @@ const initFlowAction = (action) => ({
   action: new Homey.FlowCardAction(action).register()
 })
 
-class MiAirPurifierS2 extends Homey.Driver {
+class PhilipsBedsideLamp extends Homey.Driver {
 
   onInit() {
     this.actions = {
-      purifierOn: initFlowAction('purifier_on'),
-      purifierOff: initFlowAction('purifier_off'),
-      purifierMode: initFlowAction('purifier_mode'),
-      purifierSpeed: initFlowAction('purifier_speed')
+      philipsScenes: initFlowAction('philips_scenes')
     }
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = 'Mi Air Purifier S2';
+    pairingDevice.name = 'Philips Bedside Lamp';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -29,11 +26,11 @@ class MiAirPurifierS2 extends Homey.Driver {
           device.call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = 'MA:PM:A2:' + value.mac + ':MA:PM:A2';
-                device.call("get_prop", ["power"])
+                pairingDevice.data.id = 'PH:BS:' + value.mac + ':PH:BS';
+                device.call("get_prop", ["bright"])
                   .then(value => {
                     let result = {
-                      state: value[0]
+                      bright: value[0]
                     }
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -47,18 +44,18 @@ class MiAirPurifierS2 extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error))
+                  .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: 'It is not Mi Air Purifier S2'
+                  notDevice: 'It is not Philips Bedside Lamp'
                 }
                 pairingDevice.data.id = null
                 callback(null, result)
               }
             })
-            .catch(error => callback(null, error))
+            .catch(error => callback(null, error));
         })
-        .catch(error => {
+        .catch(function (error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, 'timeout')
           } if (error == "Error: Could not connect to device, token might be wrong") {
@@ -68,11 +65,10 @@ class MiAirPurifierS2 extends Homey.Driver {
           }
         });
     });
-
     socket.on('done', function (data, callback) {
       callback(null, pairingDevice);
     });
   }
 }
 
-module.exports = MiAirPurifierS2;
+module.exports = PhilipsBedsideLamp;
