@@ -29,76 +29,51 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
 
   getXiaomiStatus() {
     var that = this;
-    miio.device({
-      address: that.getSetting('deviceIP'),
-      token: that.getSetting('deviceToken')
-    }).then(device => {
-      if (!that.getAvailable()) {
-        that.setAvailable();
-      }
+    miio.device({ address: this.getSetting('deviceIP'), token: this.getSetting('deviceToken') })
+      .then(device => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
 
-      that.device = device;
+        this.device = device;
 
-      device.call("get_prop", ["power"]).then(result => {
-        that.setCapabilityValue('onoff', result[0] === '100' ? true : false)
-      }).catch(function(err) {
+        this.device.call('get_prop', ["power", "usb_on", "temperature", "wifi_led"])
+          .then(result => {
+            that.setCapabilityValue('onoff', result[0] == 'on' ? true : false)
+            that.setCapabilityValue('onoff.usb', result[1])
+            that.setCapabilityValue('measure_temperature', result[2])
+            that.setCapabilityValue('onoff.led', result[3] == 'on' ? true : false)
+          })
+          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+
+        let update = this.getSetting('updateTimer') || 60;
+        this.updateTimer(update);
+      }).catch(error => {
+        this.log(error);
+        this.setUnavailable(Homey.__('reconnecting'));
+        setTimeout(() => {
+          this.getXiaomiStatus();
+        }, 10000);
       });
-
-      device.call("get_prop", ["usb_on"]).then(result => {
-        that.setCapabilityValue('onoff.usb', result[0])
-      }).catch(function(err) {
-      });
-
-      device.call("get_prop", ["temperature"]).then(result => {
-        that.setCapabilityValue('measure_temperature', result[0])
-      }).catch(function(err) {
-      });
-
-      device.call("get_prop", ["wifi_led"]).then(result => {
-        that.setCapabilityValue('onoff.led', result[0] === 'on' ? true : false)
-      }).catch(function(err) {
-      });
-
-      var update = that.getSetting('updateTimer') || 60;
-      that.updateTimer(update);
-    }).catch((error) => {
-      that.log(error);
-      that.setUnavailable(Homey.__('reconnecting'));
-      setTimeout(() => {
-        that.getXiaomiStatus();
-      }, 10000);
-    });
   }
 
   updateTimer(interval) {
+    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
-      this.device.call("get_prop", ["power"]).then(result => {
-        this.setCapabilityValue('onoff', result[0] === '100' ? true : false)
-      }).catch(function(err) {
-      });
-
-      this.device.call("get_prop", ["usb_on"]).then(result => {
-        that.setCapabilityValue('onoff.usb', result[0])
-      }).catch(function(err) {
-      });
-
-
-      this.device.call("get_prop", ["temperature"]).then(result => {
-        that.setCapabilityValue('measure_temperature', result[0])
-      }).catch(function(err) {
-      });
-
-      this.device.call("get_prop", ["wifi_led"]).then(result => {
-        var that = this;
-        that.setCapabilityValue('onoff.led', result[0] === 'on' ? true : false)
-      }).catch(function(err) {
-      });
+      this.device.call('get_prop', ["power", "usb_on", "temperature", "wifi_led"])
+        .then(result => {
+          that.setCapabilityValue('onoff', result[0] == 'on' ? true : false)
+          that.setCapabilityValue('onoff.usb', result[1])
+          that.setCapabilityValue('measure_temperature', result[2])
+          that.setCapabilityValue('onoff.led', result[3] == 'on' ? true : false)
+        })
+        .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
     }, 1000 * interval);
   }
 
-  onSettings (oldSettings, newSettings, changedKeys, callback) {
+  onSettings(oldSettings, newSettings, changedKeys, callback) {
     if (changedKeys.includes('updateTimer') || changedKeys.includes('deviceIP') || changedKeys.includes('deviceToken')) {
       this.getXiaomiStatus();
       callback(null, true)
@@ -107,34 +82,25 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
 
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
-      var that = this;
-      that.device.call('set_power', [value ? 'on' : 'off']).then(result => {
-        that.log('Sending ' + name + ' commmand: ' + value);
-      }).catch(function(error) {
-        that.log("Sending commmand error: ", error);
-      });
+      this.device.call('set_power', [value ? 'on' : 'off'])
+        .then(() => this.log('Sending ' + name + ' commmand: ' + value))
+        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
     })
   }
 
   registerUSBOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
-      var that = this;
-      that.device.call(value ? 'set_usb_on' : 'set_usb_off', []).then(result => {
-        that.log('Sending ' + name + ' commmand: ' + value);
-      }).catch(function(error) {
-        that.log("Sending commmand error: ", error);
-      });
+      this.device.call(value ? 'set_usb_on' : 'set_usb_off', [])
+        .then(() => this.log('Sending ' + name + ' commmand: ' + value))
+        .catch(error => this.log("Sending commmand 'set_usb_on' error: ", error));
     })
   }
 
   registerLedOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
-      var that = this;
-      that.device.call('set_wifi_led', [ value ? 'on' : 'off' ]).then(result => {
-        that.log('Sending ' + name + ' commmand: ' + value);
-      }).catch(function(error) {
-        that.log("Sending commmand error: ", error);
-      });
+      this.device.call('set_wifi_led', [value ? 'on' : 'off'])
+        .then(() => this.log('Sending ' + name + ' commmand: ' + value))
+        .catch(error => this.log("Sending commmand 'set_wifi_led' error: ", error));
     })
   }
 
@@ -145,7 +111,9 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
   onDeleted() {
     this.log('Device deleted deleted')
     clearInterval(this.updateInterval);
-    this.device.destroy();
+    if (typeof this.device !== "undefined") {
+      this.device.destroy();
+    }
   }
 }
 

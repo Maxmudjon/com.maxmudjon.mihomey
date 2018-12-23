@@ -19,7 +19,6 @@ class PhilipsLightBulb extends Homey.Device {
   }
 
   registerCapabilities() {
-    const { triggers } = this.driver
     this.registerOnOffButton('onoff')
     this.registerBrightnessLevel('dim')
     this.registerLightTemperatureLevel('light_temperature')
@@ -32,67 +31,50 @@ class PhilipsLightBulb extends Homey.Device {
 
   getPhilipsStatus() {
     var that = this;
-    miio.device({
-      address: that.getSetting('deviceIP'),
-      token: that.getSetting('deviceToken')
-    }).then(device => {
-      if (!that.getAvailable()) {
-        that.setAvailable();
-      }
+    miio.device({ address: this.getSetting('deviceIP'), token: this.getSetting('deviceToken') })
+      .then(device => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
 
-      that.device = device;
+        this.device = device;
 
-      device.call("get_prop", ["power"]).then(result => {
-        that.setCapabilityValue('onoff', result[0] === 'on' ? true : false)
-      }).catch(function(err) {
+        this.device.call("get_prop", ["power", "bright", "cct"])
+          .then(result => {
+            that.setCapabilityValue('onoff', result[0] === 'on' ? true : false)
+            that.setCapabilityValue('dim', result[1] / 100)
+            that.brightness = result[1] / 100
+            that.colorTemperature = result[2] / 100;
+          })
+          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+
+        if (this.colorTemperature != undefined && this.colorTemperature != null) {
+          this.setCapabilityValue('light_temperature', this.colorTemperature)
+        }
+
+        var update = this.getSetting('updateTimer') || 60;
+        this.updateTimer(update);
+      }).catch(error => {
+        this.log(error);
+        this.setUnavailable(Homey.__('reconnecting'));
+        setTimeout(() => {
+          this.getPhilipsStatus();
+        }, 10000);
       });
-
-      device.call("get_prop", ["bright"]).then(result => {
-        that.setCapabilityValue('dim', result[0] / 100)
-        that.brightness = result[0] / 100
-      }).catch(function(err) {
-      });
-
-      this.device.call("get_prop", ["cct"]).then(result => {
-        var that = this;
-        that.colorTemperature = result[0] / 100;
-      }).catch(function(err) {
-      });
-
-      if (this.colorTemperature != undefined && this.colorTemperature != null) {
-        this.setCapabilityValue('light_temperature', this.colorTemperature)
-      }
-
-      var update = that.getSetting('updateTimer') || 60;
-      that.updateTimer(update);
-    }).catch((error) => {
-      that.log(error);
-      that.setUnavailable(Homey.__('reconnecting'));
-      setTimeout(() => {
-        that.getPhilipsStatus();
-      }, 10000);
-    });
   }
 
   updateTimer(interval) {
+    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
-      this.device.call("get_prop", ["power"]).then(result => {
-        this.setCapabilityValue('onoff', result[0] === 'on' ? true : false)
-      }).catch(function(err) {
-      });
-
-      this.device.call("get_prop", ["bright"]).then(result => {
-        this.setCapabilityValue('dim', result[0] / 100)
-        this.brightness = result[0] / 100
-      }).catch(function(err) {
-      });
-
-      this.device.call("get_prop", ["cct"]).then(result => {
-        var that = this;
-        that.colorTemperature = result[0] / 100;
-      }).catch(function(err) {
-      });
+      this.device.call("get_prop", ["power", "bright", "cct"])
+        .then(result => {
+          that.setCapabilityValue('onoff', result[0] === 'on' ? true : false)
+          that.setCapabilityValue('dim', result[1] / 100)
+          that.brightness = result[1] / 100
+          that.colorTemperature = result[2] / 100;
+        })
+        .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
       if (this.colorTemperature != undefined && this.colorTemperature != null) {
         this.setCapabilityValue('light_temperature', this.colorTemperature)
@@ -101,7 +83,7 @@ class PhilipsLightBulb extends Homey.Device {
     }, 1000 * interval);
   }
 
-  onSettings (oldSettings, newSettings, changedKeys, callback) {
+  onSettings(oldSettings, newSettings, changedKeys, callback) {
     if (changedKeys.includes('updateTimer') || changedKeys.includes('deviceIP') || changedKeys.includes('deviceToken')) {
       this.getPhilipsStatus();
       callback(null, true)
@@ -110,37 +92,28 @@ class PhilipsLightBulb extends Homey.Device {
 
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
-      var that = this;
-      that.device.call('set_power', [ value ? 'on' : 'off' ]).then(result => {
-        that.log('Sending ' + name + ' commmand: ' + value);
-      }).catch(function(error) {
-        that.log("Sending commmand error: ", error);
-      });
+      this.device.call('set_power', [value ? 'on' : 'off'])
+        .then(() => this.log('Sending ' + name + ' commmand: ' + value))
+        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
     })
   }
 
   registerBrightnessLevel(name) {
     this.registerCapabilityListener(name, async (value) => {
-      var that = this;
       if (value * 100 > 0) {
-        that.device.call('set_bright', [ value * 100 ]).then(result => {
-          that.log('Sending ' + name + ' commmand: ' + value);
-        }).catch(function(error) {
-          that.log("Sending commmand error: ", error);
-        });
+        this.device.call('set_bright', [value * 100])
+          .then(() => this.log('Sending ' + name + ' commmand: ' + value))
+          .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
       }
     })
   }
 
   registerLightTemperatureLevel(name) {
     this.registerCapabilityListener(name, async (value) => {
-      var that = this;
-      let color_temp = that.denormalize(value, 3000, 5700);
-      that.device.call('set_cct', [ color_temp ]).then(result => {
-        that.log('Sending ' + name + ' commmand: ' + color_temp);
-      }).catch(function(error) {
-        that.log("Sending commmand error: ", error);
-      });
+      let color_temp = this.denormalize(value, 3000, 5700);
+      this.device.call('set_cct', [color_temp])
+        .then(() => this.log('Sending ' + name + ' commmand: ' + value))
+        .catch(error => this.log("Sending commmand 'set_cct' error: ", error));
     })
   }
 
@@ -151,12 +124,9 @@ class PhilipsLightBulb extends Homey.Device {
 
   registerPhilipsScenesAction(name, action) {
     action.action.registerRunListener(async (args, state) => {
-      var that = this;
-      that.device.call('apply_fixed_scene', [args.scene]).then(result => {
-        that.log('Set scene: ', args.scene);
-      }).catch(function(error) {
-        that.log("Set flow error: ", error);
-      });
+      this.device.call('apply_fixed_scene', [args.scene])
+        .then(() => this.log('Set scene: ', args.scene))
+        .catch(error => this.log("Set flow error: ", error));
     })
   }
 
@@ -167,7 +137,9 @@ class PhilipsLightBulb extends Homey.Device {
   onDeleted() {
     this.log('Device deleted deleted')
     clearInterval(this.updateInterval);
-    this.device.destroy();
+    if (typeof this.device !== "undefined") {
+      this.device.destroy();
+    }
   }
 }
 

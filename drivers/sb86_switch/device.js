@@ -81,10 +81,11 @@ class DoubleButton86Switch extends Homey.Device {
     if (!trigger) {
       return
     }
-    if(value) {
-      trigger.trigger( this, {}, true )
-    }
 
+    if (value) {
+      trigger.trigger(this, {}, value)
+    }
+    
     this.log('trigger:', name, value)
 
     switch(name) {

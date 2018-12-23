@@ -21,9 +21,9 @@ class ButtonSwitch extends Homey.Device {
   handleStateChange(device) {
     const { triggers } = this.driver;
     if (device['data']['voltage']) {
-      var battery = (device['data']['voltage']-2800)/5
+      var battery = (device['data']['voltage'] - 2800) / 5
       var lowBattery
-      if(battery > 20) {
+      if (battery > 20) {
         lowBattery = false
       } else {
         lowBattery = true
@@ -54,7 +54,7 @@ class ButtonSwitch extends Homey.Device {
         }
       })
     }
-    
+
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: 'lumi.sensor_' + device.model,
@@ -89,16 +89,17 @@ class ButtonSwitch extends Homey.Device {
     if (!trigger) {
       return
     }
-    if(value) {
-      trigger.trigger( this, {}, true )
+
+    if (value) {
+      trigger.trigger(this, {}, value)
     }
 
     this.log('trigger:', name, value)
 
-    switch(name) {
+    switch (name) {
       case 'click_button_switch':
-      case 'double_click_click_button_switch': 
-      case 'long_click_press_click_button_switch':   
+      case 'double_click_click_button_switch':
+      case 'long_click_press_click_button_switch':
     }
   }
 
