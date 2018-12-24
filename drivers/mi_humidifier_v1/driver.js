@@ -5,27 +5,19 @@ const initFlowAction = (action) => ({
   action: new Homey.FlowCardAction(action).register()
 })
 
-const initFlowCondition = (name) => (
-  new Homey.FlowCardCondition(name).register()
-)
-
-class MiAirPurifierS2 extends Homey.Driver {
+class MiHumidifierV1 extends Homey.Driver {
 
   onInit() {
     this.actions = {
-      purifierOn: initFlowAction('purifier_on'),
-      purifierOff: initFlowAction('purifier_off'),
-      purifierMode: initFlowAction('purifier_mode'),
-      purifierSpeed: initFlowAction('purifier_speed')
-    }
-    this.conditions = {
-      purifier_power: initFlowCondition('purifier_power')
+      humidifierOn: initFlowAction('humidifier_on'),
+      humidifierOff: initFlowAction('humidifier_off'),
+      humidifierMode: initFlowAction('humidifier_mode')
     }
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = 'Mi Air Purifier S2';
+    pairingDevice.name = 'Mi Humidifier V1';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -36,7 +28,7 @@ class MiAirPurifierS2 extends Homey.Driver {
           device.call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = 'MA:PM:A2:' + value.mac + ':MA:PM:A2';
+                pairingDevice.data.id = 'MH:V1:' + value.mac + ':MH:V1';
                 device.call("get_prop", ["power"])
                   .then(value => {
                     let result = {
@@ -57,7 +49,7 @@ class MiAirPurifierS2 extends Homey.Driver {
                   .catch(error => callback(null, error))
               } else {
                 let result = {
-                  notDevice: 'It is not Mi Air Purifier S2'
+                  notDevice: 'It is not Mi Humidifier V1'
                 }
                 pairingDevice.data.id = null
                 callback(null, result)
@@ -82,4 +74,4 @@ class MiAirPurifierS2 extends Homey.Driver {
   }
 }
 
-module.exports = MiAirPurifierS2;
+module.exports = MiHumidifierV1;

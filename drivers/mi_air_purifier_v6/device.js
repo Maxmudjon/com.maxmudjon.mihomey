@@ -1,7 +1,7 @@
 const Homey = require('homey')
 const miio = require('miio')
 
-class MiAirPurifierS2 extends Homey.Device {
+class MiAirPurifierPro extends Homey.Device {
   async onInit() {
     this.initialize = this.initialize.bind(this)
     this.driver = this.getDriver()
@@ -14,7 +14,6 @@ class MiAirPurifierS2 extends Homey.Device {
   async initialize() {
     this.registerActions()
     this.registerCapabilities()
-    this.registerConditions()
     this.getPurifierStatus()
   }
 
@@ -32,11 +31,6 @@ class MiAirPurifierS2 extends Homey.Device {
     this.registerAirPurifierMode('air_purifier_mode')
   }
 
-  registerConditions() {
-    const { conditions } = this.driver
-    this.registerCondition('onoff', conditions.purifier_power)
-  }
-
   getPurifierStatus() {
     var that = this;
     miio.device({ address: this.getSetting('deviceIP'), token: this.getSetting('deviceToken') })
@@ -48,7 +42,7 @@ class MiAirPurifierS2 extends Homey.Device {
         this.device = device;
 
         this.device.call("get_prop", ["power", "aqi", "average_aqi", "humidity", "temp_dec", "bright", "mode",
-          "favorite_level", "filter1_life", "use_time", "purify_volume", "led", "buzzer", "child_lock"])
+          "favorite_level", "filter1_life", "use_time", "purify_volume", "led", "volume", "child_lock"])
           .then(result => {
             that.setCapabilityValue('onoff', result[0] === 'on' ? true : false)
             that.setCapabilityValue('measure_pm25', parseInt(result[1]))
@@ -60,7 +54,7 @@ class MiAirPurifierS2 extends Homey.Device {
             that.setSettings({ filter1_life: result[8] + '%' })
             that.setSettings({ purify_volume: result[10] + ' m3' })
             that.setSettings({ led: result[11] == 'on' ? true : false })
-            that.setSettings({ buzzer: result[12] == 'on' ? true : false })
+            that.setSettings({ volume: result[12] >= 1 ? true : false })
             that.setSettings({ childLock: result[13] == 'on' ? true : false })
           })
           .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
@@ -82,7 +76,7 @@ class MiAirPurifierS2 extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device.call("get_prop", ["power", "aqi", "average_aqi", "humidity", "temp_dec", "bright", "mode",
-        "favorite_level", "filter1_life", "use_time", "purify_volume", "led", "buzzer", "child_lock"])
+        "favorite_level", "filter1_life", "use_time", "purify_volume", "led", "volume", "child_lock"])
         .then(result => {
           that.setCapabilityValue('onoff', result[0] === 'on' ? true : false)
           that.setCapabilityValue('measure_pm25', parseInt(result[1]))
@@ -94,7 +88,7 @@ class MiAirPurifierS2 extends Homey.Device {
           that.setSettings({ filter1_life: result[8] + '%' })
           that.setSettings({ purify_volume: result[10] + ' m3' })
           that.setSettings({ led: result[11] == 'on' ? true : false })
-          that.setSettings({ buzzer: result[12] == 'on' ? true : false })
+          that.setSettings({ volume: result[12] >= 1 ? true : false })
           that.setSettings({ childLock: result[13] == 'on' ? true : false })
         })
         .catch(error => {
@@ -126,14 +120,14 @@ class MiAirPurifierS2 extends Homey.Device {
         });
     }
 
-    if (changedKeys.includes('buzzer')) {
-      this.device.call('set_buzzer', [newSettings.buzzer ? "on" : "off"])
+    if (changedKeys.includes('volume')) {
+      this.device.call('set_volume', [newSettings.volume ? 100 : 0])
         .then(() => {
           this.log('Sending ' + name + ' commmand: ' + value)
           callback(null, true)
         })
         .catch(error => {
-          this.log("Sending commmand 'set_buzzer' error: ", error)
+          this.log("Sending commmand 'set_volume' error: ", error)
           callback(error, false)
         });
     }
@@ -214,12 +208,6 @@ class MiAirPurifierS2 extends Homey.Device {
     })
   }
 
-  registerCondition(name, condition) {
-    condition.registerRunListener((args, state, callback) => {
-      callback(null, this.getCapabilityValue(name))
-    })
-  }
-
   getFavoriteLevel(speed) {
     for (var i = 1; i < this.favoriteLevel.length; i++) {
       if (speed > this.favoriteLevel[i - 1] && speed <= this.favoriteLevel[i]) {
@@ -243,4 +231,4 @@ class MiAirPurifierS2 extends Homey.Device {
   }
 }
 
-module.exports = MiAirPurifierS2
+module.exports = MiAirPurifierPro

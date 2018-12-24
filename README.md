@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.6 for Homey 2.0 - Supported devices:
+## Version 0.3.7 - Supported devices:
 * Double Button Wirelles Remote Switch (DuplexButton86).
 * Motion Sensor 1 version (MotionSensor).
 * Leak Sensor (WaterDetector).
@@ -51,6 +51,9 @@ Added support for Mi Gateways child devices.
 * Philips Zhirui Smart LED Bulb E14 Candle Lamp White Crystal.
 * Philips Downlight.
 * Philips Zhirui Bedside Lamp.
+* Mi Air Purifier Pro.
+* Mi Humidifier V1.
+* Mi Humidifier V2.
 *
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -100,6 +103,9 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiE14CandleCrystal.png)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsDownlight.png)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiBedsideLamp.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiAirPurifierPro.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV2.png)
+![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Add devices
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
@@ -111,7 +117,14 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.3.6 (23.12.2018 - for HOMEY 2.0 TEST)
+### 0.3.7 (24.12.2018)
+1. added support for Mi Air Purifier Pro.
+2. added support for Mi Humidifier V1.
+3. added support for Mi Humidifier V2.
+4. fixed: Yeelight set flows.
+5. minor fixes.
+
+### 0.3.6 (23.12.2018)
 1. fixed: app settings page.
 2. fixed: flow triggers.
 3. fixed: miio devices pair page.

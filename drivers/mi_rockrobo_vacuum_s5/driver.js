@@ -8,7 +8,8 @@ class MiVacuumCleanerV2 extends Homey.Driver {
       main_brush: new Homey.FlowCardTriggerDevice('main_brush_work_time').register(),
       side_brush: new Homey.FlowCardTriggerDevice('side_brush_work_time').register(),
       filter: new Homey.FlowCardTriggerDevice('filter_work_time').register(),
-      sensor: new Homey.FlowCardTriggerDevice('sensor_dirty_time').register()
+      sensor: new Homey.FlowCardTriggerDevice('sensor_dirty_time').register(),
+      vacuumState: new Homey.FlowCardTriggerDevice('vacuumState').register()
     }
   }
 

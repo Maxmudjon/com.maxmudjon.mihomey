@@ -81,6 +81,8 @@ class MiVacuumCleaner extends Homey.Device {
             that.setCapabilityValue('dim', parseInt(result[0]['fan_power']));
             that.setCapabilityValue('measure_battery', parseInt(result[0]['battery']));
             that.setCapabilityValue('alarm_battery', parseInt(result[0]['battery']) <= 20 ? true : false);
+            let tokens = { 'state': that.vacuumStates[result[0]['state']] }
+            that.triggerFlow(triggers.vacuumState, 'vacuumState', tokens)
 
             if (result[0]['state'] == 5) {
               that.setCapabilityValue('vacuumcleaner_state', 'cleaning');
@@ -159,6 +161,8 @@ class MiVacuumCleaner extends Homey.Device {
           that.setCapabilityValue('dim', parseInt(result[0]['fan_power']));
           that.setCapabilityValue('measure_battery', parseInt(result[0]['battery']));
           that.setCapabilityValue('alarm_battery', parseInt(result[0]['battery']) === 20 ? true : false);
+          let tokens = { 'state': that.vacuumStates[result[0]['state']] }
+          that.triggerFlow(triggers.vacuumState, 'vacuumState', tokens)
 
           if (result[0]['state'] == 5) {
             that.setCapabilityValue('vacuumcleaner_state', 'cleaning');
@@ -349,6 +353,7 @@ class MiVacuumCleaner extends Homey.Device {
       case 'side_brush_work_time':
       case 'filter_work_time':
       case 'sensor_dirty_time':
+      case 'vacuumState':
     }
   }
 
