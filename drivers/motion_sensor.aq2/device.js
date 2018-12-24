@@ -19,7 +19,7 @@ class MiMotionSensor extends Homey.Device {
   }
 
   handleStateChange(device) {
-    if(device['data']['no_motion']) {
+    if (device['data']['no_motion']) {
       // 120
       // 180
       // 300
@@ -28,12 +28,12 @@ class MiMotionSensor extends Homey.Device {
       this.log("NO MOTION: ", device.data.no_motion)
     }
     if (device['data']['voltage']) {
-      var battery = (device['data']['voltage']-2800)/5
+      var battery = (device['data']['voltage'] - 2800) / 5
       if (battery == 160) {
         battery = 100
       }
       var lowBattery
-      if(battery > 20) {
+      if (battery > 20) {
         lowBattery = false
       } else {
         lowBattery = true
@@ -42,16 +42,14 @@ class MiMotionSensor extends Homey.Device {
       this.updateCapabilityValue('alarm_battery', lowBattery)
     }
 
-    var settings = this.getSettings();
-
     if (device['data']['status'] == 'motion') {
-      this.updateCapabilityValue('alarm_motion', true)
+      this.updateCapabilityValue('alarm_motion', true, null)
       if (this.timeout) {
         clearTimeout(this.timeout)
       }
       this.timeout = setTimeout(() => {
-        this.updateCapabilityValue('alarm_motion', false);
-      }, settings.alarm_duration_number * 1000)
+        this.updateCapabilityValue('alarm_motion', false, null);
+      }, this.getSetting('alarm_duration_number') * 1000)
     }
 
     if (device['data']['lux']) {
@@ -68,7 +66,7 @@ class MiMotionSensor extends Homey.Device {
         }
       })
     }
-    
+
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: 'lumi.' + device.model,
@@ -106,7 +104,7 @@ class MiMotionSensor extends Homey.Device {
 
     this.log('trigger:', name, value)
 
-    switch(name) {
+    switch (name) {
       case 'alarm_motion':
     }
   }
