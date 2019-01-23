@@ -29,17 +29,11 @@ class MiMotionSensor extends Homey.Device {
     }
     if (device['data']['voltage']) {
       var battery = (device['data']['voltage'] - 2800) / 5
-      if (battery == 160) {
+      if (battery > 100) {
         battery = 100
       }
-      var lowBattery
-      if (battery > 20) {
-        lowBattery = false
-      } else {
-        lowBattery = true
-      }
       this.updateCapabilityValue('measure_battery', battery);
-      this.updateCapabilityValue('alarm_battery', lowBattery)
+      this.updateCapabilityValue('alarm_battery', battery <= 20 ? true : false)
     }
 
     if (device['data']['status'] == 'motion') {

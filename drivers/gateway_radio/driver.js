@@ -28,6 +28,7 @@ class GatewayRadio extends Homey.Driver {
     pairingDevice.name = 'Xiaomi Gateway 3 Radio';
     pairingDevice.settings = {};
     pairingDevice.data = {};
+    pairingDevice.capabilities = [];
 
     socket.on('connect', function (data, callback) {
       this.data = data;
@@ -41,6 +42,19 @@ class GatewayRadio extends Homey.Driver {
                   .then(value => {
                     let result = {
                       volume: value.current_volume
+                    }
+
+                    if (Homey.version.replace(/\W/g, '') === '200') {
+                      pairingDevice.capabilities.push('speaker_playing')
+                      pairingDevice.capabilities.push('speaker_prev')
+                      pairingDevice.capabilities.push('speaker_next')
+                      pairingDevice.capabilities.push('volume_set')
+                      pairingDevice.capabilities.push('speaker_track')
+                    } else {
+                      pairingDevice.capabilities.push('speaker_playing')
+                      pairingDevice.capabilities.push('speaker_prev')
+                      pairingDevice.capabilities.push('speaker_next')
+                      pairingDevice.capabilities.push('volume_set')
                     }
                     pairingDevice.settings.gatewayIP = this.data.ip;
                     pairingDevice.settings.gatewayToken = this.data.token;

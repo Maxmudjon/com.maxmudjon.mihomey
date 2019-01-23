@@ -22,6 +22,7 @@ class MiSmartPlugWiFi extends Homey.Device {
 
   getXiaomiStatus() {
     var that = this;
+    that.device = null;
     miio.device({ address: this.getSetting('deviceIP'), token: this.getSetting('deviceToken') })
       .then(device => {
         if (!this.getAvailable()) {
@@ -60,7 +61,15 @@ class MiSmartPlugWiFi extends Homey.Device {
           that.setCapabilityValue('measure_temperature', result[1]);
           that.setCapabilityValue('onoff.led', result[2] === 'on' ? true : false);
         })
-        .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+        .catch(error => {
+          that.log("Sending commmand 'get_prop' error: ", error);
+          clearInterval(that.updateInterval);
+          that.setUnavailable(Homey.__('reconnecting'));
+          setTimeout(() => {
+            that.device = null;
+            that.getXiaomiStatus();
+          }, 1000 * interval);
+        });
 
     }, 1000 * interval);
   }

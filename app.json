@@ -3801,11 +3801,11 @@
                 "en": "Disable after"
               },
               "hint": {
-                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 5 seconds, you can set from 5 to 86400 seconds."
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
               },
-              "value": 5,
+              "value": 60,
               "attr": {
-                "min": 5,
+                "min": 60,
                 "max": 86400
               }
             }
@@ -5332,13 +5332,7 @@
         "en": "Xiaomi Gateway 3 Radio"
       },
       "class": "speaker",
-      "capabilities": [
-        "speaker_playing",
-        "speaker_prev",
-        "speaker_next",
-        "speaker_track",
-        "volume_set"
-      ],
+      "capabilities": [],
       "capabilitiesOptions": {
         "speaker_playing": {
           "title": {

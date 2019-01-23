@@ -10,7 +10,7 @@
 
 <body>
 	<h1 data-i18n="settings.title"></h1>
-	<div id="gateways">
+	<div id="gatewaysListApp">
 		<div class="bg-info text-white" id="status">
 			<div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div>
 		</div>
@@ -25,7 +25,7 @@
 		function onHomeyReady(Homey) {
 			Homey.ready();
 			new Vue({
-				el: '#gateways',
+				el: '#gatewaysListApp',
 				mounted: function () {
 					this.init()
 				},
@@ -37,7 +37,7 @@
 								props: ['todo'],
 								data() {
 									return {
-										isEditing: false,
+										isEditing: false
 									};
 								},
 								methods: {
@@ -52,7 +52,7 @@
 										let alert = document.getElementById(`status`)
 										var alertTitle = document.getElementsByClassName(`statusAlertShow`)
 
-										Homey.set('gatewaysList', this.gateways, function (error, settings) {
+										Homey.set('gatewaysList', this.$root.gateways, function (error, settings) {
 											if (error) {
 												alert.classList.remove('bg-info')
 												alert.classList.add('bg-danger')

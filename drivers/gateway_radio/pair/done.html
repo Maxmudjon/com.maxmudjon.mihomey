@@ -23,6 +23,27 @@
 
       Homey.done();
     })
+
+    Homey.createDevice({
+      name: 'My Device',
+
+      // the data object should contain only unique properties for the device. So a MAC address is good, an IP address is bad (can change over time)
+      data: {
+        id: result.data.id + '11',
+      },
+
+      // initial device settings that can be changed afterwards
+      settings: result.settings,
+
+      capabilities: result.capabilities,
+
+      // the store is dynamic and persistent storage for your device
+      store: {},
+
+    }, function (err, result) {
+      if (err) return Homey.alert(err);
+      Homey.done();
+    });
   });
 </script>
 <div>

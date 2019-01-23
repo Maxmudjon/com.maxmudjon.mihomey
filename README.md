@@ -117,7 +117,7 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
-### 0.3.7 (24.12.2018)
+### 0.3.7 (23.01.2019)
 1. added support for Mi Air Purifier Pro.
 2. added support for Mi Humidifier V1.
 3. added support for Mi Humidifier V2.
