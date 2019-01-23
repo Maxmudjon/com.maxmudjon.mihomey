@@ -1,112 +1,156 @@
-const Homey = require('homey')
-const miio = require('miio')
+const Homey = require("homey");
+const miio = require("miio");
 
 class GatewaySecurity extends Homey.Device {
   async onInit() {
-    this.initialize = this.initialize.bind(this)
-    this.driver = this.getDriver()
-    this.data = this.getData()
-    this.initialize()
-    this.log('Mi Homey device init | ' + 'name: ' + this.getName() + ' - ' + 'class: ' + this.getClass() + ' - ' + 'data: ' + JSON.stringify(this.data));
+    this.initialize = this.initialize.bind(this);
+    this.driver = this.getDriver();
+    this.data = this.getData();
+    this.update = this.getSetting("updateTimer") || 60;
+    this.updateInterval;
+    this.initialize();
+    this.log(
+      "Mi Homey device init | " +
+        "name: " +
+        this.getName() +
+        " - " +
+        "class: " +
+        this.getClass() +
+        " - " +
+        "data: " +
+        JSON.stringify(this.data)
+    );
   }
 
   async initialize() {
-    this.registerCapabilities()
-    this.getSecurityStatus()
+    this.registerCapabilities();
+    this.getSecurityStatus(this.update);
   }
 
   registerCapabilities() {
-    this.registerHomeAlarmSecurity('homealarm_state')
+    this.registerHomeAlarmSecurity("homealarm_state");
   }
 
-  getSecurityStatus() {
-    miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
-      .then(device => {
-        if (!this.getAvailable()) {
-          this.setAvailable();
-        }
-
-        this.device = device;
-
-        this.device.call('get_arming', [])
-          .then(result => {
-            if (result[0] == 'on') {
-              this.setCapabilityValue('homealarm_state', 'armed');
-            } else if (result[0] == 'off') {
-              this.setCapabilityValue('homealarm_state', 'disarmed');
-            }
-          })
-          .catch(error => this.log("Sending commmand 'get_arming' error: ", error));
-
-        var update = this.getSetting('updateTimer') || 60;
-        this.updateTimer(update);
-      })
-      .catch(error => {
-        this.log(error);
-        this.setUnavailable(Homey.__('reconnecting'));
-        setTimeout(() => {
-          this.getSecurityStatus();
-        }, 10000);
-      });
-  }
-
-  updateTimer(interval) {
+  async getSecurityStatus(update) {
     clearInterval(this.updateInterval);
-    this.updateInterval = setInterval(() => {
-      this.device.call('get_arming', [])
-        .then(result => {
-          if (result[0] == 'on') {
-            this.setCapabilityValue('homealarm_state', 'armed');
-          } else if (result[0] == 'off') {
-            this.setCapabilityValue('homealarm_state', 'disarmed');
-          }
-        })
-        .catch(error => {
-          this.log("Sending commmand error: ", error);
-          clearInterval(this.updateInterval);
-          this.setUnavailable(Homey.__('unreachable'));
-          setTimeout(() => {
-            this.getSecurityStatus();
-          }, 1000 * interval);
-        });
-    }, 1000 * interval);
+    this.updateInterval = setInterval(async () => {
+      var that = this;
+      try {
+        await miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
+          .then(device => {
+            if (!this.getAvailable()) {
+              this.setAvailable();
+            }
+
+            this.setAvailable();
+
+            device
+              .call("get_arming", [])
+              .then(result => {
+                if (result[0] == "on") {
+                  this.setCapabilityValue("homealarm_state", "armed");
+                } else if (result[0] == "off") {
+                  this.setCapabilityValue("homealarm_state", "disarmed");
+                }
+                device.destroy();
+              })
+              .catch(error => {
+                that.log("Sending commmand 'get_arming' error: ", error);
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            if (
+              error == "Error: Could not connect to device, handshake timeout"
+            ) {
+              this.setUnavailable(
+                Homey.__("Could not connect to device, handshake timeout")
+              );
+              this.log("Error: Could not connect to device, handshake timeout");
+            } else if (
+              error ==
+              "Error: Could not connect to device, token might be wrong"
+            ) {
+              this.setUnavailable(
+                Homey.__("Could not connect to device, token might be wrong")
+              );
+              this.log(
+                "Error: Could not connect to device, token might be wrong"
+              );
+            }
+            if (typeof that.device !== "undefined") {
+              device.destroy();
+            }
+          });
+      } catch (error) {
+        this.log("Error ", error);
+      }
+    }, 1000 * update);
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (changedKeys.includes('updateTimer') || changedKeys.includes('gatewayIP') || changedKeys.includes('gatewayToken')) {
-      this.getSecurityStatus();
-      callback(null, true)
+    if (
+      changedKeys.includes("updateTimer") ||
+      changedKeys.includes("gatewayIP") ||
+      changedKeys.includes("gatewayToken")
+    ) {
+      this.getSecurityStatus(newSettings["updateTimer"]);
+      callback(null, true);
     }
   }
 
   registerHomeAlarmSecurity(name) {
-    this.registerCapabilityListener(name, async (value) => {
+    this.registerCapabilityListener(name, async value => {
       var state;
-      if (value == 'armed') {
-        state = 'on'
-      } else if (value == 'disarmed') {
-        state = 'off'
+      if (value == "armed") {
+        state = "on";
+      } else if (value == "disarmed") {
+        state = "off";
       } else {
-        state = 'off'
+        state = "off";
       }
 
-      this.device.call('set_arming', [state])
-        .then(() => this.log('Sending ' + name + ' commmand: ' + value))
-        .catch(error => this.log("Sending commmand error: ", error));
-    })
+      try {
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
+          .then(device => {
+            device
+              .call("set_arming", [state])
+              .then(() => {
+                this.log("Sending " + name + " commmand: " + state);
+                device.destroy();
+              })
+              .catch(error => {
+                this.log(
+                  "Sending commmand 'set_arming' " + state + " error: " + error
+                );
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            this.log("miio connect error: " + error);
+          });
+      } catch (error) {
+        this.log("catch error: " + error);
+      }
+    });
   }
 
   onAdded() {
-    this.log('Device added')
+    this.log("Device added");
   }
 
   onDeleted() {
-    this.log('Device deleted deleted')
+    this.log("Device deleted deleted");
     clearInterval(this.updateInterval);
-    if (typeof this.device !== "undefined") {
-      this.device.destroy();
-    }
   }
 }
 
-module.exports = GatewaySecurity
+module.exports = GatewaySecurity;

@@ -1,49 +1,59 @@
 <script>
-  Homey.setTitle('Adding device to Homey...');
-  Homey.emit('done', null, function (err, result) {
+  Homey.setTitle("Adding device to Homey...");
+  Homey.emit("done", null, function(err, result) {
     if (err) {
-      var alertTitle = document.getElementsByClassName(`statusAlertShowDuplicate`)
-      var alertErrorTitle = document.getElementsByClassName(`statusAlertShowError`)
-      alertTitle[0].innerHTML = 'Device already added';
+      var alertTitle = document.getElementsByClassName(
+        `statusAlertShowDuplicate`
+      );
+      var alertErrorTitle = document.getElementsByClassName(
+        `statusAlertShowError`
+      );
+      alertTitle[0].innerHTML = "Device already added";
       alertErrorTitle[0].innerHTML = err;
-      Homey.setTitle('Device already added');
+      Homey.setTitle("Device already added");
       Homey.setNavigationClose();
       return;
     }
     Homey.addDevice(result, (err, res) => {
       if (err) {
-        var alertTitle = document.getElementsByClassName(`statusAlertShowDuplicate`)
-        var alertErrorTitle = document.getElementsByClassName(`statusAlertShowError`)
-        alertTitle[0].innerHTML = 'Device already added';
+        var alertTitle = document.getElementsByClassName(
+          `statusAlertShowDuplicate`
+        );
+        var alertErrorTitle = document.getElementsByClassName(
+          `statusAlertShowError`
+        );
+        alertTitle[0].innerHTML = "Device already added";
         alertErrorTitle[0].innerHTML = err;
-        Homey.setTitle('Device already added');
+        Homey.setTitle("Device already added");
         Homey.setNavigationClose();
         return;
       }
 
       Homey.done();
-    })
-
-    Homey.createDevice({
-      name: 'My Device',
-
-      // the data object should contain only unique properties for the device. So a MAC address is good, an IP address is bad (can change over time)
-      data: {
-        id: result.data.id + '11',
-      },
-
-      // initial device settings that can be changed afterwards
-      settings: result.settings,
-
-      capabilities: result.capabilities,
-
-      // the store is dynamic and persistent storage for your device
-      store: {},
-
-    }, function (err, result) {
-      if (err) return Homey.alert(err);
-      Homey.done();
     });
+
+    Homey.createDevice(
+      {
+        name: "My Device",
+
+        // the data object should contain only unique properties for the device. So a MAC address is good, an IP address is bad (can change over time)
+        data: {
+          id: result.data.id + "11"
+        },
+
+        // initial device settings that can be changed afterwards
+        settings: result.settings,
+
+        capabilities: result.capabilities,
+
+        // the store is dynamic and persistent storage for your device
+        store: {}
+      },
+      function(err, result) {
+        if (err) return Homey.alert(err);
+        Homey.done();
+      }
+    );
   });
 </script>
 <div>

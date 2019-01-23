@@ -7,20 +7,12 @@
     "en": "Mi Homey"
   },
   "tags": {
-    "en": [
-      "mihomey",
-      "mi",
-      "Xiaomi",
-      "gateway",
-      "mi hub"
-    ]
+    "en": ["mihomey", "mi", "Xiaomi", "gateway", "mi hub"]
   },
   "description": {
     "en": "Adds support for Mi Gateways child devices and Mi WiFi devices"
   },
-  "category": [
-    "tools"
-  ],
+  "category": ["tools"],
   "brandColor": "#FF6700",
   "permissions": [],
   "images": {
@@ -2068,10 +2060,7 @@
         "en": "Aqara Wireless Double Switch"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -2079,18 +2068,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -2169,11 +2154,7 @@
         "en": "Mi Motion Sensor"
       },
       "class": "sensor",
-      "capabilities": [
-        "alarm_motion",
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["alarm_motion", "measure_battery", "alarm_battery"],
       "capabilitiesOptions": {
         "alarm_motion": {
           "title": {
@@ -2188,19 +2169,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_motion",
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_motion", "alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -2303,11 +2279,7 @@
         "en": "Aqara Water Sensor"
       },
       "class": "sensor",
-      "capabilities": [
-        "alarm_water",
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["alarm_water", "measure_battery", "alarm_battery"],
       "capabilitiesOptions": {
         "alarm_water": {
           "title": {
@@ -2322,19 +2294,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_water",
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_water", "alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -2414,11 +2381,7 @@
         "en": "Mi Smart Plug"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff",
-        "meter_power",
-        "measure_power"
-      ],
+      "capabilities": ["onoff", "meter_power", "measure_power"],
       "capabilitiesOptions": {
         "meter_power": {
           "title": {
@@ -2440,19 +2403,14 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "meter_power",
-              "measure_power"
-            ],
+            "capabilities": ["meter_power", "measure_power"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -2532,11 +2490,7 @@
         "en": "Mi Door and Window Sensor"
       },
       "class": "sensor",
-      "capabilities": [
-        "alarm_contact",
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["alarm_contact", "measure_battery", "alarm_battery"],
       "capabilitiesOptions": {
         "alarm_contact": {
           "title": {
@@ -2551,19 +2505,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_contact",
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_contact", "alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -2643,10 +2592,7 @@
         "en": "Mi Wireless Switch"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -2654,18 +2600,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -2769,9 +2711,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -2863,9 +2803,7 @@
         "en": "Aqara Wall Switch, With Neutral, Single Rocker"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff"
-      ],
+      "capabilities": ["onoff"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -2881,9 +2819,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
@@ -2959,10 +2895,7 @@
         "en": "Aqara Wireless Single Switch"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -2970,18 +2903,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3060,11 +2989,7 @@
         "en": "Aqara Wall Outlet"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff",
-        "meter_power",
-        "measure_power"
-      ],
+      "capabilities": ["onoff", "meter_power", "measure_power"],
       "capabilitiesOptions": {
         "meter_power": {
           "title": {
@@ -3089,19 +3014,14 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "meter_power",
-              "measure_power"
-            ],
+            "capabilities": ["meter_power", "measure_power"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3181,10 +3101,7 @@
         "en": "Aqara Wall Switch, With Neutral, Double Rocker"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff.1",
-        "onoff.2"
-      ],
+      "capabilities": ["onoff.1", "onoff.2"],
       "capabilitiesOptions": {
         "onoff.1": {
           "title": {
@@ -3206,18 +3123,14 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.1"
-            ],
+            "capabilities": ["onoff.1"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.2"
-            ],
+            "capabilities": ["onoff.2"],
             "options": {
               "showTitle": true
             }
@@ -3293,9 +3206,7 @@
         "en": "Aqara Wall Switch, No Neutral, Single Rocker"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff"
-      ],
+      "capabilities": ["onoff"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -3310,9 +3221,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
@@ -3388,10 +3297,7 @@
         "en": "Aqara Wall Switch, No Neutral, Double Rocker"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff.1",
-        "onoff.2"
-      ],
+      "capabilities": ["onoff.1", "onoff.2"],
       "capabilitiesOptions": {
         "onoff.1": {
           "title": {
@@ -3413,18 +3319,14 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.1"
-            ],
+            "capabilities": ["onoff.1"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.2"
-            ],
+            "capabilities": ["onoff.2"],
             "options": {
               "showTitle": true
             }
@@ -3531,9 +3433,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -3627,11 +3527,7 @@
         "en": "Aqara Door and Window Sensor"
       },
       "class": "sensor",
-      "capabilities": [
-        "alarm_contact",
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["alarm_contact", "measure_battery", "alarm_battery"],
       "capabilitiesOptions": {
         "alarm_contact": {
           "title": {
@@ -3646,19 +3542,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_contact",
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_contact", "alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3763,9 +3654,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -3879,10 +3768,7 @@
         "en": "Mi Cube"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -3890,18 +3776,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3980,11 +3862,7 @@
         "en": "Aqara Curtain Motor"
       },
       "class": "windowcoverings",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "windowcoverings_state"
-      ],
+      "capabilities": ["onoff", "dim", "windowcoverings_state"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -4002,27 +3880,21 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "ternary",
-            "capabilities": [
-              "windowcoverings_state"
-            ],
+            "capabilities": ["windowcoverings_state"],
             "options": {
               "icons": {
                 "top": "/drivers/curtain/assets/curtain_open_button.svg",
@@ -4107,10 +3979,7 @@
         "en": "Aqara Wireless Switch Button"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -4118,18 +3987,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -4242,31 +4107,22 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_hue",
-              "light_saturation"
-            ]
+            "capabilities": ["light_hue", "light_saturation"]
           },
           {
             "id": "button",
-            "capabilities": [
-              "button"
-            ]
+            "capabilities": ["button"]
           }
         ]
       },
@@ -4390,9 +4246,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -4527,9 +4381,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -4644,10 +4496,7 @@
         "en": "Aqara Wireless Double Switch (2018)"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -4655,18 +4504,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -4745,10 +4590,7 @@
         "en": "Aqara Wireless Switch Button (advanced)"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_battery",
-        "alarm_battery"
-      ],
+      "capabilities": ["measure_battery", "alarm_battery"],
       "mobile": {
         "components": [
           {
@@ -4756,18 +4598,14 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "alarm_battery"
-            ],
+            "capabilities": ["alarm_battery"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -4883,9 +4721,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -5363,20 +5199,10 @@
           },
           {
             "id": "button",
-            "capabilities": [
-              "speaker_prev",
-              "speaker_playing",
-              "speaker_next"
-            ],
+            "capabilities": ["speaker_prev", "speaker_playing", "speaker_next"],
             "options": {
-              "hideTitle": [
-                "speaker_prev",
-                "speaker_playing",
-                "speaker_next"
-              ],
-              "toggle": [
-                "speaker_playing"
-              ],
+              "hideTitle": ["speaker_prev", "speaker_playing", "speaker_next"],
+              "toggle": ["speaker_playing"],
               "icons": {
                 "speaker_prev": "drivers/gateway_radio/assets/prev.svg",
                 "speaker_next": "drivers/gateway_radio/assets/next.svg",
@@ -5389,9 +5215,7 @@
           },
           {
             "id": "slider",
-            "capabilities": [
-              "volume_set"
-            ]
+            "capabilities": ["volume_set"]
           }
         ]
       },
@@ -5626,9 +5450,7 @@
         "en": "Xiaomi Gateway Security"
       },
       "class": "homealarm",
-      "capabilities": [
-        "homealarm_state"
-      ],
+      "capabilities": ["homealarm_state"],
       "capabilitiesOptions": {
         "homealarm_state": {
           "title": {
@@ -5643,9 +5465,7 @@
           },
           {
             "id": "picker",
-            "capabilities": [
-              "homealarm_state"
-            ]
+            "capabilities": ["homealarm_state"]
           }
         ]
       },
@@ -5743,9 +5563,7 @@
           },
           {
             "id": "battery",
-            "capabilities": [
-              "measure_battery"
-            ],
+            "capabilities": ["measure_battery"],
             "options": {
               "showTitle": true
             }
@@ -5938,15 +5756,11 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
@@ -6036,10 +5850,7 @@
         "en": "Yeelight White Bulb"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim"
-      ],
+      "capabilities": ["onoff", "dim"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6056,15 +5867,11 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
@@ -6134,11 +5941,7 @@
         "en": "Yeelight Ceiling Lamp"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6155,24 +5958,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -6263,15 +6060,11 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
@@ -6373,15 +6166,11 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
@@ -6459,11 +6248,7 @@
         "en": "Mi LED Desk Lamp"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6480,24 +6265,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -6602,22 +6381,15 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.bg"
-            ]
+            "capabilities": ["onoff.bg"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim",
-              "dim.bg"
-            ],
+            "capabilities": ["dim", "dim.bg"],
             "options": {
               "showTitle": true
             }
@@ -6708,12 +6480,7 @@
         "en": "Philips EyeCare Desk Lamp 2"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "onoff.eyecare",
-        "onoff.ambilight"
-      ],
+      "capabilities": ["onoff", "dim", "onoff.eyecare", "onoff.ambilight"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6740,33 +6507,25 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.eyecare"
-            ],
+            "capabilities": ["onoff.eyecare"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.ambilight"
-            ],
+            "capabilities": ["onoff.ambilight"],
             "options": {
               "showTitle": true
             }
@@ -6836,11 +6595,7 @@
         "en": "Philips EyeCare Ceiling Lamp"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6857,24 +6612,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -6941,11 +6690,7 @@
         "en": "Philips Light Bulb"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6962,24 +6707,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -7046,11 +6785,7 @@
         "en": "Philips Candle Lamp"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7067,24 +6802,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -7151,11 +6880,7 @@
         "en": "Philips Candle Lamp Crystal"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7172,24 +6897,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -7256,11 +6975,7 @@
         "en": "Philips Downlight"
       },
       "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature"
-      ],
+      "capabilities": ["onoff", "dim", "light_temperature"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7277,24 +6992,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "color",
-            "capabilities": [
-              "light_temperature"
-            ]
+            "capabilities": ["light_temperature"]
           }
         ]
       },
@@ -7385,15 +7094,11 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
@@ -7471,11 +7176,7 @@
         "en": "Mi Smart Plug WiFi"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_temperature",
-        "onoff.led"
-      ],
+      "capabilities": ["onoff", "measure_temperature", "onoff.led"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7500,18 +7201,14 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "measure_temperature"
-            ],
+            "capabilities": ["measure_temperature"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -7521,9 +7218,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.led"
-            ],
+            "capabilities": ["onoff.led"],
             "options": {
               "showTitle": true
             }
@@ -7625,27 +7320,21 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.usb"
-            ],
+            "capabilities": ["onoff.usb"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "measure_temperature"
-            ],
+            "capabilities": ["measure_temperature"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -7655,9 +7344,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.led"
-            ],
+            "capabilities": ["onoff.led"],
             "options": {
               "showTitle": true
             }
@@ -7759,27 +7446,21 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.usb"
-            ],
+            "capabilities": ["onoff.usb"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "measure_temperature"
-            ],
+            "capabilities": ["measure_temperature"],
             "options": {
               "showTitle": true,
               "icons": {
@@ -7789,9 +7470,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.led"
-            ],
+            "capabilities": ["onoff.led"],
             "options": {
               "showTitle": true
             }
@@ -7894,9 +7573,7 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
@@ -7919,9 +7596,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.led"
-            ],
+            "capabilities": ["onoff.led"],
             "options": {
               "showTitle": true
             }
@@ -8024,9 +7699,7 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ],
+            "capabilities": ["onoff"],
             "options": {
               "showTitle": true
             }
@@ -8051,9 +7724,7 @@
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.led"
-            ],
+            "capabilities": ["onoff.led"],
             "options": {
               "showTitle": true
             }
@@ -8148,24 +7819,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "picker",
-            "capabilities": [
-              "air_purifier_mode"
-            ]
+            "capabilities": ["air_purifier_mode"]
           },
           {
             "id": "sensor",
@@ -8314,24 +7979,18 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "picker",
-            "capabilities": [
-              "air_purifier_mode"
-            ]
+            "capabilities": ["air_purifier_mode"]
           },
           {
             "id": "sensor",
@@ -8484,39 +8143,29 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.findme"
-            ],
+            "capabilities": ["onoff.findme"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "picker",
-            "capabilities": [
-              "vacuumcleaner_state"
-            ]
+            "capabilities": ["vacuumcleaner_state"]
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "measure_battery"
-            ]
+            "capabilities": ["measure_battery"]
           }
         ]
       },
@@ -8691,39 +8340,29 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.findme"
-            ],
+            "capabilities": ["onoff.findme"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "picker",
-            "capabilities": [
-              "vacuumcleaner_state"
-            ]
+            "capabilities": ["vacuumcleaner_state"]
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "measure_battery"
-            ]
+            "capabilities": ["measure_battery"]
           }
         ]
       },
@@ -8892,31 +8531,22 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "picker",
-            "capabilities": [
-              "humidifier_mode"
-            ]
+            "capabilities": ["humidifier_mode"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "sensor",
-            "capabilities": [
-              "measure_temperature",
-              "measure_humidity"
-            ]
+            "capabilities": ["measure_temperature", "measure_humidity"]
           }
         ]
       },
@@ -9042,30 +8672,22 @@
         "components": [
           {
             "id": "icon",
-            "capabilities": [
-              "onoff"
-            ]
+            "capabilities": ["onoff"]
           },
           {
             "id": "toggle",
-            "capabilities": [
-              "onoff.dry"
-            ],
+            "capabilities": ["onoff.dry"],
             "options": {
               "showTitle": true
             }
           },
           {
             "id": "picker",
-            "capabilities": [
-              "humidifier_ca1_mode"
-            ]
+            "capabilities": ["humidifier_ca1_mode"]
           },
           {
             "id": "slider",
-            "capabilities": [
-              "dim"
-            ],
+            "capabilities": ["dim"],
             "options": {
               "showTitle": true
             }

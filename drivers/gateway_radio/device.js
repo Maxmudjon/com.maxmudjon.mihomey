@@ -1,44 +1,58 @@
-const Homey = require('homey')
-const miio = require('miio')
+const Homey = require("homey");
+const miio = require("miio");
 
 class GatewayRadio extends Homey.Device {
   async onInit() {
-    this.initialize = this.initialize.bind(this)
-    this.driver = this.getDriver()
-    this.data = this.getData()
+    this.initialize = this.initialize.bind(this);
+    this.driver = this.getDriver();
+    this.data = this.getData();
     this.volume = 0;
     this.played = false;
-    this.image = new Homey.Image('jpg');
+    this.image = new Homey.Image("jpg");
     this.image.setUrl(null);
-    this.image.register()
+    this.image
+      .register()
       .then(() => {
         return this.setAlbumArtImage(this.image);
       })
       .catch(this.error);
-    this.update = this.getSetting('updateTimer') || 60;
+    this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
-    this.initialize()
-    this.log('Mi Homey device init | ' + 'name: ' + this.getName() + ' - ' + 'class: ' + this.getClass() + ' - ' + 'data: ' + JSON.stringify(this.data));
+    this.initialize();
+    this.log(
+      "Mi Homey device init | " +
+        "name: " +
+        this.getName() +
+        " - " +
+        "class: " +
+        this.getClass() +
+        " - " +
+        "data: " +
+        JSON.stringify(this.data)
+    );
   }
 
   async initialize() {
-    this.registerActions()
-    this.registerCapabilities()
-    this.getRadioStatus(this.update)
+    this.registerActions();
+    this.registerCapabilities();
+    this.getRadioStatus(this.update);
   }
 
   registerCapabilities() {
-    this.registerSpeakerPlayingButton('speaker_playing')
-    this.registerNextButton('speaker_next')
-    this.registerPrevButton('speaker_prev')
-    this.registerVolumeLevel('volume_set')
+    this.registerSpeakerPlayingButton("speaker_playing");
+    this.registerNextButton("speaker_next");
+    this.registerPrevButton("speaker_prev");
+    this.registerVolumeLevel("volume_set");
   }
 
   registerActions() {
-    const { actions } = this.driver
-    this.registerPlayRadioAction('play_radio', actions.playRadio)
-    this.customRadioListSend('customRadioListSend', actions.customRadioListSend)
-    this.registerPlayToggleRadioAction('play_toggle', actions.toggle)
+    const { actions } = this.driver;
+    this.registerPlayRadioAction("play_radio", actions.playRadio);
+    this.customRadioListSend(
+      "customRadioListSend",
+      actions.customRadioListSend
+    );
+    this.registerPlayToggleRadioAction("play_toggle", actions.toggle);
   }
 
   async getRadioStatus(update) {
@@ -46,7 +60,11 @@ class GatewayRadio extends Homey.Device {
     this.updateInterval = setInterval(async () => {
       var that = this;
       try {
-        await miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        await miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
             if (!this.getAvailable()) {
               this.setAvailable();
@@ -54,87 +72,119 @@ class GatewayRadio extends Homey.Device {
 
             this.setAvailable();
 
-            device.call('get_prop_fm', [])
+            device
+              .call("get_prop_fm", [])
               .then(result => {
-                that.setCapabilityValue('volume_set', result.current_volume / 100);
-                if (Homey.version.replace(/\W/g, '') >= '200') {
-                  if (result.current_program == '527782008') {
-                    that.setCapabilityValue('speaker_track', 'Авторадио ' + ' id: ' + result.current_program);
-                    this.image.setUrl('https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png');
+                that.setCapabilityValue(
+                  "volume_set",
+                  result.current_volume / 100
+                );
+                if (Homey.version.replace(/\W/g, "") >= "200") {
+                  if (result.current_program == "527782008") {
+                    that.setCapabilityValue(
+                      "speaker_track",
+                      "Авторадио " + " id: " + result.current_program
+                    );
+                    this.image.setUrl(
+                      "https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png"
+                    );
                     this.image.update();
                   } else {
-                    that.setCapabilityValue('speaker_track', 'Radio ' + ' id: ' + result.current_program);
+                    that.setCapabilityValue(
+                      "speaker_track",
+                      "Radio " + " id: " + result.current_program
+                    );
                     this.image.setUrl(null);
                     this.image.update();
                   }
                 }
 
-                if (result.current_status == 'run') {
-                  that.setCapabilityValue('speaker_playing', true);
-                } else if (result.current_status == 'pause') {
-                  that.setCapabilityValue('speaker_playing', false);
+                if (result.current_status == "run") {
+                  that.setCapabilityValue("speaker_playing", true);
+                } else if (result.current_status == "pause") {
+                  that.setCapabilityValue("speaker_playing", false);
                 }
               })
               .catch(error => {
-                that.log("Sending commmand 'get_prop_fm' error: ", error)
+                that.log("Sending commmand 'get_prop_fm' error: ", error);
               });
 
-            device.call('get_channels', { 'start': 0 })
+            device
+              .call("get_channels", { start: 0 })
               .then(result => {
-                result.chs.forEach(function (item, i, radios) {
+                result.chs.forEach(function(item, i, radios) {
                   that.setSettings({
-                    [`favorite${i}ID`]: item.id + ', ' + item.url
-                  })
+                    [`favorite${i}ID`]: item.id + ", " + item.url
+                  });
                   if (i == radios.length - 1) {
                     i = radios.length;
                     for (let j = i; j < 20; j++) {
                       that.setSettings({
                         [`favorite${j}ID`]: ""
-                      })
+                      });
                     }
                   }
-                })
+                });
 
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'get_channels' error: ", error)
+                this.log("Sending commmand 'get_channels' error: ", error);
               });
           })
           .catch(error => {
-            if (error == "Error: Could not connect to device, handshake timeout") {
-              this.setUnavailable(Homey.__('Could not connect to device, handshake timeout'));
-              this.log('Error: Could not connect to device, handshake timeout')
-            } else if (error == "Error: Could not connect to device, token might be wrong") {
-              this.setUnavailable(Homey.__('Could not connect to device, token might be wrong'));
-              this.log('Error: Could not connect to device, token might be wrong')
-
+            if (
+              error == "Error: Could not connect to device, handshake timeout"
+            ) {
+              this.setUnavailable(
+                Homey.__("Could not connect to device, handshake timeout")
+              );
+              this.log("Error: Could not connect to device, handshake timeout");
+            } else if (
+              error ==
+              "Error: Could not connect to device, token might be wrong"
+            ) {
+              this.setUnavailable(
+                Homey.__("Could not connect to device, token might be wrong")
+              );
+              this.log(
+                "Error: Could not connect to device, token might be wrong"
+              );
             }
             if (typeof that.device !== "undefined") {
               device.destroy();
             }
           });
       } catch (error) {
-        this.log('Error ', error);
+        this.log("Error ", error);
       }
     }, 1000 * update);
-  };
+  }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (changedKeys.includes('updateTimer') || changedKeys.includes('gatewayIP') || changedKeys.includes('gatewayToken')) {
-      this.getRadioStatus(newSettings['updateTimer']);
-      callback(null, true)
+    if (
+      changedKeys.includes("updateTimer") ||
+      changedKeys.includes("gatewayIP") ||
+      changedKeys.includes("gatewayToken")
+    ) {
+      this.getRadioStatus(newSettings["updateTimer"]);
+      callback(null, true);
     }
 
     for (let i = 0; i < 20; i++) {
       if (changedKeys.includes(`favorite${i}ID`)) {
         var that = this;
-        let newFavoriteListsID = newSettings[`favorite${i}ID`]
-        let oldFavoriteListID = oldSettings[`favorite${i}ID`]
-        let newFavoriteListsIDArray = newFavoriteListsID.split(',');
-        let oldFavoriteListsIDArray = oldFavoriteListID.split(',');
+        let newFavoriteListsID = newSettings[`favorite${i}ID`];
+        let oldFavoriteListID = oldSettings[`favorite${i}ID`];
+        let newFavoriteListsIDArray = newFavoriteListsID.split(",");
+        let oldFavoriteListsIDArray = oldFavoriteListID.split(",");
 
-        if (oldFavoriteListsIDArray[0] !== undefined && oldFavoriteListsIDArray[0] !== null && oldFavoriteListsIDArray[1] !== undefined && oldFavoriteListsIDArray[1] !== null) {
+        if (
+          oldFavoriteListsIDArray[0] !== undefined &&
+          oldFavoriteListsIDArray[0] !== null &&
+          oldFavoriteListsIDArray[1] !== undefined &&
+          oldFavoriteListsIDArray[1] !== null
+        ) {
           let ids = oldFavoriteListsIDArray[0];
           ids = ids.replace(/\s/g, "");
           let id = parseInt(ids);
@@ -143,31 +193,46 @@ class GatewayRadio extends Homey.Device {
           let url = urls.toString();
 
           try {
-            miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+            miio
+              .device({
+                address: this.getSetting("gatewayIP"),
+                token: this.getSetting("gatewayToken")
+              })
               .then(device => {
-                device.call('remove_channels', { "chs": [{ "id": id, "type": 0, "url": url }] })
+                device
+                  .call("remove_channels", {
+                    chs: [{ id: id, type: 0, url: url }]
+                  })
                   .then(() => {
-                    that.log('Removing ' + ' ID: ' + id + ' URL: ' + url);
+                    that.log("Removing " + " ID: " + id + " URL: " + url);
                     device.destroy();
                   })
                   .catch(error => {
-                    that.log("Sending commmand 'remove_channels' error: ", error);
+                    that.log(
+                      "Sending commmand 'remove_channels' error: ",
+                      error
+                    );
                     device.destroy();
                     callback(error, false);
                   });
               })
               .catch(error => {
-                that.log('miio connect error: ' + error);
+                that.log("miio connect error: " + error);
                 callback(error, false);
               });
           } catch (error) {
-            that.log('catch error: ' + error)
+            that.log("catch error: " + error);
           }
 
-          callback(null, true)
+          callback(null, true);
         }
 
-        if (newFavoriteListsIDArray[0] !== undefined && newFavoriteListsIDArray[0] !== null && newFavoriteListsIDArray[1] !== undefined && newFavoriteListsIDArray[1] !== null) {
+        if (
+          newFavoriteListsIDArray[0] !== undefined &&
+          newFavoriteListsIDArray[0] !== null &&
+          newFavoriteListsIDArray[1] !== undefined &&
+          newFavoriteListsIDArray[1] !== null
+        ) {
           let ids = newFavoriteListsIDArray[0];
           ids = ids.replace(/\s/g, "");
           let id = parseInt(ids);
@@ -176,41 +241,53 @@ class GatewayRadio extends Homey.Device {
           let url = urls.toString();
 
           try {
-            miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+            miio
+              .device({
+                address: this.getSetting("gatewayIP"),
+                token: this.getSetting("gatewayToken")
+              })
               .then(device => {
-                device.call('add_channels', { "chs": [{ "id": id, "type": 0, "url": url }] })
+                device
+                  .call("add_channels", {
+                    chs: [{ id: id, type: 0, url: url }]
+                  })
                   .then(() => {
-                    that.log('Adding ' + id + ' URL: ' + url);
+                    that.log("Adding " + id + " URL: " + url);
                     device.destroy();
                   })
                   .catch(error => {
                     that.log("Sending commmand 'add_channels' error: ", error);
                     device.destroy();
-                    callback(error, false)
+                    callback(error, false);
                   });
               })
               .catch(error => {
-                that.log('miio connect error: ' + error)
-                callback(error, false)
+                that.log("miio connect error: " + error);
+                callback(error, false);
               });
           } catch (error) {
-            that.log('catch error: ' + error)
+            that.log("catch error: " + error);
           }
 
-          callback(null, true)
+          callback(null, true);
         }
       }
     }
   }
 
   registerSpeakerPlayingButton(name) {
-    this.registerCapabilityListener(name, async (value) => {
+    this.registerCapabilityListener(name, async value => {
       try {
-        miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
-            device.call('play_fm', [value ? 'on' : 'off'])
+            device
+              .call("play_fm", [value ? "on" : "off"])
               .then(() => {
-                this.log('Sending ' + name + ' commmand: ' + value);
+                this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
               .catch(error => {
@@ -219,22 +296,27 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            that.log('miio connect error: ' + error)
+            that.log("miio connect error: " + error);
           });
       } catch (error) {
-        that.log('catch error: ' + error)
+        that.log("catch error: " + error);
       }
-    })
+    });
   }
 
   registerNextButton(name) {
-    this.registerCapabilityListener(name, async (value) => {
+    this.registerCapabilityListener(name, async value => {
       try {
-        miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
-            device.call('play_fm', ['next'])
+            device
+              .call("play_fm", ["next"])
               .then(() => {
-                this.log('Sending ' + name + ' commmand: ' + value);
+                this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
               .catch(error => {
@@ -243,22 +325,27 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            that.log('miio connect error: ' + error)
+            that.log("miio connect error: " + error);
           });
       } catch (error) {
-        that.log('catch error: ' + error)
+        that.log("catch error: " + error);
       }
-    })
+    });
   }
 
   registerPrevButton(name) {
-    this.registerCapabilityListener(name, async (value) => {
+    this.registerCapabilityListener(name, async value => {
       try {
-        miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
-            device.call('play_fm', ['prev'])
+            device
+              .call("play_fm", ["prev"])
               .then(() => {
-                this.log('Sending ' + name + ' commmand: ' + value);
+                this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
               .catch(error => {
@@ -267,23 +354,28 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            that.log('miio connect error: ' + error)
+            that.log("miio connect error: " + error);
           });
       } catch (error) {
-        that.log('catch error: ' + error)
+        that.log("catch error: " + error);
       }
-    })
+    });
   }
 
   registerVolumeLevel(name) {
-    this.registerCapabilityListener(name, async (value) => {
+    this.registerCapabilityListener(name, async value => {
       let volume = parseInt(value * 100);
       try {
-        miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
-            device.call('volume_ctrl_fm', [volume.toString()])
+            device
+              .call("volume_ctrl_fm", [volume.toString()])
               .then(() => {
-                this.log('Sending ' + name + ' commmand: ' + value);
+                this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
               .catch(error => {
@@ -292,12 +384,12 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            that.log('miio connect error: ' + error)
+            that.log("miio connect error: " + error);
           });
       } catch (error) {
-        that.log('catch error: ' + error)
+        that.log("catch error: " + error);
       }
-    })
+    });
   }
 
   registerPlayRadioAction(name, action) {
@@ -306,10 +398,15 @@ class GatewayRadio extends Homey.Device {
       let volume = parseInt(args.volume * 100);
       var that = this;
 
-      let favoriteListsID = settings[`favorite${args.favoriteID}ID`]
-      let favoriteListsIDArray = favoriteListsID.split(',');
+      let favoriteListsID = settings[`favorite${args.favoriteID}ID`];
+      let favoriteListsIDArray = favoriteListsID.split(",");
 
-      if (favoriteListsIDArray[0] !== undefined && favoriteListsIDArray[0] !== null && favoriteListsIDArray[1] !== undefined && favoriteListsIDArray[1] !== null) {
+      if (
+        favoriteListsIDArray[0] !== undefined &&
+        favoriteListsIDArray[0] !== null &&
+        favoriteListsIDArray[1] !== undefined &&
+        favoriteListsIDArray[1] !== null
+      ) {
         let ids = favoriteListsIDArray[0];
         ids = ids.replace(/\s/g, "");
         let id = parseInt(ids);
@@ -318,20 +415,26 @@ class GatewayRadio extends Homey.Device {
         let url = urls.toString();
 
         try {
-          miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+          miio
+            .device({
+              address: this.getSetting("gatewayIP"),
+              token: this.getSetting("gatewayToken")
+            })
             .then(device => {
-              device.call('play_specify_fm', { id: id, type: 0, url: url })
+              device
+                .call("play_specify_fm", { id: id, type: 0, url: url })
                 .then(() => {
-                  that.log('Play radio: ', args.favoriteID);
+                  that.log("Play radio: ", args.favoriteID);
                 })
                 .catch(error => {
                   that.log("Play radio 'play_specify_fm' error: ", error);
                   device.destroy();
                 });
 
-              device.call('volume_ctrl_fm', [volume.toString()])
+              device
+                .call("volume_ctrl_fm", [volume.toString()])
                 .then(() => {
-                  that.log('Set volume: ', volume);
+                  that.log("Set volume: ", volume);
                   device.destroy();
                 })
                 .catch(error => {
@@ -340,13 +443,13 @@ class GatewayRadio extends Homey.Device {
                 });
             })
             .catch(error => {
-              that.log('miio connect error: ' + error)
+              that.log("miio connect error: " + error);
             });
         } catch (error) {
-          that.log('catch error: ' + error)
+          that.log("catch error: " + error);
         }
       }
-    })
+    });
   }
 
   customRadioListSend(name, action) {
@@ -355,21 +458,31 @@ class GatewayRadio extends Homey.Device {
       var that = this;
 
       try {
-        miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
-            device.call('play_specify_fm', { id: parseInt(args.id), type: 0, url: args.url })
+            device
+              .call("play_specify_fm", {
+                id: parseInt(args.id),
+                type: 0,
+                url: args.url
+              })
               .then(() => {
-                that.log('Play radio: ', args.id);
-                that.log('from url: ', args.url);
+                that.log("Play radio: ", args.id);
+                that.log("from url: ", args.url);
               })
               .catch(error => {
                 that.log("Play radio 'play_specify_fm' error: ", error);
                 device.destroy();
               });
 
-            device.call('volume_ctrl_fm', [volume.toString()])
+            device
+              .call("volume_ctrl_fm", [volume.toString()])
               .then(() => {
-                that.log('Set volume: ', volume);
+                that.log("Set volume: ", volume);
                 device.destroy();
               })
               .catch(error => {
@@ -378,22 +491,27 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            that.log('miio connect error: ' + error)
+            that.log("miio connect error: " + error);
           });
       } catch (error) {
-        that.log('catch error: ' + error)
+        that.log("catch error: " + error);
       }
-    })
+    });
   }
 
   registerPlayToggleRadioAction(name, action) {
     action.toggle.registerRunListener(async (args, state) => {
       try {
-        miio.device({ address: this.getSetting('gatewayIP'), token: this.getSetting('gatewayToken') })
+        miio
+          .device({
+            address: this.getSetting("gatewayIP"),
+            token: this.getSetting("gatewayToken")
+          })
           .then(device => {
-            device.call('play_fm', ['toggle'])
+            device
+              .call("play_fm", ["toggle"])
               .then(() => {
-                this.log('Sending ' + name + ' commmand: ' + value);
+                this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
               .catch(error => {
@@ -402,22 +520,22 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            that.log('miio connect error: ' + error)
+            that.log("miio connect error: " + error);
           });
       } catch (error) {
-        that.log('catch error: ' + error)
+        that.log("catch error: " + error);
       }
-    })
+    });
   }
 
   onAdded() {
-    this.log('Device added')
+    this.log("Device added");
   }
 
   onDeleted() {
-    this.log('Device deleted deleted')
+    this.log("Device deleted deleted");
     clearInterval(this.updateInterval);
   }
 }
 
-module.exports = GatewayRadio
+module.exports = GatewayRadio;

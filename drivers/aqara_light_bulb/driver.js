@@ -1,7 +1,5 @@
-const Homey = require('homey');
+const Homey = require("homey");
 
-class AqaraLightBulb extends Homey.Driver {
-
-}
+class AqaraLightBulb extends Homey.Driver {}
 
 module.exports = AqaraLightBulb;
