@@ -17,16 +17,8 @@ const initToggleFlowAction = (on, off) => ({
 class DoubleSwitchLN extends Homey.Driver {
   onInit() {
     this.triggers = {
-      left_switch: initToggleFlowTriggers(
-        "left_switch_on",
-        "left_switch_off",
-        "left_switch_toggle"
-      ),
-      right_switch: initToggleFlowTriggers(
-        "right_switch_on",
-        "right_switch_off",
-        "right_switch_toggle"
-      )
+      left_switch: initToggleFlowTriggers("left_switch_on", "left_switch_off", "left_switch_toggle"),
+      right_switch: initToggleFlowTriggers("right_switch_on", "right_switch_off", "right_switch_toggle")
     };
     this.conditions = {
       left_switch: initFlowCondition("left_switch_active"),

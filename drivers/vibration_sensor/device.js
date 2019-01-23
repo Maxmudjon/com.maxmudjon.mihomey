@@ -7,17 +7,7 @@ class VibrationSensor extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -36,14 +26,8 @@ class VibrationSensor extends Homey.Device {
       if (battery > 100) {
         battery = 100;
       }
-      var lowBattery;
-      if (battery > 20) {
-        lowBattery = false;
-      } else {
-        lowBattery = true;
-      }
       this.updateCapabilityValue("measure_battery", battery);
-      this.updateCapabilityValue("alarm_battery", lowBattery);
+      this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
     var settings = this.getSettings();

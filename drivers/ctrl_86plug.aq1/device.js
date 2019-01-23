@@ -7,17 +7,7 @@ class Ctrl86PlugAq1 extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -58,17 +48,11 @@ class Ctrl86PlugAq1 extends Homey.Device {
     }
 
     if (device["data"]["load_power"]) {
-      this.updateCapabilityValue(
-        "measure_power",
-        parseInt(device["data"]["load_power"])
-      );
+      this.updateCapabilityValue("measure_power", parseInt(device["data"]["load_power"]));
     }
 
     if (device["data"]["power_consumed"]) {
-      this.updateCapabilityValue(
-        "meter_power",
-        parseInt(device["data"]["power_consumed"] / 1000)
-      );
+      this.updateCapabilityValue("meter_power", parseInt(device["data"]["power_consumed"] / 1000));
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -123,9 +107,7 @@ class Ctrl86PlugAq1 extends Homey.Device {
   }
 
   registerCondition(name, condition) {
-    condition.registerRunListener((args, state) =>
-      Promise.resolve(this.getCapabilityValue(name))
-    );
+    condition.registerRunListener((args, state) => Promise.resolve(this.getCapabilityValue(name)));
   }
 
   registerToggleAction(name, valueOn = true, valueOff = false, action) {

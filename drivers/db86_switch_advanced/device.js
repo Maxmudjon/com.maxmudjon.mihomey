@@ -7,17 +7,7 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -33,14 +23,8 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
 
     if (device["data"]["voltage"]) {
       var battery = (device["data"]["voltage"] - 2800) / 5;
-      var lowBattery;
-      if (battery > 20) {
-        lowBattery = false;
-      } else {
-        lowBattery = true;
-      }
       this.updateCapabilityValue("measure_battery", battery);
-      this.updateCapabilityValue("alarm_battery", lowBattery);
+      this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
     if (device["data"]["channel_0"] == "click") {
@@ -52,11 +36,7 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
     }
 
     if (device["data"]["channel_0"] == "long_click") {
-      this.triggerFlow(
-        triggers.left_long_click_press,
-        "left_long_click_press",
-        true
-      );
+      this.triggerFlow(triggers.left_long_click_press, "left_long_click_press", true);
     }
 
     if (device["data"]["channel_1"] == "click") {
@@ -68,11 +48,7 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
     }
 
     if (device["data"]["channel_1"] == "long_click") {
-      this.triggerFlow(
-        triggers.right_long_click_press,
-        "right_long_click_press",
-        true
-      );
+      this.triggerFlow(triggers.right_long_click_press, "right_long_click_press", true);
     }
 
     let gateways = Homey.app.mihub.gateways;

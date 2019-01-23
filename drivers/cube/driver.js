@@ -11,12 +11,8 @@ class DoubleButton86Switch extends Homey.Driver {
       flip90: new Homey.FlowCardTriggerDevice("flip90_cube").register(),
       free_fall: new Homey.FlowCardTriggerDevice("free_fall_cube").register(),
       alert: new Homey.FlowCardTriggerDevice("alert_cube").register(),
-      rotatePositive: new Homey.FlowCardTriggerDevice(
-        "rotate_positive_cube"
-      ).register(),
-      rotateNegative: new Homey.FlowCardTriggerDevice(
-        "rotate_negative_cube"
-      ).register(),
+      rotatePositive: new Homey.FlowCardTriggerDevice("rotate_positive_cube").register(),
+      rotateNegative: new Homey.FlowCardTriggerDevice("rotate_negative_cube").register(),
       cubeRotated: new Homey.FlowCardTriggerDevice("cubeRotated").register()
     };
   }

@@ -7,17 +7,7 @@ class TemperatureHumiditySensor extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -31,28 +21,16 @@ class TemperatureHumiditySensor extends Homey.Device {
   handleStateChange(device) {
     if (device["data"]["voltage"]) {
       var battery = (device["data"]["voltage"] - 2800) / 5;
-      var lowBattery;
-      if (battery > 20) {
-        lowBattery = false;
-      } else {
-        lowBattery = true;
-      }
       this.updateCapabilityValue("measure_battery", battery);
-      this.updateCapabilityValue("alarm_battery", lowBattery);
+      this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
     if (device["data"]["temperature"]) {
-      this.updateCapabilityValue(
-        "measure_temperature",
-        parseInt(device["data"]["temperature"] / 100)
-      );
+      this.updateCapabilityValue("measure_temperature", parseInt(device["data"]["temperature"] / 100));
     }
 
     if (device["data"]["humidity"]) {
-      this.updateCapabilityValue(
-        "measure_humidity",
-        parseInt(device["data"]["humidity"] / 100)
-      );
+      this.updateCapabilityValue("measure_humidity", parseInt(device["data"]["humidity"] / 100));
     }
 
     let gateways = Homey.app.mihub.gateways;

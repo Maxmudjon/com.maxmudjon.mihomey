@@ -9,17 +9,7 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
     this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -53,16 +43,10 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
             device
               .call("get_prop", ["power", "usb_on", "temperature", "wifi_led"])
               .then(result => {
-                that.setCapabilityValue(
-                  "onoff",
-                  result[0] == "on" ? true : false
-                );
+                that.setCapabilityValue("onoff", result[0] == "on" ? true : false);
                 that.setCapabilityValue("onoff.usb", result[1]);
                 that.setCapabilityValue("measure_temperature", result[2]);
-                that.setCapabilityValue(
-                  "onoff.led",
-                  result[3] == "on" ? true : false
-                );
+                that.setCapabilityValue("onoff.led", result[3] == "on" ? true : false);
                 device.destroy();
               })
               .catch(error => {
@@ -71,23 +55,12 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
               });
           })
           .catch(error => {
-            if (
-              error == "Error: Could not connect to device, handshake timeout"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, handshake timeout")
-              );
+            if (error == "Error: Could not connect to device, handshake timeout") {
+              this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
               this.log("Error: Could not connect to device, handshake timeout");
-            } else if (
-              error ==
-              "Error: Could not connect to device, token might be wrong"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, token might be wrong")
-              );
-              this.log(
-                "Error: Could not connect to device, token might be wrong"
-              );
+            } else if (error == "Error: Could not connect to device, token might be wrong") {
+              this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+              this.log("Error: Could not connect to device, token might be wrong");
             }
             if (typeof that.device !== "undefined") {
               device.destroy();
@@ -100,11 +73,7 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("deviceIP") ||
-      changedKeys.includes("deviceToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getXiaomiStatus(newSettings["updateTimer"]);
       callback(null, true);
     }
@@ -122,17 +91,11 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
             device
               .call("set_power", [value ? "on" : "off"])
               .then(() => {
-                this.log(
-                  "Sending " + name + " commmand: " + value ? "on" : "off"
-                );
+                this.log("Sending " + name + " commmand: " + value ? "on" : "off");
                 device.destroy();
               })
               .catch(error => {
-                this.log(
-                  "Sending commmand 'set_power' " + value
-                    ? "on"
-                    : "off" + " error: " + error
-                );
+                this.log("Sending commmand 'set_power' " + value ? "on" : "off" + " error: " + error);
                 device.destroy();
               });
           })
@@ -157,19 +120,11 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
             device
               .call(value ? "set_usb_on" : "set_usb_off", [])
               .then(() => {
-                this.log(
-                  "Sending " + name + " commmand: " + value
-                    ? "set_usb_on"
-                    : "set_usb_off"
-                );
+                this.log("Sending " + name + " commmand: " + value ? "set_usb_on" : "set_usb_off");
                 device.destroy();
               })
               .catch(error => {
-                this.log(
-                  "Sending commmand " + value
-                    ? "set_usb_on"
-                    : "set_usb_off" + " error: " + error
-                );
+                this.log("Sending commmand " + value ? "set_usb_on" : "set_usb_off" + " error: " + error);
                 device.destroy();
               });
           })
@@ -194,17 +149,11 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
             device
               .call("set_wifi_led", [value ? "on" : "off"])
               .then(() => {
-                this.log(
-                  "Sending " + name + " commmand: " + value ? "on" : "off"
-                );
+                this.log("Sending " + name + " commmand: " + value ? "on" : "off");
                 device.destroy();
               })
               .catch(error => {
-                this.log(
-                  "Sending commmand 'set_wifi_led' " + value
-                    ? "on"
-                    : "off" + " error: " + error
-                );
+                this.log("Sending commmand 'set_wifi_led' " + value ? "on" : "off" + " error: " + error);
                 device.destroy();
               });
           })

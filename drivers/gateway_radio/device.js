@@ -19,17 +19,7 @@ class GatewayRadio extends Homey.Device {
     this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -48,10 +38,7 @@ class GatewayRadio extends Homey.Device {
   registerActions() {
     const { actions } = this.driver;
     this.registerPlayRadioAction("play_radio", actions.playRadio);
-    this.customRadioListSend(
-      "customRadioListSend",
-      actions.customRadioListSend
-    );
+    this.customRadioListSend("customRadioListSend", actions.customRadioListSend);
     this.registerPlayToggleRadioAction("play_toggle", actions.toggle);
   }
 
@@ -75,25 +62,14 @@ class GatewayRadio extends Homey.Device {
             device
               .call("get_prop_fm", [])
               .then(result => {
-                that.setCapabilityValue(
-                  "volume_set",
-                  result.current_volume / 100
-                );
+                that.setCapabilityValue("volume_set", result.current_volume / 100);
                 if (Homey.version.replace(/\W/g, "") >= "200") {
                   if (result.current_program == "527782008") {
-                    that.setCapabilityValue(
-                      "speaker_track",
-                      "Авторадио " + " id: " + result.current_program
-                    );
-                    this.image.setUrl(
-                      "https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png"
-                    );
+                    that.setCapabilityValue("speaker_track", "Авторадио " + " id: " + result.current_program);
+                    this.image.setUrl("https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png");
                     this.image.update();
                   } else {
-                    that.setCapabilityValue(
-                      "speaker_track",
-                      "Radio " + " id: " + result.current_program
-                    );
+                    that.setCapabilityValue("speaker_track", "Radio " + " id: " + result.current_program);
                     this.image.setUrl(null);
                     this.image.update();
                   }
@@ -133,23 +109,12 @@ class GatewayRadio extends Homey.Device {
               });
           })
           .catch(error => {
-            if (
-              error == "Error: Could not connect to device, handshake timeout"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, handshake timeout")
-              );
+            if (error == "Error: Could not connect to device, handshake timeout") {
+              this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
               this.log("Error: Could not connect to device, handshake timeout");
-            } else if (
-              error ==
-              "Error: Could not connect to device, token might be wrong"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, token might be wrong")
-              );
-              this.log(
-                "Error: Could not connect to device, token might be wrong"
-              );
+            } else if (error == "Error: Could not connect to device, token might be wrong") {
+              this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+              this.log("Error: Could not connect to device, token might be wrong");
             }
             if (typeof that.device !== "undefined") {
               device.destroy();
@@ -162,11 +127,7 @@ class GatewayRadio extends Homey.Device {
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("gatewayIP") ||
-      changedKeys.includes("gatewayToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("gatewayIP") || changedKeys.includes("gatewayToken")) {
       this.getRadioStatus(newSettings["updateTimer"]);
       callback(null, true);
     }
@@ -179,12 +140,7 @@ class GatewayRadio extends Homey.Device {
         let newFavoriteListsIDArray = newFavoriteListsID.split(",");
         let oldFavoriteListsIDArray = oldFavoriteListID.split(",");
 
-        if (
-          oldFavoriteListsIDArray[0] !== undefined &&
-          oldFavoriteListsIDArray[0] !== null &&
-          oldFavoriteListsIDArray[1] !== undefined &&
-          oldFavoriteListsIDArray[1] !== null
-        ) {
+        if (oldFavoriteListsIDArray[0] !== undefined && oldFavoriteListsIDArray[0] !== null && oldFavoriteListsIDArray[1] !== undefined && oldFavoriteListsIDArray[1] !== null) {
           let ids = oldFavoriteListsIDArray[0];
           ids = ids.replace(/\s/g, "");
           let id = parseInt(ids);
@@ -208,10 +164,7 @@ class GatewayRadio extends Homey.Device {
                     device.destroy();
                   })
                   .catch(error => {
-                    that.log(
-                      "Sending commmand 'remove_channels' error: ",
-                      error
-                    );
+                    that.log("Sending commmand 'remove_channels' error: ", error);
                     device.destroy();
                     callback(error, false);
                   });
@@ -227,12 +180,7 @@ class GatewayRadio extends Homey.Device {
           callback(null, true);
         }
 
-        if (
-          newFavoriteListsIDArray[0] !== undefined &&
-          newFavoriteListsIDArray[0] !== null &&
-          newFavoriteListsIDArray[1] !== undefined &&
-          newFavoriteListsIDArray[1] !== null
-        ) {
+        if (newFavoriteListsIDArray[0] !== undefined && newFavoriteListsIDArray[0] !== null && newFavoriteListsIDArray[1] !== undefined && newFavoriteListsIDArray[1] !== null) {
           let ids = newFavoriteListsIDArray[0];
           ids = ids.replace(/\s/g, "");
           let id = parseInt(ids);
@@ -401,12 +349,7 @@ class GatewayRadio extends Homey.Device {
       let favoriteListsID = settings[`favorite${args.favoriteID}ID`];
       let favoriteListsIDArray = favoriteListsID.split(",");
 
-      if (
-        favoriteListsIDArray[0] !== undefined &&
-        favoriteListsIDArray[0] !== null &&
-        favoriteListsIDArray[1] !== undefined &&
-        favoriteListsIDArray[1] !== null
-      ) {
+      if (favoriteListsIDArray[0] !== undefined && favoriteListsIDArray[0] !== null && favoriteListsIDArray[1] !== undefined && favoriteListsIDArray[1] !== null) {
         let ids = favoriteListsIDArray[0];
         ids = ids.replace(/\s/g, "");
         let id = parseInt(ids);

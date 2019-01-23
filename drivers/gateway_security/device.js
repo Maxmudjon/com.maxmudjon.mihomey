@@ -9,17 +9,7 @@ class GatewaySecurity extends Homey.Device {
     this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -64,23 +54,12 @@ class GatewaySecurity extends Homey.Device {
               });
           })
           .catch(error => {
-            if (
-              error == "Error: Could not connect to device, handshake timeout"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, handshake timeout")
-              );
+            if (error == "Error: Could not connect to device, handshake timeout") {
+              this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
               this.log("Error: Could not connect to device, handshake timeout");
-            } else if (
-              error ==
-              "Error: Could not connect to device, token might be wrong"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, token might be wrong")
-              );
-              this.log(
-                "Error: Could not connect to device, token might be wrong"
-              );
+            } else if (error == "Error: Could not connect to device, token might be wrong") {
+              this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+              this.log("Error: Could not connect to device, token might be wrong");
             }
             if (typeof that.device !== "undefined") {
               device.destroy();
@@ -93,11 +72,7 @@ class GatewaySecurity extends Homey.Device {
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("gatewayIP") ||
-      changedKeys.includes("gatewayToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("gatewayIP") || changedKeys.includes("gatewayToken")) {
       this.getSecurityStatus(newSettings["updateTimer"]);
       callback(null, true);
     }
@@ -128,9 +103,7 @@ class GatewaySecurity extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log(
-                  "Sending commmand 'set_arming' " + state + " error: " + error
-                );
+                this.log("Sending commmand 'set_arming' " + state + " error: " + error);
                 device.destroy();
               });
           })

@@ -2,12 +2,8 @@
   Homey.setTitle("Adding device to Homey...");
   Homey.emit("done", null, function(err, result) {
     if (err) {
-      var alertTitle = document.getElementsByClassName(
-        `statusAlertShowDuplicate`
-      );
-      var alertErrorTitle = document.getElementsByClassName(
-        `statusAlertShowError`
-      );
+      var alertTitle = document.getElementsByClassName(`statusAlertShowDuplicate`);
+      var alertErrorTitle = document.getElementsByClassName(`statusAlertShowError`);
       alertTitle[0].innerHTML = "Device already added";
       alertErrorTitle[0].innerHTML = err;
       Homey.setTitle("Device already added");
@@ -16,12 +12,8 @@
     }
     Homey.addDevice(result, (err, res) => {
       if (err) {
-        var alertTitle = document.getElementsByClassName(
-          `statusAlertShowDuplicate`
-        );
-        var alertErrorTitle = document.getElementsByClassName(
-          `statusAlertShowError`
-        );
+        var alertTitle = document.getElementsByClassName(`statusAlertShowDuplicate`);
+        var alertErrorTitle = document.getElementsByClassName(`statusAlertShowError`);
         alertTitle[0].innerHTML = "Device already added";
         alertErrorTitle[0].innerHTML = err;
         Homey.setTitle("Device already added");

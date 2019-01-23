@@ -9,17 +9,7 @@ class MiSmartPlugWiFi extends Homey.Device {
     this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -52,15 +42,9 @@ class MiSmartPlugWiFi extends Homey.Device {
             device
               .call("get_prop", ["power", "temperature", "wifi_led"])
               .then(result => {
-                that.setCapabilityValue(
-                  "onoff",
-                  result[0] === "on" ? true : false
-                );
+                that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
                 that.setCapabilityValue("measure_temperature", result[1]);
-                that.setCapabilityValue(
-                  "onoff.led",
-                  result[2] === "on" ? true : false
-                );
+                that.setCapabilityValue("onoff.led", result[2] === "on" ? true : false);
                 device.destroy();
               })
               .catch(error => {
@@ -69,23 +53,12 @@ class MiSmartPlugWiFi extends Homey.Device {
               });
           })
           .catch(error => {
-            if (
-              error == "Error: Could not connect to device, handshake timeout"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, handshake timeout")
-              );
+            if (error == "Error: Could not connect to device, handshake timeout") {
+              this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
               this.log("Error: Could not connect to device, handshake timeout");
-            } else if (
-              error ==
-              "Error: Could not connect to device, token might be wrong"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, token might be wrong")
-              );
-              this.log(
-                "Error: Could not connect to device, token might be wrong"
-              );
+            } else if (error == "Error: Could not connect to device, token might be wrong") {
+              this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+              this.log("Error: Could not connect to device, token might be wrong");
             }
             if (typeof that.device !== "undefined") {
               device.destroy();
@@ -98,11 +71,7 @@ class MiSmartPlugWiFi extends Homey.Device {
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("deviceIP") ||
-      changedKeys.includes("deviceToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getXiaomiStatus(newSettings["updateTimer"]);
       callback(null, true);
     }

@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script
-      type="text/javascript"
-      src="/homey.js"
-      data-origin="settings"
-    ></script>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
     <script src="../assets/vue.min.js"></script>
     <link rel="stylesheet" href="../assets/semantic.min.css" />
     <link rel="stylesheet" href="../assets/bootstrap.min.css" />
@@ -14,11 +10,7 @@
   <body>
     <h1 data-i18n="settings.title"></h1>
     <div id="gatewaysListApp">
-      <div class="bg-info text-white" id="status">
-        <div class="statusAlertShow text-center py-2">
-          Gateway Mac and Password's
-        </div>
-      </div>
+      <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div></div>
       <div class="ui three column centered grid" style="margin: 0.5px;">
         <div class="column" style="width: 100%;">
           <gateway-list v-bind:gateways="gateways"></gateway-list>
@@ -55,14 +47,9 @@
                     hideForm() {
                       this.isEditing = false;
                       let alert = document.getElementById(`status`);
-                      var alertTitle = document.getElementsByClassName(
-                        `statusAlertShow`
-                      );
+                      var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
-                      Homey.set("gatewaysList", this.$root.gateways, function(
-                        error,
-                        settings
-                      ) {
+                      Homey.set("gatewaysList", this.$root.gateways, function(error, settings) {
                         if (error) {
                           alert.classList.remove("bg-info");
                           alert.classList.add("bg-danger");
@@ -70,8 +57,7 @@
                           setTimeout(() => {
                             alert.classList.remove("bg-danger");
                             alert.classList.add("bg-info");
-                            alertTitle[0].innerHTML =
-                              "Gateway Mac and Password's";
+                            alertTitle[0].innerHTML = "Gateway Mac and Password's";
                           }, 1000);
                         }
 
@@ -81,8 +67,7 @@
                         setTimeout(() => {
                           alert.classList.remove("bg-success");
                           alert.classList.add("bg-info");
-                          alertTitle[0].innerHTML =
-                            "Gateway Mac and Password's";
+                          alertTitle[0].innerHTML = "Gateway Mac and Password's";
                         }, 1000);
                       });
                     }
@@ -96,14 +81,9 @@
                   const todoIndex = this.gateways.indexOf(todo);
                   this.gateways.splice(todoIndex, 1);
                   let alert = document.getElementById(`status`);
-                  var alertTitle = document.getElementsByClassName(
-                    `statusAlertShow`
-                  );
+                  var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
-                  Homey.set("gatewaysList", this.gateways, function(
-                    error,
-                    settings
-                  ) {
+                  Homey.set("gatewaysList", this.gateways, function(error, settings) {
                     if (error) {
                       alert.classList.remove("bg-info");
                       alert.classList.add("bg-danger");
@@ -126,8 +106,7 @@
                   });
                 }
               },
-              template:
-                '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in gateways" :todo.sync="todo"></todo></div>'
+              template: '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in gateways" :todo.sync="todo"></todo></div>'
             },
             CreateTodo: {
               data() {
@@ -148,20 +127,12 @@
                   if (this.MAC.length > 0 && this.PASSWORD.length > 0) {
                     const mac = this.MAC.toLowerCase();
                     const password = this.PASSWORD.toUpperCase();
-                    var alertTitle = document.getElementsByClassName(
-                      `statusAlertShow`
-                    );
-                    let macAlertShow = document.getElementsByClassName(
-                      "macAlertShow"
-                    );
-                    let passwordAlertShow = document.getElementsByClassName(
-                      "passwordAlertShow"
-                    );
+                    var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                    let macAlertShow = document.getElementsByClassName("macAlertShow");
+                    let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
                     let alert = document.getElementById(`status`);
                     let macAlert = document.getElementById(`macAlert`);
-                    let passwordAlert = document.getElementById(
-                      `passwordAlert`
-                    );
+                    let passwordAlert = document.getElementById(`passwordAlert`);
 
                     if (this.MAC.match(/\b[0-9a-f]{12}\b/g)) {
                       alert.classList.remove("bg-danger");
@@ -189,14 +160,12 @@
                         passwordAlert.classList.remove("border-secondary");
                         passwordAlert.classList.add("border-danger");
                         alertTitle[0].innerHTML = "PASSWORD IS NOT VALID";
-                        passwordAlertShow[0].innerHTML =
-                          "Password is not valid";
+                        passwordAlertShow[0].innerHTML = "Password is not valid";
 
                         setTimeout(() => {
                           alert.classList.remove("bg-danger");
                           alert.classList.add("bg-info");
-                          alertTitle[0].innerHTML =
-                            "Gateway Mac and Password's";
+                          alertTitle[0].innerHTML = "Gateway Mac and Password's";
                         }, 1000);
                       }
                     } else {
@@ -216,12 +185,8 @@
                   }
                 },
                 filterMac() {
-                  let alertTitle = document.getElementsByClassName(
-                    `statusAlertShow`
-                  );
-                  let macAlertShow = document.getElementsByClassName(
-                    "macAlertShow"
-                  );
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let macAlertShow = document.getElementsByClassName("macAlertShow");
                   let alert = document.getElementById(`status`);
                   let macAlert = document.getElementById(`macAlert`);
 
@@ -250,12 +215,8 @@
                   }
                 },
                 filterPassword() {
-                  let alertTitle = document.getElementsByClassName(
-                    `statusAlertShow`
-                  );
-                  let passwordAlertShow = document.getElementsByClassName(
-                    "passwordAlertShow"
-                  );
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
                   let alert = document.getElementById(`status`);
                   let passwordAlert = document.getElementById(`passwordAlert`);
 
@@ -295,15 +256,9 @@
           },
           methods: {
             addGateway(newDevice) {
-              var alertTitle = document.getElementsByClassName(
-                `statusAlertShow`
-              );
-              let macAlertShow = document.getElementsByClassName(
-                "macAlertShow"
-              );
-              let passwordAlertShow = document.getElementsByClassName(
-                "passwordAlertShow"
-              );
+              var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+              let macAlertShow = document.getElementsByClassName("macAlertShow");
+              let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
               let alert = document.getElementById(`status`);
               let macAlert = document.getElementById(`macAlert`);
               let passwordAlert = document.getElementById(`passwordAlert`);
@@ -336,10 +291,7 @@
 
                     this.gateways.push(newDevice);
 
-                    Homey.set("gatewaysList", this.gateways, function(
-                      error,
-                      settings
-                    ) {
+                    Homey.set("gatewaysList", this.gateways, function(error, settings) {
                       if (error) {
                         alert.classList.remove("bg-info");
                         alert.classList.add("bg-danger");
@@ -347,8 +299,7 @@
                         setTimeout(() => {
                           alert.classList.remove("bg-success");
                           alert.classList.add("bg-info");
-                          alertTitle[0].innerHTML =
-                            "Gateway Mac and Password's";
+                          alertTitle[0].innerHTML = "Gateway Mac and Password's";
                         }, 1000);
                       }
 
@@ -366,10 +317,7 @@
               } else {
                 this.gateways.push(newDevice);
 
-                Homey.set("gatewaysList", this.gateways, function(
-                  error,
-                  settings
-                ) {
+                Homey.set("gatewaysList", this.gateways, function(error, settings) {
                   if (error) {
                     alert.classList.remove("bg-info");
                     alert.classList.add("bg-danger");
@@ -396,9 +344,7 @@
               var that = this;
               Homey.get("gatewaysList", function(error, list) {
                 let alert = document.getElementById(`status`);
-                var alertTitle = document.getElementsByClassName(
-                  `statusAlertShow`
-                );
+                var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
                 if (error) {
                   alert.classList.remove("bg-info");

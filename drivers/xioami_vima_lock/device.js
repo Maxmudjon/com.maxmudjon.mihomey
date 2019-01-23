@@ -5,17 +5,7 @@ class AqaraLightBulb extends Homey.Device {
     this.initialize = this.initialize.bind(this);
     this.driver = this.getDriver();
     this.data = this.getData();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   onAdded() {

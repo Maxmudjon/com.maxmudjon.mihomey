@@ -4,13 +4,9 @@ const model = ["vibration"];
 class VibrationSensor extends Homey.Driver {
   onInit() {
     this.triggers = {
-      vibrate: new Homey.FlowCardTriggerDevice(
-        "vibrate_sensor_vibrate"
-      ).register(),
+      vibrate: new Homey.FlowCardTriggerDevice("vibrate_sensor_vibrate").register(),
       tilt: new Homey.FlowCardTriggerDevice("vibrate_sensor_tilt").register(),
-      free_fall: new Homey.FlowCardTriggerDevice(
-        "vibrate_sensor_free_fall"
-      ).register()
+      free_fall: new Homey.FlowCardTriggerDevice("vibrate_sensor_free_fall").register()
     };
   }
 

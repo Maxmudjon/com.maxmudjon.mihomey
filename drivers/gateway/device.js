@@ -8,17 +8,7 @@ class Gateway extends Homey.Device {
     this.data = this.getData();
     this.initialize();
     this.lux = 0;
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -68,16 +58,9 @@ class Gateway extends Homey.Device {
 
     if (device["data"]["rgb"]) {
       const rawRgb = device["data"]["rgb"];
-      var hexRawRgb =
-        rawRgb.toString(16).length == 8
-          ? rawRgb.toString(16)
-          : "0" + rawRgb.toString(16);
+      var hexRawRgb = rawRgb.toString(16).length == 8 ? rawRgb.toString(16) : "0" + rawRgb.toString(16);
       var hexRgb = hexRawRgb.substring(2, 8);
-      var hsb = this.rgb2hsb([
-        parseInt(hexRgb.substring(0, 2), 16),
-        parseInt(hexRgb.substring(2, 4), 16),
-        parseInt(hexRgb.substring(4, 6), 16)
-      ]);
+      var hsb = this.rgb2hsb([parseInt(hexRgb.substring(0, 2), 16), parseInt(hexRgb.substring(2, 4), 16), parseInt(hexRgb.substring(4, 6), 16)]);
       const brightness = parseInt(hexRawRgb.substring(0, 2), 16);
       const dim = brightness / 100;
       const hue = hsb[0] / 359;
@@ -138,11 +121,7 @@ class Gateway extends Homey.Device {
     }
     hsb[2] = rearranged[2] / 255.0;
     hsb[1] = 1 - rearranged[0] / rearranged[2];
-    hsb[0] =
-      maxIndex * 120 +
-      60 *
-        (rearranged[1] / hsb[1] / rearranged[2] + (1 - 1 / hsb[1])) *
-        ((maxIndex - minIndex + 3) % 3 == 1 ? 1 : -1);
+    hsb[0] = maxIndex * 120 + 60 * (rearranged[1] / hsb[1] / rearranged[2] + (1 - 1 / hsb[1])) * ((maxIndex - minIndex + 3) % 3 == 1 ? 1 : -1);
     hsb[0] = (hsb[0] + 360) % 360;
     return hsb;
   }
@@ -177,22 +156,12 @@ class Gateway extends Homey.Device {
         var hue = this.getCapabilityValue("light_hue") * 359;
         var saturation = this.getCapabilityValue("light_saturation") * 100;
         var dim = this.getCapabilityValue("dim") * 100;
-        await Homey.app.mihub.controlLightHLS(
-          sid,
-          Math.round(hue),
-          saturation,
-          dim
-        );
+        await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim);
       } else {
         var hue = 0;
         var saturation = 0;
         var dim = 0;
-        await Homey.app.mihub.controlLightHLS(
-          sid,
-          Math.round(hue),
-          saturation,
-          dim
-        );
+        await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim);
       }
       this.triggerFlow(trigger, name, value);
     });
@@ -205,12 +174,7 @@ class Gateway extends Homey.Device {
       var hue = this.getCapabilityValue("light_hue") * 359;
       var saturation = this.getCapabilityValue("light_saturation") * 100;
       var dim = value * 100;
-      await Homey.app.mihub.controlLightHLS(
-        sid,
-        Math.round(hue),
-        saturation,
-        dim
-      );
+      await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim);
     });
   }
 
@@ -224,21 +188,13 @@ class Gateway extends Homey.Device {
 
   registerLight_hueAndSaturation() {
     let sid = this.data.sid;
-    this.registerMultipleCapabilityListener(
-      ["light_hue", "light_saturation"],
-      async valueObj => {
-        var hue = valueObj.light_hue * 359;
-        var saturation_value = this.getCapabilityValue("light_saturation");
-        var saturation = saturation_value * 100;
-        var dim = this.getCapabilityValue("dim") * 100;
-        await Homey.app.mihub.controlLightHLS(
-          sid,
-          Math.round(hue),
-          saturation,
-          dim
-        );
-      }
-    );
+    this.registerMultipleCapabilityListener(["light_hue", "light_saturation"], async valueObj => {
+      var hue = valueObj.light_hue * 359;
+      var saturation_value = this.getCapabilityValue("light_saturation");
+      var saturation = saturation_value * 100;
+      var dim = this.getCapabilityValue("dim") * 100;
+      await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim);
+    });
   }
 
   dec2hex(dec, len) {
@@ -261,9 +217,7 @@ class Gateway extends Homey.Device {
   }
 
   registerCondition(name, condition) {
-    condition.registerRunListener((args, state) =>
-      Promise.resolve(this.getCapabilityValue(name))
-    );
+    condition.registerRunListener((args, state) => Promise.resolve(this.getCapabilityValue(name)));
   }
 
   registerToggleAction(name, action) {
@@ -272,23 +226,13 @@ class Gateway extends Homey.Device {
       var hue = this.getCapabilityValue("light_hue") * 359;
       var saturation = this.getCapabilityValue("light_saturation") * 100;
       var dim = this.getCapabilityValue("dim") * 100;
-      await Homey.app.mihub.controlLightHLS(
-        sid,
-        Math.round(hue),
-        saturation,
-        dim
-      );
+      await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim);
     });
     action.off.registerRunListener(async (args, state) => {
       var hue = 0;
       var saturation = 0;
       var dim = 0;
-      await Homey.app.mihub.controlLightHLS(
-        sid,
-        Math.round(hue),
-        saturation,
-        dim
-      );
+      await Homey.app.mihub.controlLightHLS(sid, Math.round(hue), saturation, dim);
     });
   }
 

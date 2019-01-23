@@ -7,17 +7,7 @@ class DoubleSwitch extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -33,20 +23,8 @@ class DoubleSwitch extends Homey.Device {
 
   registerCapabilities() {
     const { triggers } = this.driver;
-    this.registerToggle(
-      "onoff.1",
-      "channel_0",
-      "on",
-      "off",
-      triggers.left_switch
-    );
-    this.registerToggle(
-      "onoff.2",
-      "channel_1",
-      "on",
-      "off",
-      triggers.right_switch
-    );
+    this.registerToggle("onoff.1", "channel_0", "on", "off", triggers.left_switch);
+    this.registerToggle("onoff.2", "channel_1", "on", "off", triggers.right_switch);
   }
 
   registerConditions() {
@@ -57,20 +35,8 @@ class DoubleSwitch extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerToggleAction(
-      "onoff.1",
-      "channel_0",
-      "on",
-      "off",
-      actions.left_switch
-    );
-    this.registerToggleAction(
-      "onoff.2",
-      "channel_1",
-      "on",
-      "off",
-      actions.right_switch
-    );
+    this.registerToggleAction("onoff.1", "channel_0", "on", "off", actions.left_switch);
+    this.registerToggleAction("onoff.2", "channel_1", "on", "off", actions.right_switch);
   }
 
   handleStateChange(device) {
@@ -144,18 +110,10 @@ class DoubleSwitch extends Homey.Device {
   }
 
   registerCondition(name, condition) {
-    condition.registerRunListener((args, state) =>
-      Promise.resolve(this.getCapabilityValue(name))
-    );
+    condition.registerRunListener((args, state) => Promise.resolve(this.getCapabilityValue(name)));
   }
 
-  registerToggleAction(
-    name,
-    channel,
-    valueOn = true,
-    valueOff = false,
-    action
-  ) {
+  registerToggleAction(name, channel, valueOn = true, valueOff = false, action) {
     action.on.registerRunListener(async (args, state) => {
       this.log("action.on");
       const data = { [channel]: valueOn };
