@@ -46,7 +46,7 @@ class GatewayRadio extends Homey.Driver {
                       volume: value.current_volume
                     };
 
-                    if (Homey.version.replace(/\W/g, "") >= "200") {
+                    if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
                       pairingDevice.capabilities.push("speaker_playing");
                       pairingDevice.capabilities.push("speaker_prev");
                       pairingDevice.capabilities.push("speaker_next");

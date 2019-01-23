@@ -8,14 +8,6 @@ class GatewayRadio extends Homey.Device {
     this.data = this.getData();
     this.volume = 0;
     this.played = false;
-    this.image = new Homey.Image("jpg");
-    this.image.setUrl(null);
-    this.image
-      .register()
-      .then(() => {
-        return this.setAlbumArtImage(this.image);
-      })
-      .catch(this.error);
     this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
     this.initialize();
@@ -23,6 +15,16 @@ class GatewayRadio extends Homey.Device {
   }
 
   async initialize() {
+    if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
+      this.image = new Homey.Image("jpg");
+      this.image.setUrl(null);
+      this.image
+        .register()
+        .then(() => {
+          return this.setAlbumArtImage(this.image);
+        })
+        .catch(this.error);
+    }
     this.registerActions();
     this.registerCapabilities();
     this.getRadioStatus(this.update);
@@ -63,7 +65,7 @@ class GatewayRadio extends Homey.Device {
               .call("get_prop_fm", [])
               .then(result => {
                 that.setCapabilityValue("volume_set", result.current_volume / 100);
-                if (Homey.version.replace(/\W/g, "") >= "200") {
+                if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
                   if (result.current_program == "527782008") {
                     that.setCapabilityValue("speaker_track", "Авторадио " + " id: " + result.current_program);
                     this.image.setUrl("https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png");
