@@ -13,17 +13,7 @@ class YeelightLightStrip extends Homey.Device {
     this.update = this.getSetting("updateTimer") || 60;
     this.updateInterval;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -41,10 +31,7 @@ class YeelightLightStrip extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerFavoriteFlowsAction(
-      "favorite_flow_color1_bulb",
-      actions.favoriteFlow
-    );
+    this.registerFavoriteFlowsAction("favorite_flow_color1_bulb", actions.favoriteFlow);
   }
 
   async getYeelightStatus(update) {
@@ -67,10 +54,7 @@ class YeelightLightStrip extends Homey.Device {
             device
               .call("get_prop", ["power", "bright", "rgb", "ct", "color_mode"])
               .then(result => {
-                that.setCapabilityValue(
-                  "onoff",
-                  result[0] === "on" ? true : false
-                );
+                that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
                 that.setCapabilityValue("dim", result[1] / 100);
                 that.brightness = result[1] / 100;
                 that.drgb = result[2];
@@ -98,33 +82,19 @@ class YeelightLightStrip extends Homey.Device {
               this.setCapabilityValue("light_saturation", this.brightness);
             }
 
-            if (
-              this.colorTemperature != undefined &&
-              this.colorTemperature != null
-            ) {
+            if (this.colorTemperature != undefined && this.colorTemperature != null) {
               var colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
 
               this.setCapabilityValue("light_temperature", colorTemp);
             }
           })
           .catch(error => {
-            if (
-              error == "Error: Could not connect to device, handshake timeout"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, handshake timeout")
-              );
+            if (error == "Error: Could not connect to device, handshake timeout") {
+              this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
               this.log("Error: Could not connect to device, handshake timeout");
-            } else if (
-              error ==
-              "Error: Could not connect to device, token might be wrong"
-            ) {
-              this.setUnavailable(
-                Homey.__("Could not connect to device, token might be wrong")
-              );
-              this.log(
-                "Error: Could not connect to device, token might be wrong"
-              );
+            } else if (error == "Error: Could not connect to device, token might be wrong") {
+              this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+              this.log("Error: Could not connect to device, token might be wrong");
             }
             if (typeof that.device !== "undefined") {
               device.destroy();
@@ -161,21 +131,13 @@ class YeelightLightStrip extends Homey.Device {
     }
     hsb[2] = rearranged[2] / 255.0;
     hsb[1] = 1 - rearranged[0] / rearranged[2];
-    hsb[0] =
-      maxIndex * 120 +
-      60 *
-        (rearranged[1] / hsb[1] / rearranged[2] + (1 - 1 / hsb[1])) *
-        ((maxIndex - minIndex + 3) % 3 == 1 ? 1 : -1);
+    hsb[0] = maxIndex * 120 + 60 * (rearranged[1] / hsb[1] / rearranged[2] + (1 - 1 / hsb[1])) * ((maxIndex - minIndex + 3) % 3 == 1 ? 1 : -1);
     hsb[0] = (hsb[0] + 360) % 360;
     return hsb;
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("deviceIP") ||
-      changedKeys.includes("deviceToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getYeelightStatus(newSettings["updateTimer"]);
       callback(null, true);
     }
