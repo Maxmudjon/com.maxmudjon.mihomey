@@ -21,12 +21,7 @@
         let gatewayToken = document.getElementById(`gatewayToken`);
         let gatewayUpdateTime = document.getElementById(`gatewayUpdateTime`);
 
-        let data = {
-          ip: gatewayIP.value,
-          token: gatewayToken.value,
-          model: "lumi.gateway.v3",
-          timer: gatewayUpdateTime.value || 60
-        };
+        let data = { ip: gatewayIP.value, token: gatewayToken.value, model: "lumi.gateway.v3", timer: gatewayUpdateTime.value || 60 };
         Homey.emit("connect", data, function(error, result) {
           if (error) {
             alert.classList.remove("alert-light");

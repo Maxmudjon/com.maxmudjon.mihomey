@@ -22,20 +22,20 @@ class ButtonSwitch extends Homey.Device {
     const { triggers } = this.driver;
     if (device["data"]["voltage"]) {
       var battery = (device["data"]["voltage"] - 2800) / 5;
-      this.updateCapabilityValue("measure_battery", battery);
+      this.updateCapabilityValue("measure_battery", battery > 100 ? 100 : battery);
       this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
     if (device["data"]["status"] == "click") {
-      this.triggerFlow(triggers.click, "click", true);
+      triggers.click.trigger(this, {}, true);
     }
 
     if (device["data"]["status"] == "double_click") {
-      this.triggerFlow(triggers.double_click, "double_click", true);
+      triggers.double_click.trigger(this, {}, true);
     }
 
     if (device["data"]["status"] == "long_click_press") {
-      this.triggerFlow(triggers.long_click_press, "long_click_press", true);
+      triggers.long_click_press.trigger(this, {}, true);
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -75,20 +75,7 @@ class ButtonSwitch extends Homey.Device {
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value);
-      this.triggerFlow(trigger, name, value);
     }
-  }
-
-  triggerFlow(trigger, name, value) {
-    if (!trigger) {
-      return;
-    }
-
-    if (value) {
-      trigger.trigger(this, {}, value);
-    }
-
-    this.log("trigger:", name, value);
   }
 
   onAdded() {

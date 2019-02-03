@@ -5,12 +5,8 @@ class ButtonSwitch extends Homey.Driver {
   onInit() {
     this.triggers = {
       click: new Homey.FlowCardTriggerDevice("click_button_switch").register(),
-      double_click: new Homey.FlowCardTriggerDevice(
-        "double_click_click_button_switch"
-      ).register(),
-      long_click_press: new Homey.FlowCardTriggerDevice(
-        "long_click_press_click_button_switch"
-      ).register()
+      double_click: new Homey.FlowCardTriggerDevice("double_click_click_button_switch").register(),
+      long_click_press: new Homey.FlowCardTriggerDevice("long_click_press_click_button_switch").register()
     };
   }
 

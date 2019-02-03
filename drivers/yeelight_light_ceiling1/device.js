@@ -10,17 +10,7 @@ class YeelightCeilingLamp extends Homey.Device {
     this.brightness;
     this.colorTemperature;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -37,24 +27,15 @@ class YeelightCeilingLamp extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerFavoriteFlowsAction(
-      "favorite_flow_ceiling1_lamp",
-      actions.favoriteFlow
-    );
+    this.registerFavoriteFlowsAction("favorite_flow_ceiling1_lamp", actions.favoriteFlow);
   }
 
   getYeelightStatus() {
     var that = this;
     miio
-      .device({
-        address: this.getSetting("deviceIP"),
-        token: this.getSetting("deviceToken")
-      })
+      .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
       .then(device => {
-        if (!this.getAvailable()) {
-          this.setAvailable();
-        }
-
+        this.setAvailable();
         this.device = device;
 
         this.device
@@ -65,14 +46,9 @@ class YeelightCeilingLamp extends Homey.Device {
             that.brightness = result[1] / 100;
             that.colorTemperature = result[2];
           })
-          .catch(error =>
-            that.log("Sending commmand 'get_prop' error: ", error)
-          );
+          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
-        if (
-          that.colorTemperature != undefined &&
-          that.colorTemperature != null
-        ) {
+        if (that.colorTemperature != undefined && that.colorTemperature != null) {
           var colorTemp = that.normalize(that.colorTemperature, 2700, 6500);
           that.setCapabilityValue("light_temperature", colorTemp);
         }
@@ -82,7 +58,13 @@ class YeelightCeilingLamp extends Homey.Device {
       })
       .catch(error => {
         this.log(error);
-        this.setUnavailable(Homey.__("reconnecting"));
+        if (error == "Error: Could not connect to device, handshake timeout") {
+          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
+          this.log("Error: Could not connect to device, handshake timeout");
+        } else if (error == "Error: Could not connect to device, token might be wrong") {
+          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+          this.log("Error: Could not connect to device, token might be wrong");
+        }
         setTimeout(() => {
           this.getYeelightStatus();
         }, 10000);
@@ -115,11 +97,7 @@ class YeelightCeilingLamp extends Homey.Device {
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("deviceIP") ||
-      changedKeys.includes("deviceToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getYeelightStatus();
       callback(null, true);
     }
@@ -130,9 +108,7 @@ class YeelightCeilingLamp extends Homey.Device {
       this.device
         .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error =>
-          this.log("Sending commmand 'set_power' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
@@ -142,9 +118,7 @@ class YeelightCeilingLamp extends Homey.Device {
         this.device
           .call("set_bright", [value * 100])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error =>
-            this.log("Sending commmand 'set_bright' error: ", error)
-          );
+          .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
       }
     });
   }
@@ -155,9 +129,7 @@ class YeelightCeilingLamp extends Homey.Device {
       this.device
         .call("set_ct_abx", [color_temp, "smooth", 500])
         .then(() => this.log("Sending " + name + " commmand: " + color_temp))
-        .catch(error =>
-          this.log("Sending commmand 'set_ct_abx' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'set_ct_abx' error: ", error));
     });
   }
 
@@ -169,10 +141,30 @@ class YeelightCeilingLamp extends Homey.Device {
   registerFavoriteFlowsAction(name, action) {
     var that = this;
     action.favoriteFlow.registerRunListener(async (args, state) => {
-      that.device
-        .call("start_cf", flows[args.favoriteFlowID])
-        .then(() => that.log("Set flow: ", args.favoriteFlowID))
-        .catch(error => that.log("Set flow error: ", error));
+      try {
+        miio
+          .device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          })
+          .then(device => {
+            device
+              .call("start_cf", flows[args.favoriteFlowID])
+              .then(() => {
+                this.log("Set flow: ", args.favoriteFlowID);
+                device.destroy();
+              })
+              .catch(error => {
+                this.log("Set flow error: ", error);
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            this.log("miio connect error: " + error);
+          });
+      } catch (error) {
+        this.log("catch error: " + error);
+      }
     });
   }
 

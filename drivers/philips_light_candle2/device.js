@@ -9,17 +9,7 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
     this.brightness;
     this.colorTemperature;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -42,15 +32,9 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
   getPhilipsStatus() {
     var that = this;
     miio
-      .device({
-        address: this.getSetting("deviceIP"),
-        token: this.getSetting("deviceToken")
-      })
+      .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
       .then(device => {
-        if (!this.getAvailable()) {
-          this.setAvailable();
-        }
-
+        this.setAvailable();
         this.device = device;
 
         this.device
@@ -61,14 +45,9 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
             that.brightness = result[1] / 100;
             that.colorTemperature = result[2] / 100;
           })
-          .catch(error =>
-            that.log("Sending commmand 'get_prop' error: ", error)
-          );
+          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
-        if (
-          this.colorTemperature != undefined &&
-          this.colorTemperature != null
-        ) {
+        if (this.colorTemperature != undefined && this.colorTemperature != null) {
           this.setCapabilityValue("light_temperature", this.colorTemperature);
         }
 
@@ -77,7 +56,13 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
       })
       .catch(error => {
         this.log(error);
-        this.setUnavailable(Homey.__("reconnecting"));
+        if (error == "Error: Could not connect to device, handshake timeout") {
+          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
+          this.log("Error: Could not connect to device, handshake timeout");
+        } else if (error == "Error: Could not connect to device, token might be wrong") {
+          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
+          this.log("Error: Could not connect to device, token might be wrong");
+        }
         setTimeout(() => {
           this.getPhilipsStatus();
         }, 10000);
@@ -105,11 +90,7 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("deviceIP") ||
-      changedKeys.includes("deviceToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getPhilipsStatus();
       callback(null, true);
     }
@@ -120,9 +101,7 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
       this.device
         .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error =>
-          this.log("Sending commmand 'set_power' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
@@ -132,9 +111,7 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
         this.device
           .call("set_bright", [value * 100])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error =>
-            this.log("Sending commmand 'set_bright' error: ", error)
-          );
+          .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
       }
     });
   }
@@ -156,10 +133,30 @@ class PhilipsLEDBulbE14CandleLampCrystal extends Homey.Device {
 
   registerPhilipsScenesAction(name, action) {
     action.action.registerRunListener(async (args, state) => {
-      this.device
-        .call("apply_fixed_scene", [args.scene])
-        .then(() => this.log("Set scene: ", args.scene))
-        .catch(error => this.log("Set flow error: ", error));
+      try {
+        miio
+          .device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          })
+          .then(device => {
+            device
+              .call("apply_fixed_scene", [args.scene])
+              .then(() => {
+                this.log("Set scene: ", args.scene);
+                device.destroy();
+              })
+              .catch(error => {
+                this.log("Set scene error: ", error);
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            this.log("miio connect error: " + error);
+          });
+      } catch (error) {
+        this.log("catch error: " + error);
+      }
     });
   }
 

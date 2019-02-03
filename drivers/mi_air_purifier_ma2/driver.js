@@ -1,47 +1,40 @@
-const Homey = require("homey");
-const miio = require("miio");
+const Homey = require('homey');
+const miio = require('miio');
 
-const initFlowAction = action => ({
+const initFlowAction = (action) => ({
   action: new Homey.FlowCardAction(action).register()
-});
-
-const initFlowCondition = name => new Homey.FlowCardCondition(name).register();
+})
 
 class MiAirPurifierS2 extends Homey.Driver {
+
   onInit() {
     this.actions = {
-      purifierOn: initFlowAction("purifier_on"),
-      purifierOff: initFlowAction("purifier_off"),
-      purifierMode: initFlowAction("purifier_mode"),
-      purifierSpeed: initFlowAction("purifier_speed")
-    };
-    this.conditions = {
-      purifier_power: initFlowCondition("purifier_power")
-    };
+      purifierOn: initFlowAction('purifier_on'),
+      purifierOff: initFlowAction('purifier_off'),
+      purifierMode: initFlowAction('purifier_mode'),
+      purifierSpeed: initFlowAction('purifier_speed')
+    }
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Mi Air Purifier S2";
+    pairingDevice.name = 'Mi Air Purifier S2';
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on('connect', function (data, callback) {
       this.data = data;
-      miio
-        .device({ address: data.ip, token: data.token })
+      miio.device({ address: data.ip, token: data.token })
         .then(device => {
-          device
-            .call("miIO.info", [])
+          device.call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = "MA:PM:A2:" + value.mac + ":MA:PM:A2";
-                device
-                  .call("get_prop", ["power"])
+                pairingDevice.data.id = 'MA:PM:A2:' + value.mac + ':MA:PM:A2';
+                device.call("get_prop", ["power"])
                   .then(value => {
                     let result = {
                       state: value[0]
-                    };
+                    }
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
                     if (this.data.timer < 5) {
@@ -54,30 +47,29 @@ class MiAirPurifierS2 extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch(error => callback(null, error))
               } else {
                 let result = {
-                  notDevice: "It is not Mi Air Purifier S2"
-                };
-                pairingDevice.data.id = null;
-                callback(null, result);
+                  notDevice: 'It is not Mi Air Purifier S2'
+                }
+                pairingDevice.data.id = null
+                callback(null, result)
               }
             })
-            .catch(error => callback(null, error));
+            .catch(error => callback(null, error))
         })
         .catch(error => {
           if (error == "Error: Could not connect to device, handshake timeout") {
-            callback(null, "timeout");
-          }
-          if (error == "Error: Could not connect to device, token might be wrong") {
-            callback(null, "wrongToken");
+            callback(null, 'timeout')
+          } if (error == "Error: Could not connect to device, token might be wrong") {
+            callback(null, 'wrongToken')
           } else {
-            callback(error, "Error");
+            callback(error, 'Error');
           }
         });
     });
 
-    socket.on("done", function(data, callback) {
+    socket.on('done', function (data, callback) {
       callback(null, pairingDevice);
     });
   }

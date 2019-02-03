@@ -28,8 +28,7 @@ class PhilipsEyeCareDeskLamp2 extends Homey.Driver {
             .call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id =
-                  "PH:EC:DL:2V:" + value.mac + ":PH:EC:DL:2V";
+                pairingDevice.data.id = "PH:EC:DL:2V:" + value.mac + ":PH:EC:DL:2V";
                 device
                   .call("get_prop", ["bright"])
                   .then(value => {
@@ -43,9 +42,7 @@ class PhilipsEyeCareDeskLamp2 extends Homey.Driver {
                     } else if (this.data.timer > 3600) {
                       pairingDevice.settings.updateTimer = 3600;
                     } else {
-                      pairingDevice.settings.updateTimer = parseInt(
-                        this.data.timer
-                      );
+                      pairingDevice.settings.updateTimer = parseInt(this.data.timer);
                     }
 
                     callback(null, result);
@@ -62,14 +59,10 @@ class PhilipsEyeCareDeskLamp2 extends Homey.Driver {
             .catch(error => callback(null, error));
         })
         .catch(error => {
-          if (
-            error == "Error: Could not connect to device, handshake timeout"
-          ) {
+          if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
-          if (
-            error == "Error: Could not connect to device, token might be wrong"
-          ) {
+          if (error == "Error: Could not connect to device, token might be wrong") {
             callback(null, "wrongToken");
           } else {
             callback(error, "Error");

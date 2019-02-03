@@ -41,9 +41,7 @@ class YeelightCeilingLamp extends Homey.Driver {
                     } else if (this.data.timer > 3600) {
                       pairingDevice.settings.updateTimer = 3600;
                     } else {
-                      pairingDevice.settings.updateTimer = parseInt(
-                        this.data.timer
-                      );
+                      pairingDevice.settings.updateTimer = parseInt(this.data.timer);
                     }
 
                     callback(null, result);
@@ -60,14 +58,10 @@ class YeelightCeilingLamp extends Homey.Driver {
             .catch(error => callback(null, error));
         })
         .catch(function(error) {
-          if (
-            error == "Error: Could not connect to device, handshake timeout"
-          ) {
+          if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
-          if (
-            error == "Error: Could not connect to device, token might be wrong"
-          ) {
+          if (error == "Error: Could not connect to device, token might be wrong") {
             callback(null, "wrongToken");
           } else {
             callback(error, "Error");

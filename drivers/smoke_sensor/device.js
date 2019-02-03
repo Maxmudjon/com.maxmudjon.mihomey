@@ -21,10 +21,7 @@ class SmokeSensor extends Homey.Device {
   handleStateChange(device) {
     if (device["data"]["voltage"]) {
       var battery = (device["data"]["voltage"] - 2800) / 5;
-      if (battery > 100) {
-        battery = 100;
-      }
-      this.updateCapabilityValue("measure_battery", battery);
+      this.updateCapabilityValue("measure_battery", battery > 100 ? 100 : battery);
       this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 

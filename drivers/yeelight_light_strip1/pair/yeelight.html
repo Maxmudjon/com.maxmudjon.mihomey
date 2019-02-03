@@ -21,12 +21,7 @@
         let YeelightToken = document.getElementById(`YeelightToken`);
         let deviceUpdateTimer = document.getElementById(`deviceUpdateTimer`);
 
-        let data = {
-          ip: YeelightIP.value,
-          token: YeelightToken.value,
-          model: "yeelink.light.strip1",
-          timer: deviceUpdateTimer.value || 60
-        };
+        let data = { ip: YeelightIP.value, token: YeelightToken.value, model: "yeelink.light.strip1", timer: deviceUpdateTimer.value || 60 };
         Homey.emit("connect", data, function(error, result) {
           if (error) {
             alert.classList.remove("alert-light");
@@ -87,67 +82,13 @@
 </script>
 
 <div id="Yeelight">
-  <div
-    class="row align-items-center alert alert-light"
-    role="alert"
-    id="status"
-    style="width:100%; margin-left: 0px; margin-right: 0px;"
-  >
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        id="YeelightIP"
-        aria-describedby="basic-addon3"
-        placeholder="IP Address"
-      />
-    </div>
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        id="YeelightToken"
-        aria-describedby="basic-addon3"
-        placeholder="Token"
-      />
-    </div>
-    <div class="input-group mb-3">
-      <small id="period" class="form-text text-muted"
-        >Polling period, seconds</small
-      >
-    </div>
-    <div class="input-group mb-3">
-      <input
-        type="number"
-        class="form-control"
-        id="deviceUpdateTimer"
-        aria-describedby="basic-addon3"
-        placeholder="60"
-        min="5"
-        max="3600"
-      />
-    </div>
-    <div class="col" style="padding-left: 0px;">
-      <div class="statusAlertShow float-left">Not connected!</div>
-    </div>
-    <div class="col" style="padding-right: 0px;">
-      <button
-        v-on:click="connect"
-        type="button"
-        class="btn btn-primary float-right"
-        style="height: auto;"
-      >
-        Connect
-      </button>
-    </div>
+  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width:100%; margin-left: 0px; margin-right: 0px;">
+    <div class="input-group mb-3"><input type="text" class="form-control" id="YeelightIP" aria-describedby="basic-addon3" placeholder="IP Address" /></div>
+    <div class="input-group mb-3"><input type="text" class="form-control" id="YeelightToken" aria-describedby="basic-addon3" placeholder="Token" /></div>
+    <div class="input-group mb-3"><small id="period" class="form-text text-muted">Polling period, seconds</small></div>
+    <div class="input-group mb-3"><input type="number" class="form-control" id="deviceUpdateTimer" aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" /></div>
+    <div class="col" style="padding-left: 0px;"><div class="statusAlertShow float-left">Not connected!</div></div>
+    <div class="col" style="padding-right: 0px;"><button v-on:click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button></div>
   </div>
-  <button
-    v-on:click="addDevice"
-    type="button"
-    class="btn btn-primary btn-lg btn-block"
-    style="height: auto; display: none;"
-    id="addDevice"
-  >
-    Add device
-  </button>
+  <button v-on:click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;" id="addDevice">Add device</button>
 </div>

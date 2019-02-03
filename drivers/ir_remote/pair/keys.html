@@ -1,0 +1,103 @@
+<script src="../../../assets/vue.min.js"></script>
+<link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
+
+<script>
+  Homey.setTitle("Add TV keys code");
+  Homey.emit("getCurrentDevice", null, function(err, result) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    new Vue({
+      el: "#app",
+      data: {
+        deviceIp: result.settings.deviceIp,
+        deviceToken: result.settings.deviceToken
+      },
+      methods: {
+        learn: function(value) {
+          let alert = document.getElementById(`${value}Alert`);
+          var alertTitle = document.getElementsByClassName(`${value}AlertShow`);
+
+          let data = { key: value, ip: this.deviceIp, token: this.deviceToken };
+          Homey.emit("learnCode", data, function(error, result) {
+            if (error) {
+              alert.classList.remove("alert-secondary");
+              alert.classList.remove("alert-warning");
+              alert.classList.add("alert-danger");
+              alertTitle[0].innerHTML = "Error";
+            }
+
+            if (result == "timeout") {
+              alert.classList.remove("alert-secondary");
+              alert.classList.remove("alert-danger");
+              alert.classList.add("alert-warning");
+              alertTitle[0].innerHTML = "Timeout";
+            }
+
+            if (result == "offline") {
+              alert.classList.remove("alert-secondary");
+              alert.classList.remove("alert-warning");
+              alert.classList.add("alert-danger");
+              alertTitle[0].innerHTML = "Offline";
+            }
+
+            if (result.code) {
+              alert.classList.remove("alert-secondary");
+              alert.classList.remove("alert-danger");
+              alert.classList.remove("alert-warning");
+              alert.classList.add("alert-success");
+              alertTitle[0].innerHTML = "Learned";
+            }
+          });
+        }
+      }
+    });
+  });
+</script>
+
+<div id="app">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div class="row align-items-center alert alert-secondary" role="alert" id="standbyAlert">
+          <div class="col-auto"><img src="img/tv_power_normal.png" height="50" width="50" /></div>
+          <div class="col"><span>Standby</span></div>
+          <div class="col"><div class="standbyAlertShow" style="width: 136px;">Not learned!</div></div>
+          <div class="col"><button v-on:click="learn('standby')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
+        </div>
+        <div class="row align-items-center alert alert-secondary" role="alert" id="channelUpAlert">
+          <div class="col-auto"><img src="img/tv_ch-up_normal.png" height="50" width="50" /></div>
+          <div class="col"><span>Channel UP</span></div>
+          <div class="col"><div class="channelUpAlertShow" style="width: 136px;">Not learned!</div></div>
+          <div class="col"><button v-on:click="learn('channelUp')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
+        </div>
+        <div class="row align-items-center alert alert-secondary" role="alert" id="channelDownAlert">
+          <div class="col-auto"><img src="img/tv_ch-down_normal.png" height="50" width="50" /></div>
+          <div class="col"><span>Channel DOWN</span></div>
+          <div class="col"><div class="channelDownAlertShow" style="width: 136px;">Not learned!</div></div>
+          <div class="col"><button v-on:click="learn('channelDown')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
+        </div>
+        <div class="row align-items-center alert alert-secondary" role="alert" id="volumeUpAlert">
+          <div class="col-auto"><img src="img/tv_v+_normal.png" height="50" width="50" /></div>
+          <div class="col"><span>Volume UP</span></div>
+          <div class="col"><div class="volumeUpAlertShow" style="width: 136px;">Not learned!</div></div>
+          <div class="col"><button v-on:click="learn('volumeUp')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
+        </div>
+        <div class="row align-items-center alert alert-secondary" role="alert" id="volumeDownAlert">
+          <div class="col-auto"><img src="img/tv_v-_normal.png" height="50" width="50" /></div>
+          <div class="col"><span>Volume DOWN</span></div>
+          <div class="col"><div class="volumeDownAlertShow" style="width: 136px;">Not learned!</div></div>
+          <div class="col"><button v-on:click="learn('volumeDown')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
+        </div>
+        <div class="row align-items-center alert alert-secondary" role="alert" id="muteAlert">
+          <div class="col-auto"><img src="img/tv_mute_normal.png" height="50" width="50" /></div>
+          <div class="col"><span>Mute</span></div>
+          <div class="col"><div class="muteAlertShow" style="width: 136px;">Not learned!</div></div>
+          <div class="col"><button v-on:click="learn('mute')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

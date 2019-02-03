@@ -29,21 +29,20 @@ class MiMotionSensor extends Homey.Device {
     }
     if (device["data"]["voltage"]) {
       var battery = (device["data"]["voltage"] - 2800) / 5;
-      if (battery > 100) {
-        battery = 100;
-      }
-      this.updateCapabilityValue("measure_battery", battery);
+      this.updateCapabilityValue("measure_battery", battery > 100 ? 100 : battery);
       this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
+    var settings = this.getSettings();
+
     if (device["data"]["status"] == "motion") {
-      this.updateCapabilityValue("alarm_motion", true, null);
+      this.updateCapabilityValue("alarm_motion", true);
       if (this.timeout) {
         clearTimeout(this.timeout);
       }
       this.timeout = setTimeout(() => {
-        this.updateCapabilityValue("alarm_motion", false, null);
-      }, this.getSetting("alarm_duration_number") * 1000);
+        this.updateCapabilityValue("alarm_motion", false);
+      }, settings.alarm_duration_number * 1000);
     }
 
     if (device["data"]["lux"]) {

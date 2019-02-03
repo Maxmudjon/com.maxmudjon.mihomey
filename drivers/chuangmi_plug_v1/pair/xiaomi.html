@@ -21,12 +21,7 @@
         let XiaomiToken = document.getElementById(`XiaomiToken`);
         let deviceUpdateTimer = document.getElementById(`deviceUpdateTimer`);
 
-        let data = {
-          ip: XiaomiIP.value,
-          token: XiaomiToken.value,
-          model: "chuangmi.plug.v1",
-          timer: deviceUpdateTimer.value || 60
-        };
+        let data = { ip: XiaomiIP.value, token: XiaomiToken.value, model: "chuangmi.plug.v1", timer: deviceUpdateTimer.value || 60 };
         Homey.emit("connect", data, function(error, result) {
           if (error) {
             alert.classList.remove("alert-light");
