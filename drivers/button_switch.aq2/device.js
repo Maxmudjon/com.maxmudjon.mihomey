@@ -27,15 +27,15 @@ class AqaraButtonSwitch extends Homey.Device {
     }
 
     if (device["data"]["status"] == "click") {
-      triggers.click.trigger(this, {}, true);
+      this.triggerFlow(triggers.click, "click", true);
     }
 
     if (device["data"]["status"] == "double_click") {
-      triggers.double_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.double_click, "double_click", true);
     }
 
     if (device["data"]["status"] == "long_click_press") {
-      triggers.long_click_press.trigger(this, {}, true);
+      this.triggerFlow(triggers.long_click_press, "long_click_press", true);
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -75,7 +75,20 @@ class AqaraButtonSwitch extends Homey.Device {
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value);
+      this.triggerFlow(trigger, name, value);
     }
+  }
+
+  triggerFlow(trigger, name, value) {
+    if (!trigger) {
+      return;
+    }
+
+    if (value) {
+      trigger.trigger(this, {}, value);
+    }
+
+    this.log("trigger:", name, value);
   }
 
   onAdded() {

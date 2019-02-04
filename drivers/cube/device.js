@@ -27,47 +27,46 @@ class DoubleButton86Switch extends Homey.Device {
     }
 
     if (device["data"]["status"] == "shake_air") {
-      triggers.shake_air.trigger(this, {}, true);
+      this.triggerFlow(triggers.shake_air, "shake_air", true);
     }
 
     if (device["data"]["status"] == "tap_twice") {
-      triggers.tap_twice.trigger(this, {}, true);
+      this.triggerFlow(triggers.tap_twice, "tap_twice", true);
     }
 
     if (device["data"]["status"] == "move") {
-      triggers.move.trigger(this, {}, true);
+      this.triggerFlow(triggers.move, "move", true);
     }
 
     if (device["data"]["status"] == "flip180") {
-      triggers.flip180.trigger(this, {}, true);
+      this.triggerFlow(triggers.flip180, "flip180", true);
     }
 
     if (device["data"]["status"] == "flip90") {
-      triggers.flip90.trigger(this, {}, true);
+      this.triggerFlow(triggers.flip90, "flip90", true);
     }
 
     if (device["data"]["status"] == "free_fall") {
-      triggers.free_fall.trigger(this, {}, true);
+      this.triggerFlow(triggers.free_fall, "free_fall", true);
     }
 
     if (device["data"]["status"] == "alert") {
       this.triggerFlow(triggers.alert, "alert", true);
-      triggers.alert.trigger(this, {}, true);
     }
 
     if (parseInt(device["data"]["rotate"]) > 0) {
-      triggers.rotatePositive.trigger(this, {}, true);
+      this.triggerFlow(triggers.rotatePositive, "rotatePositive", true);
     }
 
     if (parseInt(device["data"]["rotate"]) < 0) {
-      triggers.rotateNegative.trigger(this, {}, true);
+      this.triggerFlow(triggers.rotateNegative, "rotateNegative", true);
     }
 
     if (device["data"]["rotate"]) {
       let tokens = {
         cube_rotated: parseInt(device["data"]["rotate"])
       };
-      triggers.cubeRotated.trigger(this, tokens, true);
+      this.triggerFlow(triggers.cubeRotated, "cubeRotated", tokens);
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -107,6 +106,23 @@ class DoubleButton86Switch extends Homey.Device {
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value);
+      this.triggerFlow(trigger, name, value);
+    }
+  }
+
+  triggerFlow(trigger, name, value) {
+    if (!trigger) {
+      return;
+    }
+
+    if (value) {
+      trigger.trigger(this, {}, value);
+    }
+
+    this.log("trigger:", name, value);
+
+    switch (name) {
+      case "":
     }
   }
 

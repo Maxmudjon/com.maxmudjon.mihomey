@@ -28,27 +28,27 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
     }
 
     if (device["data"]["channel_0"] == "click") {
-      triggers.left_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.left_click, "left_click", true);
     }
 
     if (device["data"]["channel_0"] == "double_click") {
-      triggers.left_double_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.left_double_click, "left_double_click", true);
     }
 
     if (device["data"]["channel_0"] == "long_click") {
-      triggers.left_long_click_press.trigger(this, {}, true);
+      this.triggerFlow(triggers.left_long_click_press, "left_long_click_press", true);
     }
 
     if (device["data"]["channel_1"] == "click") {
-      triggers.right_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.right_click, "right_click", true);
     }
 
     if (device["data"]["channel_1"] == "double_click") {
-      triggers.right_double_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.right_double_click, "right_double_click", true);
     }
 
     if (device["data"]["channel_1"] == "long_click") {
-      triggers.right_long_click_press.trigger(this, {}, true);
+      this.triggerFlow(triggers.right_long_click_press, "right_long_click_press", true);
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -88,6 +88,28 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value);
+      this.triggerFlow(trigger, name, value);
+    }
+  }
+
+  triggerFlow(trigger, name, value) {
+    if (!trigger) {
+      return;
+    }
+
+    if (value) {
+      trigger.trigger(this, {}, value);
+    }
+
+    this.log("trigger:", name, value);
+
+    switch (name) {
+      case "left_click":
+      case "left_double_click":
+      case "left_long_click_press":
+      case "right_click":
+      case "right_double_click":
+      case "right_long_click_press":
     }
   }
 

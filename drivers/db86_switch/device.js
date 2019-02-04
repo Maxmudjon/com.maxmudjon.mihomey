@@ -27,15 +27,15 @@ class DoubleButton86Switch extends Homey.Device {
     }
 
     if (device["data"]["channel_0"] == "click") {
-      triggers.left_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.left_click, "left_click", true);
     }
 
     if (device["data"]["channel_1"] == "click") {
-      triggers.right_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.right_click, "right_click", true);
     }
 
     if (device["data"]["dual_channel"] == "both_click") {
-      triggers.both_click.trigger(this, {}, true);
+      this.triggerFlow(triggers.both_click, "both_click", true);
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -75,6 +75,25 @@ class DoubleButton86Switch extends Homey.Device {
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value);
+      this.triggerFlow(trigger, name, value);
+    }
+  }
+
+  triggerFlow(trigger, name, value) {
+    if (!trigger) {
+      return;
+    }
+
+    if (value) {
+      trigger.trigger(this, {}, value);
+    }
+
+    this.log("trigger:", name, value);
+
+    switch (name) {
+      case "left_click_db86_switch":
+      case "right_click_db86_switch":
+      case "both_click_db86_switch":
     }
   }
 
