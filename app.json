@@ -2221,11 +2221,11 @@
                 "en": "Disable after"
               },
               "hint": {
-                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 5 to 86400 seconds. \n \n Attention! Values less than 60 seconds are relevant only for independently modified sensors that have the ability to transmit information about the movement with a frequency of 5 seconds."
               },
               "value": 60,
               "attr": {
-                "min": 60,
+                "min": 5,
                 "max": 86400
               }
             }
@@ -3681,11 +3681,11 @@
                 "en": "Disable after"
               },
               "hint": {
-                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+                "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 5 to 86400 seconds. \n \n Attention! Values less than 60 seconds are relevant only for independently modified sensors that have the ability to transmit information about the movement with a frequency of 5 seconds."
               },
               "value": 60,
               "attr": {
-                "min": 60,
+                "min": 5,
                 "max": 86400
               }
             }
@@ -8592,7 +8592,7 @@
       "name": {
         "en": "Mi IR"
       },
-      "class": "remote",
+      "class": "other",
       "capabilities": ["onoff"],
       "settings": [
         {
