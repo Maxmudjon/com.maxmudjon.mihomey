@@ -1,8 +1,13 @@
 <script src="../../../assets/vue.min.js"></script>
 <link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
+<script src="./capabilities.js"></script>
 
 <script>
-  Homey.setTitle("Add TV keys code");
+  // Homey.setTitle("Add keys code");
+  //-------------------------------
+  Homey.setNavigationClose();
+  Homey.setTitle("Coming soon");
+  //-------------------------------
   Homey.emit("getCurrentDevice", null, function(err, result) {
     if (err) {
       console.log(err);
@@ -10,94 +15,141 @@
     }
 
     new Vue({
-      el: "#app",
+      el: "#keys",
       data: {
         deviceIp: result.settings.deviceIp,
-        deviceToken: result.settings.deviceToken
+        deviceToken: result.settings.deviceToken,
+        capabilities: result.capabilities,
+        capabilityNames: { onoff: "Standby", volume_mute: "Mute", volume_up: "Volume UP", volume_down: "Volume DOWN", channel_up: "Channel UP", channel_down: "Channel DOWN" },
+        capabilitiesOptions: result.capabilitiesOptions,
+        onoffType: result.onoffType.onoff,
+        dimSteep: result.dimSteep.dim
       },
       methods: {
         learn: function(value) {
           let alert = document.getElementById(`${value}Alert`);
-          var alertTitle = document.getElementsByClassName(`${value}AlertShow`);
+          var alertTitle = this.$refs[value + "AlertShow"];
 
-          let data = { key: value, ip: this.deviceIp, token: this.deviceToken };
+          let data = { key: value.capability, ip: this.deviceIp, token: this.deviceToken };
           Homey.emit("learnCode", data, function(error, result) {
             if (error) {
-              alert.classList.remove("alert-secondary");
-              alert.classList.remove("alert-warning");
-              alert.classList.add("alert-danger");
+              alert.classList.remove("bg-light");
+              alert.classList.remove("bg-warning");
+              alert.classList.add("bg-danger");
               alertTitle[0].innerHTML = "Error";
             }
 
             if (result == "timeout") {
-              alert.classList.remove("alert-secondary");
-              alert.classList.remove("alert-danger");
-              alert.classList.add("alert-warning");
+              alert.classList.remove("bg-light");
+              alert.classList.remove("bg-danger");
+              alert.classList.add("bg-warning");
               alertTitle[0].innerHTML = "Timeout";
             }
 
             if (result == "offline") {
-              alert.classList.remove("alert-secondary");
-              alert.classList.remove("alert-warning");
-              alert.classList.add("alert-danger");
-              alertTitle[0].innerHTML = "Offline";
+              alert.classList.remove("bg-light");
+              alert.classList.remove("bg-warning");
+              alert.classList.add("text-white");
+              alert.classList.add("bg-danger");
+              alertTitle[0].innerHTML = "Device offline";
             }
 
             if (result.code) {
-              alert.classList.remove("alert-secondary");
-              alert.classList.remove("alert-danger");
-              alert.classList.remove("alert-warning");
-              alert.classList.add("alert-success");
+              alert.classList.remove("bg-light");
+              alert.classList.remove("bg-danger");
+              alert.classList.remove("bg-warning");
+              alert.classList.add("bg-success");
               alertTitle[0].innerHTML = "Learned";
             }
           });
+        }
+      },
+      computed: {
+        customCapabilities() {
+          if (this.onoffType == 1) {
+            delete this.capabilitiesOptions["onoff"];
+            this.capabilitiesOptions["onoff0"] = { title: { en: "Standby" } };
+            if (this.dimSteep >= 1) {
+              this.capabilities = [];
+              let capab = {
+                title: "Standby",
+                capability: "onoff"
+              };
+              this.capabilities.push(capab);
+              for (let index = 0; index < this.dimSteep; index++) {
+                //const element = array[index];
+                console.log(index);
+
+                //   this.capabilitiesOptions.dim.title.en = "Fan speed - " + (index + 1);
+                delete this.capabilitiesOptions["dim"];
+                this.capabilitiesOptions["dim" + index] = { title: { en: "Fan speed - " + (index + 1) } };
+                let capab = {
+                  title: "Fan speed - " + (index + 1),
+                  capability: "dim"
+                };
+                this.capabilities.push(capab);
+              }
+            }
+            console.log(this.capabilities);
+
+            return this.capabilities;
+          } else if (this.onoffType == 2) {
+            delete this.capabilitiesOptions["onoff"];
+            this.capabilitiesOptions["onoff0"] = { title: { en: "On" } };
+            this.capabilitiesOptions["onoff1"] = { title: { en: "Off" } };
+            this.capabilities = [];
+            for (let index = 0; index < 2; index++) {
+              console.log("ONOFF ", index);
+
+              if (index == 0) {
+                let capab = {
+                  title: "On",
+                  capability: "onoff"
+                };
+                this.capabilities.push(capab);
+              } else if (index == 1) {
+                let capab = {
+                  title: "Off",
+                  capability: "onoff"
+                };
+                this.capabilities.push(capab);
+              }
+            }
+
+            if (this.dimSteep >= 1) {
+              for (let index = 0; index < this.dimSteep; index++) {
+                //const element = array[index];
+                console.log(index);
+
+                //   this.capabilitiesOptions.dim.title.en = "Fan speed - " + (index + 1);
+                delete this.capabilitiesOptions["dim"];
+                this.capabilitiesOptions["dim" + index] = { title: { en: "Fan speed - " + (index + 1) } };
+                let capab = {
+                  title: "Fan speed - " + (index + 1),
+                  capability: "dim"
+                };
+                this.capabilities.push(capab);
+              }
+            }
+            console.log(this.capabilities);
+
+            return this.capabilities;
+          }
         }
       }
     });
   });
 </script>
 
-<div id="app">
-  <div class="container">
-    <div class="card">
+<div id="keys">
+  <h2>Coming soon</h2>
+  <!-- <div v-for="(capability, index) in customCapabilities">
+    <div class="card bg-light mb-3" v-bind:id="capability + index + 'Alert'">
+      <div class="card-header" v-bind:ref="capability + index + 'AlertShow'">Not learned!</div>
       <div class="card-body">
-        <div class="row align-items-center alert alert-secondary" role="alert" id="standbyAlert">
-          <div class="col-auto"><img src="img/tv_power_normal.png" height="50" width="50" /></div>
-          <div class="col"><span>Standby</span></div>
-          <div class="col"><div class="standbyAlertShow" style="width: 136px;">Not learned!</div></div>
-          <div class="col"><button v-on:click="learn('standby')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
-        </div>
-        <div class="row align-items-center alert alert-secondary" role="alert" id="channelUpAlert">
-          <div class="col-auto"><img src="img/tv_ch-up_normal.png" height="50" width="50" /></div>
-          <div class="col"><span>Channel UP</span></div>
-          <div class="col"><div class="channelUpAlertShow" style="width: 136px;">Not learned!</div></div>
-          <div class="col"><button v-on:click="learn('channelUp')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
-        </div>
-        <div class="row align-items-center alert alert-secondary" role="alert" id="channelDownAlert">
-          <div class="col-auto"><img src="img/tv_ch-down_normal.png" height="50" width="50" /></div>
-          <div class="col"><span>Channel DOWN</span></div>
-          <div class="col"><div class="channelDownAlertShow" style="width: 136px;">Not learned!</div></div>
-          <div class="col"><button v-on:click="learn('channelDown')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
-        </div>
-        <div class="row align-items-center alert alert-secondary" role="alert" id="volumeUpAlert">
-          <div class="col-auto"><img src="img/tv_v+_normal.png" height="50" width="50" /></div>
-          <div class="col"><span>Volume UP</span></div>
-          <div class="col"><div class="volumeUpAlertShow" style="width: 136px;">Not learned!</div></div>
-          <div class="col"><button v-on:click="learn('volumeUp')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
-        </div>
-        <div class="row align-items-center alert alert-secondary" role="alert" id="volumeDownAlert">
-          <div class="col-auto"><img src="img/tv_v-_normal.png" height="50" width="50" /></div>
-          <div class="col"><span>Volume DOWN</span></div>
-          <div class="col"><div class="volumeDownAlertShow" style="width: 136px;">Not learned!</div></div>
-          <div class="col"><button v-on:click="learn('volumeDown')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
-        </div>
-        <div class="row align-items-center alert alert-secondary" role="alert" id="muteAlert">
-          <div class="col-auto"><img src="img/tv_mute_normal.png" height="50" width="50" /></div>
-          <div class="col"><span>Mute</span></div>
-          <div class="col"><div class="muteAlertShow" style="width: 136px;">Not learned!</div></div>
-          <div class="col"><button v-on:click="learn('mute')" type="button" class="btn btn-primary" style="height: auto;">Learn</button></div>
-        </div>
+        <h5 class="card-title">{{ capability.title }}</h5>
+        <button v-on:click="learn(capability)" type="button" class="btn btn-primary">Learn</button>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

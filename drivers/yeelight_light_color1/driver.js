@@ -48,7 +48,7 @@ class YeelightColorBulb extends Homey.Driver {
                     } else {
                       pairingDevice.settings.updateTimer = parseInt(this.data.timer);
                     }
-
+                    device.destroy();
                     callback(null, result);
                   })
                   .catch(error => callback(null, error));
@@ -57,6 +57,7 @@ class YeelightColorBulb extends Homey.Driver {
                   notDevice: "It is not Yeelight Color Bulb"
                 };
                 pairingDevice.data.id = null;
+                device.destroy();
                 callback(null, result);
               }
             })

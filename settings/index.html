@@ -2,6 +2,7 @@
 <html>
   <head>
     <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <script src="../assets/vue.min.js"></script>
     <link rel="stylesheet" href="../assets/semantic.min.css" />
     <link rel="stylesheet" href="../assets/bootstrap.min.css" />
@@ -9,25 +10,98 @@
 
   <body>
     <div id="gatewaysListApp">
-      <div class="ui secondary menu " style=" margin-left: 45%;">
-        <a id="gatewayTab" class="item active" data-tab="gateways" v-on:click="setPage('gateways')">Gateways</a>
-        <a id="irDevicesTab" class="item" data-tab="second" v-on:click="setPage('irDevices')">IR devices</a>
-      </div>
-      <div v-if="currentPage == 'gateways'">
-        <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div></div>
-        <div class="ui three column centered grid" style="margin: 0.5px;">
-          <div class="column" style="width: 100%;">
-            <gateway-list v-bind:gateways="gateways"></gateway-list>
-            <create-todo v-on:create-todo="addGateway"></create-todo>
+      <div v-if="page == 'main'">
+        <div class="row justify-content-center align-items-center m-3">
+          <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
+            <button id="gatewayTab" type="button" class="btn btn-outline-primary" v-on:click="setPage('gateways')">Gateways</button>
+            <button id="irDevicesTab" type="button" class="btn btn-outline-secondary" v-on:click="setPage('irDevices')">IR devices</button>
+          </div>
+        </div>
+        <div v-if="currentPage == 'gateways'">
+          <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div></div>
+          <div class="row justify-content-center align-items-center m-3">
+            <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
+              <button type="button" class="btn btn-outline-success" v-on:click="setPage('gateway')">How to get Mac and Password</button>
+            </div>
+          </div>
+
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                ...
+              </div>
+            </div>
+          </div>
+          <div class="ui three column centered grid" style="margin: 0.5px;">
+            <div class="column" style="width: 100%;">
+              <gateway-list v-bind:gateways="gateways"></gateway-list>
+              <create-todo v-on:create-todo="addGateway"></create-todo>
+            </div>
+          </div>
+        </div>
+        <div v-if="currentPage == 'irDevices'">
+          <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Remote Contorol Devices</div></div>
+          <div class="row justify-content-center align-items-center m-3">
+            <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
+              <button type="button" class="btn btn-outline-success" v-on:click="setPage('remote')">How to get Token IR device</button>
+            </div>
+          </div>
+
+          <div class="ui three column centered grid" style="margin: 0.5px;">
+            <div class="column" style="width: 100%;">
+              <ir-devices-list v-bind:devices="devices"></ir-devices-list>
+              <creates-todo v-on:creates-todo="addIRDevice"></creates-todo>
+            </div>
           </div>
         </div>
       </div>
-      <div v-if="currentPage == 'irDevices'">
-        <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Remote Contorol Devices</div></div>
-        <div class="ui three column centered grid" style="margin: 0.5px;">
-          <div class="column" style="width: 100%;">
-            <ir-devices-list v-bind:devices="devices"></ir-devices-list>
-            <creates-todo v-on:creates-todo="addIRDevice"></creates-todo>
+      <div v-if="page == 'gateway'">
+        <button type="button" class="btn btn-light m-3" @click="setPage('main')">< Back</button>
+        <div class="row justify-content-center align-items-center m-3">
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Open MiHome App on your iPhone and click to gateway</h5>
+            <img src="./img/howTo1.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>And click on the three points on the top right corner</h5>
+            <img src="./img/howTo2.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Then click to About</h5>
+            <img src="./img/howTo3.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Press 5 times quickly for the location in the picture</h5>
+            <img src="./img/howTo4.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Click the places where the menu appears in the picture</h5>
+            <img src="./img/howTo5.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>It's gateway MAC, copy it and click back button</h5>
+            <img src="./img/howTo6.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Click the places where the menu appears in the picture</h5>
+            <img src="./img/howTo7.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Click on the slider where it appears in the picture</h5>
+            <img src="./img/howTo8.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3">
+            <h5>It's gateway password, copy it and click OK button</h5>
+            <img src="./img/howTo9.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-light m-3" @click="setPage('main')">< Back</button>
+      </div>
+      <div v-if="page == 'remote'">
+        <button type="button" class="btn btn-light m-3" @click="setPage('main')">< Back</button>
+        <div class="row justify-content-center align-items-center m-3">
+          <div class="col-xs-12 text-center text-danger mt-3 mb-5">
+            <h3>This page is under construction</h3>
           </div>
         </div>
       </div>
@@ -492,7 +566,8 @@
             return {
               gateways: [],
               devices: [],
-              currentPage: "gateways"
+              currentPage: "gateways",
+              page: "main"
             };
           },
           methods: {
@@ -702,11 +777,21 @@
               let gatewayTab = document.getElementById(`gatewayTab`);
               let irDevicesTab = document.getElementById(`irDevicesTab`);
               if (page == "gateways") {
-                irDevicesTab.classList.remove("active");
-                gatewayTab.classList.add("active");
+                irDevicesTab.classList.remove("btn-outline-primary");
+                gatewayTab.classList.remove("btn-outline-secondary");
+                gatewayTab.classList.add("btn-outline-primary");
               } else if (page == "irDevices") {
-                irDevicesTab.classList.add("active");
-                gatewayTab.classList.remove("active");
+                irDevicesTab.classList.remove("btn-outline-secondary");
+                irDevicesTab.classList.add("btn-outline-primary");
+                gatewayTab.classList.remove("btn-outline-primary");
+                gatewayTab.classList.add("btn-outline-secondary");
+              } else if (page == "gateway") {
+                this.page = page;
+              } else if (page == "remote") {
+                this.page = page;
+              } else if (page == "main") {
+                this.page = page;
+                this.currentPage = "gateways";
               }
             },
             isActive(page) {
@@ -715,6 +800,9 @@
               } else {
                 return;
               }
+            },
+            showHowTo(page) {
+              this.page = page;
             }
           }
         });

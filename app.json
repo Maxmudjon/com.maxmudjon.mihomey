@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -3111,7 +3111,7 @@
       "name": {
         "en": "Aqara Wall Switch, With Neutral, Double Rocker"
       },
-      "class": "socket",
+      "class": "light",
       "capabilities": ["onoff.1", "onoff.2"],
       "capabilitiesOptions": {
         "onoff.1": {
@@ -3307,7 +3307,7 @@
       "name": {
         "en": "Aqara Wall Switch, No Neutral, Double Rocker"
       },
-      "class": "socket",
+      "class": "light",
       "capabilities": ["onoff.1", "onoff.2"],
       "capabilitiesOptions": {
         "onoff.1": {
@@ -8632,23 +8632,26 @@
       },
       "pair": [
         {
-          "id": "deviceTypes",
-          "navigation": {
-            "next": "devices"
-          }
+          "id": "deviceTypes"
         },
         {
           "id": "devices",
           "navigation": {
-            "next": "keys",
             "prev": "deviceTypes"
+          }
+        },
+        {
+          "id": "deviceCharacteristics",
+          "navigation": {
+            "next": "keys",
+            "prev": "devices"
           }
         },
         {
           "id": "keys",
           "navigation": {
             "next": "done",
-            "prev": "devices"
+            "prev": "deviceCharacteristics"
           }
         },
         {

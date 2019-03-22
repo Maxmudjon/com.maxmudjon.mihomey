@@ -34,7 +34,7 @@ class YeelightColorBulb extends Homey.Device {
   }
 
   getYeelightStatus() {
-    var that = this;
+    let that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
       .then(device => {
@@ -69,12 +69,12 @@ class YeelightColorBulb extends Homey.Device {
         }
 
         if (this.colorTemperature != undefined && this.colorTemperature != null) {
-          var colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
+          let colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
 
           this.setCapabilityValue("light_temperature", colorTemp);
         }
 
-        var update = this.getSetting("updateTimer") || 60;
+        let update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
       .catch(error => {
@@ -87,7 +87,7 @@ class YeelightColorBulb extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
+    let that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
@@ -118,7 +118,7 @@ class YeelightColorBulb extends Homey.Device {
       }
 
       if (this.colorTemperature != undefined && this.colorTemperature != null) {
-        var colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
+        let colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
 
         this.setCapabilityValue("light_temperature", colorTemp);
       }
@@ -126,25 +126,25 @@ class YeelightColorBulb extends Homey.Device {
   }
 
   normalize(value, min, max) {
-    var normalized = (value - min) / (max - min);
+    let normalized = (value - min) / (max - min);
     return Number(normalized.toFixed(2));
   }
 
   rgb2hsb(rgb) {
-    var hsb = [];
-    var rearranged = rgb.slice(0);
-    var maxIndex = 0,
+    let hsb = [];
+    let rearranged = rgb.slice(0);
+    let maxIndex = 0,
       minIndex = 0;
-    var tmp;
-    for (var i = 0; i < 2; i++) {
-      for (var j = 0; j < 2 - i; j++)
+    let tmp;
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 2 - i; j++)
         if (rearranged[j] > rearranged[j + 1]) {
           tmp = rearranged[j + 1];
           rearranged[j + 1] = rearranged[j];
           rearranged[j] = tmp;
         }
     }
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       if (rearranged[0] == rgb[i]) minIndex = i;
       if (rearranged[2] == rgb[i]) maxIndex = i;
     }
@@ -218,12 +218,12 @@ class YeelightColorBulb extends Homey.Device {
   }
 
   denormalize(normalized, min, max) {
-    var denormalized = (1 - normalized) * (max - min) + min;
+    let denormalized = (1 - normalized) * (max - min) + min;
     return Number(denormalized.toFixed(0));
   }
 
   registerFavoriteFlowsAction(name, action) {
-    var that = this;
+    let that = this;
     action.favoriteFlow.registerRunListener(async (args, state) => {
       try {
         miio
@@ -253,7 +253,7 @@ class YeelightColorBulb extends Homey.Device {
   }
 
   registerSmoothAction(name, action) {
-    var that = this;
+    let that = this;
     action.smoothAction.registerRunListener(async (args, state) => {
       if (args.smoothMode == "on") {
         try {

@@ -1,12 +1,13 @@
 "use strict";
 const Homey = require("homey");
 const miio = require("miio");
+const DRIVER_LOCATION = "/app/com.maxmudjon.mihomey/drivers/ir_remote/";
 
 const initFlowAction = code => ({
   code: new Homey.FlowCardAction(code).register()
 });
 
-class MiIrTv extends Homey.Driver {
+class IRRemote extends Homey.Driver {
   onInit() {
     this.actions = {
       sendIRCodeAction: initFlowAction("send_ir_code")
@@ -14,20 +15,60 @@ class MiIrTv extends Homey.Driver {
   }
 
   onPair(socket) {
-    let pairingDevice = {};
+    let pairingDevice = {
+      name: "Unknown",
+      settings: {},
+      data: {},
+      capabilities: [],
+      capabilitiesOptions: {}
+    };
+
     let type = "other";
-    pairingDevice.name = "Unknown";
-    pairingDevice.settings = {};
-    pairingDevice.data = {};
-    pairingDevice.capabilities = [];
+    let allCapabilities;
+    let createdDevice = {
+      onoffType: {
+        onoff: 0
+      },
+      dimSteep: {
+        dim: 0
+      }
+    };
+
     socket.on("getCurrentDevice", function(data, callback) {
+      let device = Object.assign(pairingDevice, createdDevice);
+      console.log("CURRENT PAIRING DEVICES: ", device);
+      callback(null, device);
+    });
+
+    socket.on("getCurrentDeviceForCharacteristics", function(data, callback) {
+      console.log("CURRENT PAIRING DEVICES: ", pairingDevice);
+
       callback(null, pairingDevice);
     });
+
     socket.on("getDevicesList", function(data, callback) {
       var devices = Homey.ManagerSettings.get("irDevicesList");
       callback(null, devices || []);
     });
+
+    socket.on("newCharacteristics", function(data, callback) {
+      console.log(data);
+      if (data.onoff) {
+        createdDevice.onoffType.onoff = data.onoff;
+      }
+
+      if (data.dim) {
+        createdDevice.dimSteep.dim = data.dim;
+      }
+
+      console.log(createdDevice);
+
+      callback(null, true);
+    });
+
     socket.on("learnCode", function(data, callback) {
+      console.log("LEARN CODE: ", data);
+
       this.timekey = "123456789012345";
       this.data = data;
       miio
@@ -68,25 +109,11 @@ class MiIrTv extends Homey.Driver {
                 if (result["code"] !== "") {
                   let value = { code: result["code"] };
                   pairingDevice.data[`${data.key}`] = result["code"];
-                  if (data.key == "standby") {
-                    const capability = "onoff";
-                    pairingDevice.capabilities.push(capability);
-                  } else if (data.key == "channelUp") {
-                    const capability = "channel_up";
-                    pairingDevice.capabilities.push(capability);
-                  } else if (data.key == "channelDown") {
-                    const capability = "channel_down";
-                    pairingDevice.capabilities.push(capability);
-                  } else if (data.key == "volumeUp") {
-                    const capability = "volume_up";
-                    pairingDevice.capabilities.push(capability);
-                  } else if (data.key == "volumeDown") {
-                    const capability = "volume_down";
-                    pairingDevice.capabilities.push(capability);
-                  } else if (data.key == "mute") {
-                    const capability = "volume_mute";
-                    pairingDevice.capabilities.push(capability);
-                  }
+                  console.log("KEY KEY: ", data.key);
+
+                  pairingDevice.capabilities = data.key;
+
+                  console.log("TAYYORI: ", pairingDevice);
 
                   callback(null, value);
                 } else {
@@ -110,23 +137,32 @@ class MiIrTv extends Homey.Driver {
           });
       }, 5000);
     });
-    socket.on("selectedType", function(data, callback) {
-      type = data.devices;
-      console.log("Tanlangan qurilma turi: ", data.devices);
 
-      if (data.devices == "projector") {
-        pairingDevice.name = "Projector";
-        pairingDevice.icon = "/icons/projector.svg";
-      }
+    socket.on("selectedType", function(data, callback) {
+      type = data.type;
+      console.log("Tanlangan qurilma turi: ", data.type);
+
+      pairingDevice.name = data.name;
+      pairingDevice.icon = data.type + ".svg";
+      pairingDevice.capabilities = data.capabilities;
+      pairingDevice.capabilitiesOptions = data.capabilitiesOptions;
+
+      console.log(pairingDevice);
+
       callback(null, type);
     });
+
     socket.on("selectedDevice", function(data, callback) {
       pairingDevice.settings.deviceIp = data.devices.ip;
       pairingDevice.settings.deviceToken = data.devices.token;
-      pairingDevice.data.id = pairingDevice.name + data.devices.ip;
-
-      const capability = "onoff";
-      pairingDevice.capabilities.push(capability);
+      pairingDevice.data.id =
+        pairingDevice.name +
+        "-" +
+        data.devices.ip +
+        "-" +
+        Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
 
       callback(null, pairingDevice);
     });
@@ -136,4 +172,4 @@ class MiIrTv extends Homey.Driver {
   }
 }
 
-module.exports = MiIrTv;
+module.exports = IRRemote;

@@ -1,5 +1,7 @@
 <script src="../../../assets/vue.min.js"></script>
 <link rel="stylesheet" href="../../../assets/semantic.min.css" />
+<script src="./capabilities.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <script>
   Homey.setTitle("Select type");
   new Vue({
@@ -177,13 +179,17 @@
         Homey.emit(
           "selectedType",
           {
-            devices: device
+            name: devices[device].name,
+            type: device,
+            capabilities: devices[device].capabilities,
+            capabilitiesOptions: devices[device].capabilitiesOptions
           },
           function(err, result) {
             if (err) {
               console.log(err);
               return;
             }
+            Homey.nextView();
           }
         );
       }
