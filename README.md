@@ -128,6 +128,7 @@ Added support for Mi Gateways child devices.
 1. Minor fixes.
 2. fixed Settings page.
 3. added support for Yeelight Jiaoyue 450.
+4. added new functions for Xiaomi Vacuum Cleaners.
 
 ### 0.3.7 (23.01.2019)
 
