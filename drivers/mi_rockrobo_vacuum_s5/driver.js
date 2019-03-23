@@ -1,7 +1,7 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const actions = action => ({
+const actions = vacuumAction => ({
   action: new Homey.FlowCardAction(vacuumAction).register()
 });
 
