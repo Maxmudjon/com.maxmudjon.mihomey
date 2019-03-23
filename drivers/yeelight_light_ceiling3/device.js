@@ -73,6 +73,7 @@ class YeelightJiaoyue450 extends Homey.Device {
 
   updateTimer(interval) {
     clearInterval(this.updateInterval);
+    var that = this;
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["power", "bright", "ct"])
