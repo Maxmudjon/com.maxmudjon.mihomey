@@ -1,38 +1,40 @@
-const Homey = require('homey');
-const miio = require('miio');
+const Homey = require("homey");
+const miio = require("miio");
 
-const initFlowAction = (action) => ({
+const initFlowAction = action => ({
   action: new Homey.FlowCardAction(action).register()
-})
+});
 
 class PhilipsLightCeiling extends Homey.Driver {
-
   onInit() {
     this.actions = {
-      philipsScenes: initFlowAction('philips_scenes'),
-      philipsLightAC: initFlowAction('philips_light_ac')
-    }
+      philipsScenes: initFlowAction("philips_scenes"),
+      philipsLightAC: initFlowAction("philips_light_ac")
+    };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = 'Philips EyeCare Ceiling Lamp';
+    pairingDevice.name = "Philips EyeCare Ceiling Lamp";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on('connect', function (data, callback) {
+    socket.on("connect", function(data, callback) {
       this.data = data;
-      miio.device({ address: data.ip, token: data.token })
+      miio
+        .device({ address: data.ip, token: data.token })
         .then(device => {
-          device.call("miIO.info", [])
+          device
+            .call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = 'PH:EC:CL:' + value.mac + ':PH:EC:CL';
-                device.call("get_prop", ["bright"])
+                pairingDevice.data.id = "PH:EC:CL:" + value.mac + ":PH:EC:CL";
+                device
+                  .call("get_prop", ["bright"])
                   .then(value => {
                     let result = {
                       bright: value[0]
-                    }
+                    };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
                     if (this.data.timer < 5) {
@@ -48,25 +50,26 @@ class PhilipsLightCeiling extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: 'It is not Philips EyeCare Ceiling Lamp'
-                }
-                pairingDevice.data.id = null
-                callback(null, result)
+                  notDevice: "It is not Philips EyeCare Ceiling Lamp"
+                };
+                pairingDevice.data.id = null;
+                callback(null, result);
               }
             })
             .catch(error => callback(null, error));
         })
         .catch(error => {
           if (error == "Error: Could not connect to device, handshake timeout") {
-            callback(null, 'timeout')
-          } if (error == "Error: Could not connect to device, token might be wrong") {
-            callback(null, 'wrongToken')
+            callback(null, "timeout");
+          }
+          if (error == "Error: Could not connect to device, token might be wrong") {
+            callback(null, "wrongToken");
           } else {
-            callback(error, 'Error');
+            callback(error, "Error");
           }
         });
     });
-    socket.on('done', function (data, callback) {
+    socket.on("done", function(data, callback) {
       callback(null, pairingDevice);
     });
   }

@@ -1,54 +1,52 @@
-const Homey = require('homey');
-const model = [ 'ctrl_neutral1' ];
+const Homey = require("homey");
+const model = ["ctrl_neutral1"];
 
 const initToggleFlowTriggers = (on, off, toggle) => ({
   on: new Homey.FlowCardTriggerDevice(on).register(),
   off: new Homey.FlowCardTriggerDevice(off).register(),
-  toggle: new Homey.FlowCardTriggerDevice(toggle).register(),
-})
+  toggle: new Homey.FlowCardTriggerDevice(toggle).register()
+});
 
-const initFlowCondition = (name) => (
-  new Homey.FlowCardCondition(name).register()
-)
+const initFlowCondition = name => new Homey.FlowCardCondition(name).register();
 
 const initToggleFlowAction = (on, off) => ({
   on: new Homey.FlowCardAction(on).register(),
-  off: new Homey.FlowCardAction(off).register(),
-})
+  off: new Homey.FlowCardAction(off).register()
+});
 
 class SingleSwitch extends Homey.Driver {
-
   onInit() {
     this.triggers = {
-      power: initToggleFlowTriggers('power_on', 'power_off', 'power_toggle')
-    }
+      power: initToggleFlowTriggers("power_on", "power_off", "power_toggle")
+    };
     this.conditions = {
-      power: initFlowCondition('power_active')
-    }
+      power: initFlowCondition("power_active")
+    };
     this.actions = {
-      power: initToggleFlowAction('power_on', 'power_off')
-    }
+      power: initToggleFlowAction("power_on", "power_off")
+    };
   }
 
   onPairListDevices(data, callback) {
-    Homey.app.mihub.getDevicesByModel(model)
+    Homey.app.mihub
+      .getDevicesByModel(model)
       .then(devices => callback(null, this.deviceList(devices)))
-      .catch(() => callback(Homey.__('pair.no_devices_found')))
-  }   
+      .catch(() => callback(Homey.__("pair.no_devices_found")));
+  }
 
   deviceList(devices) {
-    let sortDevices = []
+    let sortDevices = [];
     for (var sid in devices) {
-      let device = devices[sid]
+      let device = devices[sid];
       let deviceList = {
-        "name": device.name + ' | ' + device.sid,
-        "data": { 
-          "sid": device.sid
+        name: device.name + " | " + device.sid,
+        data: {
+          sid: device.sid
         }
-      }
-      sortDevices.push(deviceList)
+      };
+      sortDevices.push(deviceList);
     }
-    return sortDevices
+    return sortDevices;
   }
 }
 

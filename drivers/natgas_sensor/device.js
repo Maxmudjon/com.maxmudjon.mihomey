@@ -1,135 +1,126 @@
-const Homey = require('homey')
+const Homey = require("homey");
 
 class NatGasSensor extends Homey.Device {
   async onInit() {
-    this.initialize = this.initialize.bind(this)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.driver = this.getDriver()
-    this.data = this.getData()
-    this.initialize()
-    this.log('Mi Homey device init | ' + 'name: ' + this.getName() + ' - ' + 'class: ' + this.getClass() + ' - ' + 'data: ' + JSON.stringify(this.data));
+    this.initialize = this.initialize.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
+    this.driver = this.getDriver();
+    this.data = this.getData();
+    this.initialize();
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
     if (Homey.app.mihub.hubs) {
-      this.registerStateChangeListener()
-      this.registerConditions()
+      this.registerStateChangeListener();
+      this.registerConditions();
     } else {
-      this.unregisterStateChangeListener()
+      this.unregisterStateChangeListener();
     }
   }
 
   registerConditions() {
-    const { conditions } = this.driver
-    this.registerCondition('alarm_ch4', conditions.alarm_natgas)
+    const { conditions } = this.driver;
+    this.registerCondition("alarm_ch4", conditions.alarm_natgas);
   }
 
   handleStateChange(device) {
     const { triggers } = this.driver;
     var settings = this.getSettings();
 
-    if (device['data']['voltage']) {
-      var battery = (device['data']['voltage']-2800)/5
-      if (battery > 100) {
-        battery = 100
-      }
-      var lowBattery
-      if(battery > 20) {
-        lowBattery = false
-      } else {
-        lowBattery = true
-      }
-      this.updateCapabilityValue('measure_battery', battery);
-      this.updateCapabilityValue('alarm_battery', lowBattery)
+    if (device["data"]["voltage"]) {
+      var battery = (device["data"]["voltage"] - 2800) / 5;
+      this.updateCapabilityValue("measure_battery", battery > 100 ? 100 : battery);
+      this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
-    if (device['data']['alarm'] == '1') {
-      this.updateCapabilityValue('alarm_ch4', true, triggers.alarm_natgas)
+    if (device["data"]["alarm"] == "1") {
+      this.updateCapabilityValue("alarm_ch4", true, triggers.alarm_natgas);
       var width = 0;
       var id = setInterval(frame.bind(this), settings.alarm_duration_number);
       function frame() {
         if (width == 1000) {
           clearInterval(id);
-          this.updateCapabilityValue('alarm_ch4', false, triggers.alarm_natgas);
+          this.updateCapabilityValue("alarm_ch4", false, triggers.alarm_natgas);
         } else {
-          width++; 
+          width++;
         }
       }
     }
 
-    if (device['data']['density']) {
-      this.updateCapabilityValue('measure_gas_density', parseInt(device['data']['density']))
+    if (device["data"]["density"]) {
+      this.updateCapabilityValue("measure_gas_density", parseInt(device["data"]["density"]));
     }
 
-    let gateways = Homey.app.mihub.gateways
+    let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
-      gateways[sid]['childDevices'].forEach(deviceSid => {
+      gateways[sid]["childDevices"].forEach(deviceSid => {
         if (this.data.sid == deviceSid) {
           this.setSettings({
             deviceFromGatewaySid: sid
-          })
+          });
         }
-      })
+      });
     }
-    
+
     this.setSettings({
       deviceSid: device.sid,
-      deviceModelName: 'lumi.sensor_' + device.model,
-      deviceModelCodeName: device.modelCode,
-    })
+      deviceModelName: "lumi.sensor_" + device.model,
+      deviceModelCodeName: device.modelCode
+    });
   }
 
   registerAuthChangeListener() {
-    Homey.app.mihub.on('gatewaysList', this.initialize)
+    Homey.app.mihub.on("gatewaysList", this.initialize);
   }
 
   registerStateChangeListener() {
-    Homey.app.mihub.on(`${this.data.sid}`, this.handleStateChange)
+    Homey.app.mihub.on(`${this.data.sid}`, this.handleStateChange);
   }
 
   unregisterAuthChangeListener() {
-    Homey.app.mihub.removeListener('gatewaysList', this.initialize)
+    Homey.app.mihub.removeListener("gatewaysList", this.initialize);
   }
 
   unregisterStateChangeListener() {
-    Homey.app.mihub.removeListener(`${this.data.sid}`, this.handleStateChange)
+    Homey.app.mihub.removeListener(`${this.data.sid}`, this.handleStateChange);
   }
 
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
-      this.setCapabilityValue(name, value)
-      this.triggerFlow(trigger, name, value)
+      this.setCapabilityValue(name, value);
+      this.triggerFlow(trigger, name, value);
     }
   }
 
   registerCondition(name, condition) {
     condition.registerRunListener((args, state, callback) => {
-      callback(null, this.getCapabilityValue(name))
-    })
+      callback(null, this.getCapabilityValue(name));
+    });
   }
 
   triggerFlow(trigger, name, value) {
     if (!trigger) {
-      return
+      return;
     }
 
-    this.log('trigger:', name, value)
+    this.log("trigger:", name, value);
 
-    switch(name) {
-      case 'alarm_ch4':
-        value ? trigger.on.trigger(this) : trigger.off.trigger(this)
+    switch (name) {
+      case "alarm_ch4":
+        value ? trigger.on.trigger(this) : trigger.off.trigger(this);
     }
   }
 
   onAdded() {
-    this.log('Device added')
+    this.log("Device added");
   }
 
   onDeleted() {
-    this.unregisterAuthChangeListener()
-    this.unregisterStateChangeListener()
-    this.log('Device deleted deleted')
+    this.unregisterAuthChangeListener();
+    this.unregisterStateChangeListener();
+    this.log("Device deleted deleted");
   }
 }
 
-module.exports = NatGasSensor
+module.exports = NatGasSensor;

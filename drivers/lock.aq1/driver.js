@@ -1,32 +1,33 @@
-const Homey = require('homey');
-const model = [ 'lock.aq1' ];
+const Homey = require("homey");
+const model = ["lock.aq1"];
 
 class AqaraLock1 extends Homey.Driver {
   onInit() {
     this.triggers = {
-      lockUsed: new Homey.FlowCardTriggerDevice('lockUsed').register()
-    }
+      lockUsed: new Homey.FlowCardTriggerDevice("lockUsed").register()
+    };
   }
 
   onPairListDevices(data, callback) {
-    Homey.app.mihub.getDevicesByModel(model)
+    Homey.app.mihub
+      .getDevicesByModel(model)
       .then(devices => callback(null, this.deviceList(devices)))
-      .catch(() => callback(Homey.__('pair.no_devices_found')))
+      .catch(() => callback(Homey.__("pair.no_devices_found")));
   }
 
   deviceList(devices) {
-    let sortDevices = []
+    let sortDevices = [];
     for (var sid in devices) {
-      let device = devices[sid]
+      let device = devices[sid];
       let deviceList = {
-        "name": device.name + ' | ' + device.sid,
-        "data": { 
-          "sid": device.sid
+        name: device.name + " | " + device.sid,
+        data: {
+          sid: device.sid
         }
-      }
-      sortDevices.push(deviceList)
+      };
+      sortDevices.push(deviceList);
     }
-    return sortDevices
+    return sortDevices;
   }
 }
 

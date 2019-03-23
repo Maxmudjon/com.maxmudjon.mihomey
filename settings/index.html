@@ -1,383 +1,812 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+  <head>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <script src="../assets/vue.min.js"></script>
+    <link rel="stylesheet" href="../assets/semantic.min.css" />
+    <link rel="stylesheet" href="../assets/bootstrap.min.css" />
+  </head>
 
-<head>
-	<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-	<script src='../assets/vue.min.js'></script>
-	<link rel="stylesheet" href="../assets/semantic.min.css">
-	<link rel="stylesheet" href="../assets/bootstrap.min.css">
-</head>
+  <body>
+    <div id="gatewaysListApp">
+      <div v-if="page == 'main'">
+        <div class="row justify-content-center align-items-center m-3">
+          <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
+            <button id="gatewayTab" type="button" class="btn btn-outline-primary" v-on:click="setPage('gateways')">Gateways</button>
+            <button id="irDevicesTab" type="button" class="btn btn-outline-secondary" v-on:click="setPage('irDevices')">IR devices</button>
+          </div>
+        </div>
+        <div v-if="currentPage == 'gateways'">
+          <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div></div>
+          <div class="row justify-content-center align-items-center m-3">
+            <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
+              <button type="button" class="btn btn-outline-success" v-on:click="setPage('gateway')">How to get Mac and Password</button>
+            </div>
+          </div>
 
-<body>
-	<h1 data-i18n="settings.title"></h1>
-	<div id="gateways">
-		<div class="bg-info text-white" id="status">
-			<div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div>
-		</div>
-		<div class='ui three column centered grid' style="margin: 0.5px;">
-			<div class='column' style="width: 100%;">
-				<gateway-list v-bind:gateways="gateways"></gateway-list>
-				<create-todo v-on:create-todo="addGateway"></create-todo>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		function onHomeyReady(Homey) {
-			Homey.ready();
-			new Vue({
-				el: '#gateways',
-				mounted: function () {
-					this.init()
-				},
-				components: {
-					GatewayList: {
-						props: ['gateways'],
-						components: {
-							Todo: {
-								props: ['todo'],
-								data() {
-									return {
-										isEditing: false,
-									};
-								},
-								methods: {
-									deleteGateway(todo) {
-										this.$emit('delete-gateway', todo);
-									},
-									showForm() {
-										this.isEditing = true;
-									},
-									hideForm() {
-										this.isEditing = false;
-										let alert = document.getElementById(`status`)
-										var alertTitle = document.getElementsByClassName(`statusAlertShow`)
+          <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                ...
+              </div>
+            </div>
+          </div>
+          <div class="ui three column centered grid" style="margin: 0.5px;">
+            <div class="column" style="width: 100%;">
+              <gateway-list v-bind:gateways="gateways"></gateway-list>
+              <create-todo v-on:create-todo="addGateway"></create-todo>
+            </div>
+          </div>
+        </div>
+        <div v-if="currentPage == 'irDevices'">
+          <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Remote Contorol Devices</div></div>
+          <div class="row justify-content-center align-items-center m-3">
+            <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
+              <button type="button" class="btn btn-outline-success" v-on:click="setPage('remote')">How to get Token IR device</button>
+            </div>
+          </div>
 
-										Homey.set('gatewaysList', this.gateways, function (error, settings) {
-											if (error) {
-												alert.classList.remove('bg-info')
-												alert.classList.add('bg-danger')
-												alertTitle[0].innerHTML = error;
-												setTimeout(() => {
-													alert.classList.remove('bg-danger')
-													alert.classList.add('bg-info')
-													alertTitle[0].innerHTML = "Gateway Mac and Password's";
-												}, 1000)
+          <div class="ui three column centered grid" style="margin: 0.5px;">
+            <div class="column" style="width: 100%;">
+              <ir-devices-list v-bind:devices="devices"></ir-devices-list>
+              <creates-todo v-on:creates-todo="addIRDevice"></creates-todo>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="page == 'gateway'">
+        <button type="button" class="btn btn-light m-3" @click="setPage('main')">< Back</button>
+        <div class="row justify-content-center align-items-center m-3">
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Open MiHome App on your iPhone and click to gateway</h5>
+            <img src="./img/howTo1.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>And click on the three points on the top right corner</h5>
+            <img src="./img/howTo2.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Then click to About</h5>
+            <img src="./img/howTo3.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Press 5 times quickly for the location in the picture</h5>
+            <img src="./img/howTo4.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Click the places where the menu appears in the picture</h5>
+            <img src="./img/howTo5.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>It's gateway MAC, copy it and click back button</h5>
+            <img src="./img/howTo6.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Click the places where the menu appears in the picture</h5>
+            <img src="./img/howTo7.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3 mb-5">
+            <h5>Click on the slider where it appears in the picture</h5>
+            <img src="./img/howTo8.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+          <div class="col-xs-12 text-center text-info mt-3">
+            <h5>It's gateway password, copy it and click OK button</h5>
+            <img src="./img/howTo9.jpg" class="img-fluid" alt="Responsive image" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-light m-3" @click="setPage('main')">< Back</button>
+      </div>
+      <div v-if="page == 'remote'">
+        <button type="button" class="btn btn-light m-3" @click="setPage('main')">< Back</button>
+        <div class="row justify-content-center align-items-center m-3">
+          <div class="col-xs-12 text-center text-danger mt-3 mb-5">
+            <h3>This page is under construction</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function onHomeyReady(Homey) {
+        Homey.ready();
+        new Vue({
+          el: "#gatewaysListApp",
+          mounted: function() {
+            this.init();
+          },
+          components: {
+            GatewayList: {
+              props: ["gateways"],
+              components: {
+                Todo: {
+                  props: ["todo"],
+                  data() {
+                    return {
+                      isEditing: false
+                    };
+                  },
+                  methods: {
+                    deleteGateway(todo) {
+                      this.$emit("delete-gateway", todo);
+                    },
+                    showForm() {
+                      this.isEditing = true;
+                    },
+                    hideForm() {
+                      this.isEditing = false;
+                      let alert = document.getElementById(`status`);
+                      var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
-											}
+                      Homey.set("gatewaysList", this.$root.gateways, function(error, settings) {
+                        if (error) {
+                          alert.classList.remove("bg-info");
+                          alert.classList.add("bg-danger");
+                          alertTitle[0].innerHTML = error;
+                          setTimeout(() => {
+                            alert.classList.remove("bg-danger");
+                            alert.classList.add("bg-info");
+                            alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                          }, 1000);
+                        }
 
-											alert.classList.remove('bg-info')
-											alert.classList.add('bg-success')
-											alertTitle[0].innerHTML = 'Successfully saved';
-											setTimeout(() => {
-												alert.classList.remove('bg-success')
-												alert.classList.add('bg-info')
-												alertTitle[0].innerHTML = "Gateway Mac and Password's";
-											}, 1000)
-										})
-									},
-								},
-								template: '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.mac }}</div><div class="meta">{{ todo.password }}</div><div class="extra content"><button class="ui basic button icon right floated" v-on:click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" v-on:click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>MAC</label><input type="text" v-model="todo.mac"></div><div class="field"><label>Password</label><input type="text" v-model="todo.password" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="hideForm">Save</button></div></div></div></div>'
-							}
-						},
-						methods: {
-							deleteGateway(todo) {
-								const todoIndex = this.gateways.indexOf(todo);
-								this.gateways.splice(todoIndex, 1);
-								let alert = document.getElementById(`status`)
-								var alertTitle = document.getElementsByClassName(`statusAlertShow`)
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-success");
+                        alertTitle[0].innerHTML = "Successfully saved";
+                        setTimeout(() => {
+                          alert.classList.remove("bg-success");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                        }, 1000);
+                      });
+                    }
+                  },
+                  template:
+                    '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.mac }}</div><div class="meta">{{ todo.password }}</div><div class="extra content"><button class="ui basic button icon right floated" v-on:click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" v-on:click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>MAC</label><input type="text" v-model="todo.mac"></div><div class="field"><label>Password</label><input type="text" v-model="todo.password" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="hideForm">Save</button></div></div></div></div>'
+                }
+              },
+              methods: {
+                deleteGateway(todo) {
+                  const todoIndex = this.gateways.indexOf(todo);
+                  this.gateways.splice(todoIndex, 1);
+                  let alert = document.getElementById(`status`);
+                  var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
-								Homey.set('gatewaysList', this.gateways, function (error, settings) {
-									if (error) {
-										alert.classList.remove('bg-info')
-										alert.classList.add('bg-danger')
-										alertTitle[0].innerHTML = error;
-										setTimeout(() => {
-											alert.classList.remove('bg-success')
-											alert.classList.add('bg-info')
-											alertTitle[0].innerHTML = "Gateway Mac and Password's";
-										}, 1000)
+                  Homey.set("gatewaysList", this.gateways, function(error, settings) {
+                    if (error) {
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-danger");
+                      alertTitle[0].innerHTML = error;
+                      setTimeout(() => {
+                        alert.classList.remove("bg-success");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                      }, 1000);
+                    }
 
-									}
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-success");
+                    alertTitle[0].innerHTML = "Successfully deleted";
+                    setTimeout(() => {
+                      alert.classList.remove("bg-success");
+                      alert.classList.add("bg-info");
+                      alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                    }, 1000);
+                  });
+                }
+              },
+              template: '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in gateways" :todo.sync="todo"></todo></div>'
+            },
+            CreateTodo: {
+              data() {
+                return {
+                  MAC: "",
+                  PASSWORD: "",
+                  isCreating: false
+                };
+              },
+              methods: {
+                openForm() {
+                  this.isCreating = true;
+                },
+                closeForm() {
+                  this.isCreating = false;
+                },
+                sendForm() {
+                  if (this.MAC.length > 0 && this.PASSWORD.length > 0) {
+                    const mac = this.MAC.toLowerCase();
+                    const password = this.PASSWORD.toUpperCase();
+                    var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                    let macAlertShow = document.getElementsByClassName("macAlertShow");
+                    let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
+                    let alert = document.getElementById(`status`);
+                    let macAlert = document.getElementById(`macAlert`);
+                    let passwordAlert = document.getElementById(`passwordAlert`);
 
-									alert.classList.remove('bg-info')
-									alert.classList.add('bg-success')
-									alertTitle[0].innerHTML = 'Successfully deleted';
-									setTimeout(() => {
-										alert.classList.remove('bg-success')
-										alert.classList.add('bg-info')
-										alertTitle[0].innerHTML = "Gateway Mac and Password's";
-									}, 1000)
-								})
-							},
-						},
-						template: '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in gateways" :todo.sync="todo"></todo></div>'
-					},
-					CreateTodo: {
-						data() {
-							return {
-								MAC: '',
-								PASSWORD: '',
-								isCreating: false
-							};
-						},
-						methods: {
-							openForm() {
-								this.isCreating = true;
-							},
-							closeForm() {
-								this.isCreating = false;
-							},
-							sendForm() {
-								if (this.MAC.length > 0 && this.PASSWORD.length > 0) {
-									const mac = this.MAC.toLowerCase();
-									const password = this.PASSWORD.toUpperCase();
-									var alertTitle = document.getElementsByClassName(`statusAlertShow`)
-									let macAlertShow = document.getElementsByClassName('macAlertShow')
-									let passwordAlertShow = document.getElementsByClassName('passwordAlertShow')
-									let alert = document.getElementById(`status`)
-									let macAlert = document.getElementById(`macAlert`)
-									let passwordAlert = document.getElementById(`passwordAlert`)
+                    if (this.MAC.match(/\b[0-9a-f]{12}\b/g)) {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-success");
 
-									if (this.MAC.match(/\b[0-9a-f]{12}\b/g)) {
-										alert.classList.remove('bg-danger')
-										alert.classList.add('bg-success')
+                      if (this.PASSWORD.match(/\b[0-9A-Fa-f]{16}\b/g)) {
+                        this.$emit("create-todo", {
+                          mac,
+                          password
+                        });
+                        this.MAC = "";
+                        this.PASSWORD = "";
+                        this.isCreating = false;
+                        macAlert.classList.remove("border-success");
+                        macAlert.classList.remove("border-danger");
+                        macAlert.classList.add("border-secondary");
+                        passwordAlert.classList.remove("border-success");
+                        passwordAlert.classList.remove("border-danger");
+                        passwordAlert.classList.add("border-secondary");
+                        macAlertShow[0].innerHTML = "MAC";
+                        passwordAlertShow[0].innerHTML = "Password";
+                      } else {
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-danger");
+                        passwordAlert.classList.remove("border-secondary");
+                        passwordAlert.classList.add("border-danger");
+                        alertTitle[0].innerHTML = "PASSWORD IS NOT VALID";
+                        passwordAlertShow[0].innerHTML = "Password is not valid";
 
-										if (this.PASSWORD.match(/\b[0-9A-Fa-f]{16}\b/g)) {
+                        setTimeout(() => {
+                          alert.classList.remove("bg-danger");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                        }, 1000);
+                      }
+                    } else {
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-danger");
+                      macAlert.classList.remove("border-secondary");
+                      macAlert.classList.add("border-danger");
+                      alertTitle[0].innerHTML = "MAC IS NOT VALID";
+                      macAlertShow[0].innerHTML = "MAC is not valid";
 
-											this.$emit('create-todo', {
-												mac,
-												password
-											});
-											this.MAC = '';
-											this.PASSWORD = '';
-											this.isCreating = false;
-											macAlert.classList.remove('border-success')
-											macAlert.classList.remove('border-danger')
-											macAlert.classList.add('border-secondary')
-											passwordAlert.classList.remove('border-success')
-											passwordAlert.classList.remove('border-danger')
-											passwordAlert.classList.add('border-secondary')
-											macAlertShow[0].innerHTML = "MAC";
-											passwordAlertShow[0].innerHTML = "Password";
+                      setTimeout(() => {
+                        alert.classList.remove("bg-danger");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                      }, 1000);
+                    }
+                  }
+                },
+                filterMac() {
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let macAlertShow = document.getElementsByClassName("macAlertShow");
+                  let alert = document.getElementById(`status`);
+                  let macAlert = document.getElementById(`macAlert`);
 
-										} else {
-											alert.classList.remove('bg-info')
-											alert.classList.add('bg-danger')
-											passwordAlert.classList.remove('border-secondary')
-											passwordAlert.classList.add('border-danger')
-											alertTitle[0].innerHTML = "PASSWORD IS NOT VALID";
-											passwordAlertShow[0].innerHTML = "Password is not valid";
+                  if (this.MAC.match(/\b[0-9a-f]{12}\b/g)) {
+                    alert.classList.remove("bg-danger");
+                    alert.classList.add("bg-success");
+                    macAlert.classList.remove("border-secondary");
+                    macAlert.classList.remove("border-danger");
+                    macAlert.classList.add("border-success");
+                  } else {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    macAlert.classList.remove("border-secondary");
+                    macAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "MAC IS NOT VALID";
+                    macAlertShow[0].innerHTML = "MAC is not valid";
 
-											setTimeout(() => {
-												alert.classList.remove('bg-danger')
-												alert.classList.add('bg-info')
-												alertTitle[0].innerHTML = "Gateway Mac and Password's";
-											}, 1000)
-										}
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      macAlert.classList.remove("border-danger");
+                      macAlert.classList.add("border-secondary");
+                      alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                      macAlertShow[0].innerHTML = "MAC";
+                    }, 1000);
+                  }
+                },
+                filterPassword() {
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
+                  let alert = document.getElementById(`status`);
+                  let passwordAlert = document.getElementById(`passwordAlert`);
 
-									} else {
-										alert.classList.remove('bg-info')
-										alert.classList.add('bg-danger')
-										macAlert.classList.remove('border-secondary')
-										macAlert.classList.add('border-danger')
-										alertTitle[0].innerHTML = "MAC IS NOT VALID";
-										macAlertShow[0].innerHTML = "MAC is not valid";
+                  if (this.PASSWORD.match(/\b[0-9A-Fa-f]{16}\b/g)) {
+                    alert.classList.remove("bg-danger");
+                    alert.classList.add("bg-success");
+                    passwordAlert.classList.remove("border-secondary");
+                    passwordAlert.classList.remove("border-danger");
+                    passwordAlert.classList.add("border-success");
+                  } else {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    passwordAlert.classList.remove("border-secondary");
+                    passwordAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "PASSWORD IS NOT VALID";
+                    passwordAlertShow[0].innerHTML = "Password is not valid";
 
-										setTimeout(() => {
-											alert.classList.remove('bg-danger')
-											alert.classList.add('bg-info')
-											alertTitle[0].innerHTML = "Gateway Mac and Password's";
-										}, 1000)
-									}
-								}
-							},
-							filterMac() {
-								let alertTitle = document.getElementsByClassName(`statusAlertShow`)
-								let macAlertShow = document.getElementsByClassName('macAlertShow')
-								let alert = document.getElementById(`status`)
-								let macAlert = document.getElementById(`macAlert`)
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      passwordAlert.classList.remove("border-danger");
+                      passwordAlert.classList.add("border-secondary");
+                      alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                      passwordAlertShow[0].innerHTML = "Password";
+                    }, 1000);
+                  }
+                }
+              },
+              template:
+                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="macAlertShow">MAC</div><input id="macAlert" class="border border-secondary" v-model="MAC" type="text" v-on:change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Password</div><input id="passwordAlert" class="border border-secondary" v-model="PASSWORD" type="text" v-on:change="filterPassword()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="sendForm()">Add</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
+            },
+            IrDevicesList: {
+              props: ["devices"],
+              components: {
+                Todo: {
+                  props: ["todo"],
+                  data() {
+                    return {
+                      isEditing: false
+                    };
+                  },
+                  methods: {
+                    deleteGateway(todo) {
+                      this.$emit("delete-gateway", todo);
+                    },
+                    showForm() {
+                      this.isEditing = true;
+                    },
+                    hideForm() {
+                      this.isEditing = false;
+                      let alert = document.getElementById(`status`);
+                      var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
+                      Homey.set("irDevicesList", this.$root.devices, function(error, settings) {
+                        if (error) {
+                          alert.classList.remove("bg-info");
+                          alert.classList.add("bg-danger");
+                          alertTitle[0].innerHTML = error;
+                          setTimeout(() => {
+                            alert.classList.remove("bg-danger");
+                            alert.classList.add("bg-info");
+                            alertTitle[0].innerHTML = "Remote Contorol Devices";
+                          }, 1000);
+                        }
 
-								if (this.MAC.match(/\b[0-9a-f]{12}\b/g)) {
-									alert.classList.remove('bg-danger')
-									alert.classList.add('bg-success')
-									macAlert.classList.remove('border-secondary')
-									macAlert.classList.remove('border-danger')
-									macAlert.classList.add('border-success')
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-success");
+                        alertTitle[0].innerHTML = "Successfully saved";
+                        setTimeout(() => {
+                          alert.classList.remove("bg-success");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Remote Contorol Devices";
+                        }, 1000);
+                      });
+                    }
+                  },
+                  template:
+                    '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.name }}</div><div class="meta">{{ todo.ip }}</div><div class="meta">{{ todo.token }}</div><div class="extra content"><button class="ui basic button icon right floated" v-on:click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" v-on:click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>Name</label><input type="text" v-model="todo.name"><label>IP</label><input type="text" v-model="todo.ip"></div><div class="field"><label>Token</label><input type="text" v-model="todo.token" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="hideForm">Save</button></div></div></div></div>'
+                }
+              },
+              methods: {
+                deleteGateway(todo) {
+                  const todoIndex = this.devices.indexOf(todo);
+                  this.devices.splice(todoIndex, 1);
+                  let alert = document.getElementById(`status`);
+                  var alertTitle = document.getElementsByClassName(`statusAlertShow`);
 
-								} else {
-									alert.classList.remove('bg-info')
-									alert.classList.add('bg-danger')
-									macAlert.classList.remove('border-secondary')
-									macAlert.classList.add('border-danger')
-									alertTitle[0].innerHTML = "MAC IS NOT VALID";
-									macAlertShow[0].innerHTML = "MAC is not valid";
+                  Homey.set("irDevicesList", this.devices, function(error, settings) {
+                    if (error) {
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-danger");
+                      alertTitle[0].innerHTML = error;
+                      setTimeout(() => {
+                        alert.classList.remove("bg-success");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Remote Contorol Devices";
+                      }, 1000);
+                    }
 
-									setTimeout(() => {
-										alert.classList.remove('bg-danger')
-										alert.classList.add('bg-info')
-										macAlert.classList.remove('border-danger')
-										macAlert.classList.add('border-secondary')
-										alertTitle[0].innerHTML = "Gateway Mac and Password's";
-										macAlertShow[0].innerHTML = "MAC";
-									}, 1000)
-								}
-							},
-							filterPassword() {
-								let alertTitle = document.getElementsByClassName(`statusAlertShow`)
-								let passwordAlertShow = document.getElementsByClassName('passwordAlertShow')
-								let alert = document.getElementById(`status`)
-								let passwordAlert = document.getElementById(`passwordAlert`)
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-success");
+                    alertTitle[0].innerHTML = "Successfully deleted";
+                    setTimeout(() => {
+                      alert.classList.remove("bg-success");
+                      alert.classList.add("bg-info");
+                      alertTitle[0].innerHTML = "Remote Contorol Devices";
+                    }, 1000);
+                  });
+                }
+              },
+              template: '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in devices" :todo.sync="todo"></todo></div>'
+            },
+            CreatesTodo: {
+              data() {
+                return {
+                  NAME: "",
+                  IP: "",
+                  TOKEN: "",
+                  isCreating: false
+                };
+              },
+              methods: {
+                openForm() {
+                  this.isCreating = true;
+                },
+                closeForm() {
+                  this.isCreating = false;
+                },
+                sendForm() {
+                  if (this.IP.length > 0 && this.TOKEN.length > 0) {
+                    const name = this.NAME;
+                    const ip = this.IP.toLowerCase();
+                    const token = this.TOKEN.toUpperCase();
+                    var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                    let macAlertShow = document.getElementsByClassName("macAlertShow");
+                    let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
+                    let alert = document.getElementById(`status`);
+                    let macAlert = document.getElementById(`macAlert`);
+                    let passwordAlert = document.getElementById(`passwordAlert`);
 
+                    if (this.IP.match(/^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$/)) {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-success");
 
-								if (this.PASSWORD.match(/\b[0-9A-Fa-f]{16}\b/g)) {
-									alert.classList.remove('bg-danger')
-									alert.classList.add('bg-success')
-									passwordAlert.classList.remove('border-secondary')
-									passwordAlert.classList.remove('border-danger')
-									passwordAlert.classList.add('border-success')
+                      if (this.TOKEN.match(/\b[0-9A-Fa-f]{32}\b/g)) {
+                        this.$emit("creates-todo", {
+                          name,
+                          ip,
+                          token
+                        });
+                        this.NAME = "";
+                        this.IP = "";
+                        this.TOKEN = "";
+                        this.isCreating = false;
+                        macAlert.classList.remove("border-success");
+                        macAlert.classList.remove("border-danger");
+                        macAlert.classList.add("border-secondary");
+                        passwordAlert.classList.remove("border-success");
+                        passwordAlert.classList.remove("border-danger");
+                        passwordAlert.classList.add("border-secondary");
+                        macAlertShow[0].innerHTML = "IP";
+                        passwordAlertShow[0].innerHTML = "Token";
+                      } else {
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-danger");
+                        passwordAlert.classList.remove("border-secondary");
+                        passwordAlert.classList.add("border-danger");
+                        alertTitle[0].innerHTML = "TOKEN IS NOT VALID";
+                        passwordAlertShow[0].innerHTML = "Token is not valid";
 
-								} else {
-									alert.classList.remove('bg-info')
-									alert.classList.add('bg-danger')
-									passwordAlert.classList.remove('border-secondary')
-									passwordAlert.classList.add('border-danger')
-									alertTitle[0].innerHTML = "PASSWORD IS NOT VALID";
-									passwordAlertShow[0].innerHTML = "Password is not valid";
+                        setTimeout(() => {
+                          alert.classList.remove("bg-danger");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Remote Contorol Devices";
+                        }, 1000);
+                      }
+                    } else {
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-danger");
+                      macAlert.classList.remove("border-secondary");
+                      macAlert.classList.add("border-danger");
+                      alertTitle[0].innerHTML = "IP IS NOT VALID";
+                      macAlertShow[0].innerHTML = "IP is not valid";
 
-									setTimeout(() => {
-										alert.classList.remove('bg-danger')
-										alert.classList.add('bg-info')
-										passwordAlert.classList.remove('border-danger')
-										passwordAlert.classList.add('border-secondary')
-										alertTitle[0].innerHTML = "Gateway Mac and Password's";
-										passwordAlertShow[0].innerHTML = "Password";
-									}, 1000)
-								}
-							}
-						},
-						template: '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="macAlertShow">MAC</div><input id="macAlert" class="border border-secondary" v-model="MAC" type="text" v-on:change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Password</div><input id="passwordAlert" class="border border-secondary" v-model="PASSWORD" type="text" v-on:change="filterPassword()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="sendForm()">Add</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
-					}
+                      setTimeout(() => {
+                        alert.classList.remove("bg-danger");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Remote Contorol Devices";
+                      }, 1000);
+                    }
+                  }
+                },
+                filterMac() {
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let macAlertShow = document.getElementsByClassName("macAlertShow");
+                  let alert = document.getElementById(`status`);
+                  let macAlert = document.getElementById(`macAlert`);
 
-				},
-				data() {
-					return {
-						gateways: []
-					}
-				},
-				methods: {
-					addGateway(newDevice) {
-						var alertTitle = document.getElementsByClassName(`statusAlertShow`)
-						let macAlertShow = document.getElementsByClassName('macAlertShow')
-						let passwordAlertShow = document.getElementsByClassName('passwordAlertShow')
-						let alert = document.getElementById(`status`)
-						let macAlert = document.getElementById(`macAlert`)
-						let passwordAlert = document.getElementById(`passwordAlert`)
+                  if (this.IP.match(/^\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}$/)) {
+                    alert.classList.remove("bg-danger");
+                    alert.classList.add("bg-success");
+                    macAlert.classList.remove("border-secondary");
+                    macAlert.classList.remove("border-danger");
+                    macAlert.classList.add("border-success");
+                  } else {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    macAlert.classList.remove("border-secondary");
+                    macAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "IP IS NOT VALID";
+                    macAlertShow[0].innerHTML = "IP is not valid";
 
-						if (this.gateways.length > 0) {
-							this.gateways.forEach(device => {
-								if (device.mac === newDevice.mac) {
-									alert.classList.remove('bg-info')
-									alert.classList.add('bg-danger')
-									macAlert.classList.remove('border-secondary')
-									macAlert.classList.remove('border-success')
-									macAlert.classList.add('border-danger')
-									alertTitle[0].innerHTML = "MAC DUPLICATE";
-									macAlertShow[0].innerHTML = "MAC duplicate";
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      macAlert.classList.remove("border-danger");
+                      macAlert.classList.add("border-secondary");
+                      alertTitle[0].innerHTML = "Remote Contorol Devices";
+                      macAlertShow[0].innerHTML = "IP";
+                    }, 1000);
+                  }
+                },
+                filterToken() {
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
+                  let alert = document.getElementById(`status`);
+                  let passwordAlert = document.getElementById(`passwordAlert`);
 
-									setTimeout(() => {
-										alert.classList.remove('bg-danger')
-										alert.classList.add('bg-info')
-										alertTitle[0].innerHTML = "Gateway Mac and Password's";
-									}, 3000)
+                  if (this.TOKEN.match(/\b[0-9A-Fa-f]{32}\b/g)) {
+                    alert.classList.remove("bg-danger");
+                    alert.classList.add("bg-success");
+                    passwordAlert.classList.remove("border-secondary");
+                    passwordAlert.classList.remove("border-danger");
+                    passwordAlert.classList.add("border-success");
+                  } else {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    passwordAlert.classList.remove("border-secondary");
+                    passwordAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "TOKEN IS NOT VALID";
+                    passwordAlertShow[0].innerHTML = "Token is not valid";
 
-								} else {
-									macAlert.classList.remove('border-success')
-									macAlert.classList.remove('border-danger')
-									macAlert.classList.add('border-secondary')
-									passwordAlert.classList.remove('border-success')
-									passwordAlert.classList.remove('border-danger')
-									passwordAlert.classList.add('border-secondary')
-									macAlertShow[0].innerHTML = "MAC";
-									passwordAlertShow[0].innerHTML = "Password";
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      passwordAlert.classList.remove("border-danger");
+                      passwordAlert.classList.add("border-secondary");
+                      alertTitle[0].innerHTML = "Remote Contorol Devices";
+                      passwordAlertShow[0].innerHTML = "Token";
+                    }, 1000);
+                  }
+                }
+              },
+              template:
+                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div>Name</div><input class="border border-secondary" v-model="NAME" type="text"><div class="macAlertShow">IP</div><input id="macAlert" class="border border-secondary" v-model="IP" type="text" v-on:change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Token</div><input id="passwordAlert" class="border border-secondary" v-model="TOKEN" type="text" v-on:change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="sendForm()">Add</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
+            }
+          },
+          data() {
+            return {
+              gateways: [],
+              devices: [],
+              currentPage: "gateways",
+              page: "main"
+            };
+          },
+          methods: {
+            addGateway(newDevice) {
+              var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+              let macAlertShow = document.getElementsByClassName("macAlertShow");
+              let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
+              let alert = document.getElementById(`status`);
+              let macAlert = document.getElementById(`macAlert`);
+              let passwordAlert = document.getElementById(`passwordAlert`);
 
-									this.gateways.push(newDevice);
+              if (this.gateways.length > 0) {
+                this.gateways.forEach(device => {
+                  if (device.mac === newDevice.mac) {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    macAlert.classList.remove("border-secondary");
+                    macAlert.classList.remove("border-success");
+                    macAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "MAC DUPLICATE";
+                    macAlertShow[0].innerHTML = "MAC duplicate";
 
-									Homey.set('gatewaysList', this.gateways, function (error, settings) {
-										if (error) {
-											alert.classList.remove('bg-info')
-											alert.classList.add('bg-danger')
-											alertTitle[0].innerHTML = error;
-											setTimeout(() => {
-												alert.classList.remove('bg-success')
-												alert.classList.add('bg-info')
-												alertTitle[0].innerHTML = "Gateway Mac and Password's";
-											}, 1000)
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                    }, 3000);
+                  } else {
+                    macAlert.classList.remove("border-success");
+                    macAlert.classList.remove("border-danger");
+                    macAlert.classList.add("border-secondary");
+                    passwordAlert.classList.remove("border-success");
+                    passwordAlert.classList.remove("border-danger");
+                    passwordAlert.classList.add("border-secondary");
+                    macAlertShow[0].innerHTML = "MAC";
+                    passwordAlertShow[0].innerHTML = "Password";
 
-										}
+                    this.gateways.push(newDevice);
 
-										alert.classList.remove('bg-info')
-										alert.classList.add('bg-success')
-										alertTitle[0].innerHTML = 'Successfully added';
-										setTimeout(() => {
-											alert.classList.remove('bg-success')
-											alert.classList.add('bg-info')
-											alertTitle[0].innerHTML = "Gateway Mac and Password's";
-										}, 1000)
-									})
-								}
-							});
-						} else {
-							this.gateways.push(newDevice);
+                    Homey.set("gatewaysList", this.gateways, function(error, settings) {
+                      if (error) {
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-danger");
+                        alertTitle[0].innerHTML = error;
+                        setTimeout(() => {
+                          alert.classList.remove("bg-success");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                        }, 1000);
+                      }
 
-							Homey.set('gatewaysList', this.gateways, function (error, settings) {
-								if (error) {
-									alert.classList.remove('bg-info')
-									alert.classList.add('bg-danger')
-									alertTitle[0].innerHTML = error;
-									setTimeout(() => {
-										alert.classList.remove('bg-success')
-										alert.classList.add('bg-info')
-										alertTitle[0].innerHTML = "Gateway Mac and Password's";
-									}, 1000)
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-success");
+                      alertTitle[0].innerHTML = "Successfully added";
+                      setTimeout(() => {
+                        alert.classList.remove("bg-success");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                      }, 1000);
+                    });
+                  }
+                });
+              } else {
+                this.gateways.push(newDevice);
 
-								}
+                Homey.set("gatewaysList", this.gateways, function(error, settings) {
+                  if (error) {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    alertTitle[0].innerHTML = error;
+                    setTimeout(() => {
+                      alert.classList.remove("bg-success");
+                      alert.classList.add("bg-info");
+                      alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                    }, 1000);
+                  }
 
-								alert.classList.remove('bg-info')
-								alert.classList.add('bg-success')
-								alertTitle[0].innerHTML = 'Successfully added';
-								setTimeout(() => {
-									alert.classList.remove('bg-success')
-									alert.classList.add('bg-info')
-									alertTitle[0].innerHTML = "Gateway Mac and Password's";
-								}, 1000)
-							})
-						}
+                  alert.classList.remove("bg-info");
+                  alert.classList.add("bg-success");
+                  alertTitle[0].innerHTML = "Successfully added";
+                  setTimeout(() => {
+                    alert.classList.remove("bg-success");
+                    alert.classList.add("bg-info");
+                    alertTitle[0].innerHTML = "Gateway Mac and Password's";
+                  }, 1000);
+                });
+              }
+            },
+            addIRDevice(newDevice) {
+              var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+              let macAlertShow = document.getElementsByClassName("macAlertShow");
+              let passwordAlertShow = document.getElementsByClassName("passwordAlertShow");
+              let alert = document.getElementById(`status`);
+              let macAlert = document.getElementById(`macAlert`);
+              let passwordAlert = document.getElementById(`passwordAlert`);
 
+              if (this.devices.length > 0) {
+                this.devices.forEach(device => {
+                  if (device.ip === newDevice.ip) {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    macAlert.classList.remove("border-secondary");
+                    macAlert.classList.remove("border-success");
+                    macAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "IP DUPLICATE";
+                    macAlertShow[0].innerHTML = "IP duplicate";
 
-					},
-					init() {
-						var that = this;
-						Homey.get('gatewaysList', function (error, list) {
-							let alert = document.getElementById(`status`)
-							var alertTitle = document.getElementsByClassName(`statusAlertShow`)
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      alertTitle[0].innerHTML = "Remote Contorol Devices";
+                    }, 3000);
+                    return;
+                  } else {
+                    macAlert.classList.remove("border-success");
+                    macAlert.classList.remove("border-danger");
+                    macAlert.classList.add("border-secondary");
+                    passwordAlert.classList.remove("border-success");
+                    passwordAlert.classList.remove("border-danger");
+                    passwordAlert.classList.add("border-secondary");
+                    macAlertShow[0].innerHTML = "IP";
+                    passwordAlertShow[0].innerHTML = "Token";
 
-							if (error) {
-								alert.classList.remove('bg-info')
-								alert.classList.add('bg-danger')
-								alertTitle[0].innerHTML = error;
-								return console.error(error)
-							}
+                    this.devices.push(newDevice);
 
-							that.gateways = list || []
-						})
+                    Homey.set("irDevicesList", this.devices, function(error, settings) {
+                      if (error) {
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-danger");
+                        alertTitle[0].innerHTML = error;
+                        setTimeout(() => {
+                          alert.classList.remove("bg-success");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Remote Contorol Devices";
+                        }, 1000);
+                      }
 
-					}
-				}
-			});
-		}
-	</script>
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-success");
+                      alertTitle[0].innerHTML = "Successfully added";
+                      setTimeout(() => {
+                        alert.classList.remove("bg-success");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Remote Contorol Devices";
+                      }, 1000);
+                    });
+                  }
+                });
+              } else {
+                this.devices.push(newDevice);
 
-</body>
+                Homey.set("irDevicesList", this.devices, function(error, settings) {
+                  if (error) {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    alertTitle[0].innerHTML = error;
+                    setTimeout(() => {
+                      alert.classList.remove("bg-success");
+                      alert.classList.add("bg-info");
+                      alertTitle[0].innerHTML = "Remote Contorol Devices";
+                    }, 1000);
+                  }
 
+                  alert.classList.remove("bg-info");
+                  alert.classList.add("bg-success");
+                  alertTitle[0].innerHTML = "Successfully added";
+                  setTimeout(() => {
+                    alert.classList.remove("bg-success");
+                    alert.classList.add("bg-info");
+                    alertTitle[0].innerHTML = "Remote Contorol Devices";
+                  }, 1000);
+                });
+              }
+            },
+            init() {
+              var that = this;
+              Homey.get("gatewaysList", function(error, list) {
+                let alert = document.getElementById(`status`);
+                var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+
+                if (error) {
+                  alert.classList.remove("bg-info");
+                  alert.classList.add("bg-danger");
+                  alertTitle[0].innerHTML = error;
+                  return console.error(error);
+                }
+
+                that.gateways = list || [];
+              });
+
+              Homey.get("irDevicesList", function(error, list) {
+                let alert = document.getElementById(`status`);
+                var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+
+                if (error) {
+                  alert.classList.remove("bg-info");
+                  alert.classList.add("bg-danger");
+                  alertTitle[0].innerHTML = error;
+                  return console.error(error);
+                }
+
+                that.devices = list || [];
+              });
+            },
+            setPage(page) {
+              this.currentPage = page;
+              let gatewayTab = document.getElementById(`gatewayTab`);
+              let irDevicesTab = document.getElementById(`irDevicesTab`);
+              if (page == "gateways") {
+                irDevicesTab.classList.remove("btn-outline-primary");
+                gatewayTab.classList.remove("btn-outline-secondary");
+                gatewayTab.classList.add("btn-outline-primary");
+              } else if (page == "irDevices") {
+                irDevicesTab.classList.remove("btn-outline-secondary");
+                irDevicesTab.classList.add("btn-outline-primary");
+                gatewayTab.classList.remove("btn-outline-primary");
+                gatewayTab.classList.add("btn-outline-secondary");
+              } else if (page == "gateway") {
+                this.page = page;
+              } else if (page == "remote") {
+                this.page = page;
+              } else if (page == "main") {
+                this.page = page;
+                this.currentPage = "gateways";
+              }
+            },
+            isActive(page) {
+              if (this.currentPage == page) {
+                return "is-active";
+              } else {
+                return;
+              }
+            },
+            showHowTo(page) {
+              this.page = page;
+            }
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
