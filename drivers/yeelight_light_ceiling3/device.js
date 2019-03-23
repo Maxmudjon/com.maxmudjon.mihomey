@@ -128,7 +128,7 @@ class YeelightJiaoyue450 extends Homey.Device {
     this.registerCapabilityListener(name, async value => {
       let color_temp = this.denormalize(value, 2700, 6000);
       this.device
-        .call("set_ct_abx", [color_temp, , "smooth", this.getSetting("smooth") * 1000])
+        .call("set_ct_abx", [color_temp, "smooth", this.getSetting("smooth") * 1000])
         .then(() => this.log("Sending " + name + " commmand: " + color_temp))
         .catch(error => this.log("Sending commmand 'set_ct_abx' error: ", error));
     });
