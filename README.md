@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.7 - Supported devices:
+## Version 0.3.8 - Supported devices:
 
 - Double Button Wirelles Remote Switch (DuplexButton86).
 - Motion Sensor 1 version (MotionSensor).
@@ -127,6 +127,7 @@ Added support for Mi Gateways child devices.
 
 1. Minor fixes.
 2. fixed Settings page.
+3. added support for Yeelight Jiaoyue 450.
 
 ### 0.3.7 (23.01.2019)
 
