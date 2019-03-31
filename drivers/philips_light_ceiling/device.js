@@ -43,15 +43,9 @@ class PhilipsLightCeiling extends Homey.Device {
           .then(result => {
             that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
             that.setCapabilityValue("dim", result[1] / 100);
-            that.brightness = result[1] / 100;
-            that.colorTemperature = result[2];
+            that.setCapabilityValue("light_temperature", result[2] / 100);
           })
           .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
-
-        if (this.colorTemperature != undefined && this.colorTemperature != null) {
-          var colorTemp = this.normalize(this.colorTemperature, 2700, 5700);
-          this.setCapabilityValue("light_temperature", colorTemp);
-        }
 
         var update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
@@ -80,21 +74,10 @@ class PhilipsLightCeiling extends Homey.Device {
         .then(result => {
           that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
           that.setCapabilityValue("dim", result[1] / 100);
-          that.brightness = result[1] / 100;
-          that.colorTemperature = result[2];
+          that.setCapabilityValue("light_temperature", result[2] / 100);
         })
         .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
-
-      if (this.colorTemperature != undefined && this.colorTemperature != null) {
-        var colorTemp = this.normalize(this.colorTemperature, 2700, 5700);
-        this.setCapabilityValue("light_temperature", colorTemp);
-      }
     }, 1000 * interval);
-  }
-
-  normalize(value, min, max) {
-    var normalized = (value - min) / (max - min);
-    return Number(normalized.toFixed(2));
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
@@ -118,7 +101,7 @@ class PhilipsLightCeiling extends Homey.Device {
       if (value * 100 > 0) {
         this.device
           .call("set_bright", [value * 100])
-          .then(() => this.log("Sending " + name + " commmand: " + value))
+          .then(() => this.log("Sending " + name + " commmand: " + value * 100))
           .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
       }
     });
@@ -126,17 +109,11 @@ class PhilipsLightCeiling extends Homey.Device {
 
   registerLightTemperatureLevel(name) {
     this.registerCapabilityListener(name, async value => {
-      let color_temp = this.denormalize(value, 2700, 5700);
       this.device
-        .call("set_cct", [color_temp])
-        .then(() => this.log("Sending " + name + " commmand: " + color_temp))
+        .call("set_cct", [value * 100])
+        .then(() => this.log("Sending " + name + " commmand: " + color_temp * 100))
         .catch(error => this.log("Sending commmand 'set_cct' error: ", error));
     });
-  }
-
-  denormalize(normalized, min, max) {
-    var denormalized = (1 - normalized) * (max - min) + min;
-    return Number(denormalized.toFixed(0));
   }
 
   registerPhilipsScenesAction(name, action) {
@@ -149,7 +126,7 @@ class PhilipsLightCeiling extends Homey.Device {
           })
           .then(device => {
             device
-              .call("apply_fixed_scene", [args.scene])
+              .call("apply_fixed_scene", [parseInt(args.scene)])
               .then(() => {
                 this.log("Set scene: ", args.scene);
                 device.destroy();
