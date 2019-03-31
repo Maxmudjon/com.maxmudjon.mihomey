@@ -51,6 +51,10 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
       this.triggerFlow(triggers.right_long_click_press, "right_long_click_press", true);
     }
 
+    if (device["data"]["dual_channel"] == "both_click") {
+      this.triggerFlow(triggers.both_click, "both_click_press", true);
+    }
+
     let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
       gateways[sid]["childDevices"].forEach(deviceSid => {

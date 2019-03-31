@@ -522,6 +522,19 @@
         ]
       },
       {
+        "id": "both_click_click_press_click_button_switch",
+        "title": {
+          "en": "Both click press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
         "id": "lockUsed",
         "title": {
           "en": "The lock opened with"
@@ -8812,6 +8825,157 @@
           "id": "done",
           "navigation": {
             "prev": "devices"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_fan_sa1",
+      "name": {
+        "en": "Mi Smart Fan SA1"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "onoff.dry", "dim", "humidifier_ca1_mode", "measure_temperature", "measure_humidity", "measure_water"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.dry": {
+          "title": {
+            "en": "Swing mode"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Target Relative Humidity"
+          }
+        },
+        "measure_water": {
+          "title": {
+            "en": "Water level"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"]
+          },
+          {
+            "id": "toggle",
+            "capabilities": ["onoff.dry"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "picker",
+            "capabilities": ["humidifier_ca1_mode"]
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": ["measure_temperature", "measure_humidity", "measure_water"],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Humidifier V2 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_humidifier_ca1/assets/images/large.png",
+        "small": "/drivers/mi_humidifier_ca1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
           }
         }
       ]
