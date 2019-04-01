@@ -26,7 +26,7 @@ class YeelightLightStrip extends Homey.Driver {
           device
             .call("miIO.info", [])
             .then(value => {
-              if (value.model == this.data.model) {
+              if (value.model == this.data.model || value.model == "yeelink.light.strip2") {
                 pairingDevice.data.id = "YL:LS:" + value.mac + ":YL:LS";
                 device
                   .call("get_prop", ["bright"])
