@@ -114,15 +114,14 @@ class DoubleSwitchLN extends Homey.Device {
   }
 
   registerToggleAction(name, channel, valueOn = true, valueOff = false, action) {
-    let sid = this.data.sid;
     action.on.registerRunListener(async (args, state) => {
       const data = { [channel]: valueOn };
-      await Homey.app.mihub.sendWrite(sid, data);
+      await Homey.app.mihub.sendWrite(args.device.data.sid, data);
       return true;
     });
     action.off.registerRunListener(async (args, state) => {
       const data = { [channel]: valueOff };
-      await Homey.app.mihub.sendWrite(sid, data);
+      await Homey.app.mihub.sendWrite(args.device.data.sid, data);
       return true;
     });
   }

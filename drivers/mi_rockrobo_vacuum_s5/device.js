@@ -53,8 +53,15 @@ class MiVacuumCleanerV2 extends Homey.Device {
   }
 
   async initialize() {
+    this.registerActions();
     this.registerCapabilities();
     this.getVacuumStatus();
+  }
+
+  registerActions() {
+    const { actions } = this.driver;
+    this.registerVacuumZoneCleanerAction("vacuumZoneCleaner", actions.action);
+    this.registerVacuumGoToTargetAction("vacuumGoToTarget", actions.action);
   }
 
   registerCapabilities() {
@@ -367,6 +374,64 @@ class MiVacuumCleanerV2 extends Homey.Device {
           .call("app_pause", [])
           .then(() => this.log("Sending " + name + " commmand: " + value))
           .catch(error => this.log("Sending commmand 'app_pause' error: ", error));
+      }
+    });
+  }
+
+  registerVacuumZoneCleanerAction(name, action) {
+    action.action.registerRunListener(async (args, state) => {
+      try {
+        miio
+          .device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          })
+          .then(device => {
+            device
+              .call("app_zoned_clean", [args.zones])
+              .then(() => {
+                this.log("Set Start zone cleaning: ", args.zones);
+                device.destroy();
+              })
+              .catch(error => {
+                this.log("Set Start zone cleaning error: ", error);
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            this.log("miio connect error: " + error);
+          });
+      } catch (error) {
+        this.log("catch error: " + error);
+      }
+    });
+  }
+
+  registerVacuumGoToTargetAction(name, action) {
+    action.action.registerRunListener(async (args, state) => {
+      try {
+        miio
+          .device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          })
+          .then(device => {
+            device
+              .call("app_goto_target", [args.X, args.Y])
+              .then(() => {
+                this.log("Set Start zone cleaning: ", args.X + ", " + args.Y);
+                device.destroy();
+              })
+              .catch(error => {
+                this.log("Set Start zone cleaning error: ", error);
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            this.log("miio connect error: " + error);
+          });
+      } catch (error) {
+        this.log("catch error: " + error);
       }
     });
   }

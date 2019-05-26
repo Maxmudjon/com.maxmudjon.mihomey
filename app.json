@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -512,6 +512,32 @@
         "id": "right_long_click_press_click_button_switch",
         "title": {
           "en": "Right long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "dual_channel_click_press_click_button_switch",
+        "title": {
+          "en": "Both click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "dual_channel_long_click_press_click_button_switch",
+        "title": {
+          "en": "Both long press button switch"
         },
         "args": [
           {
@@ -1512,7 +1538,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=yeelight_light_ceiling1|yeelight_light_lamp1|yeelight_light_ceiling4"
+            "filter": "driver_id=yeelight_light_ceiling1|yeelight_light_lamp1|yeelight_light_ceiling4|yeelight_light_ceiling3"
           },
           {
             "type": "dropdown",
@@ -1873,6 +1899,53 @@
             "name": "device",
             "type": "device",
             "filter": "driver_id=ir_remote"
+          }
+        ]
+      },
+      {
+        "id": "vacuumZoneCleaner",
+        "title": {
+          "en": "Start zone cleaning"
+        },
+        "args": [
+          {
+            "name": "zones",
+            "type": "text",
+            "placeholder": {
+              "en": "zones"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
+          }
+        ]
+      },
+      {
+        "id": "vacuumGoToTarget",
+        "title": {
+          "en": "Send vacuum cleaner to target"
+        },
+        "args": [
+          {
+            "name": "X",
+            "type": "text",
+            "placeholder": {
+              "en": "X Coordinate"
+            }
+          },
+          {
+            "name": "Y",
+            "type": "text",
+            "placeholder": {
+              "en": "Y Coordinate"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
           }
         ]
       }
@@ -5962,6 +6035,113 @@
       ]
     },
     {
+      "id": "yeelight_light_ceiling3",
+      "name": {
+        "en": "Yeelight Jiaoyue 450"
+      },
+      "class": "light",
+      "capabilities": ["onoff", "dim", "light_temperature"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"]
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "color",
+            "capabilities": ["light_temperature"]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Ceiling Lamp settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "smooth",
+              "type": "number",
+              "value": 0.5,
+              "label": {
+                "en": "Light on/off smooth"
+              },
+              "attr": {
+                "min": 0.1,
+                "max": 3600
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelight_light_ceiling3/assets/images/large.png",
+        "small": "/drivers/yeelight_light_ceiling3/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "yeelight",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "yeelight"
+          }
+        }
+      ]
+    },
+    {
       "id": "yeelight_light_bslamp1",
       "name": {
         "en": "Yeelight Bedside Lamp"
@@ -8658,6 +8838,157 @@
           "id": "done",
           "navigation": {
             "prev": "devices"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_fan_sa1",
+      "name": {
+        "en": "Mi Smart Fan SA1"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "onoff.dry", "dim", "humidifier_ca1_mode", "measure_temperature", "measure_humidity", "measure_water"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.dry": {
+          "title": {
+            "en": "Swing mode"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Target Relative Humidity"
+          }
+        },
+        "measure_water": {
+          "title": {
+            "en": "Water level"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"]
+          },
+          {
+            "id": "toggle",
+            "capabilities": ["onoff.dry"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "picker",
+            "capabilities": ["humidifier_ca1_mode"]
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "sensor",
+            "capabilities": ["measure_temperature", "measure_humidity", "measure_water"],
+            "options": {
+              "showTitle": true
+            }
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Humidifier V2 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_humidifier_ca1/assets/images/large.png",
+        "small": "/drivers/mi_humidifier_ca1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
           }
         }
       ]

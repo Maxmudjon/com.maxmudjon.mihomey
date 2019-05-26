@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.7 - Supported devices:
+## Version 0.3.8 - Supported devices:
 
 - Double Button Wirelles Remote Switch (DuplexButton86).
 - Motion Sensor 1 version (MotionSensor).
@@ -123,6 +123,14 @@ Added support for Mi Gateways child devices.
 
 ## Version logs
 
+### 0.3.8 (26.05.2019)
+
+1. Minor fixes.
+2. fixed Settings page.
+3. added support for Yeelight Jiaoyue 450.
+4. added new functions for Xiaomi Vacuum Cleaners.
+5. added new trigger for Aqara Wireless Remote Switch Double Button (DuplexButton862) (advanced 2018).
+
 ### 0.3.7 (23.01.2019)
 
 1. added support for Mi Air Purifier Pro.
@@ -130,7 +138,6 @@ Added support for Mi Gateways child devices.
 3. added support for Mi Humidifier V2.
 4. fixed: Yeelight set flows.
 5. minor fixes.
-6. fixed Settings page.
 
 ### 0.3.6 (23.12.2018)
 

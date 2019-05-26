@@ -103,15 +103,14 @@ class SingleSwitchLN extends Homey.Device {
   }
 
   registerToggleAction(name, valueOn = true, valueOff = false, action) {
-    let sid = this.data.sid;
     action.on.registerRunListener(async (args, state) => {
       const data = { channel_0: valueOn };
-      await Homey.app.mihub.sendWrite(sid, data);
+      await Homey.app.mihub.sendWrite(args.device.data.sid, data);
       return true;
     });
     action.off.registerRunListener(async (args, state) => {
       const data = { channel_0: valueOff };
-      await Homey.app.mihub.sendWrite(sid, data);
+      await Homey.app.mihub.sendWrite(args.device.data.sid, data);
       return true;
     });
   }

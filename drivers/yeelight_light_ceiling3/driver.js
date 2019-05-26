@@ -1,28 +1,20 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const actions = vacuumAction => ({
-  action: new Homey.FlowCardAction(vacuumAction).register()
+const initFlowAction = favoriteFlow => ({
+  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
 });
 
-class MiVacuumCleaner extends Homey.Driver {
+class YeelightJiaoyue450 extends Homey.Driver {
   onInit() {
-    this.triggers = {
-      main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
-      side_brush: new Homey.FlowCardTriggerDevice("side_brush_work_time").register(),
-      filter: new Homey.FlowCardTriggerDevice("filter_work_time").register(),
-      sensor: new Homey.FlowCardTriggerDevice("sensor_dirty_time").register()
-    };
-
     this.actions = {
-      action: actions("vacuumZoneCleaner"),
-      action: actions("vacuumGoToTarget")
+      favoriteFlow: initFlowAction("favorite_flow_ceiling1_lamp")
     };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Mi Vacuum Cleaner";
+    pairingDevice.name = "Yeelight Jiaoyue 450";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -35,12 +27,12 @@ class MiVacuumCleaner extends Homey.Driver {
             .call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = "MI:VC:V1:" + value.mac + ":MI:VC:V1";
+                pairingDevice.data.id = "YL:J4:50:" + value.mac + ":YL:J4:50";
                 device
-                  .call("get_status", [])
+                  .call("get_prop", ["bright"])
                   .then(value => {
                     let result = {
-                      battery: value[0]["battery"]
+                      bright: value[0]
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -57,7 +49,7 @@ class MiVacuumCleaner extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Vacuum Cleaner"
+                  notDevice: "It is not Yeelight Jiaoyue 450"
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
@@ -65,7 +57,7 @@ class MiVacuumCleaner extends Homey.Driver {
             })
             .catch(error => callback(null, error));
         })
-        .catch(error => {
+        .catch(function(error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -76,11 +68,10 @@ class MiVacuumCleaner extends Homey.Driver {
           }
         });
     });
-
     socket.on("done", function(data, callback) {
       callback(null, pairingDevice);
     });
   }
 }
 
-module.exports = MiVacuumCleaner;
+module.exports = YeelightJiaoyue450;

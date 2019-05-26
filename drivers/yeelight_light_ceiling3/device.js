@@ -1,7 +1,8 @@
 const Homey = require("homey");
 const miio = require("miio");
+const flows = require("../../lib/flows");
 
-class PhilipsLightCeiling extends Homey.Device {
+class YeelightJiaoyue450 extends Homey.Device {
   async onInit() {
     this.initialize = this.initialize.bind(this);
     this.driver = this.getDriver();
@@ -20,14 +21,13 @@ class PhilipsLightCeiling extends Homey.Device {
 
   registerCapabilities() {
     this.registerOnOffButton("onoff");
-    this.registerBrightnessLevel("dim");
+    this.registerDimLevel("dim");
     this.registerLightTemperatureLevel("light_temperature");
   }
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerPhilipsScenesAction("philips_scenes", actions.philipsScenes);
-    this.registerPhilipsLightACAction("philips_light_ac", actions.philipsLightAC);
+    this.registerFavoriteFlowsAction("favorite_flow_ceiling1_lamp", actions.favoriteFlow);
   }
 
   getYeelightStatus() {
@@ -39,13 +39,19 @@ class PhilipsLightCeiling extends Homey.Device {
         this.device = device;
 
         this.device
-          .call("get_prop", ["power", "bright", "cct"])
+          .call("get_prop", ["power", "bright", "ct"])
           .then(result => {
             that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
             that.setCapabilityValue("dim", result[1] / 100);
-            that.setCapabilityValue("light_temperature", result[2] / 100);
+            that.brightness = result[1] / 100;
+            that.colorTemperature = result[2];
           })
           .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+
+        if (that.colorTemperature != undefined && that.colorTemperature != null) {
+          var colorTemp = that.normalize(that.colorTemperature, 2700, 6000);
+          that.setCapabilityValue("light_temperature", colorTemp);
+        }
 
         var update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
@@ -66,18 +72,29 @@ class PhilipsLightCeiling extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
+    var that = this;
     this.updateInterval = setInterval(() => {
       this.device
-        .call("get_prop", ["power", "bright", "cct"])
+        .call("get_prop", ["power", "bright", "ct"])
         .then(result => {
           that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
           that.setCapabilityValue("dim", result[1] / 100);
-          that.setCapabilityValue("light_temperature", result[2] / 100);
+          that.brightness = result[1] / 100;
+          that.colorTemperature = result[2];
         })
         .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+
+      if (that.colorTemperature != undefined && that.colorTemperature != null) {
+        var colorTemp = that.normalize(that.colorTemperature, 2700, 6000);
+        that.setCapabilityValue("light_temperature", colorTemp);
+      }
     }, 1000 * interval);
+  }
+
+  normalize(value, min, max) {
+    var normalized = (value - min) / (max - min);
+    return Number(normalized.toFixed(2));
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
@@ -90,18 +107,18 @@ class PhilipsLightCeiling extends Homey.Device {
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async value => {
       this.device
-        .call("set_power", [value ? "on" : "off"])
+        .call("set_power", [value ? "on" : "off", "smooth", this.getSetting("smooth") * 1000])
         .then(() => this.log("Sending " + name + " commmand: " + value))
         .catch(error => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
-  registerBrightnessLevel(name) {
+  registerDimLevel(name) {
     this.registerCapabilityListener(name, async value => {
       if (value * 100 > 0) {
         this.device
           .call("set_bright", [value * 100])
-          .then(() => this.log("Sending " + name + " commmand: " + value * 100))
+          .then(() => this.log("Sending " + name + " commmand: " + value))
           .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
       }
     });
@@ -109,15 +126,22 @@ class PhilipsLightCeiling extends Homey.Device {
 
   registerLightTemperatureLevel(name) {
     this.registerCapabilityListener(name, async value => {
+      let color_temp = this.denormalize(value, 2700, 6000);
       this.device
-        .call("set_cct", [value * 100])
-        .then(() => this.log("Sending " + name + " commmand: " + color_temp * 100))
-        .catch(error => this.log("Sending commmand 'set_cct' error: ", error));
+        .call("set_ct_abx", [color_temp, "smooth", this.getSetting("smooth") * 1000])
+        .then(() => this.log("Sending " + name + " commmand: " + color_temp))
+        .catch(error => this.log("Sending commmand 'set_ct_abx' error: ", error));
     });
   }
 
-  registerPhilipsScenesAction(name, action) {
-    action.action.registerRunListener(async (args, state) => {
+  denormalize(normalized, min, max) {
+    var denormalized = (1 - normalized) * (max - min) + min;
+    return Number(denormalized.toFixed(0));
+  }
+
+  registerFavoriteFlowsAction(name, action) {
+    var that = this;
+    action.favoriteFlow.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -126,42 +150,13 @@ class PhilipsLightCeiling extends Homey.Device {
           })
           .then(device => {
             device
-              .call("apply_fixed_scene", [parseInt(args.scene)])
+              .call("start_cf", flows[args.favoriteFlowID])
               .then(() => {
-                this.log("Set scene: ", args.scene);
+                this.log("Set flow: ", args.favoriteFlowID);
                 device.destroy();
               })
               .catch(error => {
-                this.log("Set scene error: ", error);
-                device.destroy();
-              });
-          })
-          .catch(error => {
-            this.log("miio connect error: " + error);
-          });
-      } catch (error) {
-        this.log("catch error: " + error);
-      }
-    });
-  }
-
-  registerPhilipsLightACAction(name, action) {
-    action.action.registerRunListener(async (args, state) => {
-      try {
-        miio
-          .device({
-            address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
-          })
-          .then(device => {
-            device
-              .call("enable_ac", [args.ac])
-              .then(() => {
-                this.log("Set Auto Adjust Color Temperature: ", args.ac);
-                device.destroy();
-              })
-              .catch(error => {
-                this.log("Set Auto Adjust Color Temperature error: ", error);
+                this.log("Set flow error: ", error);
                 device.destroy();
               });
           })
@@ -187,4 +182,4 @@ class PhilipsLightCeiling extends Homey.Device {
   }
 }
 
-module.exports = PhilipsLightCeiling;
+module.exports = YeelightJiaoyue450;
