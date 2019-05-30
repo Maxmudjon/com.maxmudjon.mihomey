@@ -126,6 +126,7 @@ Added support for Mi Gateways child devices.
 ### 0.3.9 (30.05.2019)
 
 1. Added support Aqara Curtain with battaery (Zigbee version).
+2. fixed CHINGMI Smart Power Strip capabilities.
 
 ### 0.3.8 (22.03.2019)
 

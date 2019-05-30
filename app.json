@@ -7695,7 +7695,7 @@
         "en": "CHINGMI Smart Power Strip"
       },
       "class": "socket",
-      "capabilities": ["onoff", "measure_power", "meter_ampere", "measure_temperature", "onoff.led"],
+      "capabilities": ["onoff", "measure_power", "meter_ampere", "measure_temperature", "measure_voltage"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7712,9 +7712,9 @@
             "en": "Temperature"
           }
         },
-        "onoff.led": {
+        "measure_voltage": {
           "title": {
-            "en": "WiFi LED"
+            "en": "Voltage"
           }
         }
       },
@@ -7738,13 +7738,6 @@
                 "measure_voltage": "/drivers/qmi_powerstrip_v1/assets/measure_voltage.svg",
                 "measure_temperature": "/drivers/qmi_powerstrip_v1/assets/temperature.svg"
               }
-            }
-          },
-          {
-            "id": "toggle",
-            "capabilities": ["onoff.led"],
-            "options": {
-              "showTitle": true
             }
           }
         ]
