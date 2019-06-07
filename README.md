@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.9 - Supported devices:
+## Version 0.4.0 - Supported devices:
 
 - Double Button Wirelles Remote Switch (DuplexButton86).
 - Motion Sensor 1 version (MotionSensor).
@@ -122,6 +122,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+
+### 0.4.0 (07.06.2019)
+
+1. Added a new feature for android users: the password that is generated in the plugin in capital letters is now saved to the gateway.
 
 ### 0.3.9 (30.05.2019)
 
