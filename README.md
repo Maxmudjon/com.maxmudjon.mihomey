@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.4.0 - Supported devices:
+## Version 1.0.0 - Supported devices:
 
 - Double Button Wirelles Remote Switch (DuplexButton86).
 - Motion Sensor 1 version (MotionSensor).
@@ -122,6 +122,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
 
 ## Version logs
+
+### 1.0.0 (28.07.2019)
+
+1. minor fixes and publish to Athom App Store.
 
 ### 0.4.0 (07.06.2019)
 

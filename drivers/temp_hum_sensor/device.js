@@ -26,11 +26,11 @@ class TemperatureHumiditySensor extends Homey.Device {
     }
 
     if (device["data"]["temperature"]) {
-      this.updateCapabilityValue("measure_temperature", parseInt(device["data"]["temperature"] / 100));
+      this.updateCapabilityValue("measure_temperature", parseFloat(device["data"]["temperature"] / 100));
     }
 
     if (device["data"]["humidity"]) {
-      this.updateCapabilityValue("measure_humidity", parseInt(device["data"]["humidity"] / 100));
+      this.updateCapabilityValue("measure_humidity", parseFloat(device["data"]["humidity"] / 100));
     }
 
     let gateways = Homey.app.mihub.gateways;
