@@ -26,15 +26,15 @@ class TemperatureHumiditySensor extends Homey.Device {
     }
 
     if (device["data"]["temperature"]) {
-      this.updateCapabilityValue("measure_temperature", parseFloat(device["data"]["temperature"] / 100));
+      this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat(device["data"]["temperature"] / 100).toFixed(1)));
     }
 
     if (device["data"]["humidity"]) {
-      this.updateCapabilityValue("measure_humidity", parseFloat(device["data"]["humidity"] / 100));
+      this.updateCapabilityValue("measure_humidity", parseFloat(parseFloat(device["data"]["humidity"] / 100).toFixed(1)));
     }
 
     if (device["data"]["pressure"]) {
-      this.updateCapabilityValue("measure_pressure_hhmg", parseFloat(device["data"]["pressure"] * 0.00750062));
+      this.updateCapabilityValue("measure_pressure_hhmg", parseInt(device["data"]["pressure"] * 0.00750062));
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -73,7 +73,13 @@ class TemperatureHumiditySensor extends Homey.Device {
 
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
-      this.setCapabilityValue(name, value);
+      this.setCapabilityValue(name, value)
+        .then(() => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
+        })
+        .catch(error => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
       this.triggerFlow(trigger, name, value);
     }
   }
