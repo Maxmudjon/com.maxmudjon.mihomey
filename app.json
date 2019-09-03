@@ -6557,6 +6557,17 @@
               "label": {
                 "en": "Device update timer"
               }
+            },
+            {
+              "id": "setDefault",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Save current state"
+              },
+              "hint": {
+                "en": "All current status on the lamp is saved."
+              }
             }
           ]
         }

@@ -194,6 +194,22 @@ class YeelightCrystalPendantLamp extends Homey.Device {
       this.getYeelightStatus();
       callback(null, true);
     }
+
+    if (changedKeys.includes("setDefault")) {
+      this.device
+        .call("set_default", [])
+        .then(() => {
+          callback(null, true)
+          this.log("Sending commmand 'set_default' save current state to lamp")
+          this.setSettings({
+            setDefault: false
+          });
+        })
+        .catch(error => {
+          callback(error, false)
+          this.log("Sending commmand 'set_default' error: ", error)
+        });
+    }
   }
 
   registerOnOffButton(name) {
