@@ -10,8 +10,7 @@ class DoubleButton86SwitchAdvanced extends Homey.Driver {
       right_click: new Homey.FlowCardTriggerDevice("right_click_button_switch").register(),
       right_double_click: new Homey.FlowCardTriggerDevice("right_double_click_click_button_switch").register(),
       right_long_click_press: new Homey.FlowCardTriggerDevice("right_long_click_press_click_button_switch").register(),
-      both_click_press: new Homey.FlowCardTriggerDevice("dual_channel_click_press_click_button_switch").register(),
-      both_long_click_press: new Homey.FlowCardTriggerDevice("dual_channel_long_click_press_click_button_switch").register()
+      both_click: new Homey.FlowCardTriggerDevice("both_click_click_press_click_button_switch").register()
     };
   }
 

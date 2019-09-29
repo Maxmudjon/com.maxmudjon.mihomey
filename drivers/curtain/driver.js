@@ -1,5 +1,5 @@
 const Homey = require("homey");
-const model = ["curtain"];
+const model = ["curtain", "curtain.hagl04"];
 
 const initToggleFlowTriggers = (on, off, toggle) => ({
   on: new Homey.FlowCardTriggerDevice(on).register(),

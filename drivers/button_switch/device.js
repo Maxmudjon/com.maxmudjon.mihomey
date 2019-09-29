@@ -74,7 +74,13 @@ class ButtonSwitch extends Homey.Device {
 
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
-      this.setCapabilityValue(name, value);
+      this.setCapabilityValue(name, value)
+        .then(() => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
+        })
+        .catch(error => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
       this.triggerFlow(trigger, name, value);
     }
   }

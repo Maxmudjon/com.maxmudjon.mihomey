@@ -36,6 +36,7 @@
             <div class="column" style="width: 100%;">
               <gateway-list v-bind:gateways="gateways"></gateway-list>
               <create-todo v-on:create-todo="addGateway"></create-todo>
+              <generate-key v-on:generate-key="addGateway" class="mt-7"></generate-key>
             </div>
           </div>
         </div>
@@ -560,6 +561,170 @@
               },
               template:
                 '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div>Name</div><input class="border border-secondary" v-model="NAME" type="text"><div class="macAlertShow">IP</div><input id="macAlert" class="border border-secondary" v-model="IP" type="text" v-on:change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Token</div><input id="passwordAlert" class="border border-secondary" v-model="TOKEN" type="text" v-on:change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="sendForm()">Add</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
+            },
+            GenerateKey: {
+              data() {
+                return {
+                  IP: "",
+                  TOKEN: "",
+                  isCreating: false
+                };
+              },
+              methods: {
+                openForm() {
+                  this.isCreating = true;
+                },
+                closeForm() {
+                  this.isCreating = false;
+                },
+                sendForm() {
+                  if (this.IP.length > 0 && this.TOKEN.length > 0) {
+                    const ip = this.IP;
+                    const token = this.TOKEN;
+                    let mac;
+                    let password;
+                    var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                    let ipAlertShow = document.getElementsByClassName("ipAlertShow");
+                    let tokenAlertShow = document.getElementsByClassName("tokenAlertShow");
+                    let alert = document.getElementById(`status`);
+                    let ipAlert = document.getElementById(`ipAlert`);
+                    let tokenAlert = document.getElementById(`tokenAlert`);
+                    let progressAlert = document.getElementsByClassName("progressAlert");
+
+                    if (
+                      this.IP.match(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)
+                    ) {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-success");
+
+                      if (this.TOKEN.match(/\b[0-9a-f]{32}\b/g)) {
+                        document.getElementById("generateButton").disabled = true;
+                        let json = { ip: ip, token: token };
+                        Homey.api("POST", "/generate", json, (err, result) => {
+                          if (err) {
+                            progressAlert[0].innerHTML = err.error;
+                            document.getElementById("generateButton").disabled = false;
+                            return Homey.alert(err);
+                          }
+                          progressAlert[0].innerHTML = "Status: " + result.status + "<br>\nMac: " + result.mac + "<br>\nPassword: " + result.key;
+
+                          setTimeout(() => {
+                            document.getElementById("generateButton").disabled = false;
+                            mac = result.mac;
+                            password = result.key;
+                            this.$emit("generate-key", {
+                              mac,
+                              password
+                            });
+                            this.IP = "";
+                            this.TOKEN = "";
+                            this.isCreating = false;
+                            ipAlert.classList.remove("border-success");
+                            ipAlert.classList.remove("border-danger");
+                            ipAlert.classList.add("border-secondary");
+                            tokenAlert.classList.remove("border-success");
+                            tokenAlert.classList.remove("border-danger");
+                            tokenAlert.classList.add("border-secondary");
+                            ipAlertShow[0].innerHTML = "IP";
+                            tokenAlertShow[0].innerHTML = "Token";
+                            progressAlert[0].innerHTML = "";
+                          }, 1500);
+                        });
+                      } else {
+                        alert.classList.remove("bg-info");
+                        alert.classList.add("bg-danger");
+                        tokenAlert.classList.remove("border-secondary");
+                        tokenAlert.classList.add("border-danger");
+                        alertTitle[0].innerHTML = "TOKEN IS NOT VALID";
+                        tokenAlertShow[0].innerHTML = "Token is not valid";
+
+                        setTimeout(() => {
+                          alert.classList.remove("bg-danger");
+                          alert.classList.add("bg-info");
+                          alertTitle[0].innerHTML = "Gateway IP and Token's";
+                        }, 1000);
+                      }
+                    } else {
+                      alert.classList.remove("bg-info");
+                      alert.classList.add("bg-danger");
+                      ipAlert.classList.remove("border-secondary");
+                      ipAlert.classList.add("border-danger");
+                      alertTitle[0].innerHTML = "IP IS NOT VALID";
+                      ipAlertShow[0].innerHTML = "IP is not valid";
+
+                      setTimeout(() => {
+                        alert.classList.remove("bg-danger");
+                        alert.classList.add("bg-info");
+                        alertTitle[0].innerHTML = "Gateway IP and Token's";
+                      }, 1000);
+                    }
+                  }
+                },
+                filterIP() {
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let ipAlertShow = document.getElementsByClassName("ipAlertShow");
+                  let alert = document.getElementById(`status`);
+                  let ipAlert = document.getElementById(`ipAlert`);
+
+                  if (
+                    this.IP.match(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)
+                  ) {
+                    alert.classList.remove("bg-danger");
+                    alert.classList.add("bg-success");
+                    ipAlert.classList.remove("border-secondary");
+                    ipAlert.classList.remove("border-danger");
+                    ipAlert.classList.add("border-success");
+                  } else {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    ipAlert.classList.remove("border-secondary");
+                    ipAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "IP IS NOT VALID";
+                    ipAlertShow[0].innerHTML = "IP is not valid";
+
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      ipAlert.classList.remove("border-danger");
+                      ipAlert.classList.add("border-secondary");
+                      alertTitle[0].innerHTML = "Gateway IP and Token's";
+                      ipAlertShow[0].innerHTML = "IP";
+                    }, 1000);
+                  }
+                },
+                filterToken() {
+                  let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+                  let tokenAlertShow = document.getElementsByClassName("tokenAlertShow");
+                  let alert = document.getElementById(`status`);
+                  let tokenAlert = document.getElementById(`tokenAlert`);
+
+                  if (this.TOKEN.match(/\b[0-9a-f]{32}\b/g)) {
+                    alert.classList.remove("bg-danger");
+                    alert.classList.add("bg-success");
+                    tokenAlert.classList.remove("border-secondary");
+                    tokenAlert.classList.remove("border-danger");
+                    tokenAlert.classList.add("border-success");
+                  } else {
+                    alert.classList.remove("bg-info");
+                    alert.classList.add("bg-danger");
+                    tokenAlert.classList.remove("border-secondary");
+                    tokenAlert.classList.add("border-danger");
+                    alertTitle[0].innerHTML = "TOKEN IS NOT VALID";
+                    tokenAlertShow[0].innerHTML = "Token is not valid";
+
+                    setTimeout(() => {
+                      alert.classList.remove("bg-danger");
+                      alert.classList.add("bg-info");
+                      tokenAlert.classList.remove("border-danger");
+                      tokenAlert.classList.add("border-secondary");
+                      alertTitle[0].innerHTML = "Gateway IP and Token's";
+                      tokenAlertShow[0].innerHTML = "Token";
+                    }, 1000);
+                  }
+                }
+              },
+              template:
+                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating"><i>GENERATE PASSWORD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="progressAlert mb-2"></div><div class="ipAlertShow">IP</div><input id="ipAlert" class="border border-secondary" v-model="IP" type="text" v-on:change="filterIP()"></div><div class="field"><div class="tokenAlertShow">TOKEN</div><input id="tokenAlert" class="border border-secondary" v-model="TOKEN" type="text" v-on:change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" id="generateButton" v-on:click="sendForm()">Generate and Save</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
             }
           },
           data() {

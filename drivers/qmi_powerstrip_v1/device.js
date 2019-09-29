@@ -17,7 +17,6 @@ class CHINGMISmartPowerStrip extends Homey.Device {
 
   registerCapabilities() {
     this.registerOnOffButton("onoff");
-    this.registerLedOnOffButton("onoff.led");
   }
 
   getXiaomiStatus() {
@@ -30,16 +29,15 @@ class CHINGMISmartPowerStrip extends Homey.Device {
         this.device = device;
 
         this.device
-          .call("get_prop", ["power", "power_consume_rate", "current", "voltage", "temperature", "wifi_led"])
+          .call("get_prop", ["power", "power_consume_rate", "current", "voltage", "temperature"])
           .then(result => {
             that.setCapabilityValue("onoff", result[0] == "on" ? true : false);
             that.setCapabilityValue("measure_power", parseInt(result[1]));
-            that.setCapabilityValue("meter_ampere", result[2]);
-            let tokens = { ampere: result[2] };
+            that.setCapabilityValue("meter_ampere", result[2] / 1000);
+            let tokens = { ampere: result[2] / 1000 };
             that.triggerFlow(triggers.meterAmpere, "meterAmpere", tokens);
-            that.setCapabilityValue("measure_voltage", result[3]);
+            that.setCapabilityValue("measure_voltage", result[3] / 100);
             that.setCapabilityValue("measure_temperature", result[4]);
-            that.setCapabilityValue("onoff.led", result[5] == "on" ? true : false);
           })
           .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
@@ -67,16 +65,15 @@ class CHINGMISmartPowerStrip extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
-        .call("get_prop", ["power", "power_consume_rate", "current", "voltage", "temperature", "wifi_led"])
+        .call("get_prop", ["power", "power_consume_rate", "current", "voltage", "temperature"])
         .then(result => {
           that.setCapabilityValue("onoff", result[0] == "on" ? true : false);
           that.setCapabilityValue("measure_power", parseInt(result[1]));
-          that.setCapabilityValue("meter_ampere", result[2]);
-          let tokens = { ampere: result[2] };
+          that.setCapabilityValue("meter_ampere", result[2] / 1000);
+          let tokens = { ampere: result[2] / 1000 };
           that.triggerFlow(triggers.meterAmpere, "meterAmpere", tokens);
-          that.setCapabilityValue("measure_voltage", result[3]);
+          that.setCapabilityValue("measure_voltage", result[3] / 100);
           that.setCapabilityValue("measure_temperature", result[4]);
-          that.setCapabilityValue("onoff.led", result[5] == "on" ? true : false);
         })
         .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
     }, 1000 * interval);
@@ -95,15 +92,6 @@ class CHINGMISmartPowerStrip extends Homey.Device {
         .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
         .catch(error => this.log("Sending commmand 'set_power' error: ", error));
-    });
-  }
-
-  registerLedOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
-      this.device
-        .call("set_wifi_led", [value ? "on" : "off"])
-        .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_wifi_led' error: ", error));
     });
   }
 

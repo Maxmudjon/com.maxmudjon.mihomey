@@ -26,11 +26,11 @@ class TemperatureHumiditySensor extends Homey.Device {
     }
 
     if (device["data"]["temperature"]) {
-      this.updateCapabilityValue("measure_temperature", parseInt(device["data"]["temperature"] / 100));
+      this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat(device["data"]["temperature"] / 100).toFixed(1)));
     }
 
     if (device["data"]["humidity"]) {
-      this.updateCapabilityValue("measure_humidity", parseInt(device["data"]["humidity"] / 100));
+      this.updateCapabilityValue("measure_humidity", parseFloat(parseFloat(device["data"]["humidity"] / 100).toFixed(1)));
     }
 
     if (device["data"]["pressure"]) {
@@ -73,7 +73,13 @@ class TemperatureHumiditySensor extends Homey.Device {
 
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
-      this.setCapabilityValue(name, value);
+      this.setCapabilityValue(name, value)
+        .then(() => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
+        })
+        .catch(error => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
       this.triggerFlow(trigger, name, value);
     }
   }

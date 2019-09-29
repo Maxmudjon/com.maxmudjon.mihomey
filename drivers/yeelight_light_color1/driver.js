@@ -23,7 +23,7 @@ class YeelightColorBulb extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", function (data, callback) {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
@@ -31,7 +31,7 @@ class YeelightColorBulb extends Homey.Driver {
           device
             .call("miIO.info", [])
             .then(value => {
-              if (value.model == this.data.model) {
+              if (value.model == this.data.model || value.model == 'yeelink.light.color2') {
                 pairingDevice.data.id = "YL:CB:" + value.mac + ":YL:CB";
                 device
                   .call("get_prop", ["bright"])
@@ -63,7 +63,7 @@ class YeelightColorBulb extends Homey.Driver {
             })
             .catch(error => callback(null, error));
         })
-        .catch(function(error) {
+        .catch(function (error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -74,7 +74,7 @@ class YeelightColorBulb extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", function (data, callback) {
       callback(null, pairingDevice);
     });
   }

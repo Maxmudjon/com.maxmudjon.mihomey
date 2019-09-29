@@ -2,7 +2,9 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 0.3.8 - Supported devices:
+## Version 1.0.0 - Supported devices:
+
+### Zigbee subdevices Xiaomi Gateway
 
 - Double Button Wirelles Remote Switch (DuplexButton86).
 - Motion Sensor 1 version (MotionSensor).
@@ -30,32 +32,37 @@ Added support for Mi Gateways child devices.
 - Aqara Button Switch (SwitchSensor) (advanced 2018).
 - Aqara Lock (Lock).
 - Aqara Vibration sensor (Vibration).
-- Yeelight Color Bulb.
+
+### Wifi devices
+
+- Yeelight Color Bulb V1/V2.
 - Yeelight White Bulb.
 - Yeelight Ceiling Lamp.
 - Yeelight Bedside Lamp.
-- Yeelight Light Strip.
+- Yeelight Light Strip V1/V2.
+- Yeelight Jiaoyue 650.
+- Yeelight Jiaoyue 450.
+- Yeelight Crystal Pendant Lamp
 - Mi LED Desk Lamp.
 - Philips Eyecare Desk Lapmp 2.
 - Philips Eyecare Ceiling Lamp.
 - Philips Light Bulb.
+- Philips Zhirui Smart LED Bulb E14 Candle Lamp.
+- Philips Zhirui Smart LED Bulb E14 Candle Lamp White Crystal.
+- Philips Downlight.
+- Philips Zhirui Bedside Lamp.
 - Mi Smart Plug WiFi.
 - Mi Smart Plug With USB WiFi.
 - Mi Smart Plug With 2 USB WiFi.
 - Mi Smart Power Strip.
 - CHINGMI Smart Power Strip.
-- Yeelight Jiaoyue 650.
 - Mi Air Purifier S2.
-- Mi Vacuum Cleaner (gen 1).
-- Mi Vacuum Cleaner V2 (gen 2).
-- Philips Zhirui Smart LED Bulb E14 Candle Lamp.
-- Philips Zhirui Smart LED Bulb E14 Candle Lamp White Crystal.
-- Philips Downlight.
-- Philips Zhirui Bedside Lamp.
 - Mi Air Purifier Pro.
+- Mi Air Fresh VA2.
 - Mi Humidifier V1.
 - Mi Humidifier V2.
--
+- Mi Vacuum Cleaner (gen 1).
+- Mi Vacuum Cleaner V2 (gen 2).
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -109,21 +116,24 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV2.png)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
-## Add devices
-
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/app-and-show-device2.jpg)
-
-## On Mobile
-
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/on%20mobile.jpg)
-
-## Flow triggers
-
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/flow%20triggers.jpg)
-
 ## Version logs
 
-### 0.3.8 (26.05.2019)
+### 1.0.0 (29.09.2019)
+
+1. minor fixes and publish to Athom App Store.
+2. added Xiaomi Air Fresh VA2.
+3. added Yeelight Crystal Pendant Lamp (cometa).
+
+### 0.4.0 (07.06.2019)
+
+1. Added a new feature for android users: the password that is generated in the plugin in capital letters is now saved to the gateway.
+
+### 0.3.9 (30.05.2019)
+
+1. Added support Aqara Curtain with battaery (Zigbee version).
+2. fixed CHINGMI Smart Power Strip capabilities.
+
+### 0.3.8 (22.03.2019)
 
 1. Minor fixes.
 2. fixed Settings page.

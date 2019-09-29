@@ -52,11 +52,7 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
     }
 
     if (device["data"]["dual_channel"] == "both_click") {
-      this.triggerFlow(triggers.both_click_press, "both_click_press", true);
-    }
-
-    if (device["data"]["dual_channel"] == "long_both_click") {
-      this.triggerFlow(triggers.both_long_click_press, "both_long_click_press", true);
+      this.triggerFlow(triggers.both_click, "both_click_press", true);
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -95,7 +91,13 @@ class DoubleButton86SwitchAdvanced extends Homey.Device {
 
   updateCapabilityValue(name, value, trigger) {
     if (this.getCapabilityValue(name) != value) {
-      this.setCapabilityValue(name, value);
+      this.setCapabilityValue(name, value)
+        .then(() => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
+        })
+        .catch(error => {
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
       this.triggerFlow(trigger, name, value);
     }
   }
