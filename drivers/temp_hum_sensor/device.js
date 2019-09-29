@@ -26,7 +26,16 @@ class TemperatureHumiditySensor extends Homey.Device {
     }
 
     if (device["data"]["temperature"]) {
-      this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat(device["data"]["temperature"] / 100).toFixed(1)));
+      let settings = this.getSettings();
+      console.log("[INFO]: TemperatureHumiditySensor -> handleStateChange -> settings", settings)
+      if (settings.addOrTakeOffset == 'add') {
+        console.log('ADD');
+
+        this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat((device["data"]["temperature"] / 100) + parseFloat(settings.offset)).toFixed(1)));
+      } else if (settings.addOrTakeOffset == 'take') {
+        this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat((device["data"]["temperature"] / 100) - parseFloat(settings.offset)).toFixed(1)));
+      }
+
     }
 
     if (device["data"]["humidity"]) {

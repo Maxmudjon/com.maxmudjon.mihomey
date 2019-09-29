@@ -1,29 +1,27 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const initFlowAction = favoriteFlow => ({
-  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
+const initFlowAction = action => ({
+  action: new Homey.FlowCardAction(action).register()
 });
 
-const initFlowActionSmooth = smoothAction => ({
-  smoothAction: new Homey.FlowCardAction(smoothAction).register()
-});
-
-class YeelightColorBulb extends Homey.Driver {
+class MiAirFreshVA2 extends Homey.Driver {
   onInit() {
     this.actions = {
-      favoriteFlow: initFlowAction("favorite_flow_color1_bulb"),
-      smoothAction: initFlowActionSmooth("smoothOnOff")
+      airFreshOn: initFlowAction("air_fresh_on"),
+      airFreshOff: initFlowAction("air_fresh_off"),
+      airFreshMode: initFlowAction("air_fresh_mode"),
+      airFreshSpeed: initFlowAction("air_fresh_speed")
     };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Yeelight Color Bulb";
+    pairingDevice.name = "Mi Air Fresh VA2";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function (data, callback) {
+    socket.on("connect", function(data, callback) {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
@@ -31,13 +29,13 @@ class YeelightColorBulb extends Homey.Driver {
           device
             .call("miIO.info", [])
             .then(value => {
-              if (value.model == this.data.model || value.model == 'yeelink.light.color2') {
-                pairingDevice.data.id = "YL:CB:" + value.mac + ":YL:CB";
+              if (value.model == this.data.model) {
+                pairingDevice.data.id = "MA:FV:A2:" + value.mac + ":MA:FV:A2";
                 device
-                  .call("get_prop", ["bright"])
+                  .call("get_prop", ["power"])
                   .then(value => {
                     let result = {
-                      bright: value[0]
+                      state: value[0]
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -48,22 +46,21 @@ class YeelightColorBulb extends Homey.Driver {
                     } else {
                       pairingDevice.settings.updateTimer = parseInt(this.data.timer);
                     }
-                    device.destroy();
+
                     callback(null, result);
                   })
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Yeelight Color Bulb"
+                  notDevice: "It is not Mi Air Fresh VA2"
                 };
                 pairingDevice.data.id = null;
-                device.destroy();
                 callback(null, result);
               }
             })
             .catch(error => callback(null, error));
         })
-        .catch(function (error) {
+        .catch(error => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -74,10 +71,11 @@ class YeelightColorBulb extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function (data, callback) {
+
+    socket.on("done", function(data, callback) {
       callback(null, pairingDevice);
     });
   }
 }
 
-module.exports = YeelightColorBulb;
+module.exports = MiAirFreshVA2;

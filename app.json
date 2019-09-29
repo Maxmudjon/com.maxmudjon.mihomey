@@ -1935,6 +1935,120 @@
             "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5"
           }
         ]
+      },
+      {
+        "id": "air_fresh_on",
+        "title": {
+          "en": "Power on",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          }
+        ]
+      },
+      {
+        "id": "air_fresh_off",
+        "title": {
+          "en": "Power off",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          }
+        ]
+      },
+      {
+        "id": "air_fresh_mode",
+        "title": {
+          "en": "Set air fresh mode",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "interval",
+                "label": {
+                  "en": "Interval",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "low",
+                "label": {
+                  "en": "Low",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "middle",
+                "label": {
+                  "en": "Middle",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "strong",
+                "label": {
+                  "en": "Strong",
+                  "nl": ""
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "air_fresh_speed",
+        "title": {
+          "en": "Set air fresh speed",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          },
+          {
+            "type": "range",
+            "name": "speed",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
       }
     ]
   },
@@ -2022,6 +2136,63 @@
           "id": "favorite",
           "title": {
             "en": "Favorite"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "air_fresh_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air Fresh Mode",
+        "nl": ""
+      },
+      "desc": {
+        "en": "Air Fresh Mode",
+        "nl": ""
+      },
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto",
+            "nl": ""
+          }
+        },
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent",
+            "nl": ""
+          }
+        },
+        {
+          "id": "interval",
+          "title": {
+            "en": "Interval",
+            "nl": ""
+          }
+        },
+        {
+          "id": "low",
+          "title": {
+            "en": "Low",
+            "nl": ""
+          }
+        },
+        {
+          "id": "middle",
+          "title": {
+            "en": "Middle",
+            "nl": ""
+          }
+        },
+        {
+          "id": "strong",
+          "title": {
+            "en": "Strong",
+            "nl": ""
           }
         }
       ],
@@ -2141,6 +2312,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -2235,6 +2409,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_motion", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "alarm_motion": {
           "title": {
@@ -2360,6 +2537,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_water", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "alarm_water": {
           "title": {
@@ -2571,6 +2751,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_contact", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "alarm_contact": {
           "title": {
@@ -2673,6 +2856,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -2767,6 +2953,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_temperature", "measure_humidity", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "measure_temperature": {
           "title": {
@@ -2843,6 +3032,46 @@
                 "en": "Device model code"
               },
               "value": "AABBCC01LM"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "addOrTakeOffset",
+              "type": "radio",
+              "label": {
+                "en": "Offset"
+              },
+              "value": "add",
+              "values": [
+                {
+                  "id": "add",
+                  "label": {
+                    "en": "Add offset"
+                  }
+                },
+                {
+                  "id": "take",
+                  "label": {
+                    "en": "Take offset"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "offset",
+              "type": "number",
+              "label": {
+                "en": "Offset"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 5
             }
           ]
         }
@@ -2967,6 +3196,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -3474,6 +3706,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_temperature", "measure_humidity", "measure_pressure_hhmg", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "measure_temperature": {
           "title": {
@@ -3588,6 +3823,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_contact", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "alarm_contact": {
           "title": {
@@ -3690,6 +3928,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_motion", "measure_luminance", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "alarm_motion": {
           "title": {
@@ -3820,6 +4061,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -4031,6 +4275,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -4271,6 +4518,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_ch4", "measure_gas_density", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR123A"]
+      },
       "capabilitiesOptions": {
         "alarm_ch4": {
           "title": {
@@ -4397,6 +4647,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_smoke", "measure_smoke_density", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR123A"]
+      },
       "capabilitiesOptions": {
         "alarm_smoke": {
           "title": {
@@ -4523,6 +4776,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -4617,6 +4873,9 @@
       },
       "class": "sensor",
       "capabilities": ["measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "mobile": {
         "components": [
           {
@@ -4711,6 +4970,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_motion.finger", "alarm_motion.code", "alarm_motion.card", "alarm_motion.wrongID", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["AAA", "AAA", "AAA", "AAA", "AAA", "AAA", "AAA", "AAA"]
+      },
       "capabilitiesOptions": {
         "alarm_motion.finger": {
           "title": {
@@ -5546,6 +5808,9 @@
       },
       "class": "sensor",
       "capabilities": ["alarm_motion.vibrate", "alarm_motion.tilt", "alarm_motion.freeFall", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["CR2032"]
+      },
       "capabilitiesOptions": {
         "alarm_motion.vibrate": {
           "title": {
@@ -8788,6 +9053,157 @@
       "images": {
         "large": "/drivers/mi_humidifier_ca1/assets/images/large.png",
         "small": "/drivers/mi_humidifier_ca1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhimi_airfresh_va2",
+      "name": {
+        "en": "Mi Air Fresh VA2",
+        "nl": ""
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "air_fresh_mode", "measure_temperature", "measure_humidity", "measure_pm25", "measure_co2"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power",
+            "nl": ""
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed",
+            "nl": ""
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"]
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "picker",
+            "capabilities": ["air_fresh_mode"]
+          },
+          {
+            "id": "sensor",
+            "capabilities": ["measure_temperature", "measure_humidity", "measure_pm25", "measure_co2"]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Fresh VA2 settings",
+            "nl": ""
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address",
+                "nl": ""
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token",
+                "nl": ""
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer",
+                "nl": ""
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings",
+            "nl": ""
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED",
+                "nl": ""
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer",
+                "nl": ""
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock",
+                "nl": ""
+              }
+            },
+            {
+              "id": "f1_hour_used",
+              "type": "label",
+              "label": {
+                "en": "Filter life",
+                "nl": ""
+              },
+              "value": "0%"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/zhimi_airfresh_va2/assets/images/large.png",
+        "small": "/drivers/zhimi_airfresh_va2/assets/images/small.png"
       },
       "pair": [
         {
