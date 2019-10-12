@@ -1,18 +1,26 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const initFlowAction = favoriteFlow => ({
-  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
-});
+const initFlowAction = favoriteFlow =>
+  new Homey.FlowCardAction(favoriteFlow).register();
 
-const initFlowActionSmooth = smoothAction => ({
-  smoothAction: new Homey.FlowCardAction(smoothAction).register()
-});
+const initNightModeFlowAction = nightMode =>
+  new Homey.FlowCardAction(nightMode).register();
+
+const initFlowActionSmooth = smoothAction =>
+  new Homey.FlowCardAction(smoothAction).register();
+
+const initFlowCondition = name => new Homey.FlowCardCondition(name).register();
 
 class YeelightJiaoyue650 extends Homey.Driver {
   onInit() {
     this.actions = {
-      favoriteFlow: initFlowAction("favorite_flow_ceiling1_lamp")
+      favoriteFlow: initFlowAction("favorite_flow_ceiling1_lamp"),
+      nightMode: initNightModeFlowAction("yeelight_night_mode"),
+      smoothAction: initFlowActionSmooth("smoothOnOff")
+    };
+    this.conditions = {
+      night_mode: initFlowCondition("night_mode")
     };
   }
 
@@ -45,7 +53,9 @@ class YeelightJiaoyue650 extends Homey.Driver {
                     } else if (this.data.timer > 3600) {
                       pairingDevice.settings.updateTimer = 3600;
                     } else {
-                      pairingDevice.settings.updateTimer = parseInt(this.data.timer);
+                      pairingDevice.settings.updateTimer = parseInt(
+                        this.data.timer
+                      );
                     }
 
                     callback(null, result);
@@ -66,7 +76,9 @@ class YeelightJiaoyue650 extends Homey.Driver {
                     } else if (this.data.timer > 3600) {
                       pairingDevice.settings.updateTimer = 3600;
                     } else {
-                      pairingDevice.settings.updateTimer = parseInt(this.data.timer);
+                      pairingDevice.settings.updateTimer = parseInt(
+                        this.data.timer
+                      );
                     }
 
                     callback(null, result);
@@ -83,10 +95,14 @@ class YeelightJiaoyue650 extends Homey.Driver {
             .catch(error => callback(null, error));
         })
         .catch(function(error) {
-          if (error == "Error: Could not connect to device, handshake timeout") {
+          if (
+            error == "Error: Could not connect to device, handshake timeout"
+          ) {
             callback(null, "timeout");
           }
-          if (error == "Error: Could not connect to device, token might be wrong") {
+          if (
+            error == "Error: Could not connect to device, token might be wrong"
+          ) {
             callback(null, "wrongToken");
           } else {
             callback(error, "Error");

@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.0.0 - Supported devices:
+## Version 1.0.1 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -63,6 +63,7 @@ Added support for Mi Gateways child devices.
 - Mi Humidifier V2.
 - Mi Vacuum Cleaner (gen 1).
 - Mi Vacuum Cleaner V2 (gen 2).
+- Mi Air Quality Monitor (gen 2).
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -117,6 +118,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.0.1 (13.10.2019)
+
+1. added Mi Air Quality Monitor (gen 2).
+2. added action, conditions for Yeelight Jiaoyue 650.
+3. added smal features and fixes.
 
 ### 1.0.0 (29.09.2019)
 

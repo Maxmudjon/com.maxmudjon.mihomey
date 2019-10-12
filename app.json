@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -811,6 +811,22 @@
               "en": "Select Humidifier"
             },
             "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+          }
+        ]
+      },
+      {
+        "id": "night_mode",
+        "title": {
+          "en": "Night Mode is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "placeholder": {
+              "en": "Select Yeelight"
+            },
+            "filter": "driver_id=yeelight_light_ceiling4"
           }
         ]
       }
@@ -2049,6 +2065,50 @@
             "labelDecimals": 0
           }
         ]
+      },
+      {
+        "id": "yeelight_night_mode",
+        "title": {
+          "en": "Set night mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelight_light_ceiling4"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "toggle",
+                "label": {
+                  "en": "Toggle"
+                }
+              }
+            ]
+          },
+          {
+            "name": "smoothTime",
+            "type": "text",
+            "placeholder": {
+              "en": "seconds"
+            }
+          }
+        ]
       }
     ]
   },
@@ -2302,6 +2362,20 @@
       ],
       "getable": true,
       "setable": true
+    },
+    "measure_voc": {
+      "title": {
+        "en": "VOC",
+        "nl": ""
+      },
+      "type": "number",
+      "units": {
+        "en": "mg/m3",
+        "nl": ""
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/cgllc_airmonitor_b1/assets/measure_voc_icon.svg"
     }
   },
   "drivers": [
@@ -2952,7 +3026,12 @@
         "en": "Mi Temperature and Humidity Sensor"
       },
       "class": "sensor",
-      "capabilities": ["measure_temperature", "measure_humidity", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["CR2032"]
       },
@@ -2982,7 +3061,11 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_humidity", "alarm_battery"],
+            "capabilities": [
+              "measure_temperature",
+              "measure_humidity",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3705,7 +3788,13 @@
         "en": "Aqara Temperature and Humidity Sensor"
       },
       "class": "sensor",
-      "capabilities": ["measure_temperature", "measure_humidity", "measure_pressure_hhmg", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_pressure_hhmg",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["CR2032"]
       },
@@ -3740,7 +3829,12 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_humidity", "measure_pressure_hhmg", "alarm_battery"],
+            "capabilities": [
+              "measure_temperature",
+              "measure_humidity",
+              "measure_pressure_hhmg",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -3791,6 +3885,46 @@
                 "en": "Device model code"
               },
               "value": "AABBCC01LM"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "addOrTakeOffset",
+              "type": "radio",
+              "label": {
+                "en": "Offset"
+              },
+              "value": "add",
+              "values": [
+                {
+                  "id": "add",
+                  "label": {
+                    "en": "Add offset"
+                  }
+                },
+                {
+                  "id": "take",
+                  "label": {
+                    "en": "Take offset"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "offset",
+              "type": "number",
+              "label": {
+                "en": "Offset"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 5
             }
           ]
         }
@@ -3927,7 +4061,12 @@
         "en": "Aqara Motion Sensor"
       },
       "class": "sensor",
-      "capabilities": ["alarm_motion", "measure_luminance", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "alarm_motion",
+        "measure_luminance",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["CR2032"]
       },
@@ -3957,7 +4096,11 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["alarm_motion", "measure_luminance", "alarm_battery"],
+            "capabilities": [
+              "alarm_motion",
+              "measure_luminance",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -4371,7 +4514,14 @@
         "en": "Xiaomi Gateway 3"
       },
       "class": "light",
-      "capabilities": ["onoff", "dim", "light_hue", "light_saturation", "measure_luminance", "button"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "measure_luminance",
+        "button"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -4517,7 +4667,12 @@
         "en": "MiJia Gas Leak Detector"
       },
       "class": "sensor",
-      "capabilities": ["alarm_ch4", "measure_gas_density", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "alarm_ch4",
+        "measure_gas_density",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["CR123A"]
       },
@@ -4542,7 +4697,11 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["alarm_ch4", "measure_gas_density", "alarm_battery"],
+            "capabilities": [
+              "alarm_ch4",
+              "measure_gas_density",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -4646,7 +4805,12 @@
         "en": "MiJia Smoke Detector"
       },
       "class": "sensor",
-      "capabilities": ["alarm_smoke", "measure_smoke_density", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "alarm_smoke",
+        "measure_smoke_density",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["CR123A"]
       },
@@ -4671,7 +4835,11 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["alarm_smoke", "measure_smoke_density", "alarm_battery"],
+            "capabilities": [
+              "alarm_smoke",
+              "measure_smoke_density",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -4969,7 +5137,14 @@
         "en": "Aqara Lock"
       },
       "class": "sensor",
-      "capabilities": ["alarm_motion.finger", "alarm_motion.code", "alarm_motion.card", "alarm_motion.wrongID", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "alarm_motion.finger",
+        "alarm_motion.code",
+        "alarm_motion.card",
+        "alarm_motion.wrongID",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["AAA", "AAA", "AAA", "AAA", "AAA", "AAA", "AAA", "AAA"]
       },
@@ -5009,7 +5184,13 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["alarm_motion.finger", "alarm_motion.code", "alarm_motion.card", "alarm_motion.wrongID", "alarm_battery"],
+            "capabilities": [
+              "alarm_motion.finger",
+              "alarm_motion.code",
+              "alarm_motion.card",
+              "alarm_motion.wrongID",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -5807,7 +5988,13 @@
         "en": "Aqara Vibration Sensor"
       },
       "class": "sensor",
-      "capabilities": ["alarm_motion.vibrate", "alarm_motion.tilt", "alarm_motion.freeFall", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "alarm_motion.vibrate",
+        "alarm_motion.tilt",
+        "alarm_motion.freeFall",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "energy": {
         "batteries": ["CR2032"]
       },
@@ -5842,7 +6029,12 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["alarm_motion.vibrate", "alarm_motion.tilt", "alarm_motion.freeFall", "alarm_battery"],
+            "capabilities": [
+              "alarm_motion.vibrate",
+              "alarm_motion.tilt",
+              "alarm_motion.freeFall",
+              "alarm_battery"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -5947,7 +6139,14 @@
         "en": "Yeelight Color Bulb"
       },
       "class": "light",
-      "capabilities": ["onoff", "dim", "light_hue", "light_saturation", "light_temperature", "light_mode"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -5975,7 +6174,11 @@
           },
           {
             "id": "color",
-            "capabilities": ["light_hue", "light_saturation", "light_temperature"]
+            "capabilities": [
+              "light_hue",
+              "light_saturation",
+              "light_temperature"
+            ]
           }
         ]
       },
@@ -6347,7 +6550,14 @@
         "en": "Yeelight Bedside Lamp"
       },
       "class": "light",
-      "capabilities": ["onoff", "dim", "light_hue", "light_saturation", "light_temperature", "light_mode"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6375,7 +6585,11 @@
           },
           {
             "id": "color",
-            "capabilities": ["light_hue", "light_saturation", "light_temperature"]
+            "capabilities": [
+              "light_hue",
+              "light_saturation",
+              "light_temperature"
+            ]
           }
         ]
       },
@@ -6442,7 +6656,14 @@
         "en": "Yeelight Light Strip"
       },
       "class": "light",
-      "capabilities": ["onoff", "dim", "light_hue", "light_saturation", "light_temperature", "light_mode"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6470,7 +6691,11 @@
           },
           {
             "id": "color",
-            "capabilities": ["light_hue", "light_saturation", "light_temperature"]
+            "capabilities": [
+              "light_hue",
+              "light_saturation",
+              "light_temperature"
+            ]
           }
         ]
       },
@@ -6632,7 +6857,18 @@
         "en": "Yeelight Jiaoyue 650"
       },
       "class": "light",
-      "capabilities": ["onoff", "onoff.bg", "dim", "dim.bg", "light_hue", "light_saturation", "light_temperature", "light_temperature.bg", "light_mode", "light_mode.bg"],
+      "capabilities": [
+        "onoff",
+        "onoff.bg",
+        "dim",
+        "dim.bg",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_temperature.bg",
+        "light_mode",
+        "light_mode.bg"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -6674,7 +6910,12 @@
           },
           {
             "id": "color",
-            "capabilities": ["light_hue", "light_saturation", "light_temperature", "light_temperature.bg"]
+            "capabilities": [
+              "light_hue",
+              "light_saturation",
+              "light_temperature",
+              "light_temperature.bg"
+            ]
           }
         ]
       },
@@ -6753,7 +6994,18 @@
         "en": "Yeelight Crystal Pendant Lamp"
       },
       "class": "light",
-      "capabilities": ["onoff", "onoff.bg", "dim", "dim.bg", "light_hue", "light_saturation", "light_temperature", "light_temperature.bg", "light_mode", "light_mode.bg"],
+      "capabilities": [
+        "onoff",
+        "onoff.bg",
+        "dim",
+        "dim.bg",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_temperature.bg",
+        "light_mode",
+        "light_mode.bg"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7452,7 +7704,14 @@
         "en": "Philips Bedside Lamp"
       },
       "class": "light",
-      "capabilities": ["onoff", "dim", "light_hue", "light_saturation", "light_temperature", "light_mode"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7480,7 +7739,11 @@
           },
           {
             "id": "color",
-            "capabilities": ["light_hue", "light_saturation", "light_temperature"]
+            "capabilities": [
+              "light_hue",
+              "light_saturation",
+              "light_temperature"
+            ]
           }
         ]
       },
@@ -7659,7 +7922,12 @@
         "en": "Mi Smart Plug With USB WiFi"
       },
       "class": "socket",
-      "capabilities": ["onoff", "measure_temperature", "onoff.usb", "onoff.led"],
+      "capabilities": [
+        "onoff",
+        "measure_temperature",
+        "onoff.usb",
+        "onoff.led"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7780,7 +8048,12 @@
         "en": "Mi Smart Plug With 2 USB WiFi"
       },
       "class": "socket",
-      "capabilities": ["onoff", "measure_temperature", "onoff.usb", "onoff.led"],
+      "capabilities": [
+        "onoff",
+        "measure_temperature",
+        "onoff.usb",
+        "onoff.led"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7901,7 +8174,13 @@
         "en": "Mi Smart Power Strip"
       },
       "class": "socket",
-      "capabilities": ["onoff", "measure_power", "meter_ampere", "measure_temperature", "onoff.led"],
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_ampere",
+        "measure_temperature",
+        "onoff.led"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -7935,7 +8214,11 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_power", "measure_temperature", "meter_ampere"],
+            "capabilities": [
+              "measure_power",
+              "measure_temperature",
+              "meter_ampere"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -8017,7 +8300,13 @@
         "en": "CHINGMI Smart Power Strip"
       },
       "class": "socket",
-      "capabilities": ["onoff", "measure_power", "meter_ampere", "measure_temperature", "measure_voltage"],
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_ampere",
+        "measure_temperature",
+        "measure_voltage"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8051,7 +8340,12 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_power", "meter_ampere", "measure_voltage", "measure_temperature"],
+            "capabilities": [
+              "measure_power",
+              "meter_ampere",
+              "measure_voltage",
+              "measure_temperature"
+            ],
             "options": {
               "showTitle": true,
               "icons": {
@@ -8127,7 +8421,15 @@
         "en": "Mi Air Purifier S2"
       },
       "class": "sensor",
-      "capabilities": ["onoff", "dim", "air_purifier_mode", "measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "air_purifier_mode",
+        "measure_temperature",
+        "measure_humidity",
+        "measure_pm25",
+        "measure_luminance"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8159,7 +8461,12 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"]
+            "capabilities": [
+              "measure_temperature",
+              "measure_humidity",
+              "measure_pm25",
+              "measure_luminance"
+            ]
           }
         ]
       },
@@ -8274,7 +8581,15 @@
         "en": "Mi Air Purifier Pro"
       },
       "class": "sensor",
-      "capabilities": ["onoff", "dim", "air_purifier_mode", "measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "air_purifier_mode",
+        "measure_temperature",
+        "measure_humidity",
+        "measure_pm25",
+        "measure_luminance"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8306,7 +8621,12 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"]
+            "capabilities": [
+              "measure_temperature",
+              "measure_humidity",
+              "measure_pm25",
+              "measure_luminance"
+            ]
           }
         ]
       },
@@ -8421,7 +8741,14 @@
         "en": "Mi Vacuum Cleaner"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8611,7 +8938,14 @@
         "en": "Mi Vacuum Cleaner v2"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8801,7 +9135,13 @@
         "en": "Mi Humidifier V1"
       },
       "class": "sensor",
-      "capabilities": ["onoff", "dim", "humidifier_mode", "measure_temperature", "measure_humidity"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "humidifier_mode",
+        "measure_temperature",
+        "measure_humidity"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8924,7 +9264,15 @@
         "en": "Mi Humidifier V2"
       },
       "class": "sensor",
-      "capabilities": ["onoff", "onoff.dry", "dim", "humidifier_ca1_mode", "measure_temperature", "measure_humidity", "measure_water"],
+      "capabilities": [
+        "onoff",
+        "onoff.dry",
+        "dim",
+        "humidifier_ca1_mode",
+        "measure_temperature",
+        "measure_humidity",
+        "measure_water"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8973,7 +9321,11 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_humidity", "measure_water"],
+            "capabilities": [
+              "measure_temperature",
+              "measure_humidity",
+              "measure_water"
+            ],
             "options": {
               "showTitle": true
             }
@@ -9076,7 +9428,15 @@
         "nl": ""
       },
       "class": "sensor",
-      "capabilities": ["onoff", "dim", "air_fresh_mode", "measure_temperature", "measure_humidity", "measure_pm25", "measure_co2"],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "air_fresh_mode",
+        "measure_temperature",
+        "measure_humidity",
+        "measure_pm25",
+        "measure_co2"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -9110,7 +9470,12 @@
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_humidity", "measure_pm25", "measure_co2"]
+            "capabilities": [
+              "measure_temperature",
+              "measure_humidity",
+              "measure_pm25",
+              "measure_co2"
+            ]
           }
         ]
       },
@@ -9204,6 +9569,81 @@
       "images": {
         "large": "/drivers/zhimi_airfresh_va2/assets/images/large.png",
         "small": "/drivers/zhimi_airfresh_va2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cgllc_airmonitor_b1",
+      "name": {
+        "en": "Mi Air Quality Monitor 2gen",
+        "nl": ""
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_pm25",
+        "measure_co2",
+        "measure_voc"
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Quality Monitor 2gen settings",
+            "nl": ""
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address",
+                "nl": ""
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token",
+                "nl": ""
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer",
+                "nl": ""
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/cgllc_airmonitor_b1/assets/images/large.png",
+        "small": "/drivers/cgllc_airmonitor_b1/assets/images/small.png"
       },
       "pair": [
         {
