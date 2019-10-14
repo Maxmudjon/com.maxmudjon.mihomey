@@ -390,7 +390,7 @@ class YeelightJiaoyue650 extends Homey.Device {
 
   registerFavoriteFlowsAction(name, action) {
     var that = this;
-    action.favoriteFlow.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -420,7 +420,7 @@ class YeelightJiaoyue650 extends Homey.Device {
 
   registerNightModeAction(name, action) {
     var that = this;
-    action.nightMode.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       switch (args.modes) {
         case "on":
           try {
