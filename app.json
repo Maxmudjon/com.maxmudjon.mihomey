@@ -3033,7 +3033,10 @@
         "alarm_battery"
       ],
       "energy": {
-        "batteries": ["CR2032"]
+        "batteries": ["CR2032"],
+        "approximation": {
+          "usageConstant": 5
+        }
       },
       "capabilitiesOptions": {
         "measure_temperature": {
@@ -4412,6 +4415,123 @@
       ]
     },
     {
+      "id": "curtain.aq2",
+      "name": {
+        "en": "Aqara Roller Shade Controller"
+      },
+      "class": "windowcoverings",
+      "capabilities": ["onoff", "dim", "windowcoverings_state"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Open Close"
+          },
+          "greyout": false
+        },
+        "dim": {
+          "title": {
+            "en": "Level"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "ternary",
+            "capabilities": ["windowcoverings_state"],
+            "options": {
+              "icons": {
+                "top": "/drivers/curtain.aq2/assets/curtain_open_button.svg",
+                "middle": "/drivers/curtain.aq2/assets/curtain_stop_button.svg",
+                "bottom": "/drivers/curtain.aq2/assets/curtain_close_button.svg"
+              },
+              "values": {
+                "top": "up",
+                "middle": "idle",
+                "bottom": "down"
+              }
+            }
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/curtain.aq2/assets/images/large.png",
+        "small": "/drivers/curtain.aq2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": false
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
       "id": "button_switch.aq2",
       "name": {
         "en": "Aqara Wireless Switch Button"
@@ -4522,6 +4642,12 @@
         "measure_luminance",
         "button"
       ],
+      "energy": {
+        "approximation": {
+          "usageOn": 5,
+          "usageOff": 3
+        }
+      },
       "capabilitiesOptions": {
         "onoff": {
           "title": {

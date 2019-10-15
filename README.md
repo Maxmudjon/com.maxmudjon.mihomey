@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.0.1 - Supported devices:
+## Version 1.0.2 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -23,7 +23,7 @@ Added support for Mi Gateways child devices.
 - Aqara Door and Window Sensor (MagnetSensor2).
 - Aqara Motion Sensor (MotionSensor2).
 - Mi / Aqara Cube (Cube).
-- Aqara Curtain Motor (Curtain).
+- Aqara Curtain Motor / B1 (Curtain).
 - Aqara Button Switch (SwitchSensor).
 - Mijia Gateway (Gateway).
 - MiJia Gas Leak Detector (NatgasDetector).
@@ -32,6 +32,7 @@ Added support for Mi Gateways child devices.
 - Aqara Button Switch (SwitchSensor) (advanced 2018).
 - Aqara Lock (Lock).
 - Aqara Vibration sensor (Vibration).
+- Aqara Roller Shade Controller (Curtain).
 
 ### Wifi devices
 
@@ -118,6 +119,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.0.2 (15.10.2019)
+
+1. added Aqara Roller Shade Controller (Curtain).
 
 ### 1.0.1 (13.10.2019)
 
