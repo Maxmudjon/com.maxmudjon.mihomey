@@ -13,15 +13,15 @@
       <div v-if="page == 'main'">
         <div class="row justify-content-center align-items-center m-3">
           <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
-            <button id="gatewayTab" type="button" class="btn btn-outline-primary" v-on:click="setPage('gateways')">Gateways</button>
-            <button id="irDevicesTab" type="button" class="btn btn-outline-secondary" v-on:click="setPage('irDevices')">IR devices</button>
+            <button id="gatewayTab" type="button" class="btn btn-outline-primary" @click="setPage('gateways')">Gateways</button>
+            <button id="irDevicesTab" type="button" class="btn btn-outline-secondary" @click="setPage('irDevices')">IR devices</button>
           </div>
         </div>
         <div v-if="currentPage == 'gateways'">
           <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Gateway Mac and Password's</div></div>
           <div class="row justify-content-center align-items-center m-3">
             <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
-              <button type="button" class="btn btn-outline-success" v-on:click="setPage('gateway')">How to get Mac and Password</button>
+              <button type="button" class="btn btn-outline-success" @click="setPage('gateway')">How to get Mac and Password</button>
             </div>
           </div>
 
@@ -35,8 +35,8 @@
           <div class="ui three column centered grid" style="margin: 0.5px;">
             <div class="column" style="width: 100%;">
               <gateway-list v-bind:gateways="gateways"></gateway-list>
-              <create-todo v-on:create-todo="addGateway"></create-todo>
-              <generate-key v-on:generate-key="addGateway" class="mt-7"></generate-key>
+              <create-todo @create-todo="addGateway"></create-todo>
+              <generate-key @generate-key="addGateway" class="mt-7"></generate-key>
             </div>
           </div>
         </div>
@@ -44,14 +44,14 @@
           <div class="bg-info text-white" id="status"><div class="statusAlertShow text-center py-2">Remote Contorol Devices</div></div>
           <div class="row justify-content-center align-items-center m-3">
             <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 text-center">
-              <button type="button" class="btn btn-outline-success" v-on:click="setPage('remote')">How to get Token IR device</button>
+              <button type="button" class="btn btn-outline-success" @click="setPage('remote')">How to get Token IR device</button>
             </div>
           </div>
 
           <div class="ui three column centered grid" style="margin: 0.5px;">
             <div class="column" style="width: 100%;">
               <ir-devices-list v-bind:devices="devices"></ir-devices-list>
-              <creates-todo v-on:creates-todo="addIRDevice"></creates-todo>
+              <creates-todo @creates-todo="addIRDevice"></creates-todo>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
         Homey.ready();
         new Vue({
           el: "#gatewaysListApp",
-          mounted: function() {
+          mounted() {
             this.init();
           },
           components: {
@@ -162,7 +162,7 @@
                     }
                   },
                   template:
-                    '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.mac }}</div><div class="meta">{{ todo.password }}</div><div class="extra content"><button class="ui basic button icon right floated" v-on:click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" v-on:click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>MAC</label><input type="text" v-model="todo.mac"></div><div class="field"><label>Password</label><input type="text" v-model="todo.password" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="hideForm">Save</button></div></div></div></div>'
+                    '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.mac }}</div><div class="meta">{{ todo.password }}</div><div class="extra content"><button class="ui basic button icon right floated" @click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" @click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>MAC</label><input type="text" v-model="todo.mac"></div><div class="field"><label>Password</label><input type="text" v-model="todo.password" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" @click="hideForm">Save</button></div></div></div></div>'
                 }
               },
               methods: {
@@ -195,7 +195,7 @@
                   });
                 }
               },
-              template: '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in gateways" :todo.sync="todo"></todo></div>'
+              template: '<div><todo @delete-gateway="deleteGateway" v-for="todo in gateways" :todo.sync="todo"></todo></div>'
             },
             CreateTodo: {
               data() {
@@ -335,7 +335,7 @@
                 }
               },
               template:
-                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="macAlertShow">MAC</div><input id="macAlert" class="border border-secondary" v-model="MAC" type="text" v-on:change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Password</div><input id="passwordAlert" class="border border-secondary" v-model="PASSWORD" type="text" v-on:change="filterPassword()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="sendForm()">Add</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
+                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" @click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="macAlertShow">MAC</div><input id="macAlert" class="border border-secondary" v-model="MAC" type="text" @change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Password</div><input id="passwordAlert" class="border border-secondary" v-model="PASSWORD" type="text" @change="filterPassword()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" @click="sendForm()">Add</button><button class="ui basic red button" @click="closeForm">Cancel</button></div></div></div></div></div>'
             },
             IrDevicesList: {
               props: ["devices"],
@@ -383,7 +383,7 @@
                     }
                   },
                   template:
-                    '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.name }}</div><div class="meta">{{ todo.ip }}</div><div class="meta">{{ todo.token }}</div><div class="extra content"><button class="ui basic button icon right floated" v-on:click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" v-on:click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>Name</label><input type="text" v-model="todo.name"><label>IP</label><input type="text" v-model="todo.ip"></div><div class="field"><label>Token</label><input type="text" v-model="todo.token" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="hideForm">Save</button></div></div></div></div>'
+                    '<div class="ui centered card" style="width: 100%;"><div class="content" v-show="!isEditing"><div class="header">{{ todo.name }}</div><div class="meta">{{ todo.ip }}</div><div class="meta">{{ todo.token }}</div><div class="extra content"><button class="ui basic button icon right floated" @click="showForm"><i>EDIT</i></button><button class="ui basic button icon right floated" @click="deleteGateway(todo)"><i>DELETE</i></button></div></div><div class="content" v-show="isEditing"><div class="ui form"><div class="field"><label>Name</label><input type="text" v-model="todo.name"><label>IP</label><input type="text" v-model="todo.ip"></div><div class="field"><label>Token</label><input type="text" v-model="todo.token" ></div><div class="ui two button attached buttons"><button class="ui basic blue button" @click="hideForm">Save</button></div></div></div></div>'
                 }
               },
               methods: {
@@ -416,7 +416,7 @@
                   });
                 }
               },
-              template: '<div><todo v-on:delete-gateway="deleteGateway" v-for="todo in devices" :todo.sync="todo"></todo></div>'
+              template: '<div><todo @delete-gateway="deleteGateway" v-for="todo in devices" :todo.sync="todo"></todo></div>'
             },
             CreatesTodo: {
               data() {
@@ -560,7 +560,7 @@
                 }
               },
               template:
-                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div>Name</div><input class="border border-secondary" v-model="NAME" type="text"><div class="macAlertShow">IP</div><input id="macAlert" class="border border-secondary" v-model="IP" type="text" v-on:change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Token</div><input id="passwordAlert" class="border border-secondary" v-model="TOKEN" type="text" v-on:change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" v-on:click="sendForm()">Add</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
+                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" @click="openForm" v-show="!isCreating" style="width: 100%;"><i>ADD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div>Name</div><input class="border border-secondary" v-model="NAME" type="text"><div class="macAlertShow">IP</div><input id="macAlert" class="border border-secondary" v-model="IP" type="text" @change="filterMac()"></div><div class="field"><div class="passwordAlertShow">Token</div><input id="passwordAlert" class="border border-secondary" v-model="TOKEN" type="text" @change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" @click="sendForm()">Add</button><button class="ui basic red button" @click="closeForm">Cancel</button></div></div></div></div></div>'
             },
             GenerateKey: {
               data() {
@@ -724,7 +724,7 @@
                 }
               },
               template:
-                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating"><i>GENERATE PASSWORD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="progressAlert mb-2"></div><div class="ipAlertShow">IP</div><input id="ipAlert" class="border border-secondary" v-model="IP" type="text" v-on:change="filterIP()"></div><div class="field"><div class="tokenAlertShow">TOKEN</div><input id="tokenAlert" class="border border-secondary" v-model="TOKEN" type="text" v-on:change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" id="generateButton" v-on:click="sendForm()">Generate and Save</button><button class="ui basic red button" v-on:click="closeForm">Cancel</button></div></div></div></div></div>'
+                '<div class="ui basic content center aligned segment"><button class="ui basic button icon" @click="openForm" v-show="!isCreating"><i>GENERATE PASSWORD</i></button><div class="ui centered card" v-show="isCreating"><div class="content"><div class="ui form"><div class="field"><div class="progressAlert mb-2"></div><div class="ipAlertShow">IP</div><input id="ipAlert" class="border border-secondary" v-model="IP" type="text" @change="filterIP()"></div><div class="field"><div class="tokenAlertShow">TOKEN</div><input id="tokenAlert" class="border border-secondary" v-model="TOKEN" type="text" @change="filterToken()"></div><div class="ui two button attached buttons"><button class="ui basic blue button" id="generateButton" @click="sendForm()">Generate and Save</button><button class="ui basic red button" @click="closeForm">Cancel</button></div></div></div></div></div>'
             }
           },
           data() {

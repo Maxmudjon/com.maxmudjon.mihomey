@@ -8,12 +8,9 @@
   }, 1);
   new Vue({
     el: "#MiHumidifierV2",
-    data: {
-      ip: "0.0.0.0",
-      token: ""
-    },
+
     methods: {
-      connect: function() {
+      connect() {
         let alert = document.getElementById(`status`);
         var alertTitle = document.getElementsByClassName(`statusAlertShow`);
         let addDevice = document.getElementById("addDevice");
@@ -70,7 +67,7 @@
           }
         });
       },
-      addDevice: function() {
+      addDevice() {
         Homey.showView("done");
       }
     }
@@ -123,7 +120,7 @@
     </div>
     <div class="col" style="padding-right: 0px;">
       <button
-        v-on:click="connect"
+        @click="connect"
         type="button"
         class="btn btn-primary float-right"
         style="height: auto;"
@@ -133,7 +130,7 @@
     </div>
   </div>
   <button
-    v-on:click="addDevice"
+    @click="addDevice"
     type="button"
     class="btn btn-primary btn-lg btn-block"
     style="height: auto; display: none;"

@@ -22,7 +22,7 @@ class MiVacuumCleanerV2 extends Homey.Driver {
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Mi Vacuum Cleaner v2";
+    pairingDevice.name = "Mi Roborock";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -57,7 +57,7 @@ class MiVacuumCleanerV2 extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Vacuum Cleaner v2"
+                  notDevice: "It is not Mi Roborock"
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);

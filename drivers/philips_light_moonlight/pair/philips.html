@@ -13,7 +13,7 @@
       token: ''
     },
     methods: {
-      connect: function () {
+      connect () {
         let alert = document.getElementById(`status`)
         var alertTitle = document.getElementsByClassName(`statusAlertShow`)
         let addDevice = document.getElementById('addDevice')
@@ -74,7 +74,7 @@
           }
         });
       },
-      addDevice: function () {
+      addDevice () {
         Homey.showView('done');
       },
     }
@@ -100,9 +100,9 @@
       <div class="statusAlertShow float-left">Not connected!</div>
     </div>
     <div class="col" style="padding-right: 0px;">
-      <button v-on:click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button>
+      <button @click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button>
     </div>
   </div>
-  <button v-on:click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;"
+  <button @click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;"
     id="addDevice">Add device</button>
 </div>

@@ -33,7 +33,7 @@
       },
       methods: {},
       watch: {
-        selectedDevices: function(val) {
+        selectedDevices(val) {
           Homey.emit(
             "selectedDevice",
             {

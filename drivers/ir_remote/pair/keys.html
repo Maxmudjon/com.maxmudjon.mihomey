@@ -26,7 +26,7 @@
         dimSteep: result.dimSteep.dim
       },
       methods: {
-        learn: function(value) {
+        learn(value) {
           let alert = document.getElementById(`${value}Alert`);
           var alertTitle = this.$refs[value + "AlertShow"];
 
@@ -148,7 +148,7 @@
       <div class="card-header" v-bind:ref="capability + index + 'AlertShow'">Not learned!</div>
       <div class="card-body">
         <h5 class="card-title">{{ capability.title }}</h5>
-        <button v-on:click="learn(capability)" type="button" class="btn btn-primary">Learn</button>
+        <button @click="learn(capability)" type="button" class="btn btn-primary">Learn</button>
       </div>
     </div>
   </div> -->

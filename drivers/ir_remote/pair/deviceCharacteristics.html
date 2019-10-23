@@ -19,7 +19,7 @@
         capabilities: result.capabilities
       },
       methods: {
-        characteristics: function(value) {
+        characteristics(value) {
           let alert = document.getElementById(`${value}Alert`);
           var alertTitle = this.$refs[value + "AlertShow"];
 
@@ -27,11 +27,11 @@
         }
       },
       watch: {
-        onoffType: function(val) {
+        onoffType(val) {
           let data = { onoff: val };
           this.characteristics(data);
         },
-        dimSteep: function(val) {
+        dimSteep(val) {
           let data = { dim: val };
           this.characteristics(data);
         }

@@ -5,7 +5,7 @@ const actions = vacuumAction => ({
   action: new Homey.FlowCardAction(vacuumAction).register()
 });
 
-class MiVacuumCleaner extends Homey.Driver {
+class MiRobot1S extends Homey.Driver {
   onInit() {
     this.triggers = {
       main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
@@ -22,7 +22,7 @@ class MiVacuumCleaner extends Homey.Driver {
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Mi Robot";
+    pairingDevice.name = "Mi Robot 1S";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -35,7 +35,7 @@ class MiVacuumCleaner extends Homey.Driver {
             .call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = "MI:VC:V1:" + value.mac + ":MI:VC:V1";
+                pairingDevice.data.id = "MI:VC:1S:" + value.mac + ":MI:VC:1S";
                 device
                   .call("get_status", [])
                   .then(value => {
@@ -57,7 +57,7 @@ class MiVacuumCleaner extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Robot"
+                  notDevice: "It is not Mi Robot 1S"
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
@@ -83,4 +83,4 @@ class MiVacuumCleaner extends Homey.Driver {
   }
 }
 
-module.exports = MiVacuumCleaner;
+module.exports = MiRobot1S;
