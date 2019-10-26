@@ -1,0 +1,596 @@
+{
+  "id": "com.maxmudjon.mihomey2",
+  "version": "2.0.0",
+  "compatibility": ">= 3.0.0",
+  "sdk": 2,
+  "name": {
+    "en": "Mi Homey 2"
+  },
+  "brandColor": "#FF6700",
+  "description": {
+    "en": "Adds support for Mi Gateway and Wifi devices."
+  },
+  "category": ["tools"],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Maxmudjon Payziyev",
+    "email": "bio42@mail.ru"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Maxmudjon Payziyev",
+        "email": "bio42@mail.ru"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "maxmudjon"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/Maxmudjon/com.maxmudjon.mihomey/issues"
+  },
+  "drivers": [
+    {
+      "id": "yeelink_light_color1",
+      "name": {
+        "en": "Yeelight Color Light Bulb"
+      },
+      "class": "light",
+      "capabilities": ["light_saturation", "light_temperature", "dim", "light_hue", "light_mode", "onoff"],
+      "energy": {
+        "approximation": {
+          "usageOn": 9,
+          "usageOff": 1
+        }
+      },
+      "images": {
+        "large": "/drivers/yeelink_light_color1/assets/images/large.png",
+        "small": "/drivers/yeelink_light_color1/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Color Light Bulb settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "smooth",
+              "type": "number",
+              "value": 0.5,
+              "label": {
+                "en": "Light on/off smooth"
+              },
+              "attr": {
+                "min": 0.1,
+                "max": 3600
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            },
+            {
+              "id": "setDefault",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Save current state"
+              },
+              "hint": {
+                "en": "All current status on the lamp is saved."
+              }
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "roborock_vacuum_m1s",
+      "name": {
+        "en": "Mi Robot 1S"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": ["measure_battery", "alarm_battery", "dim", "onoff", "onoff.findme", "vacuumcleaner_state"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Clean"
+          }
+        },
+        "onoff.findme": {
+          "title": {
+            "en": "Find me"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 9,
+          "usageOff": 1
+        },
+        "batteries": ["OTHER"]
+      },
+      "images": {
+        "large": "/drivers/roborock_vacuum_m1s/assets/images/large.png",
+        "small": "/drivers/roborock_vacuum_m1s/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Robot 1S settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Vacuum life settings"
+          },
+          "children": [
+            {
+              "id": "alarm_threshold",
+              "type": "number",
+              "label": {
+                "en": "Alarm threshold"
+              },
+              "hint": {
+                "en": "Work time to (brush, filter) below which the alarm will be activated."
+              },
+              "value": 20,
+              "attr": {
+                "min": 1,
+                "max": 90
+              }
+            },
+            {
+              "id": "main_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Main brush work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "side_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Side brush work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "filter_work_time",
+              "type": "label",
+              "label": {
+                "en": "Filter work time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "sensor_dirty_time",
+              "type": "label",
+              "label": {
+                "en": "Sensor dirty time"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "total_work_time",
+              "type": "label",
+              "label": {
+                "en": "Total work time"
+              },
+              "value": "0"
+            },
+            {
+              "id": "total_cleared_area",
+              "type": "label",
+              "label": {
+                "en": "Total cleared area"
+              },
+              "value": "0"
+            },
+            {
+              "id": "total_clean_count",
+              "type": "label",
+              "label": {
+                "en": "Total clean count"
+              },
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
+    }
+  ],
+  "flow": {
+    "triggers": [
+      {
+        "id": "main_brush_work_time",
+        "title": {
+          "en": "Alarm time left main brush"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      },
+      {
+        "id": "side_brush_work_time",
+        "title": {
+          "en": "Alarm time left side brush"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      },
+      {
+        "id": "filter_work_time",
+        "title": {
+          "en": "Alarm time left filter"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      },
+      {
+        "id": "sensor_dirty_time",
+        "title": {
+          "en": "Alarm time left sensor"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      },
+      {
+        "id": "vacuumState",
+        "title": {
+          "en": "The vacuum state changed"
+        },
+        "tokens": [
+          {
+            "name": "state",
+            "type": "string",
+            "title": {
+              "en": "state"
+            },
+            "example": "cleaning"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "favorite_flow_color1_bulb",
+        "title": {
+          "en": "Favorite Flows"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelight_light_color1|yeelight_light_bslamp1|yeelight_light_strip1"
+          },
+          {
+            "type": "dropdown",
+            "name": "favoriteFlowID",
+            "values": [
+              {
+                "id": "flash_notify",
+                "label": {
+                  "en": "Flash Notify"
+                }
+              },
+              {
+                "id": "sunset",
+                "label": {
+                  "en": "Sunset"
+                }
+              },
+              {
+                "id": "sunrise",
+                "label": {
+                  "en": "Sunrise"
+                }
+              },
+              {
+                "id": "disco",
+                "label": {
+                  "en": "Disco"
+                }
+              },
+              {
+                "id": "dating_night",
+                "label": {
+                  "en": "Dating Night"
+                }
+              },
+              {
+                "id": "romance",
+                "label": {
+                  "en": "Romance"
+                }
+              },
+              {
+                "id": "candle_flicker",
+                "label": {
+                  "en": "Candle Flicker"
+                }
+              },
+              {
+                "id": "happy_birthday",
+                "label": {
+                  "en": "Happy Birthday"
+                }
+              },
+              {
+                "id": "police_1",
+                "label": {
+                  "en": "Police 1"
+                }
+              },
+              {
+                "id": "police_2",
+                "label": {
+                  "en": "Police 2"
+                }
+              },
+              {
+                "id": "alarm",
+                "label": {
+                  "en": "Alarm"
+                }
+              },
+              {
+                "id": "gaming",
+                "label": {
+                  "en": "Gaming"
+                }
+              },
+              {
+                "id": "calm",
+                "label": {
+                  "en": "Calm"
+                }
+              },
+              {
+                "id": "rainbow",
+                "label": {
+                  "en": "Rainbow"
+                }
+              },
+              {
+                "id": "flash_notify_red",
+                "label": {
+                  "en": "Flash Notify RED"
+                }
+              },
+              {
+                "id": "flash_notify_green",
+                "label": {
+                  "en": "Flash Notify GREEN"
+                }
+              },
+              {
+                "id": "flash_notify_blue",
+                "label": {
+                  "en": "Flash Notify BLUE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "smoothOnOff",
+        "title": {
+          "en": "Smooth on/off/toggle light"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "smoothMode",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "on"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "off"
+                }
+              },
+              {
+                "id": "toggle",
+                "label": {
+                  "en": "toggle"
+                }
+              }
+            ]
+          },
+          {
+            "name": "smoothTime",
+            "type": "text",
+            "placeholder": {
+              "en": "seconds"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelight_light_color1|yeelight_light_ceiling10"
+          }
+        ]
+      },
+      {
+        "id": "vacuumZoneCleaner",
+        "title": {
+          "en": "Start zone cleaning"
+        },
+        "args": [
+          {
+            "name": "zones",
+            "type": "text",
+            "placeholder": {
+              "en": "zones"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      },
+      {
+        "id": "vacuumGoToTarget",
+        "title": {
+          "en": "Send vacuum cleaner to target"
+        },
+        "args": [
+          {
+            "name": "X",
+            "type": "text",
+            "placeholder": {
+              "en": "X Coordinate"
+            }
+          },
+          {
+            "name": "Y",
+            "type": "text",
+            "placeholder": {
+              "en": "Y Coordinate"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
+          }
+        ]
+      }
+    ]
+  }
+}

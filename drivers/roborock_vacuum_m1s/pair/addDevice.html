@@ -1,0 +1,93 @@
+<script src="../../../assets/vue.min.js"></script>
+<link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
+
+<div id="addDeviceApp">
+  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width:100%; margin-left: 0px; margin-right: 0px;">
+    <div class="input-group mb-3"><input type="text" class="form-control" v-model="ip" aria-describedby="basic-addon3" placeholder="IP Address" /></div>
+    <div class="input-group mb-3"><input type="text" class="form-control" v-model="token" aria-describedby="basic-addon3" placeholder="Token" /></div>
+    <div class="input-group mb-3"><small id="period" class="form-text text-muted">Polling period, seconds</small></div>
+    <div class="input-group mb-3"><input type="number" class="form-control" v-model="update" aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" /></div>
+    <div class="col" style="padding-left: 0px;"><div class="statusAlertShow float-left">Not connected!</div></div>
+    <div class="col" style="padding-right: 0px;"><button @click.prevent="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button></div>
+  </div>
+  <button @click.prevent="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;" id="addDevice">Add device</button>
+</div>
+
+<script>
+  Homey.setTitle("Add Mi Robot 1S IP and Token");
+  setTimeout(() => {
+    Homey.setNavigationClose();
+  }, 1);
+  new Vue({
+    el: "#addDeviceApp",
+    data() {
+      return {
+        ip: "",
+        token: "",
+        update: 60
+      };
+    },
+    methods: {
+      connect() {
+        let alert = document.getElementById(`status`);
+        let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+        let addDevice = document.getElementById("addDevice");
+        let data = { ip: this.ip, token: this.token, models: ["roborock.vacuum.m1s"], timer: this.update };
+        Homey.emit("connect", data, (error, result) => {
+          if (error) {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-danger");
+            alertTitle[0].innerHTML = "Error";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result == "timeout") {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-danger");
+            alert.classList.add("alert-warning");
+            alertTitle[0].innerHTML = "Timeout or device offline";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result == "offline") {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-danger");
+            alertTitle[0].innerHTML = "Offline";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result == "wrongToken") {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-danger");
+            alertTitle[0].innerHTML = "Wrong token";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result.bright) {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-danger");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-success");
+            alertTitle[0].innerHTML = "successfully connected";
+            addDevice.style.removeProperty("display");
+          }
+
+          if (result.notDevice) {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-danger");
+            alert.classList.remove("alert-success");
+            alert.classList.add("alert-warning");
+            alertTitle[0].innerHTML = result.notDevice;
+            addDevice.style.setProperty("display", "none");
+          }
+        });
+      },
+      addDevice() {
+        Homey.showView("done");
+      }
+    }
+  });
+</script>

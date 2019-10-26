@@ -1,0 +1,28 @@
+{
+  "name": "com.maxmudjon.mihomey",
+  "version": "2.0.0",
+  "description": "Mi Homey App for Ahtom Homey.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxmudjon/com.maxmudjon.mihomey.git"
+  },
+  "keywords": [
+    "Mihomey",
+    "Homey",
+    "Mi",
+    "Mijia",
+    "Yeelight",
+    "Philips",
+    "Xiaomi"
+  ],
+  "author": "Payziyev Maxmudjon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxmudjon/com.maxmudjon.mihomey/issues"
+  },
+  "homepage": "https://github.com/Maxmudjon/com.maxmudjon.mihomey#readme"
+}
