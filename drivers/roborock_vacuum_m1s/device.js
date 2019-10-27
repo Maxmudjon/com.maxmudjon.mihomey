@@ -142,8 +142,8 @@ class MiRobot1S extends Homey.Device {
       this.triggerFlow(triggers.main_brush, "sensor_dirty_time", 100 - parseInt(sensorLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
 
       this.setSettings({ total_work_time: this.convertMS(parseInt(summary[0])) }).catch(error => this.log("Set Settings Error", error));
-      this.setSettings({ total_cleared_area: parseInt(summary[1] / 1000000) }).catch(error => this.log("Set Settings Error", error));
-      this.setSettings({ total_clean_count: parseInt(summary[2]) }).catch(error => this.log("Set Settings Error", error));
+      this.setSettings({ total_cleared_area: parseInt(summary[1] / 1000000).toString() }).catch(error => this.log("Set Settings Error", error));
+      this.setSettings({ total_clean_count: parseInt(summary[2]).toString() }).catch(error => this.log("Set Settings Error", error));
 
       let update = this.getSetting("updateTimer") || 60;
       this.updateTimer(update);
@@ -155,6 +155,7 @@ class MiRobot1S extends Homey.Device {
   }
 
   async updateTimer(interval) {
+    const { triggers } = this.driver;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(async () => {
       try {
@@ -226,8 +227,8 @@ class MiRobot1S extends Homey.Device {
         this.triggerFlow(triggers.main_brush, "sensor_dirty_time", 100 - parseInt(sensorLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
 
         this.setSettings({ total_work_time: this.convertMS(parseInt(summary[0])) }).catch(error => this.log("Set Settings Error", error));
-        this.setSettings({ total_cleared_area: parseInt(summary[1] / 1000000) }).catch(error => this.log("Set Settings Error", error));
-        this.setSettings({ total_clean_count: parseInt(summary[2]) }).catch(error => this.log("Set Settings Error", error));
+        this.setSettings({ total_cleared_area: parseInt(summary[1] / 1000000).toString() }).catch(error => this.log("Set Settings Error", error));
+        this.setSettings({ total_clean_count: parseInt(summary[2]).toString() }).catch(error => this.log("Set Settings Error", error));
 
         let update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
@@ -411,8 +412,6 @@ class MiRobot1S extends Homey.Device {
     if (value) {
       trigger.trigger(this, {}, value);
     }
-
-    this.log("trigger:", name, value);
   }
 
   onAdded() {

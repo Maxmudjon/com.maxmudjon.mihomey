@@ -14,10 +14,11 @@
 </div>
 
 <script>
-  Homey.setTitle("Add Mi Robot 1S IP and Token");
+  Homey.setTitle("Add Philips EyeCare Desk Lamp 2 IP and Token");
   setTimeout(() => {
     Homey.setNavigationClose();
   }, 1);
+
   new Vue({
     el: "#addDeviceApp",
     data() {
@@ -29,10 +30,11 @@
     },
     methods: {
       connect() {
-        let alert = document.getElementById(`status`);
-        let alertTitle = document.getElementsByClassName(`statusAlertShow`);
-        let addDevice = document.getElementById("addDevice");
-        let data = { ip: this.ip, token: this.token, models: ["roborock.vacuum.m1s"], timer: this.update };
+        let alert = document.getElementById(`status`),
+          alertTitle = document.getElementsByClassName(`statusAlertShow`),
+          addDevice = document.getElementById("addDevice"),
+          data = { ip: this.ip, token: this.token, models: ["philips.light.sread1"], timer: this.update };
+
         Homey.emit("connect", data, (error, result) => {
           if (error) {
             alert.classList.remove("alert-light");
@@ -66,7 +68,7 @@
             addDevice.style.setProperty("display", "none");
           }
 
-          if (result.battery) {
+          if (result.bright) {
             alert.classList.remove("alert-light");
             alert.classList.remove("alert-danger");
             alert.classList.remove("alert-warning");

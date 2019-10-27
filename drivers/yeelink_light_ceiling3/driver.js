@@ -1,21 +1,19 @@
-"use strict";
-
 const Homey = require("homey");
 const miio = require("miio");
 
-const registerActionFlow = name => new Homey.FlowCardAction(name).register();
-
-class YeelightColorLightBulb extends Homey.Driver {
+class YeelightJiaoyue450 extends Homey.Driver {
   onInit() {
     this.actions = {
-      favoriteFlow: registerActionFlow("favorite_flow_color1_bulb"),
-      smoothAction: registerActionFlow("smoothOnOff")
+      favoriteFlow: new Homey.FlowCardAction("favorite_flow_ceiling1_lamp").register()
+    };
+    this.conditions = {
+      night_mode: new Homey.FlowCardCondition("night_mode").register()
     };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Yeelight Color Light Bulb";
+    pairingDevice.name = "Yeelight Jiaoyue 450";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -24,7 +22,7 @@ class YeelightColorLightBulb extends Homey.Driver {
         let miioDevice = await miio.device({ address: data.ip, token: data.token });
         const info = await miioDevice.call("miIO.info", []);
 
-        if (info.model == data.models[0] || info.model == data.models[1]) {
+        if (info.model == data.models[0]) {
           pairingDevice.data.id = info.mac;
           pairingDevice.settings.deviceIP = data.ip;
           pairingDevice.settings.deviceToken = data.token;
@@ -48,7 +46,7 @@ class YeelightColorLightBulb extends Homey.Driver {
           callback(null, result);
         } else {
           let result = {
-            notDevice: "It is not Yeelight Color Light Bulb"
+            notDevice: "It is not Yeelight Jiaoyue 450"
           };
 
           pairingDevice.data.id = null;
@@ -74,4 +72,4 @@ class YeelightColorLightBulb extends Homey.Driver {
   }
 }
 
-module.exports = YeelightColorLightBulb;
+module.exports = YeelightJiaoyue450;

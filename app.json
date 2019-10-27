@@ -133,12 +133,231 @@
       ]
     },
     {
+      "id": "yeelink_light_ceiling4",
+      "name": {
+        "en": "Yeelight Jiaoyue 650"
+      },
+      "class": "light",
+      "capabilities": ["onoff", "onoff.bg", "dim", "dim.bg", "light_hue", "light_saturation", "light_temperature", "light_temperature.bg", "light_mode", "light_mode.bg"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.bg": {
+          "title": {
+            "en": "Ambient Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        },
+        "dim.bg": {
+          "title": {
+            "en": "Ambient Brightness"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Jiaoyue 650 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "smooth",
+              "type": "number",
+              "value": 0.5,
+              "label": {
+                "en": "Light on/off smooth"
+              },
+              "attr": {
+                "min": 0.1,
+                "max": 3600
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            },
+            {
+              "id": "setDefault",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Save current state"
+              },
+              "hint": {
+                "en": "All current status on the lamp is saved."
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelink_light_ceiling4/assets/images/large.png",
+        "small": "/drivers/yeelink_light_ceiling4/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "yeelink_light_ceiling3",
+      "name": {
+        "en": "Yeelight Jiaoyue 450"
+      },
+      "class": "light",
+      "capabilities": ["onoff", "dim", "light_temperature"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Yeelight Ceiling Lamp settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "smooth",
+              "type": "number",
+              "value": 0.5,
+              "label": {
+                "en": "Light on/off smooth"
+              },
+              "attr": {
+                "min": 0.1,
+                "max": 3600
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            },
+            {
+              "id": "setDefault",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Save current state"
+              },
+              "hint": {
+                "en": "All current status on the lamp is saved."
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/yeelink_light_ceiling3/assets/images/large.png",
+        "small": "/drivers/yeelink_light_ceiling3/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
+    },
+    {
       "id": "roborock_vacuum_m1s",
       "name": {
         "en": "Mi Robot 1S"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["measure_battery", "alarm_battery", "dim", "onoff", "onoff.findme", "vacuumcleaner_state"],
+      "capabilities": [
+        "measure_battery",
+        "alarm_battery",
+        "dim",
+        "onoff",
+        "onoff.findme",
+        "vacuumcleaner_state",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -298,10 +517,878 @@
           }
         }
       ]
+    },
+    {
+      "id": "philips_light_sread1",
+      "name": {
+        "en": "Philips EyeCare Desk Lamp 2"
+      },
+      "class": "light",
+      "capabilities": ["onoff", "dim", "onoff.eyecare", "onoff.ambilight"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          }
+        },
+        "onoff.eyecare": {
+          "title": {
+            "en": "Eyecare"
+          }
+        },
+        "onoff.ambilight": {
+          "title": {
+            "en": "Ambilight"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Philips EyeCare Desk Lamp 2 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips_light_sread1/assets/images/large.png",
+        "small": "/drivers/philips_light_sread1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zimi_powerstrip_v2",
+      "name": {
+        "en": "Mi Smart Power Strip"
+      },
+      "class": "socket",
+      "capabilities": ["onoff", "measure_power", "meter_ampere", "measure_temperature", "onoff.led"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Temperature"
+          }
+        },
+        "onoff.led": {
+          "title": {
+            "en": "WiFi LED"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Power Strip settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/zimi_powerstrip_v2/assets/images/large.png",
+        "small": "/drivers/zimi_powerstrip_v2/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "qmi_powerstrip_v1",
+      "name": {
+        "en": "CHINGMI Smart Power Strip"
+      },
+      "class": "socket",
+      "capabilities": ["onoff", "measure_power", "meter_ampere", "measure_temperature", "measure_voltage"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        },
+        "measure_temperature": {
+          "title": {
+            "en": "Temperature"
+          }
+        },
+        "measure_voltage": {
+          "title": {
+            "en": "Voltage"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "CHINGMI Smart Power Strip settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "xxx.xxx.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/qmi_powerstrip_v1/assets/images/large.png",
+        "small": "/drivers/qmi_powerstrip_v1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "addDevice",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "addDevice"
+          }
+        }
+      ]
     }
   ],
   "flow": {
     "triggers": [
+      {
+        "id": "left_click_db86_switch",
+        "title": {
+          "en": "Left button clicked"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch"
+          }
+        ]
+      },
+      {
+        "id": "right_click_db86_switch",
+        "title": {
+          "en": "Right button clicked"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch"
+          }
+        ]
+      },
+      {
+        "id": "both_click_db86_switch",
+        "title": {
+          "en": "Both buttons clicked"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch"
+          }
+        ]
+      },
+      {
+        "id": "power_on",
+        "title": {
+          "en": "Power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
+          }
+        ]
+      },
+      {
+        "id": "power_off",
+        "title": {
+          "en": "Power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
+          }
+        ]
+      },
+      {
+        "id": "power_toggle",
+        "title": {
+          "en": "Power changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
+          }
+        ]
+      },
+      {
+        "id": "click_button_switch",
+        "title": {
+          "en": "Single click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "double_click_click_button_switch",
+        "title": {
+          "en": "Double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "long_click_press_click_button_switch",
+        "title": {
+          "en": "Long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "long_click_release_click_button_switch",
+        "title": {
+          "en": "Long press and release button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "shake_click_button_switch",
+        "title": {
+          "en": "Shake air button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=button_switch.aq3"
+          }
+        ]
+      },
+      {
+        "id": "click_sb86_switch",
+        "title": {
+          "en": "Click single switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=sb86_switch"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_on",
+        "title": {
+          "en": "Left switch power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_off",
+        "title": {
+          "en": "Left switch power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_toggle",
+        "title": {
+          "en": "Left switch power changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_on",
+        "title": {
+          "en": "Right switch power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_off",
+        "title": {
+          "en": "Right switch power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_toggle",
+        "title": {
+          "en": "Right switch power changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "shake_air_cube",
+        "title": {
+          "en": "Cube shake air"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "tap_twice_cube",
+        "title": {
+          "en": "Cube twice tap"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "move_cube",
+        "title": {
+          "en": "Cube move"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "flip180_cube",
+        "title": {
+          "en": "Cube flip to 180°"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "flip90_cube",
+        "title": {
+          "en": "Cube flip to 90°"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "free_fall_cube",
+        "title": {
+          "en": "Cube free fall"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "alert_cube",
+        "title": {
+          "en": "Cube alert"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "rotate_positive_cube",
+        "title": {
+          "en": "Cube rotate to positive °"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "rotate_negative_cube",
+        "title": {
+          "en": "Cube rotate to negative °"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "cubeRotated",
+        "title": {
+          "en": "Cube rotated"
+        },
+        "tokens": [
+          {
+            "name": "cube_rotated",
+            "type": "number",
+            "title": {
+              "en": "cube rotated"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=cube"
+          }
+        ]
+      },
+      {
+        "id": "alarm_ch4_yes",
+        "title": {
+          "en": "Natural gas leak detected"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=natgas_sensor"
+          }
+        ]
+      },
+      {
+        "id": "alarm_ch4_no",
+        "title": {
+          "en": "Natural gas leak not detected"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=natgas_sensor"
+          }
+        ]
+      },
+      {
+        "id": "left_click_button_switch",
+        "title": {
+          "en": "Left click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "left_double_click_click_button_switch",
+        "title": {
+          "en": "Left double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "left_long_click_press_click_button_switch",
+        "title": {
+          "en": "Left long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_click_button_switch",
+        "title": {
+          "en": "Right click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_double_click_click_button_switch",
+        "title": {
+          "en": "Right double click button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "right_long_click_press_click_button_switch",
+        "title": {
+          "en": "Right long press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "both_click_click_press_click_button_switch",
+        "title": {
+          "en": "Both click press button switch"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=db86_switch_advanced"
+          }
+        ]
+      },
+      {
+        "id": "lockUsed",
+        "title": {
+          "en": "The lock opened with"
+        },
+        "tokens": [
+          {
+            "name": "finger_id",
+            "type": "number",
+            "title": {
+              "en": "finger id"
+            },
+            "example": 0
+          },
+          {
+            "name": "code_id",
+            "type": "number",
+            "title": {
+              "en": "code id"
+            },
+            "example": 0
+          },
+          {
+            "name": "card_id",
+            "type": "number",
+            "title": {
+              "en": "card id"
+            },
+            "example": 0
+          },
+          {
+            "name": "userName",
+            "type": "string",
+            "title": {
+              "en": "Who opens"
+            },
+            "example": {
+              "en": "Maxmudjon"
+            }
+          },
+          {
+            "name": "wrong_id",
+            "type": "number",
+            "title": {
+              "en": "wrong id"
+            },
+            "example": 3
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=lock.aq1"
+          }
+        ]
+      },
+      {
+        "id": "meterAmpere",
+        "title": {
+          "en": "The ampere changed"
+        },
+        "tokens": [
+          {
+            "name": "ampere",
+            "type": "number",
+            "title": {
+              "en": "Ampere"
+            },
+            "example": 0
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zimi_powerstrip_v2|qmi_powerstrip_v1"
+          }
+        ]
+      },
+      {
+        "id": "vibrate_sensor_vibrate",
+        "title": {
+          "en": "On vibrate"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=vibration_sensor"
+          }
+        ]
+      },
+      {
+        "id": "vibrate_sensor_tilt",
+        "title": {
+          "en": "On tilt"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=vibration_sensor"
+          }
+        ]
+      },
+      {
+        "id": "vibrate_sensor_free_fall",
+        "title": {
+          "en": "On free fall"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=vibration_sensor"
+          }
+        ]
+      },
       {
         "id": "main_brush_work_time",
         "title": {
@@ -378,7 +1465,585 @@
         ]
       }
     ],
+    "conditions": [
+      {
+        "id": "power_active",
+        "title": {
+          "en": "Power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_active",
+        "title": {
+          "en": "Left switch power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_active",
+        "title": {
+          "en": "Right switch power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "alarm_ch4",
+        "title": {
+          "en": "Natural gas leak !{{detected|not detected}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=natgas_sensor"
+          }
+        ]
+      },
+      {
+        "id": "purifier_power",
+        "title": {
+          "en": "Power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "placeholder": {
+              "en": "Select Purifier"
+            },
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+          }
+        ]
+      },
+      {
+        "id": "humidifier_power",
+        "title": {
+          "en": "Power is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "placeholder": {
+              "en": "Select Humidifier"
+            },
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+          }
+        ]
+      },
+      {
+        "id": "night_mode",
+        "title": {
+          "en": "Night Mode is !{{on|off}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "placeholder": {
+              "en": "Select Yeelight"
+            },
+            "filter": "driver_id=yeelink_light_ceiling4"
+          }
+        ]
+      }
+    ],
     "actions": [
+      {
+        "id": "power_on",
+        "title": {
+          "en": "Power turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "power_off",
+        "title": {
+          "en": "Power turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=plug"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_on",
+        "title": {
+          "en": "Left switch power turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_off",
+        "title": {
+          "en": "Left switch power turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "left_switch_toggle",
+        "title": {
+          "en": "Left switch power toggle"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_on",
+        "title": {
+          "en": "Right switch power turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_off",
+        "title": {
+          "en": "Right switch power turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "right_switch_toggle",
+        "title": {
+          "en": "Right switch power toggle"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+          }
+        ]
+      },
+      {
+        "id": "play_tone",
+        "title": {
+          "en": "Play tone"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=gateway"
+          },
+          {
+            "type": "dropdown",
+            "name": "toneID",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Police car 1"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Police car 2"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Accident"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Countdown"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Ghost"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Sniper rifle"
+                }
+              },
+              {
+                "id": "6",
+                "label": {
+                  "en": "Battle"
+                }
+              },
+              {
+                "id": "7",
+                "label": {
+                  "en": "Air raid"
+                }
+              },
+              {
+                "id": "8",
+                "label": {
+                  "en": "Bark"
+                }
+              },
+              {
+                "id": "10",
+                "label": {
+                  "en": "Doorbell"
+                }
+              },
+              {
+                "id": "11",
+                "label": {
+                  "en": "Knock at a door"
+                }
+              },
+              {
+                "id": "12",
+                "label": {
+                  "en": "Amuse"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "Alarm clock"
+                }
+              },
+              {
+                "id": "20",
+                "label": {
+                  "en": "MiMix"
+                }
+              },
+              {
+                "id": "21",
+                "label": {
+                  "en": "Enthusiastic"
+                }
+              },
+              {
+                "id": "22",
+                "label": {
+                  "en": "GuitarClassic"
+                }
+              },
+              {
+                "id": "23",
+                "label": {
+                  "en": "IceWorldPiano"
+                }
+              },
+              {
+                "id": "24",
+                "label": {
+                  "en": "LeisureTime"
+                }
+              },
+              {
+                "id": "25",
+                "label": {
+                  "en": "ChildHood"
+                }
+              },
+              {
+                "id": "26",
+                "label": {
+                  "en": "MorningStreamLiet"
+                }
+              },
+              {
+                "id": "27",
+                "label": {
+                  "en": "MusicBox"
+                }
+              },
+              {
+                "id": "28",
+                "label": {
+                  "en": "Orange"
+                }
+              },
+              {
+                "id": "29",
+                "label": {
+                  "en": "Thinker"
+                }
+              },
+              {
+                "id": "10000",
+                "label": {
+                  "en": "MUTE"
+                }
+              }
+            ]
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "play_radio",
+        "title": {
+          "en": "Favorite radio lists"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=gateway_radio"
+          },
+          {
+            "type": "dropdown",
+            "name": "favoriteID",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "1 - favorite radio"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "2 - favorite radio"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "3 - favorite radio"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "4 - favorite radio"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "5 - favorite radio"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "6 - favorite radio"
+                }
+              },
+              {
+                "id": "6",
+                "label": {
+                  "en": "7 - favorite radio"
+                }
+              },
+              {
+                "id": "7",
+                "label": {
+                  "en": "8 - favorite radio"
+                }
+              },
+              {
+                "id": "8",
+                "label": {
+                  "en": "9 - favorite radio"
+                }
+              },
+              {
+                "id": "9",
+                "label": {
+                  "en": "10 - favorite radio"
+                }
+              },
+              {
+                "id": "10",
+                "label": {
+                  "en": "11 - favorite radio"
+                }
+              },
+              {
+                "id": "11",
+                "label": {
+                  "en": "12 - favorite radio"
+                }
+              },
+              {
+                "id": "12",
+                "label": {
+                  "en": "13 - favorite radio"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "14 - favorite radio"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "15 - favorite radio"
+                }
+              },
+              {
+                "id": "15",
+                "label": {
+                  "en": "16 - favorite radio"
+                }
+              },
+              {
+                "id": "16",
+                "label": {
+                  "en": "17 - favorite radio"
+                }
+              },
+              {
+                "id": "17",
+                "label": {
+                  "en": "18 - favorite radio"
+                }
+              },
+              {
+                "id": "18",
+                "label": {
+                  "en": "19 - favorite radio"
+                }
+              },
+              {
+                "id": "19",
+                "label": {
+                  "en": "20 - favorite radio"
+                }
+              }
+            ]
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "customRadioListSend",
+        "title": {
+          "en": "Custom radio"
+        },
+        "args": [
+          {
+            "name": "id",
+            "type": "text",
+            "placeholder": {
+              "en": "ID"
+            }
+          },
+          {
+            "name": "url",
+            "type": "text",
+            "placeholder": {
+              "en": "URL"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=gateway_radio"
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "play_toggle",
+        "title": {
+          "en": "Play or Pause"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=gateway_radio"
+          }
+        ]
+      },
       {
         "id": "favorite_flow_color1_bulb",
         "title": {
@@ -388,7 +2053,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=yeelight_light_color1|yeelight_light_bslamp1|yeelight_light_strip1"
+            "filter": "driver_id=yeelink_light_color1|yeelink_light_bslamp1|yeelink_light_strip1"
           },
           {
             "type": "dropdown",
@@ -501,6 +2166,226 @@
         ]
       },
       {
+        "id": "favorite_flow_mono1_bulb",
+        "title": {
+          "en": "Favorite Flows"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelink_light_mono1"
+          },
+          {
+            "type": "dropdown",
+            "name": "favoriteFlowID",
+            "values": [
+              {
+                "id": "flash_notify_mono",
+                "label": {
+                  "en": "Flash Notify"
+                }
+              },
+              {
+                "id": "sunset",
+                "label": {
+                  "en": "Sunset"
+                }
+              },
+              {
+                "id": "sunrise",
+                "label": {
+                  "en": "Sunrise"
+                }
+              },
+              {
+                "id": "candle_flicker",
+                "label": {
+                  "en": "Candle Flicker"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ambilight_level",
+        "title": {
+          "en": "Ambilight brightness"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=philips_light_sread1"
+          },
+          {
+            "type": "range",
+            "name": "level",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "eyecare_scene",
+        "title": {
+          "en": "Eyecare scenes"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=philips_light_sread1"
+          },
+          {
+            "type": "dropdown",
+            "name": "scene",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Teens Study"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Adults Reading"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Phone/Computer"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "favorite_flow_ceiling1_lamp",
+        "title": {
+          "en": "Favorite Flows"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelink_light_ceiling1|yeelink_light_lamp1|yeelink_light_ceiling4|yeelink_light_ceiling3"
+          },
+          {
+            "type": "dropdown",
+            "name": "favoriteFlowID",
+            "values": [
+              {
+                "id": "flash_notify_mono",
+                "label": {
+                  "en": "Flash Notify"
+                }
+              },
+              {
+                "id": "sunset_ceiling",
+                "label": {
+                  "en": "Sunset"
+                }
+              },
+              {
+                "id": "sunrise_ceiling",
+                "label": {
+                  "en": "Sunrise"
+                }
+              },
+              {
+                "id": "candle_flicker",
+                "label": {
+                  "en": "Candle Flicker"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "philips_scenes",
+        "title": {
+          "en": "Scenes"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=philips_light_ceiling|philips_light_bulb|philips_light_candle|philips_light_candle2|philips_light_downlight|philips_light_moonlight"
+          },
+          {
+            "type": "dropdown",
+            "name": "scene",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Bright"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "TV"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Warm"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Midnight"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "philips_light_ac",
+        "title": {
+          "en": "Auto Adjust Color Temperature"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=philips_light_ceiling"
+          },
+          {
+            "type": "dropdown",
+            "name": "ac",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "enable"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "disable"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "smoothOnOff",
         "title": {
           "en": "Smooth on/off/toggle light"
@@ -540,7 +2425,219 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=yeelight_light_color1|yeelight_light_ceiling10"
+            "filter": "driver_id=yeelink_light_color1|yeelink_light_ceiling10"
+          }
+        ]
+      },
+      {
+        "id": "purifier_on",
+        "title": {
+          "en": "Power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+          }
+        ]
+      },
+      {
+        "id": "purifier_off",
+        "title": {
+          "en": "Power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+          }
+        ]
+      },
+      {
+        "id": "purifier_mode",
+        "title": {
+          "en": "Set purifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent"
+                }
+              },
+              {
+                "id": "favorite",
+                "label": {
+                  "en": "Favorite"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "purifier_speed",
+        "title": {
+          "en": "Set purifier speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+          },
+          {
+            "type": "range",
+            "name": "speed",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "humidifier_on",
+        "title": {
+          "en": "Power on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+          }
+        ]
+      },
+      {
+        "id": "humidifier_off",
+        "title": {
+          "en": "Power off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+          }
+        ]
+      },
+      {
+        "id": "humidifier_mode",
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_humidifier_v1"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent"
+                }
+              },
+              {
+                "id": "medium",
+                "label": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "label": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "humidifier_ca1_mode",
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_humidifier_ca1"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent"
+                }
+              },
+              {
+                "id": "medium",
+                "label": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "label": {
+                  "en": "High"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "send_ir_code",
+        "title": {
+          "en": "Send IR code"
+        },
+        "args": [
+          {
+            "name": "code",
+            "type": "text",
+            "placeholder": {
+              "en": "code"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ir_remote"
           }
         ]
       },
@@ -590,7 +2687,431 @@
             "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|roborock_vacuum_m1s"
           }
         ]
+      },
+      {
+        "id": "air_fresh_on",
+        "title": {
+          "en": "Power on",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          }
+        ]
+      },
+      {
+        "id": "air_fresh_off",
+        "title": {
+          "en": "Power off",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          }
+        ]
+      },
+      {
+        "id": "air_fresh_mode",
+        "title": {
+          "en": "Set air fresh mode",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "interval",
+                "label": {
+                  "en": "Interval",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "low",
+                "label": {
+                  "en": "Low",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "middle",
+                "label": {
+                  "en": "Middle",
+                  "nl": ""
+                }
+              },
+              {
+                "id": "strong",
+                "label": {
+                  "en": "Strong",
+                  "nl": ""
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "air_fresh_speed",
+        "title": {
+          "en": "Set air fresh speed",
+          "nl": ""
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi_airfresh_va2"
+          },
+          {
+            "type": "range",
+            "name": "speed",
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "yeelink_night_mode",
+        "title": {
+          "en": "Set night mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=yeelink_light_ceiling4"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "on",
+                "label": {
+                  "en": "On"
+                }
+              },
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "toggle",
+                "label": {
+                  "en": "Toggle"
+                }
+              }
+            ]
+          },
+          {
+            "name": "smoothTime",
+            "type": "text",
+            "placeholder": {
+              "en": "seconds"
+            }
+          }
+        ]
       }
     ]
+  },
+  "capabilities": {
+    "measure_pressure_hhmg": {
+      "title": {
+        "en": "Pressure"
+      },
+      "type": "number",
+      "units": {
+        "en": "mm Hg"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/weather_temp_hum_sensor/assets/pressure_hhmg_sensor_icon.svg"
+    },
+    "alarm_ch4": {
+      "title": {
+        "en": "Gas detected"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/natgas_sensor/assets/natgas_sensor_icon.svg"
+    },
+    "measure_gas_density": {
+      "title": {
+        "en": "Gas Density"
+      },
+      "type": "number",
+      "units": {
+        "en": "kg/m3"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/natgas_sensor/assets/measure_gas_density_icon.svg"
+    },
+    "measure_smoke_density": {
+      "title": {
+        "en": "Smoke Density"
+      },
+      "type": "number",
+      "units": {
+        "en": "kg/m3"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/smoke_sensor/assets/measure_smoke_density_icon.svg"
+    },
+    "meter_ampere": {
+      "title": {
+        "en": "Ampere"
+      },
+      "type": "number",
+      "decimals": 2,
+      "units": {
+        "en": "A"
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/qmi_powerstrip_v1/assets/meter_ampere.svg"
+    },
+    "air_purifier_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air Purifier Mode"
+      },
+      "desc": {
+        "en": "Air Purifier Mode"
+      },
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent"
+          }
+        },
+        {
+          "id": "favorite",
+          "title": {
+            "en": "Favorite"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "air_fresh_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air Fresh Mode",
+        "nl": ""
+      },
+      "desc": {
+        "en": "Air Fresh Mode",
+        "nl": ""
+      },
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto",
+            "nl": ""
+          }
+        },
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent",
+            "nl": ""
+          }
+        },
+        {
+          "id": "interval",
+          "title": {
+            "en": "Interval",
+            "nl": ""
+          }
+        },
+        {
+          "id": "low",
+          "title": {
+            "en": "Low",
+            "nl": ""
+          }
+        },
+        {
+          "id": "middle",
+          "title": {
+            "en": "Middle",
+            "nl": ""
+          }
+        },
+        {
+          "id": "strong",
+          "title": {
+            "en": "Strong",
+            "nl": ""
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "alarm_main_brush_work_time": {
+      "title": {
+        "en": "Time left main brush"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/roborock_vacuum_m1s/assets/main_brush_icon.svg"
+    },
+    "alarm_side_brush_work_time": {
+      "title": {
+        "en": "Time left side brush"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/roborock_vacuum_m1s/assets/side_brush_icon.svg"
+    },
+    "alarm_filter_work_time": {
+      "title": {
+        "en": "Time left filter"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/roborock_vacuum_m1s/assets/hepa_filter_icon.svg"
+    },
+    "alarm_sensor_dirty_time": {
+      "title": {
+        "en": "Time left sensor"
+      },
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/roborock_vacuum_m1s/assets/sensor_dirty_icon.svg"
+    },
+    "humidifier_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "Humidifier Mode"
+      },
+      "values": [
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "humidifier_ca1_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "Humidifier Mode"
+      },
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "measure_voc": {
+      "title": {
+        "en": "VOC",
+        "nl": ""
+      },
+      "type": "number",
+      "units": {
+        "en": "mg/m3",
+        "nl": ""
+      },
+      "getable": true,
+      "setable": false,
+      "icon": "/drivers/cgllc_airmonitor_b1/assets/measure_voc_icon.svg"
+    }
   }
 }
