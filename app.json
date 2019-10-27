@@ -2425,7 +2425,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=yeelink_light_color1|yeelink_light_ceiling10"
+            "filter": "driver_id=yeelink_light_color1|yeelink_light_ceiling10|yeelink_light_ceiling3|yeelink_light_ceiling4"
           }
         ]
       },
@@ -2811,7 +2811,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=yeelink_light_ceiling4"
+            "filter": "driver_id=yeelink_light_ceiling3|yeelink_light_ceiling4"
           },
           {
             "type": "dropdown",

@@ -3,13 +3,11 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const registerActionFlow = name => new Homey.FlowCardAction(name).register();
-
 class YeelightColorLightBulb extends Homey.Driver {
   onInit() {
     this.actions = {
-      favoriteFlow: registerActionFlow("favorite_flow_color1_bulb"),
-      smoothAction: registerActionFlow("smoothOnOff")
+      favoriteFlow: new Homey.FlowCardAction("favorite_flow_color1_bulb").register(),
+      smoothAction: new Homey.FlowCardAction("smoothOnOff").register()
     };
   }
 

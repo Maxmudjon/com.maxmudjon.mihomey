@@ -3,20 +3,17 @@ const miio = require("miio");
 const flows = require("../../lib/flows");
 
 class YeelightJiaoyue450 extends Homey.Device {
-  async onInit() {
-    this.initialize = this.initialize.bind(this);
+  onInit() {
     this.driver = this.getDriver();
     this.data = this.getData();
-    this.brightness;
-    this.colorTemperature;
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "id: " + this.data.id);
     this.initialize();
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
     this.registerActions();
     this.registerCapabilities();
-    this.getYeelightStatus();
+    this.getDeviceStatus();
   }
 
   registerCapabilities() {
@@ -28,66 +25,54 @@ class YeelightJiaoyue450 extends Homey.Device {
   registerActions() {
     const { actions } = this.driver;
     this.registerFavoriteFlowsAction("favorite_flow_ceiling1_lamp", actions.favoriteFlow);
+    this.registerSmoothAction("smoothOnOff", actions.smoothAction);
+    this.registerNightModeAction("yeelink_night_mode", actions.nightMode);
   }
 
-  getYeelightStatus() {
-    var that = this;
-    miio
-      .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
-        this.setAvailable();
-        this.device = device;
+  async getDeviceStatus() {
+    try {
+      this.miioDevice = await miio.device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") });
+      const result = await this.miioDevice.call("get_prop", ["power", "bright", "ct"]);
 
-        this.device
-          .call("get_prop", ["power", "bright", "ct"])
-          .then(result => {
-            that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
-            that.setCapabilityValue("dim", result[1] / 100);
-            that.brightness = result[1] / 100;
-            that.colorTemperature = result[2];
-          })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+      this.setAvailable();
 
-        if (that.colorTemperature != undefined && that.colorTemperature != null) {
-          var colorTemp = that.normalize(that.colorTemperature, 2700, 6000);
-          that.setCapabilityValue("light_temperature", colorTemp);
-        }
+      let colorTemp = this.normalize(result[2], 2700, 6500);
 
-        var update = this.getSetting("updateTimer") || 60;
-        this.updateTimer(update);
-      })
-      .catch(error => {
-        this.log(error);
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
-        setTimeout(() => {
-          this.getYeelightStatus();
-        }, 10000);
-      });
+      this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
+      this.updateCapabilityValue("dim", result[1] / 100);
+      this.updateCapabilityValue("light_temperature", colorTemp);
+
+      let update = this.getSetting("updateTimer") || 60;
+      this.updateTimer(update);
+    } catch (error) {
+      this.error(error.message);
+      this.setUnavailable(Homey.__("reconnecting"));
+      setTimeout(() => this.getDeviceStatus(), 10000);
+    }
   }
 
   updateTimer(interval) {
     clearInterval(this.updateInterval);
-    var that = this;
-    this.updateInterval = setInterval(() => {
-      this.device
-        .call("get_prop", ["power", "bright", "ct"])
-        .then(result => {
-          that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
-          that.setCapabilityValue("dim", result[1] / 100);
-          that.brightness = result[1] / 100;
-          that.colorTemperature = result[2];
-        })
-        .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
-      if (that.colorTemperature != undefined && that.colorTemperature != null) {
-        var colorTemp = that.normalize(that.colorTemperature, 2700, 6000);
-        that.setCapabilityValue("light_temperature", colorTemp);
+    this.updateInterval = setInterval(async () => {
+      try {
+        const result = await this.miioDevice.call("get_prop", ["power", "bright", "ct"]);
+
+        this.setAvailable();
+
+        let colorTemp = this.normalize(result[2], 2700, 6500);
+
+        this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
+        this.updateCapabilityValue("dim", result[1] / 100);
+        this.updateCapabilityValue("light_temperature", colorTemp);
+      } catch (error) {
+        this.error(error.message);
+        this.setUnavailable(Homey.__("reconnecting"));
+        setTimeout(() => {
+          this.miioDevice.destroy();
+          clearInterval(this.updateInterval);
+          this.getDeviceStatus();
+        }, 10000);
       }
     }, 1000 * interval);
   }
@@ -97,40 +82,58 @@ class YeelightJiaoyue450 extends Homey.Device {
     return Number(normalized.toFixed(2));
   }
 
-  onSettings(oldSettings, newSettings, changedKeys, callback) {
+  async onSettings(oldSettings, newSettings, changedKeys, callback) {
     if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
-      this.getYeelightStatus();
+      this.miioDevice.destroy();
+      this.getDeviceStatus();
       callback(null, true);
+    }
+
+    if (changedKeys.includes("setDefault")) {
+      try {
+        await this.miioDevice.call("set_default", []);
+        callback(null, true);
+        this.log("Sending commmand 'set_default' save current state to lamp");
+        this.setSettings({
+          setDefault: false
+        });
+      } catch (error) {
+        this.error(error.message);
+      }
     }
   }
 
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async value => {
-      this.device
-        .call("set_power", [value ? "on" : "off", "smooth", this.getSetting("smooth") * 1000])
-        .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
+      try {
+        await this.miioDevice.call("set_power", [value ? "on" : "off", "smooth", this.getSetting("smooth") * 1000]);
+      } catch (error) {
+        this.error(error.message);
+      }
     });
   }
 
   registerDimLevel(name) {
     this.registerCapabilityListener(name, async value => {
       if (value * 100 > 0) {
-        this.device
-          .call("set_bright", [value * 100])
-          .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
+        try {
+          await this.miioDevice.call("set_bright", [value * 100]);
+        } catch (error) {
+          this.error(error.message);
+        }
       }
     });
   }
 
   registerLightTemperatureLevel(name) {
     this.registerCapabilityListener(name, async value => {
-      let color_temp = this.denormalize(value, 2700, 6000);
-      this.device
-        .call("set_ct_abx", [color_temp, "smooth", this.getSetting("smooth") * 1000])
-        .then(() => this.log("Sending " + name + " commmand: " + color_temp))
-        .catch(error => this.log("Sending commmand 'set_ct_abx' error: ", error));
+      let color_temp = this.denormalize(value, 1700, 6500);
+
+      try {
+        await this.miioDevice.call("set_ct_abx", [color_temp, "smooth", this.getSetting("smooth") * 1000]);
+      } catch (error) {
+        this.error(error.message);
+      }
     });
   }
 
@@ -140,31 +143,140 @@ class YeelightJiaoyue450 extends Homey.Device {
   }
 
   registerFavoriteFlowsAction(name, action) {
-    var that = this;
-    action.favoriteFlow.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
-        miio
-          .device({
+        let miioDevice = await miio.device({
+          address: args.device.getSetting("deviceIP"),
+          token: args.device.getSetting("deviceToken")
+        });
+
+        await miioDevice.call("start_cf", flows[args.favoriteFlowID]);
+
+        miioDevice.destroy();
+      } catch (error) {
+        this.error(error.message);
+      }
+    });
+  }
+
+  registerSmoothAction(name, action) {
+    action.registerRunListener(async (args, state) => {
+      if (args.smoothMode == "on") {
+        try {
+          let miioDevice = await miio.device({
             address: args.device.getSetting("deviceIP"),
             token: args.device.getSetting("deviceToken")
-          })
-          .then(device => {
-            device
-              .call("start_cf", flows[args.favoriteFlowID])
-              .then(() => {
-                this.log("Set flow: ", args.favoriteFlowID);
-                device.destroy();
-              })
-              .catch(error => {
-                this.log("Set flow error: ", error);
-                device.destroy();
-              });
-          })
-          .catch(error => {
-            this.log("miio connect error: " + error);
           });
+
+          await miioDevice.call("set_power", ["on", "smooth", args.smoothTime * 1000]);
+
+          miioDevice.destroy();
+        } catch (error) {
+          this.error(error.message);
+        }
+      } else if (args.smoothMode == "off") {
+        try {
+          let miioDevice = await miio.device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          });
+
+          await miioDevice.call("set_power", ["off", "smooth", args.smoothTime * 1000]);
+
+          miioDevice.destroy();
+        } catch (error) {
+          this.error(error.message);
+        }
+      } else if (args.smoothMode == "toggle") {
+        try {
+          let miioDevice = await miio.device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          });
+
+          await miioDevice.call("set_power", ["toogle", "smooth", args.smoothTime * 1000]);
+
+          miioDevice.destroy();
+        } catch (error) {
+          this.error(error.message);
+        }
+      }
+    });
+  }
+
+  registerNightModeAction(name, action) {
+    action.registerRunListener(async (args, state) => {
+      switch (args.modes) {
+        case "on":
+          try {
+            let miioDevice = await miio.device({
+              address: args.device.getSetting("deviceIP"),
+              token: args.device.getSetting("deviceToken")
+            });
+
+            await miioDevice.call("set_power", ["on", "smooth", args.smoothTime * 1000, 5]);
+
+            miioDevice.destroy();
+          } catch (error) {
+            this.error(error.message);
+          }
+
+        case "off":
+          try {
+            let miioDevice = await miio.device({
+              address: args.device.getSetting("deviceIP"),
+              token: args.device.getSetting("deviceToken")
+            });
+
+            await miioDevice.call("set_power", ["on", "smooth", args.smoothTime * 1000, 1]);
+
+            miioDevice.destroy();
+          } catch (error) {
+            this.error(error.message);
+          }
+
+        case "toggle":
+          try {
+            let miioDevice = await miio.device({
+              address: args.device.getSetting("deviceIP"),
+              token: args.device.getSetting("deviceToken")
+            });
+
+            const result = await miioDevice.call("get_prop", ["active_mode"]);
+
+            if (result[0] == "0") {
+              await miioDevice.call("set_power", ["on", "smooth", args.smoothTime, 5]);
+            } else if (result[0] == "1") {
+              await miioDevice.call("set_power", ["on", "smooth", args.smoothTime, 1]);
+            }
+
+            miioDevice.destroy();
+          } catch (error) {
+            this.error(error.message);
+          }
+      }
+    });
+  }
+
+  registerCondition(name, condition) {
+    condition.registerRunListener((args, state, callback) => {
+      try {
+        let miioDevice = await miio.device({
+          address: args.device.getSetting("deviceIP"),
+          token: args.device.getSetting("deviceToken")
+        });
+
+        const result = await miioDevice.call("get_prop", ["active_mode"]);
+
+        if (result[0] == "0") {
+          callback(null, false)
+        } else if (result[0] == "1") {
+          callback(null, true)
+        }
+
+        miioDevice.destroy();
       } catch (error) {
-        this.log("catch error: " + error);
+        this.error(error.message);
       }
     });
   }

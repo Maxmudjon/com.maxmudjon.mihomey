@@ -134,11 +134,24 @@ class YeelightColorLightBulb extends Homey.Device {
     return hsb;
   }
 
-  onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("smooth") || changedKeys.includes("deviceToken")) {
+  async onSettings(oldSettings, newSettings, changedKeys, callback) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.miioDevice.destroy();
       this.getDeviceStatus();
       callback(null, true);
+    }
+
+    if (changedKeys.includes("setDefault")) {
+      try {
+        await this.miioDevice.call("set_default", []);
+        callback(null, true);
+        this.log("Sending commmand 'set_default' save current state to lamp");
+        this.setSettings({
+          setDefault: false
+        });
+      } catch (error) {
+        this.error(error.message);
+      }
     }
   }
 
