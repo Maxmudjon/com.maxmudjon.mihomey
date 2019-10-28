@@ -5,7 +5,7 @@ class YeelightJiaoyue650 extends Homey.Driver {
   onInit() {
     this.actions = {
       favoriteFlow: new Homey.FlowCardAction("favorite_flow_ceiling1_lamp").register(),
-      nightMode: new Homey.FlowCardAction("yeelight_night_mode").register(),
+      nightMode: new Homey.FlowCardAction("yeelink_night_mode").register(),
       smoothAction: new Homey.FlowCardAction("smoothOnOff").register()
     };
     this.conditions = {
