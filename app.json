@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -1702,7 +1702,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
           }
         ]
       },
@@ -1715,7 +1715,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
           }
         ]
       },
@@ -1728,7 +1728,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
           },
           {
             "type": "dropdown",
@@ -1765,7 +1765,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
           },
           {
             "type": "range",
@@ -2196,6 +2196,43 @@
           "id": "favorite",
           "title": {
             "en": "Favorite"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "air_heater_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air Purifier Heating Mode"
+      },
+      "desc": {
+        "en": "Air Purifier Heating Mode"
+      },
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
           }
         }
       ],
@@ -8630,6 +8667,181 @@
       "images": {
         "large": "/drivers/mi_air_purifier_v6/assets/images/large.png",
         "small": "/drivers/mi_air_purifier_v6/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dmaker_airfresh_t2017",
+      "name": {
+        "en": "Mi Air Purifier (MJXFJ-300-G1)"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "air_purifier_mode", "onoff.ptc", "air_heater_mode", "measure_temperature", "measure_pm25"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"]
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "picker",
+            "capabilities": ["air_purifier_mode"]
+          },
+          {
+            "id": "sensor",
+            "capabilities": ["measure_temperature", "measure_pm25"]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Purifier (MJXFJ-300-G1) settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "display",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Display"
+              }
+            },
+            {
+              "id": "sound",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Sound"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            },
+            {
+              "id": "filter_efficient",
+              "type": "label",
+              "label": {
+                "en": "Filter life"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "filter_intermediate",
+              "type": "label",
+              "label": {
+                "en": "Filter life 2"
+              },
+              "value": "0"
+            },
+            {
+              "id": "screen_direction",
+              "type": "dropdown",
+              "value": "forward",
+              "label": {
+                "en": "Screen Direction"
+              },
+              "values": [
+                {
+                  "id": "forward",
+                  "label": {
+                    "en": "Normal"
+                  }
+                },
+                {
+                  "id": "left",
+                  "label": {
+                    "en": "-90"
+                  }
+                },
+                {
+                  "id": "right",
+                  "label": {
+                    "en": "+90"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/dmaker_airfresh_t2017/assets/images/large.png",
+        "small": "/drivers/dmaker_airfresh_t2017/assets/images/small.png"
       },
       "pair": [
         {
