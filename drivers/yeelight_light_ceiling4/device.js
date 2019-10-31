@@ -12,17 +12,7 @@ class YeelightJiaoyue650 extends Homey.Device {
     this.colorTemperature;
     this.bgColorTemperature;
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -44,10 +34,7 @@ class YeelightJiaoyue650 extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerFavoriteFlowsAction(
-      "favorite_flow_ceiling1_lamp",
-      actions.favoriteFlow
-    );
+    this.registerFavoriteFlowsAction("favorite_flow_ceiling1_lamp", actions.favoriteFlow);
     this.registerNightModeAction("yeelight_night_mode", actions.nightMode);
   }
 
@@ -68,17 +55,7 @@ class YeelightJiaoyue650 extends Homey.Device {
         this.device = device;
 
         this.device
-          .call("get_prop", [
-            "power",
-            "bright",
-            "ct",
-            "color_mode",
-            "bg_power",
-            "bg_bright",
-            "bg_rgb",
-            "bg_ct",
-            "bg_lmode"
-          ])
+          .call("get_prop", ["power", "bright", "ct", "color_mode", "bg_power", "bg_bright", "bg_rgb", "bg_ct", "bg_lmode"])
           .then(result => {
             that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
             that.setCapabilityValue("dim", result[1] / 100);
@@ -89,10 +66,7 @@ class YeelightJiaoyue650 extends Homey.Device {
             } else {
               that.setCapabilityValue("light_mode", "color");
             }
-            that.setCapabilityValue(
-              "onoff.bg",
-              result[4] === "on" ? true : false
-            );
+            that.setCapabilityValue("onoff.bg", result[4] === "on" ? true : false);
             that.setCapabilityValue("dim.bg", result[5] / 100);
             that.drgb = result[6];
             that.bgColorTemperature = result[7];
@@ -100,9 +74,7 @@ class YeelightJiaoyue650 extends Homey.Device {
               that.setCapabilityValue("light_mode.bg", "color");
             }
           })
-          .catch(error =>
-            that.log("Sending commmand 'get_prop' error: ", error)
-          );
+          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
 
         if (this.drgb != undefined && this.drgb != null) {
           let red = (this.drgb >> 16) & 0xff;
@@ -115,19 +87,13 @@ class YeelightJiaoyue650 extends Homey.Device {
           this.setCapabilityValue("light_saturation", this.brightness);
         }
 
-        if (
-          this.colorTemperature != undefined &&
-          this.colorTemperature != null
-        ) {
+        if (this.colorTemperature != undefined && this.colorTemperature != null) {
           var colorTemp = this.normalize(this.colorTemperature, 2700, 6000);
 
           this.setCapabilityValue("light_temperature", colorTemp);
         }
 
-        if (
-          this.bgColorTemperature != undefined &&
-          this.bgColorTemperature != null
-        ) {
+        if (this.bgColorTemperature != undefined && this.bgColorTemperature != null) {
           var colorTemp = this.normalize(this.bgColorTemperature, 1700, 6500);
 
           this.setCapabilityValue("light_temperature.bg", colorTemp);
@@ -139,16 +105,10 @@ class YeelightJiaoyue650 extends Homey.Device {
       .catch(error => {
         this.log(error);
         if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(
-            Homey.__("Could not connect to device, handshake timeout")
-          );
+          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
           this.log("Error: Could not connect to device, handshake timeout");
-        } else if (
-          error == "Error: Could not connect to device, token might be wrong"
-        ) {
-          this.setUnavailable(
-            Homey.__("Could not connect to device, token might be wrong")
-          );
+        } else if (error == "Error: Could not connect to device, token might be wrong") {
+          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
           this.log("Error: Could not connect to device, token might be wrong");
         }
         setTimeout(() => {
@@ -162,17 +122,7 @@ class YeelightJiaoyue650 extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
-        .call("get_prop", [
-          "power",
-          "bright",
-          "ct",
-          "color_mode",
-          "bg_power",
-          "bg_bright",
-          "bg_rgb",
-          "bg_ct",
-          "bg_lmode"
-        ])
+        .call("get_prop", ["power", "bright", "ct", "color_mode", "bg_power", "bg_bright", "bg_rgb", "bg_ct", "bg_lmode"])
         .then(result => {
           that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
           that.setCapabilityValue("dim", result[1] / 100);
@@ -183,10 +133,7 @@ class YeelightJiaoyue650 extends Homey.Device {
           } else {
             that.setCapabilityValue("light_mode", "color");
           }
-          that.setCapabilityValue(
-            "onoff.bg",
-            result[4] === "on" ? true : false
-          );
+          that.setCapabilityValue("onoff.bg", result[4] === "on" ? true : false);
           that.setCapabilityValue("dim.bg", result[5] / 100);
           that.drgb = result[6];
           that.bgColorTemperature = result[7];
@@ -213,10 +160,7 @@ class YeelightJiaoyue650 extends Homey.Device {
         this.setCapabilityValue("light_temperature", colorTemp);
       }
 
-      if (
-        this.bgColorTemperature != undefined &&
-        this.bgColorTemperature != null
-      ) {
+      if (this.bgColorTemperature != undefined && this.bgColorTemperature != null) {
         var colorTemp = this.normalize(this.bgColorTemperature, 1700, 6500);
 
         this.setCapabilityValue("light_temperature.bg", colorTemp);
@@ -249,22 +193,13 @@ class YeelightJiaoyue650 extends Homey.Device {
     }
     hsb[2] = rearranged[2] / 255.0;
     hsb[1] = 1 - rearranged[0] / rearranged[2];
-    hsb[0] =
-      maxIndex * 120 +
-      60 *
-        (rearranged[1] / hsb[1] / rearranged[2] + (1 - 1 / hsb[1])) *
-        ((maxIndex - minIndex + 3) % 3 == 1 ? 1 : -1);
+    hsb[0] = maxIndex * 120 + 60 * (rearranged[1] / hsb[1] / rearranged[2] + (1 - 1 / hsb[1])) * ((maxIndex - minIndex + 3) % 3 == 1 ? 1 : -1);
     hsb[0] = (hsb[0] + 360) % 360;
     return hsb;
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (
-      changedKeys.includes("updateTimer") ||
-      changedKeys.includes("deviceIP") ||
-      changedKeys.includes("smooth") ||
-      changedKeys.includes("deviceToken")
-    ) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("smooth") || changedKeys.includes("deviceToken")) {
       this.getYeelightStatus();
       callback(null, true);
     }
@@ -273,25 +208,9 @@ class YeelightJiaoyue650 extends Homey.Device {
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async value => {
       this.device
-        .call("set_power", [
-          value ? "on" : "off",
-          "smooth",
-          this.getSetting("smooth") * 1000
-        ])
-        .then(() =>
-          this.log(
-            "Sending " +
-              name +
-              " commmand: " +
-              value +
-              " with " +
-              this.getSetting("smooth") +
-              " smooth"
-          )
-        )
-        .catch(error =>
-          this.log("Sending commmand 'set_power' error: ", error)
-        );
+        .call("set_power", [value ? "on" : "off", "smooth", this.getSetting("smooth") * 1000])
+        .then(() => this.log("Sending " + name + " commmand: " + value + " with " + this.getSetting("smooth") + " smooth"))
+        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
@@ -301,9 +220,7 @@ class YeelightJiaoyue650 extends Homey.Device {
         this.device
           .call("set_bright", [value * 100])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error =>
-            this.log("Sending commmand 'set_bright' error: ", error)
-          );
+          .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
       }
     });
   }
@@ -315,9 +232,7 @@ class YeelightJiaoyue650 extends Homey.Device {
       this.device
         .call("bg_set_rgb", [argbToSend])
         .then(() => this.log("Sending " + name + " commmand: " + argbToSend))
-        .catch(error =>
-          this.log("Sending commmand 'bg_set_rgb' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'bg_set_rgb' error: ", error));
     });
   }
 
@@ -326,9 +241,7 @@ class YeelightJiaoyue650 extends Homey.Device {
       this.device
         .call("bg_set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error =>
-          this.log("Sending commmand 'bg_set_power' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'bg_set_power' error: ", error));
     });
   }
 
@@ -338,9 +251,7 @@ class YeelightJiaoyue650 extends Homey.Device {
         this.device
           .call("bg_set_bright", [value * 100])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error =>
-            this.log("Sending commmand 'bg_set_bright' error: ", error)
-          );
+          .catch(error => this.log("Sending commmand 'bg_set_bright' error: ", error));
       }
     });
   }
@@ -365,9 +276,7 @@ class YeelightJiaoyue650 extends Homey.Device {
       this.device
         .call("set_ct_abx", [color_temp, "smooth", 500])
         .then(() => this.log("Sending " + name + " commmand: " + color_temp))
-        .catch(error =>
-          this.log("Sending commmand 'set_ct_abx' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'set_ct_abx' error: ", error));
     });
   }
 
@@ -377,9 +286,7 @@ class YeelightJiaoyue650 extends Homey.Device {
       this.device
         .call("bg_set_ct_abx", [color_temp, "smooth", 500])
         .then(() => this.log("Sending " + name + " commmand: " + color_temp))
-        .catch(error =>
-          this.log("Sending commmand 'bg_set_ct_abx' error: ", error)
-        );
+        .catch(error => this.log("Sending commmand 'bg_set_ct_abx' error: ", error));
     });
   }
 
@@ -526,8 +433,7 @@ class YeelightJiaoyue650 extends Homey.Device {
   }
 
   registerCondition(name, condition) {
-    condition.registerRunListener((args, state, callback) => {
-      // callback(null, this.getCapabilityValue(name));
+    condition.registerRunListener(async (args, state, callback) => {
       try {
         miio
           .device({

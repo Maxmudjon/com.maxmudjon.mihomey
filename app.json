@@ -8864,7 +8864,18 @@
         "en": "Mi Robot"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -9054,7 +9065,18 @@
         "en": "Mi Roborock"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -9244,7 +9266,18 @@
         "en": "Mi Robot 1S"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time"
+      ],
       "capabilitiesOptions": {
         "onoff": {
           "title": {

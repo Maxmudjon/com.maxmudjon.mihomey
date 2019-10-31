@@ -59,8 +59,8 @@ class MiRobot1S extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerVacuumZoneCleanerAction("vacuumZoneCleaner", actions.action);
-    this.registerVacuumGoToTargetAction("vacuumGoToTarget", actions.action);
+    this.registerVacuumZoneCleanerAction("vacuumZoneCleaner", actions.vacuumZoneCleaner);
+    this.registerVacuumGoToTargetAction("vacuumGoToTarget", actions.vacuumGoToTarget);
   }
 
   registerCapabilities() {
@@ -153,8 +153,8 @@ class MiRobot1S extends Homey.Device {
           .call("get_clean_summary", [])
           .then(result => {
             that.setSettings({ total_work_time: that.convertMS(parseInt(result[0])) }).catch(error => this.log("Set Settings Error", error));
-            that.setSettings({ total_cleared_area: parseInt(result[1] / 1000000) }).catch(error => this.log("Set Settings Error", error));
-            that.setSettings({ total_clean_count: parseInt(result[2]) }).catch(error => this.log("Set Settings Error", error));
+            that.setSettings({ total_cleared_area: parseInt(result[1] / 1000000).toString() }).catch(error => this.log("Set Settings Error", error));
+            that.setSettings({ total_clean_count: parseInt(result[2]).toString() }).catch(error => this.log("Set Settings Error", error));
           })
           .catch(error => that.log("Sending commmand 'get_clean_summary' error: ", error));
 
@@ -275,8 +275,8 @@ class MiRobot1S extends Homey.Device {
         .call("get_clean_summary", [])
         .then(result => {
           that.setSettings({ total_work_time: that.convertMS(parseInt(result[0])) }).catch(error => this.log("Set Settings Error", error));
-          that.setSettings({ total_cleared_area: parseInt(result[1] / 1000000) }).catch(error => this.log("Set Settings Error", error));
-          that.setSettings({ total_clean_count: parseInt(result[2]) }).catch(error => this.log("Set Settings Error", error));
+          that.setSettings({ total_cleared_area: parseInt(result[1] / 1000000).toString() }).catch(error => this.log("Set Settings Error", error));
+          that.setSettings({ total_clean_count: parseInt(result[2]).toString() }).catch(error => this.log("Set Settings Error", error));
         })
         .catch(error => {
           this.log("Sending commmand 'get_clean_summary' error: ", error);
@@ -405,7 +405,7 @@ class MiRobot1S extends Homey.Device {
   }
 
   registerVacuumZoneCleanerAction(name, action) {
-    action.action.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -413,10 +413,11 @@ class MiRobot1S extends Homey.Device {
             token: args.device.getSetting("deviceToken")
           })
           .then(device => {
+            const zones = JSON.parse("[" + args.zones + "]");
             device
-              .call("app_zoned_clean", [args.zones])
+              .call("app_zoned_clean", [zones])
               .then(() => {
-                this.log("Set Start zone cleaning: ", args.zones);
+                this.log("Set Start zone cleaning: ", zones);
                 device.destroy();
               })
               .catch(error => {
@@ -434,7 +435,7 @@ class MiRobot1S extends Homey.Device {
   }
 
   registerVacuumGoToTargetAction(name, action) {
-    action.action.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({

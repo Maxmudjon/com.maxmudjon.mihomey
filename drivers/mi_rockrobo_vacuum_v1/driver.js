@@ -1,10 +1,6 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const actions = vacuumAction => ({
-  action: new Homey.FlowCardAction(vacuumAction).register()
-});
-
 class MiVacuumCleaner extends Homey.Driver {
   onInit() {
     this.triggers = {
@@ -15,8 +11,8 @@ class MiVacuumCleaner extends Homey.Driver {
     };
 
     this.actions = {
-      action: actions("vacuumZoneCleaner"),
-      action: actions("vacuumGoToTarget")
+      vacuumZoneCleaner: new Homey.FlowCardAction("vacuumZoneCleaner").register(),
+      vacuumGoToTarget: new Homey.FlowCardAction("vacuumGoToTarget").register()
     };
   }
 
