@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.0.5 - Supported devices:
+## Version 1.0.6 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -67,6 +67,7 @@ Added support for Mi Gateways child devices.
 - Mi Air Quality Monitor (gen 2).
 - Mi Vacuum Cleaner 1S.
 - Mi Air Purifier (MJXFJ-300-G1).
+- Mi Roborock Vacuum Cleaner T6.
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -121,6 +122,10 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.0.6 (10.11.2019)
+
+1. added Mi Roborock Vacuum Cleaner T6.
 
 ### 1.0.5 (31.10.2019)
 
