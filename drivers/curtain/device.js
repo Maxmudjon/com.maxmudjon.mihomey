@@ -128,9 +128,19 @@ class Curtain extends Homey.Device {
   registerCovering(name) {
     let sid = this.data.sid;
     this.registerCapabilityListener(name, async value => {
+      const settings = this.getSettings();
       const states = { up: "open", idle: "stop", down: "close" };
-      const data = { curtain_status: states[value] };
-      await Homey.app.mihub.sendWrite(sid, data);
+
+      if (value == "up") {
+        const data = { curtain_status: states[settings.reverted ? "down" : "up"] };
+        await Homey.app.mihub.sendWrite(sid, data);
+      } else if (value == "down") {
+        const data = { curtain_status: states[settings.reverted ? "up" : "down"] };
+        await Homey.app.mihub.sendWrite(sid, data);
+      } else {
+        const data = { curtain_status: states[value] };
+        await Homey.app.mihub.sendWrite(sid, data);
+      }
     });
   }
 

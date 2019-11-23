@@ -34,6 +34,8 @@ class IRRemote extends Homey.Device {
     this.registerVolumeUpAction("volume_up");
     this.registerVolumeDownAction("volume_down");
     this.registerMuteAction("volume_mute");
+    this.registerDimAction("dim");
+    this.registerThermostatAction("thermostat");
   }
 
   registerCondition(name, condition) {
@@ -42,74 +44,113 @@ class IRRemote extends Homey.Device {
 
   registerStandbyAction(name) {
     this.registerCapabilityListener(name, async value => {
-      this.sendIrCode(this.data.standby, name);
+      if (value) {
+        if (this.data && this.data.onoff1) {
+          this.sendIrCode(this.data.onoff1, name);
+        } else {
+          this.sendIrCode(this.data.onoff, name);
+        }
+      } else {
+        if (this.data && this.data.onoff2) {
+          this.sendIrCode(this.data.onoff2, name);
+        } else {
+          this.sendIrCode(this.data.onoff, name);
+        }
+      }
     });
   }
 
   registerChannelUpAction(name) {
     this.registerCapabilityListener(name, async value => {
-      this.sendIrCode(this.data.channelUp, name);
+      this.sendIrCode(this.data.channel_up, name);
     });
   }
 
   registerChannelDownAction(name) {
     this.registerCapabilityListener(name, async value => {
-      this.sendIrCode(this.data.channelDown, name);
+      this.sendIrCode(this.data.channel_down, name);
     });
   }
 
   registerVolumeUpAction(name) {
     this.registerCapabilityListener(name, async value => {
-      this.sendIrCode(this.data.volumeUp, name);
+      this.sendIrCode(this.data.volume_up, name);
     });
   }
 
   registerVolumeDownAction(name) {
     this.registerCapabilityListener(name, async value => {
-      this.sendIrCode(this.data.volumeDown, name);
+      this.sendIrCode(this.data.volume_down, name);
     });
   }
 
   registerMuteAction(name) {
     this.registerCapabilityListener(name, async value => {
-      this.sendIrCode(this.data.mute, name);
+      this.sendIrCode(this.data.volume_mute, name);
+    });
+  }
+
+  registerDimAction(name) {
+    this.registerCapabilityListener(name, async value => {
+      if (this.data && this.data.dim1) {
+        this.sendIrCode(this.data.dim + value, name);
+      } else {
+        this.sendIrCode(this.data.dim, name);
+      }
+    });
+  }
+
+  registerThermostatAction(name) {
+    this.registerCapabilityListener(name, async value => {
+      this.log(value);
+      // this.sendIrCode(this.data.volume_mute, name);
     });
   }
 
   sendIrCodeAction(name, action) {
     action.code.registerRunListener(async (args, state) => {
+      let data = {
+        deviceIp: args.device.getSetting("deviceIP"),
+        deviceToken: args.device.getSetting("deviceToken")
+      };
       this.sendIrCode(args.code);
     });
   }
 
   sendIrCode(code, cababilityName) {
     const settings = this.getSettings();
-    var that = this;
     miio
       .device({
         address: settings.deviceIp,
         token: settings.deviceToken
       })
-      .then(device => {
-        device
-          .call("miIO.ir_play", { freq: 38400, code: code })
-          .then(result => {
-            if (!cababilityName) {
-              cababilityName = "custom";
-            }
-            that.log("Sending " + cababilityName + " ir code: " + code);
-          })
-          .catch(function(error) {
-            that.log("Sending ir code error: ", error);
-          });
+      .then(async device => {
+        for (let i = 0; i < settings.replay; i++) {
+          await this.sleep(500);
+          device
+            .call("miIO.ir_play", { freq: 38400, code: code })
+            .then(result => {
+              if (!cababilityName) {
+                cababilityName = "custom";
+              }
+              this.log("Sending " + cababilityName + " ir code: " + code);
+            })
+            .catch(error => {
+              this.log("Sending ir code error: ", error);
+            });
+        }
       })
-      .catch(function(error) {
+      .catch(error => {
         if (error == "Error: Could not connect to device, handshake timeout") {
-          that.log("Device timeout error: ", error);
+          this.log("Device timeout error: ", error);
         } else {
-          that.log("Device error: ", error);
+          this.log("Device error: ", error);
         }
       });
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   onAdded() {

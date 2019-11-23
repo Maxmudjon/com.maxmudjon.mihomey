@@ -1,7 +1,7 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.0.6",
-  "compatibility": ">=1.5.0",
+  "version": "1.0.7",
+  "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
     "en": "Mi Homey"
@@ -41,6 +41,10 @@
   "bugs": {
     "url": "https://github.com/Maxmudjon/com.maxmudjon.mihomey/issues"
   },
+  "homeyCommunityTopicId": 19816,
+  "source": "https://github.com/Maxmudjon/com.maxmudjon.mihomey",
+  "homepage": "https://github.com/Maxmudjon/com.maxmudjon.mihomey",
+  "support": "mailto:bio42@mail.ru",
   "flow": {
     "triggers": [
       {
@@ -4394,6 +4398,22 @@
                 "en": "Device model code"
               },
               "value": "AABBCC01LM"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Mode of operation"
+          },
+          "children": [
+            {
+              "id": "reverted",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Reverted"
+              }
             }
           ]
         }
@@ -8876,6 +8896,9 @@
         "alarm_filter_work_time",
         "alarm_sensor_dirty_time"
       ],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -9077,6 +9100,9 @@
         "alarm_filter_work_time",
         "alarm_sensor_dirty_time"
       ],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -9278,6 +9304,9 @@
         "alarm_filter_work_time",
         "alarm_sensor_dirty_time"
       ],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -9480,6 +9509,9 @@
         "alarm_sensor_dirty_time",
         "alarm_motion"
       ],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -10128,6 +10160,99 @@
           "id": "done",
           "navigation": {
             "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ir_remote",
+      "name": {
+        "en": "Mi IR"
+      },
+      "class": "other",
+      "capabilities": ["onoff"],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device settings"
+          },
+          "children": [
+            {
+              "id": "deviceIp",
+              "type": "text",
+              "label": {
+                "en": "Device IP"
+              },
+              "hint": {
+                "en": "Enter Mi IR remote controller IP address."
+              },
+              "value": ""
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "label": {
+                "en": "Device Token"
+              },
+              "hint": {
+                "en": "Enter Mi IR remote controller token."
+              },
+              "value": ""
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Configure sending codes"
+          },
+          "children": [
+            {
+              "id": "replay",
+              "type": "number",
+              "label": {
+                "en": "Replay"
+              },
+              "value": 1,
+              "min": 1,
+              "max": 10
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/ir_remote/assets/images/large.png",
+        "small": "/drivers/ir_remote/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "deviceTypes"
+        },
+        {
+          "id": "devices",
+          "navigation": {
+            "prev": "deviceTypes"
+          }
+        },
+        {
+          "id": "deviceCharacteristics",
+          "navigation": {
+            "next": "keys",
+            "prev": "devices"
+          }
+        },
+        {
+          "id": "keys",
+          "navigation": {
+            "next": "done",
+            "prev": "deviceCharacteristics"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "devices"
           }
         }
       ]

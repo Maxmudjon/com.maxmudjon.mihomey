@@ -68,7 +68,6 @@ Added support for Mi Gateways child devices.
 - Mi Vacuum Cleaner 1S.
 - Mi Air Purifier (MJXFJ-300-G1).
 - Mi Roborock Vacuum Cleaner T6.
-- Mi IR remote controller.
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
