@@ -23,7 +23,7 @@ class Curtain extends Homey.Device {
 
   registerCapabilities() {
     const { triggers } = this.driver;
-    this.registerToggle("onoff", "open", "close", triggers.power);
+    this.registerToggle("onoff");
     this.registerDim("dim");
     this.registerCovering("windowcoverings_state");
   }
@@ -35,7 +35,7 @@ class Curtain extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerToggleAction("onoff", "open", "close", actions.power);
+    this.registerToggleAction("onoff", actions.power);
   }
 
   handleStateChange(device) {
@@ -106,13 +106,17 @@ class Curtain extends Homey.Device {
     }
   }
 
-  registerToggle(name, valueOn = true, valueOff = false, trigger) {
+  registerToggle(name) {
     let sid = this.data.sid;
     this.registerCapabilityListener(name, async value => {
-      const newValue = value ? valueOn : valueOff;
-      const data = { curtain_status: newValue };
-      await Homey.app.mihub.sendWrite(sid, data);
-      this.triggerFlow(trigger, name, value);
+      const settings = this.getSettings();
+      if (value) {
+        const data = { curtain_status: settings.reverted ? "open" : "close" };
+        await Homey.app.mihub.sendWrite(sid, data);
+      } else {
+        const data = { curtain_status: settings.reverted ? "close" : "open" };
+        await Homey.app.mihub.sendWrite(sid, data);
+      }
     });
   }
 
@@ -148,15 +152,16 @@ class Curtain extends Homey.Device {
     condition.registerRunListener((args, state) => Promise.resolve(this.getCapabilityValue(name)));
   }
 
-  registerToggleAction(name, valueOn = true, valueOff = false, action) {
+  registerToggleAction(name, action) {
     let sid = this.data.sid;
+    const settings = this.getSettings();
     action.on.registerRunListener(async (args, state) => {
-      const data = { status: valueOn };
+      const data = { status: settings.reverted ? "open" : "close" };
       await Homey.app.mihub.sendWrite(sid, data);
       return true;
     });
     action.off.registerRunListener(async (args, state) => {
-      const data = { status: valueOff };
+      const data = { status: settings.reverted ? "close" : "open" };
       await Homey.app.mihub.sendWrite(sid, data);
       return true;
     });

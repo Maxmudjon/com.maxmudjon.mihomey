@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -34,7 +34,7 @@
   "contributing": {
     "donate": {
       "paypal": {
-        "username": "maxmudjon"
+        "username": "Sallo"
       }
     }
   },

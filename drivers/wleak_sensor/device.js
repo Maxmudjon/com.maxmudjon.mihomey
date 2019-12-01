@@ -23,6 +23,7 @@ class WleakSensor extends Homey.Device {
       var battery = (device["data"]["voltage"] - 2800) / 5;
       this.updateCapabilityValue("measure_battery", battery > 100 ? 100 : battery);
       this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
+      if (this.getCapabilityValue("alarm_water")) this.updateCapabilityValue("alarm_water", false);
     }
 
     if (device["data"]["status"] == "leak") {
