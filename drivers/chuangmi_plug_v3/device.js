@@ -12,8 +12,15 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
   }
 
   async initialize() {
+    this.registerActions();
     this.registerCapabilities();
     this.getXiaomiStatus();
+  }
+
+  registerActions() {
+    const { actions } = this.driver;
+    this.registerUSBOnAction("power_usb_on", actions.usbOn);
+    this.registerUSBOffAction("power_usb_off", actions.usbOff);
   }
 
   registerCapabilities() {
@@ -108,6 +115,24 @@ class MiSmartPlugWiFiWith2USB extends Homey.Device {
         .call("set_wifi_led", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
         .catch(error => this.log("Sending commmand 'set_wifi_led' error: ", error));
+    });
+  }
+
+  registerUSBOnAction(name, action) {
+    action.registerRunListener(async (args, state) => {
+      this.device
+          .call("set_usb_on", [])
+          .then(() => this.log("Sending " + name + " commmand: set_usb_on"))
+          .catch(error => this.log("Sending commmand 'set_usb_on' error: ", error));
+    });
+  }
+
+  registerUSBOffAction(name, action) {
+    action.registerRunListener(async (args, state) => {
+      this.device
+          .call("set_usb_off", [])
+          .then(() => this.log("Sending " + name + " commmand: set_usb_off"))
+          .catch(error => this.log("Sending commmand 'set_usb_off' error: ", error));
     });
   }
 

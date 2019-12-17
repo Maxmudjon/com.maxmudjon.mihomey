@@ -2,6 +2,13 @@ const Homey = require("homey");
 const miio = require("miio");
 
 class MiSmartPlugWiFiWith2USB extends Homey.Driver {
+  onInit() {
+    this.actions = {
+      usbOn: new Homey.FlowCardAction("power_usb_on").register(),
+      usbOff: new Homey.FlowCardAction("power_usb_off").register(),
+  };
+}
+
   onPair(socket) {
     let pairingDevice = {};
     pairingDevice.name = "Mi Smart Plug WiFi With 2 USB";
