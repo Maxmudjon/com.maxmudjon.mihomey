@@ -19,6 +19,7 @@ class MiAirPurifierMJXFJ extends Homey.Driver {
 
     socket.on("connect", (data, callback) => {
       this.data = data;
+
       miio
         .device({ address: data.ip, token: data.token })
         .then(device => {

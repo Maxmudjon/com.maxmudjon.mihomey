@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -2194,6 +2194,37 @@
           "id": "silent",
           "title": {
             "en": "Silent"
+          }
+        },
+        {
+          "id": "favorite",
+          "title": {
+            "en": "Favorite"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "air_purifier_t2017_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air Purifier Mode"
+      },
+      "desc": {
+        "en": "Air Purifier Mode"
+      },
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "sleep",
+          "title": {
+            "en": "Sleep"
           }
         },
         {
@@ -4410,7 +4441,7 @@
             {
               "id": "reverted",
               "type": "checkbox",
-              "value": true,
+              "value": false,
               "label": {
                 "en": "Reverted"
               }
@@ -8709,7 +8740,7 @@
         "en": "Mi Air Purifier (MJXFJ-300-G1)"
       },
       "class": "sensor",
-      "capabilities": ["onoff", "dim", "air_purifier_mode", "onoff.ptc", "air_heater_mode", "measure_temperature", "measure_pm25"],
+      "capabilities": ["onoff", "dim", "air_purifier_t2017_mode", "onoff.ptc", "air_heater_mode", "measure_temperature", "measure_pm25", "measure_co2"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -8737,11 +8768,11 @@
           },
           {
             "id": "picker",
-            "capabilities": ["air_purifier_mode"]
+            "capabilities": ["air_purifier_t2017_mode"]
           },
           {
             "id": "sensor",
-            "capabilities": ["measure_temperature", "measure_pm25"]
+            "capabilities": ["measure_temperature", "measure_pm25", "measure_co2"]
           }
         ]
       },

@@ -29,7 +29,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
     this.registerOnOffButton("onoff");
     this.registerPTCOnOffButton("onoff.ptc");
     this.registerFavoriteLevel("dim");
-    this.registerAirPurifierMode("air_purifier_mode");
+    this.registerAirPurifierMode("air_purifier_t2017_mode");
     this.registerAirPurifierHeatingMode("air_heater_mode");
   }
 
@@ -45,13 +45,14 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           .call("get_prop", [
             "power",
             "pm25",
+            "co2",
             "temperature_outside",
             "mode",
             "ptc_level",
             "favourite_speed",
             "display",
             "sound",
-            "childLock",
+            "child_lock",
             "filter_efficient",
             "filter_intermediate",
             "screen_direction",
@@ -62,21 +63,22 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           .then(result => {
             that.setCapabilityValue("onoff", result[0]);
             that.setCapabilityValue("measure_pm25", parseInt(result[1]));
-            that.setCapabilityValue("measure_temperature", parseInt(result[2]));
-            that.setCapabilityValue("air_purifier_mode", result[3]);
-            that.setCapabilityValue("air_heater_mode", result[4]);
-            that.setCapabilityValue("dim", parseInt(that.normalize[result[5]], 60, 300));
-            that.setSettings({ display: result[6] });
-            that.setSettings({ sound: result[7] });
-            that.setSettings({ childLock: result[8] });
-            that.setSettings({ filter_efficient: parseInt(result[9]).toString() + "%" });
-            that.setSettings({ filter_intermediate: parseInt(result[10]).toString() + "%" });
-            that.setSettings({ screen_direction: result[11] });
+            that.setCapabilityValue("measure_co2", parseInt(result[2]));
+            that.setCapabilityValue("measure_temperature", parseInt(result[3]));
+            that.setCapabilityValue("air_purifier_t2017_mode", result[4]);
+            that.setCapabilityValue("air_heater_mode", result[5]);
+            that.setCapabilityValue("dim", parseInt(that.normalize[result[6]], 60, 300));
+            that.setSettings({ display: result[7] });
+            that.setSettings({ sound: result[8] });
+            that.setSettings({ childLock: result[9] });
+            that.setSettings({ filter_efficient: parseInt(result[10]).toString() + "%" });
+            that.setSettings({ filter_intermediate: parseInt(result[11]).toString() + "%" });
+            that.setSettings({ screen_direction: result[12] });
 
-            if (result[12] && result[13]) {
-              that.setCapabilityValue("air_heater_mode", result[12]);
+            if (result[13] && result[14]) {
+              that.setCapabilityValue("air_heater_mode", result[13]);
             } else that.setCapabilityValue("air_heater_mode", "off");
-            that.setCapabilityValue("onoff.ptc", result[13]);
+            that.setCapabilityValue("onoff.ptc", result[14]);
           })
           .catch(error => {
             that.log("Sending commmand 'get_prop' error: ", error);
@@ -108,13 +110,14 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         .call("get_prop", [
           "power",
           "pm25",
+          "co2",
           "temperature_outside",
           "mode",
           "ptc_level",
           "favourite_speed",
           "display",
           "sound",
-          "childLock",
+          "child_lock",
           "filter_efficient",
           "filter_intermediate",
           "screen_direction",
@@ -125,20 +128,22 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         .then(result => {
           that.setCapabilityValue("onoff", result[0]);
           that.setCapabilityValue("measure_pm25", parseInt(result[1]));
-          that.setCapabilityValue("measure_temperature", parseInt(result[2]));
-          that.setCapabilityValue("air_purifier_mode", result[3]);
-          that.setCapabilityValue("air_heater_mode", result[4]);
-          that.setCapabilityValue("dim", parseInt(that.normalize[result[5]], 60, 300));
-          that.setSettings({ display: result[6] });
-          that.setSettings({ sound: result[7] });
-          that.setSettings({ childLock: result[8] });
-          that.setSettings({ filter_efficient: parseInt(result[9]).toString() + "%" });
-          that.setSettings({ filter_intermediate: parseInt(result[10]).toString() + "%" });
-          that.setSettings({ screen_direction: result[11] });
-          if (result[12] && result[13]) {
-            that.setCapabilityValue("air_heater_mode", result[12]);
+          that.setCapabilityValue("measure_co2", parseInt(result[2]));
+          that.setCapabilityValue("measure_temperature", parseInt(result[3]));
+          that.setCapabilityValue("air_purifier_t2017_mode", result[4]);
+          that.setCapabilityValue("air_heater_mode", result[5]);
+          that.setCapabilityValue("dim", parseInt(that.normalize[result[6]], 60, 300));
+          that.setSettings({ display: result[7] });
+          that.setSettings({ sound: result[8] });
+          that.setSettings({ childLock: result[9] });
+          that.setSettings({ filter_efficient: parseInt(result[10]).toString() + "%" });
+          that.setSettings({ filter_intermediate: parseInt(result[11]).toString() + "%" });
+          that.setSettings({ screen_direction: result[12] });
+
+          if (result[13] && result[14]) {
+            that.setCapabilityValue("air_heater_mode", result[13]);
           } else that.setCapabilityValue("air_heater_mode", "off");
-          that.setCapabilityValue("onoff.ptc", result[13]);
+          that.setCapabilityValue("onoff.ptc", result[14]);
         })
         .catch(error => {
           this.log("Sending commmand error: ", error);
@@ -306,7 +311,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
 
   registerPurifierOnAction(name, action) {
     var that = this;
-    action.action.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -336,7 +341,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
 
   registerPurifierOffAction(name, action) {
     var that = this;
-    action.action.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -366,7 +371,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
 
   registerPurifierModeAction(name, action) {
     var that = this;
-    action.action.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -396,7 +401,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
 
   registerPurifierSpeedAction(name, action) {
     var that = this;
-    action.action.registerRunListener(async (args, state) => {
+    action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({

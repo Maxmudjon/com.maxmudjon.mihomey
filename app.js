@@ -35,7 +35,7 @@ class MiHomey extends Homey.App {
   }
 
   async generate(args) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       let key = generateKey();
 
       miio
@@ -47,18 +47,38 @@ class MiHomey extends Homey.App {
               device
                 .call("set_lumi_dpf_aes_key", [key])
                 .then(result => {
-                  resolve({ status: "OK", key: key, mac: value.mac.replace(/\:/g, "").toLowerCase() });
+                  resolve({ status: "OK", mac: value.mac.replace(/\:/g, "").toLowerCase(), password: key });
                 })
                 .catch(error => {
-                  reject(new Error({ status: "ERROR", error: error }));
+                  reject(error);
                 });
             })
             .catch(error => {
-              reject(new Error({ status: "ERROR", error: error }));
+              reject(error);
             });
         })
-        .catch(err => {
-          reject(new Error({ status: "ERROR", error: err }));
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  async testConnection(args) {
+    return new Promise((resolve, reject) => {
+      miio
+        .device({ address: args.body.ip, token: args.body.token })
+        .then(device => {
+          device
+            .call("miIO.info", [])
+            .then(result => {
+              resolve({ status: "OK", result });
+            })
+            .catch(error => {
+              reject(error);
+            });
+        })
+        .catch(error => {
+          reject(error);
         });
     });
   }
