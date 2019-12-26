@@ -863,6 +863,32 @@
         ]
       },
       {
+        "id": "power_usb_on",
+        "title": {
+          "en": "Power USB turn on"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=huangmi_plug_v1|chuangmi_plug_v3"
+          }
+        ]
+      },
+      {
+        "id": "power_usb_off",
+        "title": {
+          "en": "Power USB turn off"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=chuangmi_plug_v1|chuangmi_plug_v3"
+          }
+        ]
+      },
+      {
         "id": "left_switch_on",
         "title": {
           "en": "Left switch power turn on"
