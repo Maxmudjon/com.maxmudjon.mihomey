@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.0.8 - Supported devices:
+## Version 1.0.9 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -122,6 +122,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.0.9 (26.12.2019)
+
+1. new settings page.
+2. fixed Mi Air Purifier (MJXFJ-300-G1) set sleep mode.
+3. minor fixes.
 
 ### 1.0.8 (1.12.2019)
 
