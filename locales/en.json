@@ -14,7 +14,8 @@
     "no_devices_found": "No devices found.",
     "device": {
       "add": "Add device"
-    }
+    },
+    "no_gateways": "No gateways found. \n\n Before adding devices, please open the plugin settings and add your Xiaomi gateway.\n Aqara gateway is not yet supported."
   },
   "settings": {
     "title": "Mi Homey App settings",

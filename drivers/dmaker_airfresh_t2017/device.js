@@ -175,39 +175,39 @@ class MiAirPurifierMJXFJ extends Homey.Device {
 
     if (changedKeys.includes("display")) {
       this.device
-        .call("set_display", [newSettings.display])
+        .call("set_display", [newSettings.display ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + value);
+          this.log("Sending " + name + " commmand: " + newSettings.display ? "on" : "off");
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_display' error: ", error);
+          this.log("Sending commmand 'set_sound' " + newSettings.display ? "on" : "off" + " error: ", error);
           callback(error, false);
         });
     }
 
     if (changedKeys.includes("sound")) {
       this.device
-        .call("set_sound", [newSettings.sound])
+        .call("set_sound", [newSettings.sound ? "on" : "off"])
         .then(() => {
-          this.log("Sending commmand: " + newSettings.sound);
+          this.log("Sending " + name + " commmand: " + newSettings.sound ? "on" : "off");
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.sound + " error: ", error);
+          this.log("Sending commmand 'set_sound' " + newSettings.sound ? "on" : "off" + " error: ", error);
           callback(error, false);
         });
     }
 
     if (changedKeys.includes("childLock")) {
       this.device
-        .call("set_child_lock", [newSettings.childLock])
+        .call("set_child_lock", [newSettings.childLock ? "on" : "off"])
         .then(() => {
-          this.log("Sending commmand: " + newSettings.childLock);
+          this.log("Sending " + name + " commmand: " + newSettings.childLock ? "on" : "off");
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_child_lock' " + newSettings.childLock + " error: ", error);
+          this.log("Sending commmand 'set_sound' " + newSettings.childLock ? "on" : "off" + " error: ", error);
           callback(error, false);
         });
     }
@@ -261,7 +261,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
       let speed = value * 100;
       if (speed > 0) {
         this.device
-          .call("set_favourite_speed", [this.denormalize(speed, 60, 300)])
+          .call("set_favourite_speed", [parseInt(speed * 2.4 + 60)])
           .then(() => {
             this.log("Sending " + name + " commmand: " + value);
             callback(null, true);
@@ -272,11 +272,6 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           });
       }
     });
-  }
-
-  denormalize(normalized, min, max) {
-    let denormalized = (1 - normalized) * (max - min) + min;
-    return Number(denormalized.toFixed(0));
   }
 
   registerAirPurifierMode(name) {
@@ -410,9 +405,9 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           })
           .then(device => {
             device
-              .call("set_favourite_speed", [this.denormalize(speed, 60, 300)])
+              .call("set_favourite_speed", [parseInt(speed * 2.4 + 60)])
               .then(() => {
-                that.log("Set 'set_favourite_speed': ", that.getFavoriteLevel(args.range));
+                that.log("Set 'set_favourite_speed': ", parseInt(speed * 2.4 + 60));
                 device.destroy();
               })
               .catch(error => {
@@ -427,16 +422,6 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         that.log("catch error: " + error);
       }
     });
-  }
-
-  getFavoriteLevel(speed) {
-    for (var i = 1; i < this.favoriteLevel.length; i++) {
-      if (speed > this.favoriteLevel[i - 1] && speed <= this.favoriteLevel[i]) {
-        return i;
-      }
-    }
-
-    return 1;
   }
 
   onAdded() {

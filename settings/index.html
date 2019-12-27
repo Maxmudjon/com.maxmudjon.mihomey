@@ -92,6 +92,32 @@
       <!-- Gateway page -->
       <div v-if="gatewaysPage">
         <div :class="setGatewaysPageMargin"></div>
+        <div class="d-flex justify-content-center pt-2">
+          <b-button style="color: #28a728; background-color: #fff; border: 1px solid transparent; border-color: #28a728; padding: .375rem .75rem;" @click.prevent="showHelpModal">Help</b-button>
+        </div>
+
+        <b-modal id="modalHowToStart" hide-header-close no-close-on-backdrop hide-header scrollable>
+          <template v-slot:default
+            ><div>
+              <div class="text-center">
+                <h4 style="color: rgb(255, 30, 30);">Remember: Aqara gateway is not yet supported.</h4>
+              </div>
+              <div class="d-flex justify-content-center m-2 pt-5"><h6>Add gateway using MAC and password:</h6></div>
+              <div class="d-flex justify-content-center"><img src="https://raw.githubusercontent.com/Maxmudjon/images/master/MAC_PASSWORD.gif" alt="placeholder 960" class="img-responsive" /></div>
+              <div class="d-flex justify-content-center m-2 pt-5"><h6>Add gateway using IP and Token:</h6></div>
+              <div class="d-flex justify-content-center pb-5">
+                <img src="https://raw.githubusercontent.com/Maxmudjon/images/master/IP_TOKEN_GENERATE.gif" alt="placeholder 960" class="img-responsive" />
+              </div>
+            </div>
+          </template>
+
+          <template v-slot:modal-footer="{ ok }">
+            <b-button variant="success" @click="ok()">
+              OK
+            </b-button>
+          </template>
+        </b-modal>
+
         <div class="container pt-2 pb-2" v-for="(gateway, index) in gateways" :key="index">
           <div class="card">
             <div class="card-body ">
@@ -271,6 +297,8 @@
                   <b-form-text id="input-live-help">Gateway token.</b-form-text>
                 </div>
                 <div class="m-3 text-center" v-if="generatingResult" style="color: #28a745;">{{ generatingResultMessage }}</div>
+                <div class="m-3 text-center" v-if="generatingResult" style="color: #28a745;">MAC is: {{ mac }}</div>
+                <div class="m-3 text-center" v-if="generatingResult" style="color: #28a745;">Generated password is: {{ password }}</div>
                 <div class="mt-3">
                   <b-button block variant="success" style="color: #fff; background-color: #28a745; border-color: #28a745; padding: 10px;" @click="generatePassword" :disabled="generatePasswordLoading">
                     Generate and add
@@ -598,7 +626,7 @@
               this.macRule = false;
               this.macRuleMessage = "This mac address already exists";
             } else {
-              this.gateways.push({ mac: this.mac, password: this.password });
+              this.gateways.push({ mac: this.mac.split(":").join(""), password: this.password });
 
               Homey.set("gatewaysList", this.gateways, (error, settings) => {
                 if (error) return Homey.alert(error);
@@ -802,7 +830,7 @@
         },
         save() {
           if (this.saveDeviceType == "gateway") {
-            this.gateways[this.editIndex] = { mac: this.mac, password: this.password };
+            this.gateways[this.editIndex] = { mac: this.mac.split(":").join(""), password: this.password };
             this.gateways.sort();
             Homey.set("gatewaysList", this.gateways, (error, settings) => {
               if (error) return Homey.alert(error);
@@ -816,6 +844,9 @@
             });
             this.modalAddDevicesClose();
           }
+        },
+        showHelpModal() {
+          this.$bvModal.show("modalHowToStart");
         }
       },
       computed: {
