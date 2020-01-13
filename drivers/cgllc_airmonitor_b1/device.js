@@ -6,7 +6,7 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.getAirFreshStatus();
-    this.log("MiJia device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("MiJia device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   getAirFreshStatus() {
@@ -72,10 +72,10 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
     if (this.getCapabilityValue(capabilityName) != value) {
       this.setCapabilityValue(capabilityName, value)
         .then(() => {
-          this.log("[" + this.data.id + "]" + " [" + capabilityName + "] [" + value + "] Capability successfully updated");
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
         })
         .catch(error => {
-          this.log("[" + this.data.id + "]" + " [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
     }
   }

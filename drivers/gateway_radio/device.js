@@ -9,7 +9,7 @@ class GatewayRadio extends Homey.Device {
     this.volume = 0;
     this.played = false;
     this.initialize();
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -56,11 +56,11 @@ class GatewayRadio extends Homey.Device {
             that.setCapabilityValue("volume_set", result.current_volume / 100);
             if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
               if (result.current_program == "527782008") {
-                that.setCapabilityValue("speaker_track", "Авторадио " + " id: " + result.current_program);
+                that.setCapabilityValue("speaker_track", "Авторадио  id: " + result.current_program);
                 this.image.setUrl("https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png");
                 this.image.update();
               } else {
-                that.setCapabilityValue("speaker_track", "Radio " + " id: " + result.current_program);
+                that.setCapabilityValue("speaker_track", "Radio  id: " + result.current_program);
                 this.image.setUrl(null);
                 this.image.update();
               }
@@ -120,11 +120,11 @@ class GatewayRadio extends Homey.Device {
           that.setCapabilityValue("volume_set", result.current_volume / 100);
           if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
             if (result.current_program == "527782008") {
-              that.setCapabilityValue("speaker_track", "Авторадио " + " id: " + result.current_program);
+              that.setCapabilityValue("speaker_track", "Авторадио  id: " + result.current_program);
               this.image.setUrl("https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png");
               this.image.update();
             } else {
-              that.setCapabilityValue("speaker_track", "Radio " + " id: " + result.current_program);
+              that.setCapabilityValue("speaker_track", "Radio  id: " + result.current_program);
               this.image.setUrl(null);
               this.image.update();
             }
@@ -209,7 +209,7 @@ class GatewayRadio extends Homey.Device {
 
           this.device
             .call("remove_channels", { chs: [{ id: id, type: 0, url: url }] })
-            .then(() => that.log("Removing " + " ID: " + id + " URL: " + url))
+            .then(() => that.log("Removing  ID: " + id + " URL: " + url))
             .catch(error => {
               that.log("Sending commmand 'remove_channels' error: ", error);
               callback(error, false);

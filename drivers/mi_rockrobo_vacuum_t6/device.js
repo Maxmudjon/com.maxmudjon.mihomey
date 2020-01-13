@@ -48,7 +48,7 @@ class MiRockRoboVacuumT6 extends Homey.Device {
       19: "Unpowered charging station"
     };
     this.initialize();
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {

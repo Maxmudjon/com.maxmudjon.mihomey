@@ -7,17 +7,7 @@ class TemperatureHumiditySensor extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -31,41 +21,21 @@ class TemperatureHumiditySensor extends Homey.Device {
   handleStateChange(device) {
     if (device["data"]["voltage"]) {
       var battery = (device["data"]["voltage"] - 2800) / 5;
-      this.updateCapabilityValue(
-        "measure_battery",
-        battery > 100 ? 100 : battery
-      );
+      this.updateCapabilityValue("measure_battery", battery > 100 ? 100 : battery);
       this.updateCapabilityValue("alarm_battery", battery <= 20 ? true : false);
     }
 
     if (device["data"]["temperature"]) {
       let settings = this.getSettings();
       if (settings.addOrTakeOffset == "add") {
-        this.updateCapabilityValue(
-          "measure_temperature",
-          parseFloat(
-            parseFloat(
-              device["data"]["temperature"] / 100 + parseFloat(settings.offset)
-            ).toFixed(1)
-          )
-        );
+        this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat(device["data"]["temperature"] / 100 + parseFloat(settings.offset)).toFixed(1)));
       } else if (settings.addOrTakeOffset == "take") {
-        this.updateCapabilityValue(
-          "measure_temperature",
-          parseFloat(
-            parseFloat(
-              device["data"]["temperature"] / 100 - parseFloat(settings.offset)
-            ).toFixed(1)
-          )
-        );
+        this.updateCapabilityValue("measure_temperature", parseFloat(parseFloat(device["data"]["temperature"] / 100 - parseFloat(settings.offset)).toFixed(1)));
       }
     }
 
     if (device["data"]["humidity"]) {
-      this.updateCapabilityValue(
-        "measure_humidity",
-        parseFloat(parseFloat(device["data"]["humidity"] / 100).toFixed(1))
-      );
+      this.updateCapabilityValue("measure_humidity", parseFloat(parseFloat(device["data"]["humidity"] / 100).toFixed(1)));
     }
 
     let gateways = Homey.app.mihub.gateways;
@@ -106,29 +76,10 @@ class TemperatureHumiditySensor extends Homey.Device {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value)
         .then(() => {
-          this.log(
-            "[" +
-              this.data.sid +
-              "]" +
-              " [" +
-              name +
-              "] [" +
-              value +
-              "] Capability successfully updated"
-          );
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
         })
         .catch(error => {
-          this.log(
-            "[" +
-              this.data.sid +
-              "]" +
-              " [" +
-              name +
-              "] [" +
-              value +
-              "] Capability not updated because there are errors: " +
-              error.message
-          );
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
     }

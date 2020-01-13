@@ -9,7 +9,7 @@ class MiAirPurifierPro extends Homey.Device {
     this.favoriteLevel = [0, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 95, 100];
     this.updateInterval;
     this.initialize();
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -155,7 +155,7 @@ class MiAirPurifierPro extends Homey.Device {
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_led' " + newSettings.childLock ? "on" : "off" + " error: ", error);
+          this.log("Sending commmand 'set_led' " + newSettings.childLock ? "on" : "off error: ", error);
           callback(error, false);
         });
     }

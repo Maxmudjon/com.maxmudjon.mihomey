@@ -8,7 +8,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
     this.data = this.getData();
     this.updateInterval;
     this.initialize();
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -181,7 +181,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.display ? "on" : "off" + " error: ", error);
+          this.log("Sending commmand 'set_sound' " + newSettings.display ? "on" : "off error: ", error);
           callback(error, false);
         });
     }
@@ -194,7 +194,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.sound ? "on" : "off" + " error: ", error);
+          this.log("Sending commmand 'set_sound' " + newSettings.sound ? "on" : "off error: ", error);
           callback(error, false);
         });
     }
@@ -207,7 +207,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           callback(null, true);
         })
         .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.childLock ? "on" : "off" + " error: ", error);
+          this.log("Sending commmand 'set_sound' " + newSettings.childLock ? "on" : "off error: ", error);
           callback(error, false);
         });
     }

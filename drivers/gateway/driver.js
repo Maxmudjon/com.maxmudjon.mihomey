@@ -35,13 +35,13 @@ class Gateway extends Homey.Driver {
   onPairListDevices(data, callback) {
     if (Homey.app.mihub.hubs) {
       Homey.app.mihub
-        .getDevicesByModel(model)
+        .getGatewayByModel(model)
         .then(devices =>
           callback(
             null,
             devices.map(device => {
               return {
-                name: device.name + " | " + device.sid,
+                name: "Gateway | " + device.sid,
                 data: {
                   sid: device.sid
                 }

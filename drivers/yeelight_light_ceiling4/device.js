@@ -12,7 +12,7 @@ class YeelightJiaoyue650 extends Homey.Device {
     this.colorTemperature;
     this.bgColorTemperature;
     this.initialize();
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {

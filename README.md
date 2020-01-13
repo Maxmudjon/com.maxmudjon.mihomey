@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.0 - Supported devices:
+## Version 1.1.1 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -123,6 +123,11 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.1.1 (14.01.2020)
+
+1. added Mi ClearGlass Air Detector.
+2. minor fixes.
 
 ### 1.1.0 (27.12.2019)
 
