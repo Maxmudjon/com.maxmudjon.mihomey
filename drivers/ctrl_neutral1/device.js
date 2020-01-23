@@ -98,7 +98,7 @@ class SingleSwitch extends Homey.Device {
     let sid = this.data.sid;
     this.registerCapabilityListener(name, async value => {
       const newValue = value ? valueOn : valueOff;
-      const data = { status: newValue };
+      const data = { channel_0: newValue };
       await Homey.app.mihub.sendWrite(sid, data);
       this.triggerFlow(trigger, name, value);
     });
@@ -110,12 +110,12 @@ class SingleSwitch extends Homey.Device {
 
   registerToggleAction(name, valueOn = true, valueOff = false, action) {
     action.on.registerRunListener(async (args, state) => {
-      const data = { status: valueOn };
+      const data = { channel_0: valueOn };
       await Homey.app.mihub.sendWrite(args.device.data.sid, data);
       return true;
     });
     action.off.registerRunListener(async (args, state) => {
-      const data = { status: valueOff };
+      const data = { channel_0: valueOff };
       await Homey.app.mihub.sendWrite(args.device.data.sid, data);
       return true;
     });
