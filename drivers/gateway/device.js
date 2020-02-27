@@ -8,7 +8,7 @@ class Gateway extends Homey.Device {
     this.data = this.getData();
     this.initialize();
     this.lux = 0;
-    this.log("Mi Homey device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -146,10 +146,10 @@ class Gateway extends Homey.Device {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value)
         .then(() => {
-          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
+          this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
         .catch(error => {
-          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+          this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
     }

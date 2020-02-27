@@ -252,6 +252,38 @@
                 </b-form-invalid-feedback>
                 <b-form-text id="input-live-help">Upper and lower case is also not important.</b-form-text>
               </div>
+              <div role="group">
+                <label class="font-weight-bold" for="input-live">IP:</label>
+                <b-form-input
+                  id="input-live"
+                  v-model="ip"
+                  :state="ipRule"
+                  aria-describedby="input-live-help input-live-feedback"
+                  placeholder="Enter IP address"
+                  trim
+                  style="border: 1px solid #ced4da; padding: 10px;"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-live-feedback">
+                  {{ ipRuleMessage }}
+                </b-form-invalid-feedback>
+                <b-form-text id="input-live-help">Gateway IP address.</b-form-text>
+              </div>
+              <div role="group" class="mt-3">
+                <label class="font-weight-bold" for="input-live">Token:</label>
+                <b-form-input
+                  id="input-live"
+                  v-model="token"
+                  :state="tokenRule"
+                  aria-describedby="input-live-help input-live-feedback"
+                  placeholder="Enter token"
+                  trim
+                  style="border: 1px solid #ced4da; padding: 10px;"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-live-feedback">
+                  {{ tokenRuleMessage }}
+                </b-form-invalid-feedback>
+                <b-form-text id="input-live-help">Gateway token.</b-form-text>
+              </div>
             </div>
             <!-- Generate MAC and Password from IP and Token -->
             <div v-if="gatewayAddViaGeneratePage">
@@ -404,6 +436,38 @@
                 ></b-form-input>
                 <b-form-invalid-feedback id="input-live-feedback"> {{ passwordRuleMessage }} </b-form-invalid-feedback>
                 <b-form-text id="input-live-help">Upper and lower case is also not important.</b-form-text>
+              </div>
+              <div role="group">
+                <label class="font-weight-bold" for="input-live">IP:</label>
+                <b-form-input
+                  id="input-live"
+                  v-model="ip"
+                  :state="ipEditRule"
+                  aria-describedby="input-live-help input-live-feedback"
+                  placeholder="Enter IP address"
+                  trim
+                  style="border: 1px solid #ced4da; padding: 10px;"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-live-feedback">
+                  {{ ipRuleMessage }}
+                </b-form-invalid-feedback>
+                <b-form-text id="input-live-help">Gateway IP address.</b-form-text>
+              </div>
+              <div role="group" class="mt-3">
+                <label class="font-weight-bold" for="input-live">Token:</label>
+                <b-form-input
+                  id="input-live"
+                  v-model="token"
+                  :state="tokenEditRule"
+                  aria-describedby="input-live-help input-live-feedback"
+                  placeholder="Enter token"
+                  trim
+                  style="border: 1px solid #ced4da; padding: 10px;"
+                ></b-form-input>
+                <b-form-invalid-feedback id="input-live-feedback">
+                  {{ tokenRuleMessage }}
+                </b-form-invalid-feedback>
+                <b-form-text id="input-live-help">Gateway token.</b-form-text>
               </div>
             </div>
             <div v-if="irDeviceEditPage">
@@ -805,6 +869,8 @@
             this.irDeviceEditPage = false;
             this.mac = device.mac;
             this.password = device.password;
+            this.ip = device.ip || "0.0.0.0";
+            this.token = device.token || "00000000000000000000000000000000";
           } else if (type == "irDevice") {
             this.irDeviceEditPage = true;
             this.gatewayEditPage = false;
@@ -830,7 +896,7 @@
         },
         save() {
           if (this.saveDeviceType == "gateway") {
-            this.gateways[this.editIndex] = { mac: this.mac.split(":").join(""), password: this.password };
+            this.gateways[this.editIndex] = { mac: this.mac.split(":").join(""), password: this.password, ip: this.ip, token: this.token };
             this.gateways.sort();
             Homey.set("gatewaysList", this.gateways, (error, settings) => {
               if (error) return Homey.alert(error);

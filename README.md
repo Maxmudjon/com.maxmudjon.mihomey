@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.0 - Supported devices:
+## Version 1.1.2 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -33,6 +33,8 @@ Added support for Mi Gateways child devices.
 - Aqara Lock (Lock).
 - Aqara Vibration sensor (Vibration).
 - Aqara Roller Shade Controller (Curtain).
+- Aqara Relay 2 Channel (Relay).
+- Aqara Light Bulb (LightBulb).
 
 ### Wifi devices
 
@@ -123,6 +125,17 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.1.2 (27.02.2020)
+
+1. added Mi Smart Humidifier.
+2. added Aqara Relay 2 Channel.
+3. added Aqara Light Bulb.
+4. minor fixes.
+
+### 1.1.1 (28.12.2019)
+
+1. added Mi ClearGlass Air Detector.
 
 ### 1.1.0 (27.12.2019)
 

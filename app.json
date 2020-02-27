@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -212,7 +212,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -225,7 +225,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -238,7 +238,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -251,7 +251,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -264,7 +264,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -277,7 +277,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -756,7 +756,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -769,7 +769,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -897,7 +897,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -910,7 +910,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -923,7 +923,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -936,7 +936,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -949,7 +949,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -962,7 +962,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2"
+            "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
           }
         ]
       },
@@ -1818,7 +1818,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq"
           }
         ]
       },
@@ -1831,7 +1831,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq"
           }
         ]
       },
@@ -1909,6 +1909,49 @@
                 "id": "high",
                 "label": {
                   "en": "High"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "humidifier_deerma_mode",
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deerma_humidifier_mjjsq"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "low",
+                "label": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "medium",
+                "label": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "label": {
+                  "en": "High"
+                }
+              },
+              {
+                "id": "humidity",
+                "label": {
+                  "en": "Humidity"
                 }
               }
             ]
@@ -2455,6 +2498,43 @@
           "id": "high",
           "title": {
             "en": "High"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "humidifier_deerma_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "Humidifier Mode"
+      },
+      "values": [
+        {
+          "id": "low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "humidity",
+          "title": {
+            "en": "Humidity"
           }
         }
       ],
@@ -10002,6 +10082,116 @@
       ]
     },
     {
+      "id": "deerma_humidifier_mjjsq",
+      "name": {
+        "en": "Mi Smart Humidifier"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "humidifier_deerma_mode", "measure_temperature", "measure_humidity", "alarm_water", "alarm_motion.tank"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Set humidity"
+          }
+        },
+        "alarm_water": {
+          "title": {
+            "en": "Water level"
+          }
+        },
+        "alarm_motion.tank": {
+          "title": {
+            "en": "Water tank status"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Humidifier settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/deerma_humidifier_mjjsq/assets/images/large.png",
+        "small": "/drivers/deerma_humidifier_mjjsq/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
       "id": "zhimi_airfresh_va2",
       "name": {
         "en": "Mi Air Fresh VA2",
@@ -10222,6 +10412,78 @@
       ]
     },
     {
+      "id": "cgllc_airmonitor_s1",
+      "name": {
+        "en": "Mi ClearGlass Air Detector",
+        "nl": ""
+      },
+      "class": "sensor",
+      "capabilities": ["measure_temperature", "measure_humidity", "measure_pm25", "measure_co2", "measure_voc", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi ClearGlass Air Detector settings",
+            "nl": ""
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address",
+                "nl": ""
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token",
+                "nl": ""
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer",
+                "nl": ""
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/cgllc_airmonitor_s1/assets/images/large.png",
+        "small": "/drivers/cgllc_airmonitor_s1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
       "id": "ir_remote",
       "name": {
         "en": "Mi IR"
@@ -10304,6 +10566,270 @@
           "navigation": {
             "next": "done",
             "prev": "deviceCharacteristics"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "devices"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relay_c2acn01",
+      "name": {
+        "en": "Aqara Relay 2 Channel"
+      },
+      "class": "light",
+      "capabilities": ["onoff.1", "onoff.2", "measure_power"],
+      "capabilitiesOptions": {
+        "onoff.1": {
+          "title": {
+            "en": "1 channel"
+          }
+        },
+        "onoff.2": {
+          "title": {
+            "en": "2 channel"
+          }
+        },
+        "measure_power": {
+          "title": {
+            "en": "Watt"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/relay_c2acn01/assets/images/large.png",
+        "small": "/drivers/relay_c2acn01/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device settings"
+          },
+          "children": [
+            {
+              "id": "deviceIp",
+              "type": "text",
+              "label": {
+                "en": "Device IP"
+              },
+              "hint": {
+                "en": "Enter Mi IR remote controller IP address."
+              },
+              "value": ""
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "label": {
+                "en": "Device Token"
+              },
+              "hint": {
+                "en": "Enter Mi IR remote controller token."
+              },
+              "value": ""
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer",
+                "nl": ""
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "gateways"
+        },
+        {
+          "id": "devices",
+          "navigation": {
+            "prev": "gateways"
+          }
+        },
+        {
+          "id": "deviceSettings",
+          "navigation": {
+            "prev": "devices"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "devices"
+          }
+        }
+      ]
+    },
+    {
+      "id": "light_aqcn02",
+      "name": {
+        "en": "Aqara Light Bulb"
+      },
+      "class": "light",
+      "capabilities": ["onoff", "dim", "light_temperature"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/light_aqcn02/assets/images/large.png",
+        "small": "/drivers/light_aqcn02/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device settings"
+          },
+          "children": [
+            {
+              "id": "deviceIp",
+              "type": "text",
+              "label": {
+                "en": "Device IP"
+              },
+              "hint": {
+                "en": "Enter Mi IR remote controller IP address."
+              },
+              "value": ""
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "label": {
+                "en": "Device Token"
+              },
+              "hint": {
+                "en": "Enter Mi IR remote controller token."
+              },
+              "value": ""
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer",
+                "nl": ""
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "deviceSid",
+              "type": "label",
+              "label": {
+                "en": "Device sid"
+              },
+              "value": "0123456789abcd"
+            },
+            {
+              "id": "deviceFromGatewaySid",
+              "type": "label",
+              "label": {
+                "en": "Gateway sid"
+              },
+              "value": "0123456789ab"
+            },
+            {
+              "id": "deviceModelName",
+              "type": "label",
+              "label": {
+                "en": "Device model"
+              },
+              "value": "lumi.device"
+            },
+            {
+              "id": "deviceModelCodeName",
+              "type": "label",
+              "label": {
+                "en": "Device model code"
+              },
+              "value": "AABBCC01LM"
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "gateways"
+        },
+        {
+          "id": "devices",
+          "navigation": {
+            "prev": "gateways"
+          }
+        },
+        {
+          "id": "deviceSettings",
+          "navigation": {
+            "prev": "devices"
           }
         },
         {

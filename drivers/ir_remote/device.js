@@ -8,7 +8,7 @@ class IRRemote extends Homey.Device {
     this.data = this.getData();
     this.initialize();
     this.lux = 0;
-    this.log("Mi IR device init | " + "name: " + this.getName() + " - " + "class: " + this.getClass() + " - " + "data: " + JSON.stringify(this.data));
+    this.log("Mi IR device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {

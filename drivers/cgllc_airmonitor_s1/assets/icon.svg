@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.5, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{fill:none;stroke:#000000;stroke-width:10;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+	.st3{fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#000000;stroke-miterlimit:10;}
+	.st5{font-family:'MyriadPro-Regular';}
+	.st6{font-size:14.219px;}
+	.st7{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+	.st8{font-size:22.8762px;}
+</style>
+<g id="Слой_1" class="st0">
+	
+		<image style="display:inline;overflow:visible;" width="460" height="460" xlink:href="71B96C49.jpg"  transform="matrix(1 0 0 1 26 39)">
+	</image>
+</g>
+<g id="Слой_2">
+	<path class="st1" d="M505.7,455.4L443.2,66.2c-1.4-8.4-8.4-14.8-16.9-15.2L165,37.5c-11.2-0.6-20.3,9.1-18.9,20.3l49.5,403.8
+		c1.3,10.9,10.7,19.1,21.7,19.1l267.8-1C498,479.6,507.8,468.1,505.7,455.4z"/>
+	<polygon class="st2" points="465.2,362.8 424.9,87.9 176.1,77.3 211.6,360.5 	"/>
+	<line class="st2" x1="193.8" y1="416.1" x2="499.5" y2="416.1"/>
+	<line class="st3" x1="223.5" y1="445.8" x2="478.2" y2="445.8"/>
+	<path class="st1" d="M190.3,416.1h-18.6c-0.9,0-1.6-0.6-1.7-1.5L126.3,71.9c-1.4-11,4.3-24,14.2-28.9L164,37"/>
+	<circle class="st2" cx="299.3" cy="61.9" r="3.6"/>
+	<path class="st1" d="M214,480.1l-187-4.2c-12-0.3-21.5-10.1-21.4-22.1l0.9-155.6c0.1-11.1,8.6-20.2,19.6-21.2l125.1-10.3"/>
+	<line class="st2" x1="205.7" y1="193.4" x2="225.8" y2="193.4"/>
+	<polyline class="st2" points="198.6,148.4 209.2,143.6 215.2,192.2 	"/>
+	<path class="st2" d="M247.2,146h-7.9c-4,0-7.1,3.5-6.6,7.5l3.8,31.8c0.7,6.1,5.7,10.8,11.8,11.2h0c4.4,0.3,7.9-3.5,7.4-7.8
+		l-1.8-15.3c-0.4-3.4-3.3-6-6.8-6h-11.7"/>
+	<path class="st2" d="M284.9,160.9l-1-7c-0.7-4.6-4.6-8-9.3-8l0,0c-4.5,0-7.9,4-7.3,8.4l1.2,8.7c0.6,4.3,4.5,7.5,8.9,7.2h-1.2
+		C281,170,285.7,165.7,284.9,160.9z"/>
+	<path class="st2" d="M278.9,170.9L278.9,170.9c4.9,0,8.9,3.7,9.3,8.5l0.8,8.7c0.4,4.8-3.3,8.9-8.1,8.9h0c-5.7,0-10.4-4.3-10.9-10
+		l-0.5-5.7C268.9,175.7,273.3,170.9,278.9,170.9z"/>
+	<path class="st2" d="M174.9,97.4"/>
+	<path class="st4" d="M184.6,92.9c1.7-2.8,4.9-5,8.7-5c3.6,0,6.7,2,8.4,4.6"/>
+	<path class="st4" d="M187.1,93.3c1.2-1.2,3.5-2.2,6.1-2.2c2.6,0,4.7,0.9,6,2"/>
+	<path class="st4" d="M189.4,95.3c0.7-1.1,2.1-1.9,3.7-1.9c1.6,0,2.9,0.7,3.6,1.7"/>
+	<circle class="st4" cx="193.2" cy="96.8" r="0.6"/>
+	<text transform="matrix(1 0 0 1 202.9033 99.5537)" class="st5 st6">10:23</text>
+	<text transform="matrix(1 0 0 1 193.457 129.2158)" class="st5 st6">PM2.5</text>
+	<circle cx="297.5" cy="98" r="2.4"/>
+	<circle cx="304.6" cy="98" r="2.4"/>
+	<circle cx="311.7" cy="98" r="2.4"/>
+	<polygon points="419.6,107.5 401.8,107.5 399.4,96.8 417.2,96.8 	"/>
+	<text transform="matrix(1 0 0 1 298.7324 197.9819)" class="st5 st6">ugm3</text>
+	<line class="st7" x1="207.5" y1="229.5" x2="432.6" y2="235.4"/>
+	<path class="st7" d="M389.3,290"/>
+	<path class="st7" d="M442.1,288.8"/>
+	<text transform="matrix(1 0 0 1 209.7588 257.3818)" class="st5 st6">tVOC</text>
+	<text transform="matrix(1 0 0 1 216.8682 317.8125)" class="st5 st6">CO2</text>
+	<text transform="matrix(1 0 0 1 329.4355 258.5674)" class="st5 st6">Temperature</text>
+	<text transform="matrix(1 0 0 1 338.915 317.8125)" class="st5 st6">Humidifier</text>
+	<text transform="matrix(1 0 0 1 210.1787 277.9619)" class="st5 st8">0.218 </text>
+	<text transform="matrix(1 0 0 1 217.2881 339.5781)" class="st5 st8">1080 </text>
+	<text transform="matrix(1 0 0 1 332.2246 281.5166)" class="st5 st8">25.6</text>
+	<text transform="matrix(1 0 0 1 335.7793 340.7627)" class="st5 st8">42.2</text>
+	<text transform="matrix(1 0 0 1 263.0664 278.1084)" class="st5 st6">mgm3</text>
+	<text transform="matrix(1 0 0 1 265.4355 339.7236)" class="st5 st6">ppm</text>
+	<text transform="matrix(1 0 0 1 375.6328 281.6631)" class="st5 st6">c</text>
+	<text transform="matrix(1 0 0 1 379.1875 342.0938)" class="st5 st6">%rh</text>
+	<line class="st7" x1="214.6" y1="286.4" x2="324.8" y2="287.6"/>
+	<line class="st7" x1="335.4" y1="288.8" x2="442.1" y2="290"/>
+	<line class="st7" x1="343.7" y1="348" x2="451.6" y2="349.2"/>
+	<line class="st7" x1="222.9" y1="346.8" x2="331.9" y2="348"/>
+</g>
+</svg>

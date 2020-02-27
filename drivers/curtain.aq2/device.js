@@ -7,17 +7,7 @@ class CurtainAQ2 extends Homey.Device {
     this.driver = this.getDriver();
     this.data = this.getData();
     this.initialize();
-    this.log(
-      "Mi Homey device init | " +
-        "name: " +
-        this.getName() +
-        " - " +
-        "class: " +
-        this.getClass() +
-        " - " +
-        "data: " +
-        JSON.stringify(this.data)
-    );
+    this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
   async initialize() {
@@ -60,10 +50,7 @@ class CurtainAQ2 extends Homey.Device {
     }
 
     if (device["data"]["curtain_level"]) {
-      this.updateCapabilityValue(
-        "dim",
-        parseInt(device["data"]["curtain_level"]) / 100
-      );
+      this.updateCapabilityValue("dim", parseInt(device["data"]["curtain_level"]) / 100);
     }
 
     clearTimeout(this.curtainTernaryTimeout);
@@ -110,29 +97,10 @@ class CurtainAQ2 extends Homey.Device {
     if (this.getCapabilityValue(name) != value) {
       this.setCapabilityValue(name, value)
         .then(() => {
-          this.log(
-            "[" +
-              this.data.sid +
-              "]" +
-              " [" +
-              name +
-              "] [" +
-              value +
-              "] Capability successfully updated"
-          );
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
         })
         .catch(error => {
-          this.log(
-            "[" +
-              this.data.sid +
-              "]" +
-              " [" +
-              name +
-              "] [" +
-              value +
-              "] Capability not updated because there are errors: " +
-              error.message
-          );
+          this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
     }
@@ -167,9 +135,7 @@ class CurtainAQ2 extends Homey.Device {
   }
 
   registerCondition(name, condition) {
-    condition.registerRunListener((args, state) =>
-      Promise.resolve(this.getCapabilityValue(name))
-    );
+    condition.registerRunListener((args, state) => Promise.resolve(this.getCapabilityValue(name)));
   }
 
   registerToggleAction(name, valueOn = true, valueOff = false, action) {
