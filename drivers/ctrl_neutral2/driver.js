@@ -1,5 +1,5 @@
 const Homey = require("homey");
-const model = ["ctrl_neutral2"];
+const model = ["ctrl_neutral2", "switch_b2lacn02"];
 
 const initToggleFlowTriggers = (on, off, toggle) => ({
   on: new Homey.FlowCardTriggerDevice(on).register(),

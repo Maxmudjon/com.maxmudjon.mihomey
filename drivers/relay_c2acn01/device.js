@@ -13,8 +13,8 @@ class AqaraRelay extends Homey.Device {
   async initialize() {
     this.registerCapabilities();
     this.registerConditions();
-    this.getReleyStatus();
     this.registerActions();
+    this.getReleyStatus();
   }
 
   registerCapabilities() {
@@ -59,13 +59,12 @@ class AqaraRelay extends Homey.Device {
               this.updateCapabilityValue("measure_power", parseFloat(result[2][0]));
             }
           })
-          .catch(error => that.log("Sending commmand 'get_device_prop_exp' error: ", error));
+          .catch(error => that.log("Sending commmand 'get_device_prop_exp' error: ", error.message));
 
         const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
       .catch(error => {
-        this.log(error);
         if (error == "Error: Could not connect to device, handshake timeout") {
           this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
           this.log("Error: Could not connect to device, handshake timeout");
@@ -73,6 +72,7 @@ class AqaraRelay extends Homey.Device {
           this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
           this.log("Error: Could not connect to device, token might be wrong");
         }
+        this.updateInterval && clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getReleyStatus();
         }, 10000);
@@ -95,7 +95,10 @@ class AqaraRelay extends Homey.Device {
             this.updateCapabilityValue("measure_power", parseFloat(result[2][0]));
           }
         })
-        .catch(error => this.log("Sending commmand 'get_device_prop_exp' error: ", error));
+        .catch(error => {
+          this.updateInterval && clearInterval(this.updateInterval);
+          this.log("Sending commmand 'get_device_prop_exp' error: ", error.message);
+        });
     }, 1000 * interval);
   }
 
@@ -128,13 +131,20 @@ class AqaraRelay extends Homey.Device {
     }
   }
 
+  onSettings(oldSettings, newSettings, changedKeys, callback) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIp") || changedKeys.includes("deviceToken")) {
+      this.getReleyStatus();
+      callback(null, true);
+    }
+  }
+
   register1ChannelToggle(name) {
     const sid = this.data.sid;
     this.registerCapabilityListener(name, async value => {
       this.device
         .call("toggle_ctrl_neutral", ["channel_0", value ? "on" : "off"], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error));
+        .catch(error => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message));
     });
   }
 
@@ -144,7 +154,7 @@ class AqaraRelay extends Homey.Device {
       this.device
         .call("toggle_ctrl_neutral", ["channel_1", value ? "on" : "off"], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error));
+        .catch(error => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message));
     });
   }
 
@@ -169,7 +179,7 @@ class AqaraRelay extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error);
+                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
@@ -199,7 +209,7 @@ class AqaraRelay extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error);
+                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
@@ -229,7 +239,7 @@ class AqaraRelay extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error);
+                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
@@ -259,7 +269,7 @@ class AqaraRelay extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error);
+                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
@@ -289,7 +299,7 @@ class AqaraRelay extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error);
+                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
@@ -319,7 +329,7 @@ class AqaraRelay extends Homey.Device {
                 device.destroy();
               })
               .catch(error => {
-                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error);
+                this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })

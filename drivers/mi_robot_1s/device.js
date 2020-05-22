@@ -61,6 +61,7 @@ class MiRobot1S extends Homey.Device {
     const { actions } = this.driver;
     this.registerVacuumZoneCleanerAction("vacuumZoneCleaner", actions.vacuumZoneCleaner);
     this.registerVacuumGoToTargetAction("vacuumGoToTarget", actions.vacuumGoToTarget);
+    this.registerVacuumStartRoomCleaningAction("vacuumStartRoomCleaning", actions.vacuumStartRoomCleaning);
   }
 
   registerCapabilities() {
@@ -451,6 +452,39 @@ class MiRobot1S extends Homey.Device {
               })
               .catch(error => {
                 this.log("Set Start zone cleaning error: ", error);
+                device.destroy();
+              });
+          })
+          .catch(error => {
+            this.log("miio connect error: " + error);
+          });
+      } catch (error) {
+        this.log("catch error: " + error);
+      }
+    });
+  }
+
+  registerVacuumStartRoomCleaningAction(name, action) {
+    action.registerRunListener(async (args, state) => {
+      try {
+        miio
+          .device({
+            address: args.device.getSetting("deviceIP"),
+            token: args.device.getSetting("deviceToken")
+          })
+          .then(device => {
+            const rooms = JSON.parse("[" + args.rooms.split(",") + "]");
+            device
+              .call("app_segment_clean", rooms, {
+                refresh: ["state"],
+                refreshDelay: 1000
+              })
+              .then(() => {
+                this.log("Set Start rooms cleaning: ", args.rooms);
+                device.destroy();
+              })
+              .catch(error => {
+                this.log("Set Start rooms cleaning error: ", error);
                 device.destroy();
               });
           })

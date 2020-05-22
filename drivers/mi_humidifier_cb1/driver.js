@@ -1,25 +1,22 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-class MiRobot1S extends Homey.Driver {
-  onInit() {
-    this.triggers = {
-      main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
-      side_brush: new Homey.FlowCardTriggerDevice("side_brush_work_time").register(),
-      filter: new Homey.FlowCardTriggerDevice("filter_work_time").register(),
-      sensor: new Homey.FlowCardTriggerDevice("sensor_dirty_time").register()
-    };
+const initFlowAction = action => ({
+  action: new Homey.FlowCardAction(action).register()
+});
 
+class MiAirHumidifier2 extends Homey.Driver {
+  onInit() {
     this.actions = {
-      vacuumZoneCleaner: new Homey.FlowCardAction("vacuumZoneCleaner").register(),
-      vacuumGoToTarget: new Homey.FlowCardAction("vacuumGoToTarget").register(),
-      vacuumStartRoomCleaning: new Homey.FlowCardAction("vacuumStartRoomCleaning").register()
+      humidifierOn: initFlowAction("humidifier_on"),
+      humidifierOff: initFlowAction("humidifier_off"),
+      humidifierMode: initFlowAction("humidifier_ca1_mode")
     };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Mi Robot 1S";
+    pairingDevice.name = "Mi Air Humidifier 2";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -32,12 +29,12 @@ class MiRobot1S extends Homey.Driver {
             .call("miIO.info", [])
             .then(value => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = "MI:VC:1S:" + value.mac + ":MI:VC:1S";
+                pairingDevice.data.id = "MH:V2:" + value.mac + ":MH:V2";
                 device
-                  .call("get_status", [])
+                  .call("get_prop", ["power"])
                   .then(value => {
                     let result = {
-                      battery: value[0]["battery"]
+                      state: value[0]
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -54,7 +51,7 @@ class MiRobot1S extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Robot 1S"
+                  notDevice: "It is not Mi Air Humidifier 2"
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
@@ -80,4 +77,4 @@ class MiRobot1S extends Homey.Driver {
   }
 }
 
-module.exports = MiRobot1S;
+module.exports = MiAirHumidifier2;

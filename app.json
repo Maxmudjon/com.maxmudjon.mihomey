@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -1818,7 +1818,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1"
           }
         ]
       },
@@ -1831,7 +1831,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1"
           }
         ]
       },
@@ -1881,7 +1881,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_ca1"
+            "filter": "driver_id=mi_humidifier_ca1|mi_humidifier_cb1"
           },
           {
             "type": "dropdown",
@@ -2016,6 +2016,26 @@
             "type": "text",
             "placeholder": {
               "en": "Y Coordinate"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6"
+          }
+        ]
+      },
+      {
+        "id": "vacuumStartRoomCleaning",
+        "title": {
+          "en": "Start room cleaning"
+        },
+        "args": [
+          {
+            "name": "rooms",
+            "type": "text",
+            "placeholder": {
+              "en": "rooms"
             }
           },
           {
@@ -10836,6 +10856,124 @@
           "id": "done",
           "navigation": {
             "prev": "devices"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_humidifier_cb1",
+      "name": {
+        "en": "Mi Air Humidifier 2"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "onoff.dry", "dim", "humidifier_ca1_mode", "measure_temperature", "measure_humidity", "measure_water"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.dry": {
+          "title": {
+            "en": "Swing mode"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Target Relative Humidity"
+          }
+        },
+        "measure_water": {
+          "title": {
+            "en": "Water level"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Humidifier 2 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_humidifier_cb1/assets/images/large.png",
+        "small": "/drivers/mi_humidifier_cb1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
           }
         }
       ]
