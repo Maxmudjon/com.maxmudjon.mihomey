@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.4 - Supported devices:
+## Version 1.1.5 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -38,10 +38,10 @@ Added support for Mi Gateways child devices.
 
 ### Wifi devices
 
-- Yeelight Color Bulb V1/V2.
+- Yeelight Color Bulb V1/V2/V3.
 - Yeelight White Bulb.
 - Yeelight Ceiling Lamp.
-- Yeelight Bedside Lamp.
+- Yeelight Bedside Lamp V1/V2.
 - Yeelight Light Strip V1/V2.
 - Yeelight Jiaoyue 650.
 - Yeelight Jiaoyue 450.
@@ -126,6 +126,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.1.5 (9.06.2020)
+
+1.  added support for Yeelight Color Bulb V3.
+2.  added support for Yeelight Bedside Lamp V2.
+3.  added support for Xiaomi Chuangmi Plug (M3), Mi Smart Plug (HMI205).
 
 ### 1.1.4 (23.05.2020)
 

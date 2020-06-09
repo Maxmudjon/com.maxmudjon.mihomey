@@ -16,7 +16,7 @@ class MiSmartPlugWiFi extends Homey.Driver {
           device
             .call("miIO.info", [])
             .then(value => {
-              if (value.model == this.data.model) {
+              if (value.model == this.data.model || value.model == "chuangmi.plug.m3" || value.model == "chuangmi.plug.hmi205") {
                 pairingDevice.data.id = "PL:UG:M1:" + value.mac + ":PL:UG:M1";
                 device
                   .call("get_prop", ["power"])

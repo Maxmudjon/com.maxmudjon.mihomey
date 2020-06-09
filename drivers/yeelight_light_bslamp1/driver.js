@@ -26,7 +26,7 @@ class YeelightBedsideLamp extends Homey.Driver {
           device
             .call("miIO.info", [])
             .then(value => {
-              if (value.model == this.data.model) {
+              if (value.model == this.data.model || value.model == "yeelink.light.bslamp2") {
                 pairingDevice.data.id = "YL:BS:L1:" + value.mac + ":YL:BS:L1";
                 device
                   .call("get_prop", ["bright"])
