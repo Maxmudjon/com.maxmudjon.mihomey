@@ -1,10 +1,10 @@
 const Homey = require("homey");
-const model = ["86sw1"];
+const model = ["86sw1", "lumi.remote.b186acn02", "remote.b186acn02"];
 
 class DoubleButton86Switch extends Homey.Driver {
   onInit() {
     this.triggers = {
-      click: new Homey.FlowCardTriggerDevice("click_sb86_switch").register()
+      click: new Homey.FlowCardTriggerDevice("click_sb86_switch").register(),
     };
   }
 
@@ -12,15 +12,15 @@ class DoubleButton86Switch extends Homey.Driver {
     if (Homey.app.mihub.hubs) {
       Homey.app.mihub
         .getDevicesByModel(model)
-        .then(devices =>
+        .then((devices) =>
           callback(
             null,
-            devices.map(device => {
+            devices.map((device) => {
               return {
                 name: device.name + " | " + device.sid,
                 data: {
-                  sid: device.sid
-                }
+                  sid: device.sid,
+                },
               };
             })
           )
