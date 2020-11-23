@@ -21,40 +21,35 @@ class MiSmartPowerStrip extends Homey.Device {
   }
 
   getXiaomiStatus() {
-    var that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
-        this.setAvailable();
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
         const { triggers } = this.driver;
         this.device = device;
 
         this.device
           .call("get_prop", ["power", "power_consume_rate", "current", "temperature", "wifi_led"])
-          .then(result => {
-            that.setCapabilityValue("onoff", result[0] == "on" ? true : false);
-            that.setCapabilityValue("measure_power", parseInt(result[1]));
-            that.setCapabilityValue("meter_ampere", result[2]);
-            that.setCapabilityValue("measure_temperature", result[3]);
-            that.setCapabilityValue("onoff.led", result[4] == "on" ? true : false);
+          .then((result) => {
+            this.updateCapabilityValue("onoff", result[0] == "on" ? true : false);
+            this.updateCapabilityValue("measure_power", parseInt(result[1]));
+            this.updateCapabilityValue("meter_ampere", result[2]);
+            this.updateCapabilityValue("measure_temperature", result[3]);
+            this.updateCapabilityValue("onoff.led", result[4] == "on" ? true : false);
 
             let tokens = { ampere: result[2] };
             triggers.meterAmpere.trigger(this, tokens, true);
           })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getXiaomiStatus();
         }, 10000);
@@ -62,24 +57,45 @@ class MiSmartPowerStrip extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     const { triggers } = this.driver;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["power", "power_consume_rate", "current", "temperature", "wifi_led"])
-        .then(result => {
-          that.setCapabilityValue("onoff", result[0] == "on" ? true : false);
-          that.setCapabilityValue("measure_power", parseInt(result[1]));
-          that.setCapabilityValue("meter_ampere", result[2]);
-          that.setCapabilityValue("measure_temperature", result[3]);
-          that.setCapabilityValue("onoff.led", result[4] == "on" ? true : false);
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
+          this.updateCapabilityValue("onoff", result[0] == "on" ? true : false);
+          this.updateCapabilityValue("measure_power", parseInt(result[1]));
+          this.updateCapabilityValue("meter_ampere", result[2]);
+          this.updateCapabilityValue("measure_temperature", result[3]);
+          this.updateCapabilityValue("onoff.led", result[4] == "on" ? true : false);
 
           let tokens = { ampere: result[2] };
           triggers.meterAmpere.trigger(this, tokens, true);
         })
-        .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+        .catch((error) => {
+          this.log("Sending commmand 'get_prop' error: ", error);
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
+          setTimeout(() => {
+            this.getXiaomiStatus();
+          }, 1000 * interval);
+        });
     }, 1000 * interval);
+  }
+
+  updateCapabilityValue(capabilityName, value) {
+    if (this.getCapabilityValue(capabilityName) != value) {
+      this.setCapabilityValue(capabilityName, value)
+        .then(() => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
+        })
+        .catch((error) => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
+    }
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
@@ -90,20 +106,20 @@ class MiSmartPowerStrip extends Homey.Device {
   }
 
   registerOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
   registerLedOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_wifi_led", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_wifi_led' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_wifi_led' error: ", error));
     });
   }
 
@@ -112,7 +128,7 @@ class MiSmartPowerStrip extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

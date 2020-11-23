@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -9286,7 +9286,8 @@
         "alarm_main_brush_work_time",
         "alarm_side_brush_work_time",
         "alarm_filter_work_time",
-        "alarm_sensor_dirty_time"
+        "alarm_sensor_dirty_time",
+        "button.consumable"
       ],
       "energy": {
         "batteries": ["OTHER"]
@@ -9305,6 +9306,15 @@
         "dim": {
           "title": {
             "en": "Speed"
+          }
+        },
+        "button.consumable": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Reset consumable"
+          },
+          "desc": {
+            "en": "Reset the vacuum cleaner consumables."
           }
         }
       },

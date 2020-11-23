@@ -77,12 +77,12 @@ class Gateway extends Homey.Device {
           gatewaySid: this.data.sid,
           deviceModelName: gateways[sid].model,
           deviceIp: gateways[sid].ip,
-          deviceProtoVersion: gateways[sid].proto_version
+          deviceProtoVersion: gateways[sid].proto_version,
         });
 
         if (gateways[sid]["model"] == "gateway") {
           this.setSettings({
-            deviceModelCodeName: "DGNWG02LM"
+            deviceModelCodeName: "DGNWG02LM",
           });
         }
       }
@@ -148,7 +148,7 @@ class Gateway extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
@@ -157,7 +157,7 @@ class Gateway extends Homey.Device {
 
   registerToggle(name, trigger) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       if (value) {
         var hue = this.getCapabilityValue("light_hue") * 359;
         var saturation = this.getCapabilityValue("light_saturation") * 100;
@@ -176,7 +176,7 @@ class Gateway extends Homey.Device {
   registerDim(name) {
     let sid = this.data.sid;
 
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       var hue = this.getCapabilityValue("light_hue") * 359;
       var saturation = this.getCapabilityValue("light_saturation") * 100;
       var dim = value * 100;
@@ -186,7 +186,7 @@ class Gateway extends Homey.Device {
 
   registerButton(name) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const data = { join_permission: "yes" };
       await Homey.app.mihub.sendWriteCmd(sid, data);
     });
@@ -194,7 +194,7 @@ class Gateway extends Homey.Device {
 
   registerLight_hueAndSaturation() {
     let sid = this.data.sid;
-    this.registerMultipleCapabilityListener(["light_hue", "light_saturation"], async valueObj => {
+    this.registerMultipleCapabilityListener(["light_hue", "light_saturation"], async (valueObj) => {
       var hue = valueObj.light_hue * 359;
       var saturation_value = this.getCapabilityValue("light_saturation");
       var saturation = saturation_value * 100;
@@ -217,7 +217,7 @@ class Gateway extends Homey.Device {
   }
 
   registerLight_saturation(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.log("Light_saturation: ", value);
     });
   }
@@ -268,7 +268,7 @@ class Gateway extends Homey.Device {
   onDeleted() {
     this.unregisterAuthChangeListener();
     this.unregisterStateChangeListener();
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

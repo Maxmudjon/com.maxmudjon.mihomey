@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.8 - Supported devices:
+## Version 1.1.9 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -127,6 +127,11 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.1.9 (24.11.2020)
+
+1.  fix Air Fresh VA4.
+2.  minor fixes.
 
 ### 1.1.8 (23.10.2020)
 

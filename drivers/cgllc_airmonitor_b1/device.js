@@ -10,10 +10,9 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
   }
 
   getAirFreshStatus() {
-    var that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
+      .then((device) => {
         if (!this.getAvailable()) {
           this.setAvailable();
         }
@@ -22,22 +21,21 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
 
         this.device
           .call("get_air_data", [])
-          .then(result => {
-
-            that.updateCapabilityValue("measure_pm25", parseInt(result.result.pm25));
-            that.updateCapabilityValue("measure_co2", parseInt(result.result.co2e));
-            that.updateCapabilityValue("measure_humidity", parseInt(result.result.humidity));
-            that.updateCapabilityValue("measure_temperature", parseInt(result.result.temperature));
-            that.updateCapabilityValue("measure_voc", parseInt(result.result.tvoc))
+          .then((result) => {
+            this.updateCapabilityValue("measure_pm25", parseInt(result.result.pm25));
+            this.updateCapabilityValue("measure_co2", parseInt(result.result.co2e));
+            this.updateCapabilityValue("measure_humidity", parseInt(result.result.humidity));
+            this.updateCapabilityValue("measure_temperature", parseInt(result.result.temperature));
+            this.updateCapabilityValue("measure_voc", parseInt(result.result.tvoc));
           })
-          .catch(error => that.log("Sending commmand 'get_air_data' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_air_data' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        this.setUnavailable(Homey.__("reconnecting"));
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getAirFreshStatus();
         }, 10000);
@@ -45,22 +43,24 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_air_data", [])
-        .then(result => {
-          that.updateCapabilityValue("measure_pm25", parseInt(result.result.pm25));
-          that.updateCapabilityValue("measure_co2", parseInt(result.result.co2e));
-          that.updateCapabilityValue("measure_humidity", parseInt(result.result.humidity));
-          that.updateCapabilityValue("measure_temperature", parseInt(result.result.temperature));
-          that.updateCapabilityValue("measure_voc", parseInt(result.result.tvoc))
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
+          this.updateCapabilityValue("measure_pm25", parseInt(result.result.pm25));
+          this.updateCapabilityValue("measure_co2", parseInt(result.result.co2e));
+          this.updateCapabilityValue("measure_humidity", parseInt(result.result.humidity));
+          this.updateCapabilityValue("measure_temperature", parseInt(result.result.temperature));
+          this.updateCapabilityValue("measure_voc", parseInt(result.result.tvoc));
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'get_air_data' error: ", error);
           clearInterval(this.updateInterval);
-          this.setUnavailable(Homey.__("unreachable"));
+          this.setUnavailable(error.message);
           setTimeout(() => {
             this.getAirFreshStatus();
           }, 1000 * interval);
@@ -74,7 +74,7 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
     }
@@ -92,7 +92,7 @@ class MiAirQualityMonitor2Gen extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

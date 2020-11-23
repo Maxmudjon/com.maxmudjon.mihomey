@@ -22,7 +22,7 @@ class MiVacuumCleanerV2 extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
@@ -62,6 +62,7 @@ class MiVacuumCleanerV2 extends Homey.Driver {
             .catch(error => callback(null, error));
         })
         .catch(error => {
+          console.error(error)
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }

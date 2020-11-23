@@ -51,10 +51,10 @@ class MiMotionSensor extends Homey.Device {
 
     let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
-      gateways[sid]["childDevices"].forEach(deviceSid => {
+      gateways[sid]["childDevices"].forEach((deviceSid) => {
         if (this.data.sid == deviceSid) {
           this.setSettings({
-            deviceFromGatewaySid: sid
+            deviceFromGatewaySid: sid,
           });
         }
       });
@@ -63,7 +63,7 @@ class MiMotionSensor extends Homey.Device {
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: "lumi." + device.model,
-      deviceModelCodeName: device.modelCode
+      deviceModelCodeName: device.modelCode,
     });
   }
 
@@ -89,7 +89,7 @@ class MiMotionSensor extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
@@ -115,7 +115,7 @@ class MiMotionSensor extends Homey.Device {
   onDeleted() {
     this.unregisterAuthChangeListener();
     this.unregisterStateChangeListener();
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

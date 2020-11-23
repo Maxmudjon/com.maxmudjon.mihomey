@@ -44,12 +44,16 @@ class AqaraRelay extends Homey.Device {
 
     miio
       .device({ address: this.getSetting("deviceIp"), token: this.getSetting("deviceToken") })
-      .then(device => {
+      .then((device) => {
         this.device = device;
 
         this.device
-          .call("get_device_prop_exp", [[sid, "channel_0"], [sid, "channel_1"], [sid, "load_power"]])
-          .then(result => {
+          .call("get_device_prop_exp", [
+            [sid, "channel_0"],
+            [sid, "channel_1"],
+            [sid, "load_power"],
+          ])
+          .then((result) => {
             if (result[0][0] == "unknown") {
               this.setUnavailable("Device is offline");
             } else {
@@ -59,20 +63,14 @@ class AqaraRelay extends Homey.Device {
               this.updateCapabilityValue("measure_power", parseFloat(result[2][0]));
             }
           })
-          .catch(error => that.log("Sending commmand 'get_device_prop_exp' error: ", error.message));
+          .catch((error) => that.log("Sending commmand 'get_device_prop_exp' error: ", error.message));
 
         const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
-        this.updateInterval && clearInterval(this.updateInterval);
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getReleyStatus();
         }, 10000);
@@ -84,8 +82,12 @@ class AqaraRelay extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
-        .call("get_device_prop_exp", [[sid, "channel_0"], [sid, "channel_1"], [sid, "load_power"]])
-        .then(result => {
+        .call("get_device_prop_exp", [
+          [sid, "channel_0"],
+          [sid, "channel_1"],
+          [sid, "load_power"],
+        ])
+        .then((result) => {
           if (result[0][0] == "unknown") {
             this.setUnavailable("Device is offline");
           } else {
@@ -95,9 +97,13 @@ class AqaraRelay extends Homey.Device {
             this.updateCapabilityValue("measure_power", parseFloat(result[2][0]));
           }
         })
-        .catch(error => {
-          this.updateInterval && clearInterval(this.updateInterval);
+        .catch((error) => {
           this.log("Sending commmand 'get_device_prop_exp' error: ", error.message);
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
+          setTimeout(() => {
+            this.getReleyStatus();
+          }, 1000 * interval);
         });
     }, 1000 * interval);
   }
@@ -109,7 +115,7 @@ class AqaraRelay extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
 
@@ -140,21 +146,21 @@ class AqaraRelay extends Homey.Device {
 
   register1ChannelToggle(name) {
     const sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("toggle_ctrl_neutral", ["channel_0", value ? "on" : "off"], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message));
+        .catch((error) => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message));
     });
   }
 
   register2ChannelToggle(name) {
     const sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("toggle_ctrl_neutral", ["channel_1", value ? "on" : "off"], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message));
+        .catch((error) => this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message));
     });
   }
 
@@ -169,21 +175,21 @@ class AqaraRelay extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIp"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("toggle_ctrl_neutral", ["channel_0", "on"], { sid })
               .then(() => {
                 this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -199,21 +205,21 @@ class AqaraRelay extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIp"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("toggle_ctrl_neutral", ["channel_0", "off"], { sid })
               .then(() => {
                 this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -229,21 +235,21 @@ class AqaraRelay extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIp"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("toggle_ctrl_neutral", ["channel_0", "toggle"], { sid })
               .then(() => {
                 this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -259,21 +265,21 @@ class AqaraRelay extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIp"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("toggle_ctrl_neutral", ["channel_1", "on"], { sid })
               .then(() => {
                 this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -289,21 +295,21 @@ class AqaraRelay extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIp"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("toggle_ctrl_neutral", ["channel_1", "off"], { sid })
               .then(() => {
                 this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -319,21 +325,21 @@ class AqaraRelay extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIp"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("toggle_ctrl_neutral", ["channel_1", "toggle"], { sid })
               .then(() => {
                 this.log("Sending " + name + " commmand: " + value);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Sending commmand 'toggle_ctrl_neutral' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -347,7 +353,7 @@ class AqaraRelay extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

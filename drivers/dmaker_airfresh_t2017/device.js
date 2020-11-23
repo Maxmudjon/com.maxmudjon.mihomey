@@ -34,11 +34,12 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   getPurifierStatus() {
-    var that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
-        this.setAvailable();
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
         this.device = device;
 
         this.device
@@ -58,44 +59,38 @@ class MiAirPurifierMJXFJ extends Homey.Device {
             "screen_direction",
             "ptc_level",
             "ptc_on",
-            "ptc_status"
+            "ptc_status",
           ])
-          .then(result => {
-            that.setCapabilityValue("onoff", result[0]);
-            that.setCapabilityValue("measure_pm25", parseInt(result[1]));
-            that.setCapabilityValue("measure_co2", parseInt(result[2]));
-            that.setCapabilityValue("measure_temperature", parseInt(result[3]));
-            that.setCapabilityValue("air_purifier_t2017_mode", result[4]);
-            that.setCapabilityValue("air_heater_mode", result[5]);
-            that.setCapabilityValue("dim", parseInt(that.normalize[result[6]], 60, 300));
-            that.setSettings({ display: result[7] });
-            that.setSettings({ sound: result[8] });
-            that.setSettings({ childLock: result[9] });
-            that.setSettings({ filter_efficient: parseInt(result[10]).toString() + "%" });
-            that.setSettings({ filter_intermediate: parseInt(result[11]).toString() + "%" });
-            that.setSettings({ screen_direction: result[12] });
+          .then((result) => {
+            this.updateCapabilityValue("onoff", result[0]);
+            this.updateCapabilityValue("measure_pm25", parseInt(result[1]));
+            this.updateCapabilityValue("measure_co2", parseInt(result[2]));
+            this.updateCapabilityValue("measure_temperature", parseInt(result[3]));
+            this.updateCapabilityValue("air_purifier_t2017_mode", result[4]);
+            this.updateCapabilityValue("air_heater_mode", result[5]);
+            this.updateCapabilityValue("dim", parseInt(this.normalize[result[6]], 60, 300));
+            this.setSettings({ display: result[7] });
+            this.setSettings({ sound: result[8] });
+            this.setSettings({ childLock: result[9] });
+            this.setSettings({ filter_efficient: parseInt(result[10]).toString() + "%" });
+            this.setSettings({ filter_intermediate: parseInt(result[11]).toString() + "%" });
+            this.setSettings({ screen_direction: result[12] });
 
             if (result[13] && result[14]) {
-              that.setCapabilityValue("air_heater_mode", result[13]);
-            } else that.setCapabilityValue("air_heater_mode", "off");
-            that.setCapabilityValue("onoff.ptc", result[14]);
+              this.updateCapabilityValue("air_heater_mode", result[13]);
+            } else this.updateCapabilityValue("air_heater_mode", "off");
+            this.updateCapabilityValue("onoff.ptc", result[14]);
           })
-          .catch(error => {
-            that.log("Sending commmand 'get_prop' error: ", error);
+          .catch((error) => {
+            this.log("Sending commmand 'get_prop' error: ", error);
           });
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getPurifierStatus();
         }, 10000);
@@ -103,7 +98,6 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
@@ -123,43 +117,52 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           "screen_direction",
           "ptc_level",
           "ptc_on",
-          "ptc_status"
+          "ptc_status",
         ])
-        .then(result => {
-          that.setCapabilityValue("onoff", result[0]);
-          that.setCapabilityValue("measure_pm25", parseInt(result[1]));
-          that.setCapabilityValue("measure_co2", parseInt(result[2]));
-          that.setCapabilityValue("measure_temperature", parseInt(result[3]));
-          that.setCapabilityValue("air_purifier_t2017_mode", result[4]);
-          that.setCapabilityValue("air_heater_mode", result[5]);
-          that.setCapabilityValue("dim", parseInt(that.normalize[result[6]], 60, 300));
-          that.setSettings({ display: result[7] });
-          that.setSettings({ sound: result[8] });
-          that.setSettings({ childLock: result[9] });
-          that.setSettings({ filter_efficient: parseInt(result[10]).toString() + "%" });
-          that.setSettings({ filter_intermediate: parseInt(result[11]).toString() + "%" });
-          that.setSettings({ screen_direction: result[12] });
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
+          this.updateCapabilityValue("onoff", result[0]);
+          this.updateCapabilityValue("measure_pm25", parseInt(result[1]));
+          this.updateCapabilityValue("measure_co2", parseInt(result[2]));
+          this.updateCapabilityValue("measure_temperature", parseInt(result[3]));
+          this.updateCapabilityValue("air_purifier_t2017_mode", result[4]);
+          this.updateCapabilityValue("air_heater_mode", result[5]);
+          this.updateCapabilityValue("dim", parseInt(this.normalize[result[6]], 60, 300));
+          this.setSettings({ display: result[7] });
+          this.setSettings({ sound: result[8] });
+          this.setSettings({ childLock: result[9] });
+          this.setSettings({ filter_efficient: parseInt(result[10]).toString() + "%" });
+          this.setSettings({ filter_intermediate: parseInt(result[11]).toString() + "%" });
+          this.setSettings({ screen_direction: result[12] });
 
           if (result[13] && result[14]) {
-            that.setCapabilityValue("air_heater_mode", result[13]);
-          } else that.setCapabilityValue("air_heater_mode", "off");
-          that.setCapabilityValue("onoff.ptc", result[14]);
+            this.updateCapabilityValue("air_heater_mode", result[13]);
+          } else this.updateCapabilityValue("air_heater_mode", "off");
+          this.updateCapabilityValue("onoff.ptc", result[14]);
         })
-        .catch(error => {
-          this.log("Sending commmand error: ", error);
+        .catch((error) => {
+          this.log("Sending commmand 'get_prop' error: ", error);
+          this.setUnavailable(error.message);
           clearInterval(this.updateInterval);
-          if (error == "Error: Could not connect to device, handshake timeout") {
-            this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-            this.log("Error: Could not connect to device, handshake timeout");
-          } else if (error == "Error: Could not connect to device, token might be wrong") {
-            this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-            this.log("Error: Could not connect to device, token might be wrong");
-          }
           setTimeout(() => {
             this.getPurifierStatus();
           }, 1000 * interval);
         });
     }, 1000 * interval);
+  }
+
+  updateCapabilityValue(capabilityName, value) {
+    if (this.getCapabilityValue(capabilityName) != value) {
+      this.setCapabilityValue(capabilityName, value)
+        .then(() => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
+        })
+        .catch((error) => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
+    }
   }
 
   normalize(value, min, max) {
@@ -177,11 +180,11 @@ class MiAirPurifierMJXFJ extends Homey.Device {
       this.device
         .call("set_display", [newSettings.display ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + newSettings.display ? "on" : "off");
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.display);
           callback(null, true);
         })
-        .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.display ? "on" : "off error: ", error);
+        .catch((error) => {
+          this.log("Sending commmand 'set_sound' " + newSettings.display + " error: ", error);
           callback(error, false);
         });
     }
@@ -190,11 +193,11 @@ class MiAirPurifierMJXFJ extends Homey.Device {
       this.device
         .call("set_sound", [newSettings.sound ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + newSettings.sound ? "on" : "off");
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.sound);
           callback(null, true);
         })
-        .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.sound ? "on" : "off error: ", error);
+        .catch((error) => {
+          this.log("Sending commmand 'set_sound' " + newSettings.sound + " error: ", error);
           callback(error, false);
         });
     }
@@ -203,11 +206,11 @@ class MiAirPurifierMJXFJ extends Homey.Device {
       this.device
         .call("set_child_lock", [newSettings.childLock ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + newSettings.childLock ? "on" : "off");
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.childLock);
           callback(null, true);
         })
-        .catch(error => {
-          this.log("Sending commmand 'set_sound' " + newSettings.childLock ? "on" : "off error: ", error);
+        .catch((error) => {
+          this.log("Sending commmand 'set_sound' " + newSettings.childLock + " error: ", error);
           callback(error, false);
         });
     }
@@ -219,7 +222,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
           this.log("Sending commmand: " + newSettings.screen_direction);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_screen_direction' " + newSettings.screen_direction + " error: ", error);
           callback(error, false);
         });
@@ -227,14 +230,14 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   registerOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_power", [value])
         .then(() => {
           this.log("Sending " + name + " commmand: " + value);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_power' " + value + " error: " + error);
           callback(error, false);
         });
@@ -242,14 +245,14 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   registerPTCOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_ptc_on", [value])
         .then(() => {
           this.log("Sending " + name + " commmand: " + value);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_ptc_on' " + value + " error: " + error);
           callback(error, false);
         });
@@ -257,7 +260,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   registerFavoriteLevel(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let speed = value * 100;
       if (speed > 0) {
         this.device
@@ -266,7 +269,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
             this.log("Sending " + name + " commmand: " + value);
             callback(null, true);
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("Sending commmand 'set_favourite_speed' " + value + " error: " + error);
             callback(error, false);
           });
@@ -275,14 +278,14 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   registerAirPurifierMode(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_mode", [value])
         .then(() => {
           this.log("Sending " + name + " commmand: " + value);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_mode' " + value + " error: " + error);
           callback(error, false);
         });
@@ -290,14 +293,14 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   registerAirPurifierHeatingMode(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_ptc_level", [value])
         .then(() => {
           this.log("Sending " + name + " commmand: " + value);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_ptc_level' " + value + " error: " + error);
           callback(error, false);
         });
@@ -311,21 +314,21 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_power", ["on"])
               .then(() => {
                 that.log("Set 'set_power' ON");
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_power' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -341,21 +344,21 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_power", ["off"])
               .then(() => {
                 that.log("Set 'set_power' OFF");
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_power' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -371,21 +374,21 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_mode", [args.modes])
               .then(() => {
                 that.log("Set 'set_mode': ", args.modes);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_mode' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -401,21 +404,21 @@ class MiAirPurifierMJXFJ extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_favourite_speed", [parseInt(speed * 2.4 + 60)])
               .then(() => {
                 that.log("Set 'set_favourite_speed': ", parseInt(speed * 2.4 + 60));
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_favourite_speed' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -429,7 +432,7 @@ class MiAirPurifierMJXFJ extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
   }
 }

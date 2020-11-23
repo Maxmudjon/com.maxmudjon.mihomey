@@ -32,10 +32,9 @@ class MiAirFreshVA2 extends Homey.Device {
   }
 
   getAirFreshStatus() {
-    var that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
+      .then((device) => {
         if (!this.getAvailable()) {
           this.setAvailable();
         }
@@ -44,27 +43,27 @@ class MiAirFreshVA2 extends Homey.Device {
 
         this.device
           .call("get_prop", ["power", "mode", "aqi", "co2", "humidity", "temp_dec", "motor1_speed", "led", "buzzer", "child_lock", "f1_hour_used"])
-          .then(result => {
-            that.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
-            that.updateCapabilityValue("air_fresh_mode", result[1]);
-            that.updateCapabilityValue("measure_pm25", parseInt(result[2]));
-            that.updateCapabilityValue("measure_co2", parseInt(result[3]));
-            that.updateCapabilityValue("measure_humidity", parseInt(result[4]));
-            that.updateCapabilityValue("measure_temperature", parseInt(result[5] / 10));
-            that.updateCapabilityValue("dim", parseInt(parseInt(result[6] / 10.3) / 100));
-            that.setSettings({ led: result[7] == "on" ? true : false });
-            that.setSettings({ buzzer: result[8] == "on" ? true : false });
-            that.setSettings({ childLock: result[9] == "on" ? true : false });
-            that.setSettings({ f1_hour_used: result[10] + "%" });
+          .then((result) => {
+            this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
+            this.updateCapabilityValue("air_fresh_mode", result[1]);
+            this.updateCapabilityValue("measure_pm25", parseInt(result[2]));
+            this.updateCapabilityValue("measure_co2", parseInt(result[3]));
+            this.updateCapabilityValue("measure_humidity", parseInt(result[4]));
+            this.updateCapabilityValue("measure_temperature", parseInt(result[5] / 10));
+            this.updateCapabilityValue("dim", parseInt(parseInt(result[6] / 10.3) / 100));
+            this.setSettings({ led: result[7] == "on" ? true : false });
+            this.setSettings({ buzzer: result[8] == "on" ? true : false });
+            this.setSettings({ childLock: result[9] == "on" ? true : false });
+            this.setSettings({ f1_hour_used: result[10] + "%" });
           })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        this.setUnavailable(Homey.__("reconnecting"));
+      .catch((error) => {
+        clearInterval(this.updateInterval);
+        this.setUnavailable(error.message);
         setTimeout(() => {
           this.getAirFreshStatus();
         }, 10000);
@@ -72,28 +71,31 @@ class MiAirFreshVA2 extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["power", "mode", "aqi", "co2", "humidity", "temp_dec", "motor1_speed", "led", "buzzer", "child_lock", "f1_hour_used"])
-        .then(result => {
-          that.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
-          that.updateCapabilityValue("air_fresh_mode", result[1]);
-          that.updateCapabilityValue("measure_pm25", parseInt(result[2]));
-          that.updateCapabilityValue("measure_co2", parseInt(result[3]));
-          that.updateCapabilityValue("measure_humidity", parseInt(result[4]));
-          that.updateCapabilityValue("measure_temperature", parseInt(result[5] / 10));
-          that.updateCapabilityValue("dim", parseInt(parseInt(result[6] / 10.3) / 100));
-          that.setSettings({ led: result[7] == "on" ? true : false });
-          that.setSettings({ buzzer: result[8] == "on" ? true : false });
-          that.setSettings({ childLock: result[9] == "on" ? true : false });
-          that.setSettings({ f1_hour_used: result[10] + "%" });
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
+
+          this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
+          this.updateCapabilityValue("air_fresh_mode", result[1]);
+          this.updateCapabilityValue("measure_pm25", parseInt(result[2]));
+          this.updateCapabilityValue("measure_co2", parseInt(result[3]));
+          this.updateCapabilityValue("measure_humidity", parseInt(result[4]));
+          this.updateCapabilityValue("measure_temperature", parseInt(result[5] / 10));
+          this.updateCapabilityValue("dim", parseInt(parseInt(result[6] / 10.3) / 100));
+          this.setSettings({ led: result[7] == "on" ? true : false });
+          this.setSettings({ buzzer: result[8] == "on" ? true : false });
+          this.setSettings({ childLock: result[9] == "on" ? true : false });
+          this.setSettings({ f1_hour_used: result[10] + "%" });
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand error: ", error);
           clearInterval(this.updateInterval);
-          this.setUnavailable(Homey.__("unreachable"));
+          this.setUnavailable(error.message);
           setTimeout(() => {
             this.getAirFreshStatus();
           }, 1000 * interval);
@@ -107,7 +109,7 @@ class MiAirFreshVA2 extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
     }
@@ -123,10 +125,10 @@ class MiAirFreshVA2 extends Homey.Device {
       this.device
         .call("set_led", [newSettings.led ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + value);
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.led);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_led' error: ", error);
           callback(error, false);
         });
@@ -136,10 +138,10 @@ class MiAirFreshVA2 extends Homey.Device {
       this.device
         .call("set_buzzer", [newSettings.buzzer ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + value);
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.buzzer);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_buzzer' error: ", error);
           callback(error, false);
         });
@@ -149,10 +151,10 @@ class MiAirFreshVA2 extends Homey.Device {
       this.device
         .call("set_child_lock", [newSettings.childLock ? "on" : "off"])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + value);
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.childLock);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'set_child_lock' error: ", error);
           callback(error, false);
         });
@@ -160,32 +162,32 @@ class MiAirFreshVA2 extends Homey.Device {
   }
 
   registerOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
   registerFavoriteLevel(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let speed = value * 100;
       if (speed > 0) {
         this.device
           .call("set_motor1", [speed * 10.3])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_level_favorite' error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_level_favorite' error: ", error));
       }
     });
   }
 
   registerAirFreshMode(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_mode", [value])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_mode' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_mode' error: ", error));
     });
   }
 
@@ -196,21 +198,21 @@ class MiAirFreshVA2 extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_power", ["on"])
               .then(() => {
                 that.log("Set 'set_power' ON");
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_power' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -226,21 +228,21 @@ class MiAirFreshVA2 extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_power", ["off"])
               .then(() => {
                 that.log("Set 'set_power' OFF");
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_power' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -256,21 +258,21 @@ class MiAirFreshVA2 extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_mode", [args.modes])
               .then(() => {
                 that.log("Set 'set_mode': ", args.modes);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_mode' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -286,21 +288,21 @@ class MiAirFreshVA2 extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("set_motor1", [args.range * 100 * 10.3])
               .then(() => {
                 that.log("Set 'set_motor1': ", args.range * 100 * 10.3);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 that.log("Set 'set_motor1' error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -314,7 +316,7 @@ class MiAirFreshVA2 extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

@@ -14,7 +14,7 @@ class XiaomiMijiaLDS extends Homey.Device {
       4: "Returning home",
       5: "Docked",
       6: "Cleaning (vacuum + mop)",
-      7: "Cleaning (mop only)"
+      7: "Cleaning (mop only)",
     };
     this.initialize();
     this.log("Mi Homey device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
@@ -39,61 +39,62 @@ class XiaomiMijiaLDS extends Homey.Device {
   }
 
   getVacuumStatus() {
-    var that = this;
     const { triggers } = this.driver;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
-        this.setAvailable();
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
         this.device = device;
 
         this.device
           .call("get_prop", ["run_state", "suction_grade", "battary_life", "is_mop", "water_grade", "mop_route", "main_brush_life", "side_brush_life", "hypa_life"])
-          .then(result => {
+          .then((result) => {
             if (result[0] == 3) {
-              that.setCapabilityValue("onoff", true);
+              this.updateCapabilityValue("onoff", true);
             } else if (result[0] == 6 || result[0] == 7) {
-              that.setCapabilityValue("onoff", true);
+              this.updateCapabilityValue("onoff", true);
             } else if (result[0] == 5) {
-              that.setCapabilityValue("onoff", false);
+              this.updateCapabilityValue("onoff", false);
             } else if (result[0] == 3) {
-              that.setCapabilityValue("onoff", false);
+              this.updateCapabilityValue("onoff", false);
             } else if (result[0] == 2) {
-              that.setCapabilityValue("onoff", true);
+              this.updateCapabilityValue("onoff", true);
             }
 
             switch (parseInt(result[1])) {
               case 0:
-                that.setCapabilityValue("dim", 0.25);
+                this.updateCapabilityValue("dim", 0.25);
                 break;
               case 1:
-                that.setCapabilityValue("dim", 0.5);
+                this.updateCapabilityValue("dim", 0.5);
                 break;
               case 2:
-                that.setCapabilityValue("dim", 0.75);
+                this.updateCapabilityValue("dim", 0.75);
                 break;
               case 3:
-                that.setCapabilityValue("dim", 1);
+                this.updateCapabilityValue("dim", 1);
                 break;
             }
 
-            that.setCapabilityValue("measure_battery", parseInt(result[2]));
-            that.setCapabilityValue("alarm_battery", parseInt(result[2]) <= 20 ? true : false);
-            that.setCapabilityValue("vacuum_cleaner_mop_mode", parseInt(result[3]));
+            this.updateCapabilityValue("measure_battery", parseInt(result[2]));
+            this.updateCapabilityValue("alarm_battery", parseInt(result[2]) <= 20 ? true : false);
+            this.updateCapabilityValue("vacuum_cleaner_mop_mode", parseInt(result[3]));
 
             switch (parseInt(result[4])) {
               case 0:
-                that.setCapabilityValue("dim.water", 0.33);
+                this.updateCapabilityValue("dim.water", 0.33);
                 break;
               case 1:
-                that.setCapabilityValue("dim.water", 0.66);
+                this.updateCapabilityValue("dim.water", 0.66);
                 break;
               case 2:
-                that.setCapabilityValue("dim.water", 1);
+                this.updateCapabilityValue("dim.water", 1);
                 break;
             }
 
-            that.setSettings({ mopRoute: parseInt(result[5]) });
+            this.setSettings({ mopRoute: parseInt(result[5]) });
 
             const mainBrushLifeTime = 1080000;
             const mainBrushCurrentLife = parseInt(result[6]);
@@ -105,85 +106,80 @@ class XiaomiMijiaLDS extends Homey.Device {
             const filterCurrentLife = parseInt(result[8]);
             const filterLifeTimePercent = (filterCurrentLife / filterLifeTime) * 100;
 
-            that.setSettings({ main_brush_work_time: parseInt(mainBrushLifeTimePercent) + "%" }).catch(error => this.log("Set Settings Error", error));
-            that.triggerFlow(triggers.main_brush, "main_brush_work_time", 100 - parseInt(mainBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
-            that.setSettings({ side_brush_work_time: parseInt(sideBrushLifeTimePercent) + "%" }).catch(error => this.log("Set Settings Error", error));
-            that.triggerFlow(triggers.side_brush, "side_brush_work_time", 100 - parseInt(sideBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
-            that.setSettings({ filter_work_time: parseInt(filterLifeTimePercent) + "%" }).catch(error => this.log("Set Settings Error", error));
-            that.triggerFlow(triggers.filter, "filter_work_time", 100 - parseInt(filterLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
+            this.setSettings({ main_brush_work_time: parseInt(mainBrushLifeTimePercent) + "%" }).catch((error) => this.log("Set Settings Error", error));
+            this.triggerFlow(triggers.main_brush, "main_brush_work_time", 100 - parseInt(mainBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
+            this.setSettings({ side_brush_work_time: parseInt(sideBrushLifeTimePercent) + "%" }).catch((error) => this.log("Set Settings Error", error));
+            this.triggerFlow(triggers.side_brush, "side_brush_work_time", 100 - parseInt(sideBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
+            this.setSettings({ filter_work_time: parseInt(filterLifeTimePercent) + "%" }).catch((error) => this.log("Set Settings Error", error));
+            this.triggerFlow(triggers.filter, "filter_work_time", 100 - parseInt(filterLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
           })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getVacuumStatus();
-          this.updateInterval && clearInterval(this.updateInterval);
         }, 10000);
       });
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["run_state", "suction_grade", "battary_life", "is_mop", "water_grade", "mop_route", "main_brush_life", "side_brush_life", "hypa_life"])
-        .then(result => {
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
           if (result[0] == 3) {
-            that.setCapabilityValue("onoff", true);
+            this.updateCapabilityValue("onoff", true);
           } else if (result[0] == 6 || result[0] == 7) {
-            that.setCapabilityValue("onoff", true);
+            this.updateCapabilityValue("onoff", true);
           } else if (result[0] == 5) {
-            that.setCapabilityValue("onoff", false);
+            this.updateCapabilityValue("onoff", false);
           } else if (result[0] == 3) {
-            that.setCapabilityValue("onoff", false);
+            this.updateCapabilityValue("onoff", false);
           } else if (result[0] == 2) {
-            that.setCapabilityValue("onoff", true);
+            this.updateCapabilityValue("onoff", true);
           }
 
           switch (parseInt(result[1])) {
             case 0:
-              that.setCapabilityValue("dim", 0.25);
+              this.updateCapabilityValue("dim", 0.25);
               break;
             case 1:
-              that.setCapabilityValue("dim", 0.5);
+              this.updateCapabilityValue("dim", 0.5);
               break;
             case 2:
-              that.setCapabilityValue("dim", 0.75);
+              this.updateCapabilityValue("dim", 0.75);
               break;
             case 3:
-              that.setCapabilityValue("dim", 1);
+              this.updateCapabilityValue("dim", 1);
               break;
           }
 
-          that.setCapabilityValue("measure_battery", parseInt(result[2]));
-          that.setCapabilityValue("alarm_battery", parseInt(result[2]) <= 20 ? true : false);
-          that.setCapabilityValue("vacuum_cleaner_mop_mode", parseInt(result[3]));
+          this.updateCapabilityValue("measure_battery", parseInt(result[2]));
+          this.updateCapabilityValue("alarm_battery", parseInt(result[2]) <= 20 ? true : false);
+          this.updateCapabilityValue("vacuum_cleaner_mop_mode", parseInt(result[3]));
 
           switch (parseInt(result[4])) {
             case 0:
-              that.setCapabilityValue("dim.water", 0.33);
+              this.updateCapabilityValue("dim.water", 0.33);
               break;
             case 1:
-              that.setCapabilityValue("dim.water", 0.66);
+              this.updateCapabilityValue("dim.water", 0.66);
               break;
             case 2:
-              that.setCapabilityValue("dim.water", 1);
+              this.updateCapabilityValue("dim.water", 1);
               break;
           }
 
-          that.setSettings({ mopRoute: parseInt(result[5]) });
+          this.setSettings({ mopRoute: parseInt(result[5]) });
 
           const mainBrushLifeTime = 1080000;
           const mainBrushCurrentLife = parseInt(result[6]);
@@ -195,29 +191,34 @@ class XiaomiMijiaLDS extends Homey.Device {
           const filterCurrentLife = parseInt(result[8]);
           const filterLifeTimePercent = (filterCurrentLife / filterLifeTime) * 100;
 
-          that.setSettings({ main_brush_work_time: parseInt(mainBrushLifeTimePercent) + "%" }).catch(error => this.log("Set Settings Error", error));
-          that.triggerFlow(triggers.main_brush, "main_brush_work_time", 100 - parseInt(mainBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
-          that.setSettings({ side_brush_work_time: parseInt(sideBrushLifeTimePercent) + "%" }).catch(error => this.log("Set Settings Error", error));
-          that.triggerFlow(triggers.side_brush, "side_brush_work_time", 100 - parseInt(sideBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
-          that.setSettings({ filter_work_time: parseInt(filterLifeTimePercent) + "%" }).catch(error => this.log("Set Settings Error", error));
-          that.triggerFlow(triggers.filter, "filter_work_time", 100 - parseInt(filterLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
+          this.setSettings({ main_brush_work_time: parseInt(mainBrushLifeTimePercent) + "%" }).catch((error) => this.log("Set Settings Error", error));
+          this.triggerFlow(triggers.main_brush, "main_brush_work_time", 100 - parseInt(mainBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
+          this.setSettings({ side_brush_work_time: parseInt(sideBrushLifeTimePercent) + "%" }).catch((error) => this.log("Set Settings Error", error));
+          this.triggerFlow(triggers.side_brush, "side_brush_work_time", 100 - parseInt(sideBrushLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
+          this.setSettings({ filter_work_time: parseInt(filterLifeTimePercent) + "%" }).catch((error) => this.log("Set Settings Error", error));
+          this.triggerFlow(triggers.filter, "filter_work_time", 100 - parseInt(filterLifeTimePercent) <= this.getSetting("alarm_threshold") ? true : false);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'get_prop' error: ", error);
+          this.setUnavailable(error.message);
           clearInterval(this.updateInterval);
-          if (error == "Error: Could not connect to device, handshake timeout") {
-            this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-            this.log("Error: Could not connect to device, handshake timeout");
-          } else if (error == "Error: Could not connect to device, token might be wrong") {
-            this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-            this.log("Error: Could not connect to device, token might be wrong");
-          }
           setTimeout(() => {
             this.getVacuumStatus();
-            this.updateInterval && clearInterval(this.updateInterval);
           }, 1000 * interval);
         });
     }, 1000 * interval);
+  }
+
+  updateCapabilityValue(capabilityName, value) {
+    if (this.getCapabilityValue(capabilityName) != value) {
+      this.setCapabilityValue(capabilityName, value)
+        .then(() => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
+        })
+        .catch((error) => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
+    }
   }
 
   convertMS(milliseconds) {
@@ -241,72 +242,72 @@ class XiaomiMijiaLDS extends Homey.Device {
     if (changedKeys.includes("mopRoute")) {
       this.device
         .call("set_moproute", [newSettings.mopRoute])
-        .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_moproute'  error: ", error));
+        .then(() => this.log("Sending " + this.getName() + " commmand: " + newSettings.mopRoute))
+        .catch((error) => this.log("Sending commmand 'set_moproute'  error: ", error));
     }
   }
 
   registerOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       if (value) {
         this.device
           .call("set_mode_withroom", [0, 1, 0], {
             refresh: ["state"],
-            refreshDelay: 1000
+            refreshDelay: 1000,
           })
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_mode_withroom'  error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_mode_withroom'  error: ", error));
       } else {
         this.device
           .call("set_charge", [1], {
             refresh: ["state"],
-            refreshDelay: 1000
+            refreshDelay: 1000,
           })
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_charge' error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_charge' error: ", error));
       }
     });
   }
 
   registerCleaningSpeed(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       if (value == 0) {
         this.device
           .call("set_mode", [0], {
             refresh: ["state"],
-            refreshDelay: 1000
+            refreshDelay: 1000,
           })
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_suction' error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_suction' error: ", error));
       } else {
         this.device
           .call("set_suction", [value], {
-            refresh: ["fanSpeed"]
+            refresh: ["fanSpeed"],
           })
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_suction' error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_suction' error: ", error));
       }
     });
   }
 
   registerCleaningWaterSpeed(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const speeds = { 0: 11, 1: 12, 2: 13 };
       this.device
         .call("set_suction", [speeds[value]], {
-          refresh: ["waterBoxMode"]
+          refresh: ["waterBoxMode"],
         })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_suction' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_suction' error: ", error));
     });
   }
 
   registerVacuumCleanerMopMode(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_mop", [value])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_mop' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_mop' error: ", error));
     });
   }
 
@@ -316,25 +317,25 @@ class XiaomiMijiaLDS extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             const rooms = JSON.parse("[" + args.rooms.split(",") + "]");
             device
               .call("set_mode_withroom", [0, 1, rooms.length].concat([rooms]), {
                 refresh: ["state"],
-                refreshDelay: 1000
+                refreshDelay: 1000,
               })
               .then(() => {
                 this.log("Set Start rooms cleaning: ", args.rooms);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Set Start rooms cleaning error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -360,7 +361,7 @@ class XiaomiMijiaLDS extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

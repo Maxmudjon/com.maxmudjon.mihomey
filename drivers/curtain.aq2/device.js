@@ -61,10 +61,10 @@ class CurtainAQ2 extends Homey.Device {
 
     let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
-      gateways[sid]["childDevices"].forEach(deviceSid => {
+      gateways[sid]["childDevices"].forEach((deviceSid) => {
         if (this.data.sid == deviceSid) {
           this.setSettings({
-            deviceFromGatewaySid: sid
+            deviceFromGatewaySid: sid,
           });
         }
       });
@@ -73,7 +73,7 @@ class CurtainAQ2 extends Homey.Device {
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: "lumi." + device.model,
-      deviceModelCodeName: device.modelCode
+      deviceModelCodeName: device.modelCode,
     });
   }
 
@@ -99,7 +99,7 @@ class CurtainAQ2 extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "]" + " [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
@@ -108,7 +108,7 @@ class CurtainAQ2 extends Homey.Device {
 
   registerToggle(name, valueOn = true, valueOff = false, trigger) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const newValue = value ? valueOn : valueOff;
       const data = { curtain_status: newValue };
       await Homey.app.mihub.sendWrite(sid, data);
@@ -118,7 +118,7 @@ class CurtainAQ2 extends Homey.Device {
 
   registerDim(name) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const level = Math.round(value * 100);
       const data = { curtain_level: level.toString() };
       await Homey.app.mihub.sendWrite(sid, data);
@@ -127,7 +127,7 @@ class CurtainAQ2 extends Homey.Device {
 
   registerCovering(name) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const states = { up: "open", idle: "stop", down: "close" };
       const data = { curtain_status: states[value] };
       await Homey.app.mihub.sendWrite(sid, data);
@@ -171,7 +171,7 @@ class CurtainAQ2 extends Homey.Device {
   onDeleted() {
     this.unregisterAuthChangeListener();
     this.unregisterStateChangeListener();
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

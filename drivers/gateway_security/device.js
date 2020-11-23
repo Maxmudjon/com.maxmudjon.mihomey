@@ -22,34 +22,30 @@ class GatewaySecurity extends Homey.Device {
   getSecurityStatus() {
     miio
       .device({ address: this.getSetting("gatewayIP"), token: this.getSetting("gatewayToken") })
-      .then(device => {
-        this.setAvailable();
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
 
         this.device = device;
 
         this.device
           .call("get_arming", [])
-          .then(result => {
+          .then((result) => {
             if (result[0] == "on") {
-              this.setCapabilityValue("homealarm_state", "armed");
+              this.updateCapabilityValue("homealarm_state", "armed");
             } else if (result[0] == "off") {
-              this.setCapabilityValue("homealarm_state", "disarmed");
+              this.updateCapabilityValue("homealarm_state", "disarmed");
             }
           })
-          .catch(error => this.log("Sending commmand 'get_arming' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_arming' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getSecurityStatus();
         }, 10000);
@@ -61,28 +57,37 @@ class GatewaySecurity extends Homey.Device {
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_arming", [])
-        .then(result => {
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
           if (result[0] == "on") {
-            this.setCapabilityValue("homealarm_state", "armed");
+            this.updateCapabilityValue("homealarm_state", "armed");
           } else if (result[0] == "off") {
-            this.setCapabilityValue("homealarm_state", "disarmed");
+            this.updateCapabilityValue("homealarm_state", "disarmed");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand error: ", error);
+          this.setUnavailable(error.message);
           clearInterval(this.updateInterval);
-          if (error == "Error: Could not connect to device, handshake timeout") {
-            this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-            this.log("Error: Could not connect to device, handshake timeout");
-          } else if (error == "Error: Could not connect to device, token might be wrong") {
-            this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-            this.log("Error: Could not connect to device, token might be wrong");
-          }
           setTimeout(() => {
             this.getSecurityStatus();
           }, 1000 * interval);
         });
     }, 1000 * interval);
+  }
+
+  updateCapabilityValue(capabilityName, value) {
+    if (this.getCapabilityValue(capabilityName) != value) {
+      this.setCapabilityValue(capabilityName, value)
+        .then(() => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
+        })
+        .catch((error) => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
+    }
   }
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
@@ -93,7 +98,7 @@ class GatewaySecurity extends Homey.Device {
   }
 
   registerHomeAlarmSecurity(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       var state;
       if (value == "armed") {
         state = "on";
@@ -106,7 +111,7 @@ class GatewaySecurity extends Homey.Device {
       this.device
         .call("set_arming", [state])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand error: ", error));
+        .catch((error) => this.log("Sending commmand error: ", error));
     });
   }
 
@@ -115,7 +120,7 @@ class GatewaySecurity extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

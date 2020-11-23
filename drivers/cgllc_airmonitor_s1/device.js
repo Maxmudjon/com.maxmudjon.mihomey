@@ -5,15 +5,14 @@ class MiClearGlassAirDetector extends Homey.Device {
   async onInit() {
     this.driver = this.getDriver();
     this.data = this.getData();
-    this.getAirFreshStatus();
+    this.getAirMonitorStatus();
     this.log("MiJia device init | name: " + this.getName() + " - class: " + this.getClass() + " - data: " + JSON.stringify(this.data));
   }
 
-  getAirFreshStatus() {
-    var that = this;
+  getAirMonitorStatus() {
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
+      .then((device) => {
         if (!this.getAvailable()) {
           this.setAvailable();
         }
@@ -22,50 +21,52 @@ class MiClearGlassAirDetector extends Homey.Device {
 
         this.device
           .call("get_prop", ["battery", "battery_state", "co2", "humidity", "pm25", "temperature", "tvoc"])
-          .then(result => {
-            that.updateCapabilityValue("measure_pm25", parseInt(result.pm25));
-            that.updateCapabilityValue("measure_co2", parseInt(result.co2));
-            that.updateCapabilityValue("measure_humidity", parseFloat(result.humidity));
-            that.updateCapabilityValue("measure_temperature", parseFloat(result.temperature));
-            that.updateCapabilityValue("measure_voc", parseInt(result.tvoc));
-            that.updateCapabilityValue("battery", parseInt(result.battery));
-            that.updateCapabilityValue("battery_state", parseInt(result.battery) > 20 ? false : true);
+          .then((result) => {
+            this.updateCapabilityValue("measure_pm25", parseInt(result.pm25));
+            this.updateCapabilityValue("measure_co2", parseInt(result.co2));
+            this.updateCapabilityValue("measure_humidity", parseFloat(result.humidity));
+            this.updateCapabilityValue("measure_temperature", parseFloat(result.temperature));
+            this.updateCapabilityValue("measure_voc", parseInt(result.tvoc));
+            this.updateCapabilityValue("measure_battery", parseInt(result.battery));
+            this.updateCapabilityValue("alarm_battery", parseInt(result.battery) > 20 ? false : true);
           })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        this.setUnavailable(Homey.__("reconnecting"));
+      .catch((error) => {
+        clearInterval(this.updateInterval);
+        this.setUnavailable(error.message);
         setTimeout(() => {
-          this.getAirFreshStatus();
+          this.getAirMonitorStatus();
         }, 10000);
       });
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["battery", "battery_state", "co2", "humidity", "pm25", "temperature", "tvoc"])
-        .then(result => {
-          that.updateCapabilityValue("measure_pm25", parseInt(result.pm25));
-          that.updateCapabilityValue("measure_co2", parseInt(result.co2));
-          that.updateCapabilityValue("measure_humidity", parseFloat(result.humidity));
-          that.updateCapabilityValue("measure_temperature", parseFloat(result.temperature));
-          that.updateCapabilityValue("measure_voc", parseInt(result.tvoc));
-          that.updateCapabilityValue("battery", parseInt(result.battery));
-          that.updateCapabilityValue("battery_state", parseInt(result.battery) > 20 ? false : true);
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
+          this.updateCapabilityValue("measure_pm25", parseInt(result.pm25));
+          this.updateCapabilityValue("measure_co2", parseInt(result.co2));
+          this.updateCapabilityValue("measure_humidity", parseFloat(result.humidity));
+          this.updateCapabilityValue("measure_temperature", parseFloat(result.temperature));
+          this.updateCapabilityValue("measure_voc", parseInt(result.tvoc));
+          this.updateCapabilityValue("measure_battery", parseInt(result.battery));
+          this.updateCapabilityValue("alarm_battery", parseInt(result.battery) > 20 ? false : true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'get_prop' error: ", error);
           clearInterval(this.updateInterval);
-          this.setUnavailable(Homey.__("unreachable"));
+          this.setUnavailable(error.message);
           setTimeout(() => {
-            this.getAirFreshStatus();
+            this.getAirMonitorStatus();
           }, 1000 * interval);
         });
     }, 1000 * interval);
@@ -77,7 +78,7 @@ class MiClearGlassAirDetector extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
     }
@@ -85,7 +86,7 @@ class MiClearGlassAirDetector extends Homey.Device {
 
   onSettings(oldSettings, newSettings, changedKeys, callback) {
     if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
-      this.getAirFreshStatus();
+      this.getAirMonitorStatus();
       callback(null, true);
     }
   }
@@ -95,7 +96,7 @@ class MiClearGlassAirDetector extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

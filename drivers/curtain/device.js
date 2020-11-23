@@ -61,10 +61,10 @@ class Curtain extends Homey.Device {
 
     let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
-      gateways[sid]["childDevices"].forEach(deviceSid => {
+      gateways[sid]["childDevices"].forEach((deviceSid) => {
         if (this.data.sid == deviceSid) {
           this.setSettings({
-            deviceFromGatewaySid: sid
+            deviceFromGatewaySid: sid,
           });
         }
       });
@@ -73,7 +73,7 @@ class Curtain extends Homey.Device {
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: "lumi." + device.model,
-      deviceModelCodeName: device.modelCode
+      deviceModelCodeName: device.modelCode,
     });
   }
 
@@ -99,7 +99,7 @@ class Curtain extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
@@ -108,7 +108,7 @@ class Curtain extends Homey.Device {
 
   registerToggle(name) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const settings = this.getSettings();
       if (value) {
         const data = { curtain_status: settings.reverted ? "open" : "close" };
@@ -122,7 +122,7 @@ class Curtain extends Homey.Device {
 
   registerDim(name) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const level = Math.round(value * 100);
       const data = { curtain_level: level.toString() };
       await Homey.app.mihub.sendWrite(sid, data);
@@ -131,7 +131,7 @@ class Curtain extends Homey.Device {
 
   registerCovering(name) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const settings = this.getSettings();
       const states = { up: "open", idle: "stop", down: "close" };
 
@@ -186,7 +186,7 @@ class Curtain extends Homey.Device {
   onDeleted() {
     this.unregisterAuthChangeListener();
     this.unregisterStateChangeListener();
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

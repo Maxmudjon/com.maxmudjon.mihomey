@@ -26,13 +26,15 @@ class AqaraLightBulb extends Homey.Device {
 
     miio
       .device({ address: this.getSetting("deviceIp"), token: this.getSetting("deviceToken") })
-      .then(device => {
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
         this.device = device;
 
         this.device
           .call("get_bright", [], { sid })
-          .then(result => {
-            this.setAvailable();
+          .then((result) => {
             if (result[0] == 0) {
               this.updateCapabilityValue("onoff", false);
             } else if (result[0] > 1) {
@@ -40,20 +42,14 @@ class AqaraLightBulb extends Homey.Device {
             }
             this.updateCapabilityValue("dim", parseFloat(result[0] / 100));
           })
-          .catch(error => this.log("Sending commmand 'get_bright' error: ", error.message));
+          .catch((error) => this.log("Sending commmand 'get_bright' error: ", error.message));
 
         const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
-        this.updateInterval && clearInterval(this.updateInterval);
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getLightStatus();
         }, 10000);
@@ -66,7 +62,10 @@ class AqaraLightBulb extends Homey.Device {
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_bright", [], { sid })
-        .then(result => {
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
+          }
           if (result[0] == 0) {
             this.updateCapabilityValue("onoff", false);
           } else if (result[0] > 1) {
@@ -74,8 +73,9 @@ class AqaraLightBulb extends Homey.Device {
           }
           this.updateCapabilityValue("dim", parseFloat(result[0] / 100));
         })
-        .catch(error => {
-          this.updateInterval && clearInterval(this.updateInterval);
+        .catch((error) => {
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
           this.log("Sending commmand 'get_bright' error: ", error.message);
         });
     }, 1000 * interval);
@@ -87,7 +87,7 @@ class AqaraLightBulb extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
     }
@@ -102,33 +102,33 @@ class AqaraLightBulb extends Homey.Device {
 
   registerToggle(name) {
     const sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_power", [value ? "on" : "off"], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_power' error: ", error.message));
+        .catch((error) => this.log("Sending commmand 'set_power' error: ", error.message));
     });
   }
 
   registerDim(name) {
     const sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_bright", [value * 100], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_bright' error: ", error.message));
+        .catch((error) => this.log("Sending commmand 'set_bright' error: ", error.message));
     });
   }
 
   registerLightTemperature(name) {
     const sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let color_temp = this.denormalize(value, 153, 500);
 
       this.device
         .call("set_ct", [color_temp], { sid })
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_ct' error: ", error.message));
+        .catch((error) => this.log("Sending commmand 'set_ct' error: ", error.message));
     });
   }
 
@@ -147,7 +147,7 @@ class AqaraLightBulb extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

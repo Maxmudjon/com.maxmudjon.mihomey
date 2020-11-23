@@ -120,7 +120,7 @@ class AqaraLock1 extends Homey.Device {
       "65632",
       "65633",
       "65634",
-      "65635"
+      "65635",
     ];
     const codesId = [
       "131072",
@@ -222,7 +222,7 @@ class AqaraLock1 extends Homey.Device {
       "131168",
       "131169",
       "131170",
-      "131171"
+      "131171",
     ];
     const cardsId = [
       "196608",
@@ -324,7 +324,7 @@ class AqaraLock1 extends Homey.Device {
       "196704",
       "196705",
       "196706",
-      "196707"
+      "196707",
     ];
 
     if (device["data"]["voltage"]) {
@@ -338,7 +338,7 @@ class AqaraLock1 extends Homey.Device {
     if (device["data"]["fing_verified"]) {
       this.updateCapabilityValue("alarm_motion.finger", true);
       var that = this;
-      fingersId.forEach(function(item, i, arr) {
+      fingersId.forEach(function (item, i, arr) {
         if (device["data"]["fing_verified"] == item) {
           for (let u = 0; u < 10; u++) {
             if (settings[`user${u}FingerID`]) {
@@ -353,7 +353,7 @@ class AqaraLock1 extends Homey.Device {
                     code_id: 404,
                     card_id: 404,
                     userName: userUN,
-                    wrong_id: 0
+                    wrong_id: 0,
                   };
                   that.triggerFlow(triggers.lockUsed, "lockUsed", tokens);
                 }
@@ -379,7 +379,7 @@ class AqaraLock1 extends Homey.Device {
       this.updateCapabilityValue("alarm_motion.code", true);
       var that = this;
 
-      codesId.forEach(function(item, i, arr) {
+      codesId.forEach(function (item, i, arr) {
         if (device["data"]["psw_verified"] == item) {
           for (let u = 0; u < 10; u++) {
             if (settings[`user${u}CodeID`]) {
@@ -394,7 +394,7 @@ class AqaraLock1 extends Homey.Device {
                     code_id: i,
                     card_id: 404,
                     userName: userUN,
-                    wrong_id: 0
+                    wrong_id: 0,
                   };
                   that.triggerFlow(triggers.lockUsed, "lockUsed", tokens);
                 }
@@ -419,7 +419,7 @@ class AqaraLock1 extends Homey.Device {
     if (device["data"]["card_verified"]) {
       this.updateCapabilityValue("alarm_motion.card", true);
       var that = this;
-      cardsId.forEach(function(item, i, arr) {
+      cardsId.forEach(function (item, i, arr) {
         if (device["data"]["card_verified"] == item) {
           for (let u = 0; u < 10; u++) {
             if (settings[`user${u}CardID`]) {
@@ -434,7 +434,7 @@ class AqaraLock1 extends Homey.Device {
                     code_id: 404,
                     card_id: i,
                     userName: userUN,
-                    wrong_id: 0
+                    wrong_id: 0,
                   };
                   that.triggerFlow(triggers.lockUsed, "lockUsed", tokens);
                 }
@@ -464,7 +464,7 @@ class AqaraLock1 extends Homey.Device {
         code_id: 404,
         card_id: 404,
         userName: "Not user",
-        wrong_id: parseInt(device["data"]["verified_wrong"])
+        wrong_id: parseInt(device["data"]["verified_wrong"]),
       };
       that.triggerFlow(triggers.lockUsed, "lockUsed", tokens);
 
@@ -482,10 +482,10 @@ class AqaraLock1 extends Homey.Device {
 
     let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
-      gateways[sid]["childDevices"].forEach(deviceSid => {
+      gateways[sid]["childDevices"].forEach((deviceSid) => {
         if (this.data.sid == deviceSid) {
           this.setSettings({
-            deviceFromGatewaySid: sid
+            deviceFromGatewaySid: sid,
           });
         }
       });
@@ -494,7 +494,7 @@ class AqaraLock1 extends Homey.Device {
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: "lumi.sensor_" + device.model,
-      deviceModelCodeName: device.modelCode
+      deviceModelCodeName: device.modelCode,
     });
   }
 
@@ -520,7 +520,7 @@ class AqaraLock1 extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
@@ -551,7 +551,7 @@ class AqaraLock1 extends Homey.Device {
   onDeleted() {
     this.unregisterAuthChangeListener();
     this.unregisterStateChangeListener();
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

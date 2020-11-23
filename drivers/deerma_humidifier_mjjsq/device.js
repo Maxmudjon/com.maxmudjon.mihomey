@@ -5,14 +5,14 @@ const modes = {
   1: "low",
   2: "medium",
   3: "high",
-  4: "humidty"
+  4: "humidity",
 };
 
 const modesID = {
   low: 1,
   medium: 2,
   high: 3,
-  humidty: 4
+  humidity: 4,
 };
 
 class MiSmartHumidifier extends Homey.Device {
@@ -45,40 +45,35 @@ class MiSmartHumidifier extends Homey.Device {
   }
 
   getHumidifierStatus() {
-    var that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
-        this.setAvailable();
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
         this.device = device;
 
         this.device
           .call("get_prop", ["Humidifier_Gear", "Humidity_Value", "HumiSet_Value", "Led_State", "OnOff_State", "TemperatureValue", "TipSound_State", "waterstatus", "watertankstatus"])
-          .then(result => {
-            that.setCapabilityValue("humidifier_deerma_mode", modes[result[0]]);
-            that.setCapabilityValue("measure_humidity", parseInt(result[1]));
-            that.setCapabilityValue("dim", parseInt(result[2] / 100));
-            that.setSettings({ led: result[3] === 1 ? true : false });
-            that.setCapabilityValue("onoff", result[4] === 1 ? true : false);
-            that.setCapabilityValue("measure_temperature", parseInt(result[5]));
-            that.setSettings({ buzzer: result[6] === 1 ? true : false });
-            that.setCapabilityValue("alarm_water", result[7] === 0 ? true : false);
-            that.setCapabilityValue("alarm_motion.tank", result[8] === 0 ? true : false);
+          .then((result) => {
+            this.updateCapabilityValue("humidifier_deerma_mode", modes[result[0]]);
+            this.updateCapabilityValue("measure_humidity", parseInt(result[1]));
+            this.updateCapabilityValue("dim", parseInt(result[2]) / 100);
+            this.setSettings({ led: result[3] === 1 ? true : false });
+            this.updateCapabilityValue("onoff", result[4] === 1 ? true : false);
+            this.updateCapabilityValue("measure_temperature", parseInt(result[5]));
+            this.setSettings({ buzzer: result[6] === 1 ? true : false });
+            this.updateCapabilityValue("alarm_water", result[7] === 0 ? true : false);
+            this.updateCapabilityValue("alarm_motion.tank", result[8] === 0 ? true : false);
           })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getHumidifierStatus();
         }, 10000);
@@ -86,32 +81,28 @@ class MiSmartHumidifier extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["Humidifier_Gear", "Humidity_Value", "HumiSet_Value", "Led_State", "OnOff_State", "TemperatureValue", "TipSound_State", "waterstatus", "watertankstatus"])
-        .then(result => {
-          that.setCapabilityValue("humidifier_deerma_mode", modes[result[0]]);
-          that.setCapabilityValue("measure_humidity", parseInt(result[1]));
-          that.setCapabilityValue("dim", parseInt(result[2] / 100));
-          that.setSettings({ led: result[3] === 1 ? true : false });
-          that.setCapabilityValue("onoff", result[4] === 1 ? true : false);
-          that.setCapabilityValue("measure_temperature", parseInt(result[5]));
-          that.setSettings({ buzzer: result[6] === 1 ? true : false });
-          that.setCapabilityValue("alarm_water", result[7] === 0 ? true : false);
-          that.setCapabilityValue("alarm_motion.tank", result[8] === 0 ? true : false);
-        })
-        .catch(error => {
-          this.log("Sending commmand error: ", error);
-          clearInterval(this.updateInterval);
-          if (error == "Error: Could not connect to device, handshake timeout") {
-            this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-            this.log("Error: Could not connect to device, handshake timeout");
-          } else if (error == "Error: Could not connect to device, token might be wrong") {
-            this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-            this.log("Error: Could not connect to device, token might be wrong");
+        .then((result) => {
+          if (!this.getAvailable()) {
+            this.setAvailable();
           }
+          this.updateCapabilityValue("humidifier_deerma_mode", modes[result[0]]);
+          this.updateCapabilityValue("measure_humidity", parseInt(result[1]));
+          this.updateCapabilityValue("dim", parseInt(result[2]) / 100);
+          this.setSettings({ led: result[3] === 1 ? true : false });
+          this.updateCapabilityValue("onoff", result[4] === 1 ? true : false);
+          this.updateCapabilityValue("measure_temperature", parseInt(result[5]));
+          this.setSettings({ buzzer: result[6] === 1 ? true : false });
+          this.updateCapabilityValue("alarm_water", result[7] === 0 ? true : false);
+          this.updateCapabilityValue("alarm_motion.tank", result[8] === 0 ? true : false);
+        })
+        .catch((error) => {
+          this.log("Sending commmand 'get_prop' error: ", error);
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
           setTimeout(() => {
             this.getHumidifierStatus();
           }, 1000 * interval);
@@ -119,8 +110,20 @@ class MiSmartHumidifier extends Homey.Device {
     }, 1000 * interval);
   }
 
+  updateCapabilityValue(name, value) {
+    if (this.getCapabilityValue(name) != value) {
+      this.setCapabilityValue(name, value)
+        .then(() => {
+          this.log("[" + this.getName() + "] [" + name + "] [" + value + "] Capability successfully updated");
+        })
+        .catch((error) => {
+          this.log("[" + this.getName() + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
+    }
+  }
+
   onSettings(oldSettings, newSettings, changedKeys, callback) {
-    if (changedKeys.includes("updateTimer") || changedKeys.includes("gatewayIP") || changedKeys.includes("gatewayToken")) {
+    if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getHumidifierStatus();
       callback(null, true);
     }
@@ -129,10 +132,10 @@ class MiSmartHumidifier extends Homey.Device {
       this.device
         .call("SetLedState", [newSettings.led ? 1 : 0])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + value);
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.led);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'SetLedState' error: ", error);
           callback(error, false);
         });
@@ -142,10 +145,10 @@ class MiSmartHumidifier extends Homey.Device {
       this.device
         .call("SetTipSound_Status", [newSettings.buzzer ? 1 : 0])
         .then(() => {
-          this.log("Sending " + name + " commmand: " + value);
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.buzzer);
           callback(null, true);
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("Sending commmand 'SetTipSound_Status' error: ", error);
           callback(error, false);
         });
@@ -153,71 +156,68 @@ class MiSmartHumidifier extends Homey.Device {
   }
 
   registerOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("Set_OnOff", [value ? 1 : 0])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'Set_OnOff' error: ", error));
+        .catch((error) => this.log("Sending commmand 'Set_OnOff' error: ", error));
     });
   }
 
   registerDryOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_dry", [value ? 1 : 0])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_dry' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_dry' error: ", error));
     });
   }
 
   registerTargetRelativeHumidity(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let humidity = value * 100;
       if (humidity > 0) {
         this.device
           .call("Set_HumiValue", [humidity])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'Set_HumiValue' error: ", error));
+          .catch((error) => this.log("Sending commmand 'Set_HumiValue' error: ", error));
       }
     });
   }
 
   registerHumidifierMode(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("Set_HumidifierGears", [modesID[value]])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'Set_HumidifierGears' error: ", error));
+        .catch((error) => this.log("Sending commmand 'Set_HumidifierGears' error: ", error));
     });
   }
 
   registerHumidifierOnAction(name, action) {
-    var that = this;
     action.registerRunListener(async (args, state) => {
-      that.device
+      this.device
         .call("Set_OnOff", [1])
-        .then(() => that.log("Set 'Set_OnOff': ", args))
-        .catch(error => that.log("Set 'Set_OnOff' error: ", error));
+        .then(() => this.log("Set 'Set_OnOff': ", args))
+        .catch((error) => this.log("Set 'Set_OnOff' error: ", error));
     });
   }
 
   registerHumidifierOffAction(name, action) {
-    var that = this;
     action.registerRunListener(async (args, state) => {
-      that.device
+      this.device
         .call("Set_OnOff", [0])
-        .then(() => that.log("Set 'Set_OnOff': ", args))
-        .catch(error => that.log("Set 'Set_OnOff' error: ", error));
+        .then(() => this.log("Set 'Set_OnOff': ", args))
+        .catch((error) => this.log("Set 'Set_OnOff' error: ", error));
     });
   }
 
   registerHumidifierModeAction(name, action) {
-    var that = this;
     action.registerRunListener(async (args, state) => {
-      that.device
+      this.device
         .call("Set_HumidifierGears", [modesID[args.modes]])
-        .then(() => that.log("Set 'Set_HumidifierGears': ", args.modes))
-        .catch(error => that.log("Set 'Set_HumidifierGears' error: ", error));
+        .then(() => this.log("Set 'Set_HumidifierGears': ", args.modes))
+        .catch((error) => this.log("Set 'Set_HumidifierGears' error: ", error));
     });
   }
 
@@ -226,7 +226,7 @@ class MiSmartHumidifier extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

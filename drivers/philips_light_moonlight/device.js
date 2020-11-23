@@ -32,10 +32,9 @@ class PhilipsBedsideLamp extends Homey.Device {
   }
 
   getPhilipsStatus() {
-    var that = this;
     miio
       .device({ address: this.getSetting("deviceIP"), token: this.getSetting("deviceToken") })
-      .then(device => {
+      .then((device) => {
         if (!this.getAvailable()) {
           this.setAvailable();
         }
@@ -44,14 +43,14 @@ class PhilipsBedsideLamp extends Homey.Device {
 
         this.device
           .call("get_prop", ["pow", "bright", "rgb", "cct"])
-          .then(result => {
-            that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
-            that.setCapabilityValue("dim", result[1] / 100);
-            that.brightness = result[1] / 100;
-            that.drgb = result[2];
-            that.colorTemperature = result[3];
+          .then((result) => {
+            this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
+            this.updateCapabilityValue("dim", result[1] / 100);
+            this.brightness = result[1] / 100;
+            this.drgb = result[2];
+            this.colorTemperature = result[3];
           })
-          .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
         if (this.drgb != undefined && this.drgb != null) {
           let red = (this.drgb >> 16) & 0xff;
@@ -60,22 +59,22 @@ class PhilipsBedsideLamp extends Homey.Device {
           let hsbc = this.rgb2hsb([red, green, blue]);
           const hue = hsbc[0] / 359;
 
-          this.setCapabilityValue("light_hue", hue);
-          this.setCapabilityValue("light_saturation", this.brightness);
+          this.updateCapabilityValue("light_hue", hue);
+          this.updateCapabilityValue("light_saturation", this.brightness);
         }
 
         if (this.colorTemperature != undefined && this.colorTemperature != null) {
           var colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
 
-          this.setCapabilityValue("light_temperature", colorTemp);
+          this.updateCapabilityValue("light_temperature", colorTemp);
         }
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        this.log(error);
-        this.setUnavailable(Homey.__("reconnecting"));
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getPhilipsStatus();
         }, 10000);
@@ -83,19 +82,25 @@ class PhilipsBedsideLamp extends Homey.Device {
   }
 
   updateTimer(interval) {
-    var that = this;
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop", ["pow", "bright", "rgb", "cct"])
-        .then(result => {
-          that.setCapabilityValue("onoff", result[0] === "on" ? true : false);
-          that.setCapabilityValue("dim", result[1] / 100);
-          that.brightness = result[1] / 100;
-          that.drgb = result[2];
-          that.colorTemperature = result[3];
+        .then((result) => {
+          this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
+          this.updateCapabilityValue("dim", result[1] / 100);
+          this.brightness = result[1] / 100;
+          this.drgb = result[2];
+          this.colorTemperature = result[3];
         })
-        .catch(error => that.log("Sending commmand 'get_prop' error: ", error));
+        .catch((error) => {
+          this.log("Sending commmand 'get_prop' error: ", error);
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
+          setTimeout(() => {
+            this.getPhilipsStatus();
+          }, 1000 * interval);
+        });
 
       if (this.drgb != undefined && this.drgb != null) {
         let red = (this.drgb >> 16) & 0xff;
@@ -104,16 +109,28 @@ class PhilipsBedsideLamp extends Homey.Device {
         let hsbc = this.rgb2hsb([red, green, blue]);
         const hue = hsbc[0] / 359;
 
-        this.setCapabilityValue("light_hue", hue);
-        this.setCapabilityValue("light_saturation", this.brightness);
+        this.updateCapabilityValue("light_hue", hue);
+        this.updateCapabilityValue("light_saturation", this.brightness);
       }
 
       if (this.colorTemperature != undefined && this.colorTemperature != null) {
         var colorTemp = this.normalize(this.colorTemperature, 1700, 6500);
 
-        this.setCapabilityValue("light_temperature", colorTemp);
+        this.updateCapabilityValue("light_temperature", colorTemp);
       }
     }, 1000 * interval);
+  }
+
+  updateCapabilityValue(capabilityName, value) {
+    if (this.getCapabilityValue(capabilityName) != value) {
+      this.setCapabilityValue(capabilityName, value)
+        .then(() => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
+        })
+        .catch((error) => {
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+        });
+    }
   }
 
   normalize(value, min, max) {
@@ -154,33 +171,33 @@ class PhilipsBedsideLamp extends Homey.Device {
   }
 
   registerOnOffButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'set_power' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
   registerDimLevel(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       if (value * 100 > 0) {
         this.device
           .call("set_bright", [value * 100])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_bright' error: ", error));
       }
     });
   }
 
   registerHueLevel(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let rgbToSend = this.hsb2rgb([value * 359, 1, 1]);
       let argbToSend = rgbToSend[0] * 65536 + rgbToSend[1] * 256 + rgbToSend[2];
       this.device
         .call("set_rgb", [argbToSend])
         .then(() => this.log("Sending " + name + " commmand: " + argbToSend))
-        .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_bright' error: ", error));
     });
   }
 
@@ -199,12 +216,12 @@ class PhilipsBedsideLamp extends Homey.Device {
   }
 
   registerLightTemperatureLevel(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let color_temp = this.denormalize(value, 1700, 6500);
       this.device
         .call("set_ct_abx", [color_temp, "smooth", 500])
         .then(() => this.log("Sending " + name + " commmand: " + color_temp))
-        .catch(error => this.log("Sending commmand 'set_bright' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_bright' error: ", error));
     });
   }
 
@@ -219,21 +236,21 @@ class PhilipsBedsideLamp extends Homey.Device {
         miio
           .device({
             address: args.device.getSetting("deviceIP"),
-            token: args.device.getSetting("deviceToken")
+            token: args.device.getSetting("deviceToken"),
           })
-          .then(device => {
+          .then((device) => {
             device
               .call("apply_fixed_scene", [args.scene])
               .then(() => {
                 this.log("Set scene: ", args.scene);
                 device.destroy();
               })
-              .catch(error => {
+              .catch((error) => {
                 this.log("Set scene error: ", error);
                 device.destroy();
               });
           })
-          .catch(error => {
+          .catch((error) => {
             this.log("miio connect error: " + error);
           });
       } catch (error) {
@@ -247,7 +264,7 @@ class PhilipsBedsideLamp extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();

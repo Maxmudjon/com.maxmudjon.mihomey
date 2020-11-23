@@ -43,7 +43,7 @@ class IRRemote extends Homey.Device {
   }
 
   registerStandbyAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       if (value) {
         if (this.data && this.data.onoff1) {
           this.sendIrCode(this.data.onoff1, name);
@@ -61,37 +61,37 @@ class IRRemote extends Homey.Device {
   }
 
   registerChannelUpAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.sendIrCode(this.data.channel_up, name);
     });
   }
 
   registerChannelDownAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.sendIrCode(this.data.channel_down, name);
     });
   }
 
   registerVolumeUpAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.sendIrCode(this.data.volume_up, name);
     });
   }
 
   registerVolumeDownAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.sendIrCode(this.data.volume_down, name);
     });
   }
 
   registerMuteAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.sendIrCode(this.data.volume_mute, name);
     });
   }
 
   registerDimAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       if (this.data && this.data.dim1) {
         this.sendIrCode(this.data.dim + value, name);
       } else {
@@ -101,7 +101,7 @@ class IRRemote extends Homey.Device {
   }
 
   registerThermostatAction(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.log(value);
       // this.sendIrCode(this.data.volume_mute, name);
     });
@@ -111,7 +111,7 @@ class IRRemote extends Homey.Device {
     action.code.registerRunListener(async (args, state) => {
       let data = {
         deviceIp: args.device.getSetting("deviceIP"),
-        deviceToken: args.device.getSetting("deviceToken")
+        deviceToken: args.device.getSetting("deviceToken"),
       };
       this.sendIrCode(args.code);
     });
@@ -122,25 +122,25 @@ class IRRemote extends Homey.Device {
     miio
       .device({
         address: settings.deviceIp,
-        token: settings.deviceToken
+        token: settings.deviceToken,
       })
-      .then(async device => {
+      .then(async (device) => {
         for (let i = 0; i < settings.replay; i++) {
           await this.sleep(500);
           device
             .call("miIO.ir_play", { freq: 38400, code: code })
-            .then(result => {
+            .then((result) => {
               if (!cababilityName) {
                 cababilityName = "custom";
               }
               this.log("Sending " + cababilityName + " ir code: " + code);
             })
-            .catch(error => {
+            .catch((error) => {
               this.log("Sending ir code error: ", error);
             });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (error == "Error: Could not connect to device, handshake timeout") {
           this.log("Device timeout error: ", error);
         } else {
@@ -150,7 +150,7 @@ class IRRemote extends Homey.Device {
   }
 
   sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   onAdded() {
@@ -158,7 +158,7 @@ class IRRemote extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

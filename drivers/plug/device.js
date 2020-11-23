@@ -57,10 +57,10 @@ class Plug extends Homey.Device {
 
     let gateways = Homey.app.mihub.gateways;
     for (let sid in gateways) {
-      gateways[sid]["childDevices"].forEach(deviceSid => {
+      gateways[sid]["childDevices"].forEach((deviceSid) => {
         if (this.data.sid == deviceSid) {
           this.setSettings({
-            deviceFromGatewaySid: sid
+            deviceFromGatewaySid: sid,
           });
         }
       });
@@ -69,7 +69,7 @@ class Plug extends Homey.Device {
     this.setSettings({
       deviceSid: device.sid,
       deviceModelName: "lumi." + device.model,
-      deviceModelCodeName: device.modelCode
+      deviceModelCodeName: device.modelCode,
     });
   }
 
@@ -95,7 +95,7 @@ class Plug extends Homey.Device {
         .then(() => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability successfully updated");
         })
-        .catch(error => {
+        .catch((error) => {
           this.log("[" + this.data.sid + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
       this.triggerFlow(trigger, name, value);
@@ -104,7 +104,7 @@ class Plug extends Homey.Device {
 
   registerToggle(name, trigger) {
     let sid = this.data.sid;
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       const newValue = value ? "on" : "off";
       const data = { status: newValue };
       await Homey.app.mihub.sendWrite(sid, data);
@@ -151,7 +151,7 @@ class Plug extends Homey.Device {
   onDeleted() {
     this.unregisterAuthChangeListener();
     this.unregisterStateChangeListener();
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
   }
 }
 

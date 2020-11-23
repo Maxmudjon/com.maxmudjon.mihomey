@@ -46,13 +46,15 @@ class GatewayRadio extends Homey.Device {
     var that = this;
     miio
       .device({ address: this.getSetting("gatewayIP"), token: this.getSetting("gatewayToken") })
-      .then(device => {
-        this.setAvailable();
+      .then((device) => {
+        if (!this.getAvailable()) {
+          this.setAvailable();
+        }
         this.device = device;
 
         this.device
           .call("get_prop_fm", [])
-          .then(result => {
+          .then((result) => {
             that.setCapabilityValue("volume_set", result.current_volume / 100);
             if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
               if (result.current_program == "527782008") {
@@ -72,38 +74,33 @@ class GatewayRadio extends Homey.Device {
               that.setCapabilityValue("speaker_playing", false);
             }
           })
-          .catch(error => that.log("Sending commmand 'get_prop_fm' error: ", error));
+          .catch((error) => that.log("Sending commmand 'get_prop_fm' error: ", error));
 
         this.device
           .call("get_channels", { start: 0 })
-          .then(result => {
-            result.chs.forEach(function(item, i, radios) {
+          .then((result) => {
+            result.chs.forEach(function (item, i, radios) {
               that.setSettings({
-                [`favorite${i}ID`]: item.id + ", " + item.url
+                [`favorite${i}ID`]: item.id + ", " + item.url,
               });
               if (i == radios.length - 1) {
                 i = radios.length;
                 for (let j = i; j < 20; j++) {
                   that.setSettings({
-                    [`favorite${j}ID`]: ""
+                    [`favorite${j}ID`]: "",
                   });
                 }
               }
             });
           })
-          .catch(error => this.log("Sending commmand 'get_channels' error: ", error));
+          .catch((error) => this.log("Sending commmand 'get_channels' error: ", error));
 
-        var update = this.getSetting("updateTimer") || 60;
+        const update = this.getSetting("updateTimer") || 60;
         this.updateTimer(update);
       })
-      .catch(error => {
-        if (error == "Error: Could not connect to device, handshake timeout") {
-          this.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-          this.log("Error: Could not connect to device, handshake timeout");
-        } else if (error == "Error: Could not connect to device, token might be wrong") {
-          this.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-          this.log("Error: Could not connect to device, token might be wrong");
-        }
+      .catch((error) => {
+        this.setUnavailable(error.message);
+        clearInterval(this.updateInterval);
         setTimeout(() => {
           this.getRadioStatus();
         }, 10000);
@@ -116,7 +113,7 @@ class GatewayRadio extends Homey.Device {
     this.updateInterval = setInterval(() => {
       this.device
         .call("get_prop_fm", [])
-        .then(result => {
+        .then((result) => {
           that.setCapabilityValue("volume_set", result.current_volume / 100);
           if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
             if (result.current_program == "527782008") {
@@ -136,16 +133,9 @@ class GatewayRadio extends Homey.Device {
             that.setCapabilityValue("speaker_playing", false);
           }
         })
-        .catch(error => {
-          that.log("Sending commmand 'get_prop_fm' error: ", error);
-          clearInterval(that.updateInterval);
-          if (error == "Error: Could not connect to device, handshake timeout") {
-            that.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-            that.log("Error: Could not connect to device, handshake timeout");
-          } else if (error == "Error: Could not connect to device, token might be wrong") {
-            that.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-            that.log("Error: Could not connect to device, token might be wrong");
-          }
+        .catch((error) => {
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
           setTimeout(() => {
             that.getRadioStatus();
           }, 1000 * interval);
@@ -153,33 +143,27 @@ class GatewayRadio extends Homey.Device {
 
       this.device
         .call("get_channels", { start: 0 })
-        .then(result => {
-          result.chs.forEach(function(item, i, radios) {
+        .then((result) => {
+          result.chs.forEach(function (item, i, radios) {
             that.setSettings({
-              [`favorite${i}ID`]: item.id + ", " + item.url
+              [`favorite${i}ID`]: item.id + ", " + item.url,
             });
             if (i == radios.length - 1) {
               i = radios.length;
               for (let j = i; j < 20; j++) {
                 that.setSettings({
-                  [`favorite${j}ID`]: ""
+                  [`favorite${j}ID`]: "",
                 });
               }
             }
           });
         })
-        .catch(error => {
-          that.log("Sending commmand 'get_channels' error: ", error);
-          clearInterval(that.updateInterval);
-          if (error == "Error: Could not connect to device, handshake timeout") {
-            that.setUnavailable(Homey.__("Could not connect to device, handshake timeout"));
-            that.log("Error: Could not connect to device, handshake timeout");
-          } else if (error == "Error: Could not connect to device, token might be wrong") {
-            that.setUnavailable(Homey.__("Could not connect to device, token might be wrong"));
-            that.log("Error: Could not connect to device, token might be wrong");
-          }
+        .catch((error) => {
+          this.log("Sending commmand 'get_prop' error: ", error);
+          this.setUnavailable(error.message);
+          clearInterval(this.updateInterval);
           setTimeout(() => {
-            that.getRadioStatus();
+            this.getRadioStatus();
           }, 1000 * interval);
         });
     }, 1000 * interval);
@@ -210,7 +194,7 @@ class GatewayRadio extends Homey.Device {
           this.device
             .call("remove_channels", { chs: [{ id: id, type: 0, url: url }] })
             .then(() => that.log("Removing  ID: " + id + " URL: " + url))
-            .catch(error => {
+            .catch((error) => {
               that.log("Sending commmand 'remove_channels' error: ", error);
               callback(error, false);
             });
@@ -228,7 +212,7 @@ class GatewayRadio extends Homey.Device {
           this.device
             .call("add_channels", { chs: [{ id: id, type: 0, url: url }] })
             .then(() => that.log("Adding " + id + " URL: " + url))
-            .catch(error => {
+            .catch((error) => {
               that.log("Sending commmand 'add_channels' error: ", error);
               callback(error, false);
             });
@@ -240,39 +224,39 @@ class GatewayRadio extends Homey.Device {
   }
 
   registerSpeakerPlayingButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("play_fm", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'play_fm' error: ", error));
+        .catch((error) => this.log("Sending commmand 'play_fm' error: ", error));
     });
   }
 
   registerNextButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("play_fm", ["next"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'play_fm' error: ", error));
+        .catch((error) => this.log("Sending commmand 'play_fm' error: ", error));
     });
   }
 
   registerPrevButton(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       this.device
         .call("play_fm", ["prev"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'play_fm' error: ", error));
+        .catch((error) => this.log("Sending commmand 'play_fm' error: ", error));
     });
   }
 
   registerVolumeLevel(name) {
-    this.registerCapabilityListener(name, async value => {
+    this.registerCapabilityListener(name, async (value) => {
       let volume = parseInt(value * 100);
       this.device
         .call("volume_ctrl_fm", [volume.toString()])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'volume_ctrl_fm' error: ", error));
+        .catch((error) => this.log("Sending commmand 'volume_ctrl_fm' error: ", error));
     });
   }
 
@@ -298,7 +282,7 @@ class GatewayRadio extends Homey.Device {
           .then(() => {
             that.log("Play radio: ", args.favoriteID);
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("Play radio 'play_specify_fm' error: ", error);
           });
 
@@ -307,7 +291,7 @@ class GatewayRadio extends Homey.Device {
           .then(() => {
             that.log("Set volume: ", volume);
           })
-          .catch(error => {
+          .catch((error) => {
             that.log("Set volume 'volume_ctrl_fm' error: ", error);
           });
       }
@@ -325,7 +309,7 @@ class GatewayRadio extends Homey.Device {
           that.log("Play radio: ", args.id);
           that.log("from url: ", args.url);
         })
-        .catch(error => {
+        .catch((error) => {
           that.log("Play radio 'play_specify_fm' error: ", error);
         });
 
@@ -334,7 +318,7 @@ class GatewayRadio extends Homey.Device {
         .then(() => {
           that.log("Set volume: ", volume);
         })
-        .catch(error => {
+        .catch((error) => {
           that.log("Set volume 'volume_ctrl_fm' error: ", error);
         });
     });
@@ -345,7 +329,7 @@ class GatewayRadio extends Homey.Device {
       this.device
         .call("play_fm", ["toggle"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch(error => this.log("Sending commmand 'play_fm' error: ", error));
+        .catch((error) => this.log("Sending commmand 'play_fm' error: ", error));
     });
   }
 
@@ -354,7 +338,7 @@ class GatewayRadio extends Homey.Device {
   }
 
   onDeleted() {
-    this.log("Device deleted deleted");
+    this.log("Device deleted");
     clearInterval(this.updateInterval);
     if (typeof this.device !== "undefined") {
       this.device.destroy();
