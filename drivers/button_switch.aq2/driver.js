@@ -1,5 +1,5 @@
 const Homey = require("homey");
-const model = ["sensor_switch.aq2", "sensor_switch"];
+const model = ["sensor_switch.aq2", "sensor_switch", "remote.b1acn01"];
 
 class AqaraButtonSwitch extends Homey.Driver {
   onInit() {
