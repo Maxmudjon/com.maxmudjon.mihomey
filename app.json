@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -798,7 +798,7 @@
             "placeholder": {
               "en": "Select Purifier"
             },
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|mi_air_purifier_v7"
           }
         ]
       },
@@ -1732,7 +1732,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017|mi_air_purifier_v7"
           }
         ]
       },
@@ -1745,7 +1745,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017|mi_air_purifier_v7"
           }
         ]
       },
@@ -1758,7 +1758,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017|mi_air_purifier_v7"
           },
           {
             "type": "dropdown",
@@ -1795,7 +1795,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017"
+            "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017|mi_air_purifier_v7"
           },
           {
             "type": "range",
@@ -1818,7 +1818,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4"
           }
         ]
       },
@@ -1831,7 +1831,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4"
           }
         ]
       },
@@ -2200,6 +2200,115 @@
             "placeholder": {
               "en": "seconds"
             }
+          }
+        ]
+      },
+      {
+        "id": "purifier_mb3_mode",
+        "title": {
+          "en": "Set purifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_mb3"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent"
+                }
+              },
+              {
+                "id": "favorite",
+                "label": {
+                  "en": "Favorite"
+                }
+              },
+              {
+                "id": "none",
+                "label": {
+                  "en": "Fan level"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "purifier_mb3_speed",
+        "title": {
+          "en": "Set purifier speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_air_purifier_mb3"
+          },
+          {
+            "type": "range",
+            "name": "speed",
+            "min": 0.01,
+            "max": 0.03,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "humidifier_ca4_mode",
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=mi_humidifier_ca4"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "auto",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "silent",
+                "label": {
+                  "en": "Silent"
+                }
+              },
+              {
+                "id": "medium",
+                "label": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "high",
+                "label": {
+                  "en": "High"
+                }
+              }
+            ]
           }
         ]
       }
@@ -2600,6 +2709,68 @@
           "id": "2",
           "title": {
             "en": "Mop"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "air_purifier_mb3_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air Purifier Mode"
+      },
+      "desc": {
+        "en": "Air Purifier Mode"
+      },
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "silent",
+          "title": {
+            "en": "Silent"
+          }
+        },
+        {
+          "id": "favorite",
+          "title": {
+            "en": "Favorite"
+          }
+        },
+        {
+          "id": "none",
+          "title": {
+            "en": "Fan level"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "humidifier_ca4_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "Humidifier Mode"
+      },
+      "values": [
+        {
+          "id": "on",
+          "title": {
+            "en": "Dry"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Humidify"
           }
         }
       ],
@@ -8747,7 +8918,7 @@
     {
       "id": "mi_air_purifier_v6",
       "name": {
-        "en": "Mi Air Purifier Pro"
+        "en": "Mi Air Purifier Pro V6"
       },
       "class": "sensor",
       "capabilities": ["onoff", "dim", "air_purifier_mode", "measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"],
@@ -9072,18 +9243,7 @@
         "en": "Mi Robot"
       },
       "class": "vacuumcleaner",
-      "capabilities": [
-        "onoff",
-        "onoff.findme",
-        "dim",
-        "vacuumcleaner_state",
-        "measure_battery",
-        "alarm_battery",
-        "alarm_main_brush_work_time",
-        "alarm_side_brush_work_time",
-        "alarm_filter_work_time",
-        "alarm_sensor_dirty_time"
-      ],
+      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time"],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -9276,19 +9436,7 @@
         "en": "Mi Roborock"
       },
       "class": "vacuumcleaner",
-      "capabilities": [
-        "onoff",
-        "onoff.findme",
-        "dim",
-        "vacuumcleaner_state",
-        "measure_battery",
-        "alarm_battery",
-        "alarm_main_brush_work_time",
-        "alarm_side_brush_work_time",
-        "alarm_filter_work_time",
-        "alarm_sensor_dirty_time",
-        "button.consumable"
-      ],
+      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time", "button.consumable"],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -9490,18 +9638,7 @@
         "en": "Mi Robot 1S"
       },
       "class": "vacuumcleaner",
-      "capabilities": [
-        "onoff",
-        "onoff.findme",
-        "dim",
-        "vacuumcleaner_state",
-        "measure_battery",
-        "alarm_battery",
-        "alarm_main_brush_work_time",
-        "alarm_side_brush_work_time",
-        "alarm_filter_work_time",
-        "alarm_sensor_dirty_time"
-      ],
+      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time"],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -9694,19 +9831,7 @@
         "en": "Mi Roborock Vacuum T6"
       },
       "class": "vacuumcleaner",
-      "capabilities": [
-        "onoff",
-        "onoff.findme",
-        "dim",
-        "vacuumcleaner_state",
-        "measure_battery",
-        "alarm_battery",
-        "alarm_main_brush_work_time",
-        "alarm_side_brush_work_time",
-        "alarm_filter_work_time",
-        "alarm_sensor_dirty_time",
-        "alarm_motion"
-      ],
+      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time", "alarm_motion"],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -10184,6 +10309,9 @@
         "measure_water": {
           "title": {
             "en": "Water level"
+          },
+          "units": {
+            "en": "%"
           }
         }
       },
@@ -11222,6 +11350,9 @@
         "measure_water": {
           "title": {
             "en": "Water level"
+          },
+          "units": {
+            "en": "%"
           }
         }
       },
@@ -11298,6 +11429,401 @@
       "images": {
         "large": "/drivers/mi_humidifier_cb1/assets/images/large.png",
         "small": "/drivers/mi_humidifier_cb1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_air_purifier_v7",
+      "name": {
+        "en": "Mi Air Purifier Pro V7"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "air_purifier_mode", "measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed"
+          }
+        }
+      },
+      "mobile": {
+        "components": [
+          {
+            "id": "icon",
+            "capabilities": ["onoff"]
+          },
+          {
+            "id": "slider",
+            "capabilities": ["dim"],
+            "options": {
+              "showTitle": true
+            }
+          },
+          {
+            "id": "picker",
+            "capabilities": ["air_purifier_mode"]
+          },
+          {
+            "id": "sensor",
+            "capabilities": ["measure_temperature", "measure_humidity", "measure_pm25", "measure_luminance"]
+          }
+        ]
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Purifier Pro settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "volume",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Volume"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            },
+            {
+              "id": "filter1_life",
+              "type": "label",
+              "label": {
+                "en": "Filter life"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "purify_volume",
+              "type": "label",
+              "label": {
+                "en": "Air Cleared (m3)"
+              },
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_air_purifier_v7/assets/images/large.png",
+        "small": "/drivers/mi_air_purifier_v7/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_air_purifier_mb3",
+      "name": {
+        "en": "Mi Air Purifier 3H"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "air_purifier_mb3_mode", "measure_temperature", "measure_humidity", "measure_pm25"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan level"
+          },
+          "max": 3,
+          "min": 1,
+          "step": 1
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Purifier 3H settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            },
+            {
+              "id": "filter1_life",
+              "type": "label",
+              "label": {
+                "en": "Filter life"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "purify_volume",
+              "type": "label",
+              "label": {
+                "en": "Air Cleared (m3)"
+              },
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_air_purifier_mb3/assets/images/large.png",
+        "small": "/drivers/mi_air_purifier_mb3/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mi_humidifier_ca4",
+      "name": {
+        "en": "Smartmi Evaporative Humidifer 2"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "onoff.dry", "dim", "humidifier_ca4_mode", "measure_temperature", "measure_humidity", "measure_water"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.dry": {
+          "title": {
+            "en": "Swing mode"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Target Relative Humidity"
+          }
+        },
+        "measure_water": {
+          "title": {
+            "en": "Water level"
+          },
+          "units": {
+            "en": "%"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Smartmi Evaporative Humidifer 2 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/mi_humidifier_ca4/assets/images/large.png",
+        "small": "/drivers/mi_humidifier_ca4/assets/images/small.png"
       },
       "pair": [
         {
