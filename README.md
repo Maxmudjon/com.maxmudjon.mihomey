@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.9 - Supported devices:
+## Version 1.1.10 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -60,7 +60,7 @@ Added support for Mi Gateways child devices.
 - Mi Smart Power Strip.
 - CHINGMI Smart Power Strip.
 - Mi Air Purifier S2.
-- Mi Air Purifier Pro.
+- Mi Air Purifier Pro V6/V7.
 - Mi Air Fresh VA2/VA4.
 - Mi Humidifier V1.
 - Mi Humidifier V2.
@@ -127,6 +127,13 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.1.10 (12.02.2021)
+
+1.  added Mi Air Purifier Pro V7.
+2.  added Mi Air Purifier 3H.
+3.  added Xiaomi Pure Evaporative Air Humidifier 2.
+4.  minor fixes.
 
 ### 1.1.9 (24.11.2020)
 

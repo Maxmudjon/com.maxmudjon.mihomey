@@ -1,21 +1,7 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const modes = {
-  1: "low",
-  2: "medium",
-  3: "high",
-  4: "humidity",
-};
-
-const modesID = {
-  low: 1,
-  medium: 2,
-  high: 3,
-  humidity: 4,
-};
-
-class MiSmartHumidifier extends Homey.Device {
+class MiHumidifierCA4 extends Homey.Device {
   async onInit() {
     this.initialize = this.initialize.bind(this);
     this.driver = this.getDriver();
@@ -34,14 +20,14 @@ class MiSmartHumidifier extends Homey.Device {
     const { actions } = this.driver;
     this.registerHumidifierOnAction("humidifier_on", actions.humidifierOn);
     this.registerHumidifierOffAction("humidifier_off", actions.humidifierOff);
-    this.registerHumidifierModeAction("humidifier_deerma_mode", actions.humidifierMode);
+    this.registerHumidifierModeAction("humidifier_ca4_mode", actions.humidifierMode);
   }
 
   registerCapabilities() {
     this.registerOnOffButton("onoff");
     this.registerDryOnOffButton("onoff.dry");
     this.registerTargetRelativeHumidity("dim");
-    this.registerHumidifierMode("humidifier_deerma_mode");
+    this.registerHumidifierMode("humidifier_ca4_mode");
   }
 
   getHumidifierStatus() {
@@ -54,17 +40,18 @@ class MiSmartHumidifier extends Homey.Device {
         this.device = device;
 
         this.device
-          .call("get_prop", ["Humidifier_Gear", "Humidity_Value", "HumiSet_Value", "Led_State", "OnOff_State", "TemperatureValue", "TipSound_State", "waterstatus", "watertankstatus"])
+          .call("get_prop", ["power", "humidity", "temp_dec", "mode", "limit_hum", "depth", "dry", "led_b", "buzzer", "child_lock"])
           .then((result) => {
-            this.updateCapabilityValue("humidifier_deerma_mode", modes[result[0]]);
+            this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
             this.updateCapabilityValue("measure_humidity", parseInt(result[1]));
-            this.updateCapabilityValue("dim", parseInt(result[2]) / 100);
-            this.setSettings({ led: result[3] === 1 ? true : false });
-            this.updateCapabilityValue("onoff", result[4] === 1 ? true : false);
-            this.updateCapabilityValue("measure_temperature", parseInt(result[5]));
-            this.setSettings({ buzzer: result[6] === 1 ? true : false });
-            this.updateCapabilityValue("alarm_water", result[7] === 0 ? true : false);
-            this.updateCapabilityValue("alarm_motion.tank", result[8] === 0 ? true : false);
+            this.updateCapabilityValue("measure_temperature", parseInt(result[2] / 10));
+            this.updateCapabilityValue("humidifier_ca4_mode", result[3]);
+            this.updateCapabilityValue("dim", parseInt(result[4] / 100));
+            this.updateCapabilityValue("measure_water", parseInt(result[5]));
+            this.updateCapabilityValue("onoff", result[6] === "on" ? true : false);
+            this.setSettings({ led: result[5] === 2 ? false : true });
+            this.setSettings({ buzzer: result[6] === "on" ? true : false });
+            this.setSettings({ childLock: result[6] === "on" ? true : false });
           })
           .catch((error) => this.log("Sending commmand 'get_prop' error: ", error));
 
@@ -84,23 +71,24 @@ class MiSmartHumidifier extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
-        .call("get_prop", ["Humidifier_Gear", "Humidity_Value", "HumiSet_Value", "Led_State", "OnOff_State", "TemperatureValue", "TipSound_State", "waterstatus", "watertankstatus"])
+        .call("get_prop", ["power", "humidity", "temp_dec", "mode", "limit_hum", "depth", "dry", "led_b", "buzzer", "child_lock"])
         .then((result) => {
           if (!this.getAvailable()) {
             this.setAvailable();
           }
-          this.updateCapabilityValue("humidifier_deerma_mode", modes[result[0]]);
+          this.updateCapabilityValue("onoff", result[0] === "on" ? true : false);
           this.updateCapabilityValue("measure_humidity", parseInt(result[1]));
-          this.updateCapabilityValue("dim", parseInt(result[2]) / 100);
-          this.setSettings({ led: result[3] === 1 ? true : false });
-          this.updateCapabilityValue("onoff", result[4] === 1 ? true : false);
-          this.updateCapabilityValue("measure_temperature", parseInt(result[5]));
-          this.setSettings({ buzzer: result[6] === 1 ? true : false });
-          this.updateCapabilityValue("alarm_water", result[7] === 0 ? true : false);
-          this.updateCapabilityValue("alarm_motion.tank", result[8] === 0 ? true : false);
+          this.updateCapabilityValue("measure_temperature", parseInt(result[2] / 10));
+          this.updateCapabilityValue("humidifier_ca4_mode", result[3]);
+          this.updateCapabilityValue("dim", parseInt(result[4] / 100));
+          this.updateCapabilityValue("measure_water", parseInt(result[5]));
+          this.updateCapabilityValue("onoff", result[6] === "on" ? true : false);
+          this.setSettings({ led: result[5] === 2 ? false : true });
+          this.setSettings({ buzzer: result[6] === "on" ? true : false });
+          this.setSettings({ childLock: result[6] === "on" ? true : false });
         })
         .catch((error) => {
-          this.log("Sending commmand 'get_prop' error: ", error);
+          this.log("Sending commmand error: ", error);
           this.setUnavailable(error.message);
           clearInterval(this.updateInterval);
           setTimeout(() => {
@@ -110,14 +98,14 @@ class MiSmartHumidifier extends Homey.Device {
     }, 1000 * interval);
   }
 
-  updateCapabilityValue(name, value) {
-    if (this.getCapabilityValue(name) != value) {
-      this.setCapabilityValue(name, value)
+  updateCapabilityValue(capabilityName, value) {
+    if (this.getCapabilityValue(capabilityName) != value) {
+      this.setCapabilityValue(capabilityName, value)
         .then(() => {
-          this.log("[" + this.getName() + "] [" + name + "] [" + value + "] Capability successfully updated");
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability successfully updated");
         })
         .catch((error) => {
-          this.log("[" + this.getName() + "] [" + name + "] [" + value + "] Capability not updated because there are errors: " + error.message);
+          this.log("[" + this.data.id + "] [" + capabilityName + "] [" + value + "] Capability not updated because there are errors: " + error.message);
         });
     }
   }
@@ -130,26 +118,39 @@ class MiSmartHumidifier extends Homey.Device {
 
     if (changedKeys.includes("led")) {
       this.device
-        .call("SetLedState", [newSettings.led ? 1 : 0])
+        .call("set_led_b", [newSettings.led ? 1 : 0])
         .then(() => {
           this.log("Sending " + this.getName() + " commmand: " + newSettings.led);
           callback(null, true);
         })
         .catch((error) => {
-          this.log("Sending commmand 'SetLedState' error: ", error);
+          this.log("Sending commmand 'set_led_b' error: ", error);
           callback(error, false);
         });
     }
 
     if (changedKeys.includes("buzzer")) {
       this.device
-        .call("SetTipSound_Status", [newSettings.buzzer ? 1 : 0])
+        .call("set_buzzer", [newSettings.buzzer ? "on" : "off"])
         .then(() => {
           this.log("Sending " + this.getName() + " commmand: " + newSettings.buzzer);
           callback(null, true);
         })
         .catch((error) => {
-          this.log("Sending commmand 'SetTipSound_Status' error: ", error);
+          this.log("Sending commmand 'set_buzzer' error: ", error);
+          callback(error, false);
+        });
+    }
+
+    if (changedKeys.includes("childLock")) {
+      this.device
+        .call("set_child_lock", [newSettings.childLock ? "on" : "off"])
+        .then(() => {
+          this.log("Sending " + this.getName() + " commmand: " + newSettings.childLock);
+          callback(null, true);
+        })
+        .catch((error) => {
+          this.log("Sending commmand 'set_child_lock' error: ", error);
           callback(error, false);
         });
     }
@@ -158,16 +159,16 @@ class MiSmartHumidifier extends Homey.Device {
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
       this.device
-        .call("Set_OnOff", [value ? 1 : 0])
+        .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch((error) => this.log("Sending commmand 'Set_OnOff' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
   registerDryOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
       this.device
-        .call("set_dry", [value ? 1 : 0])
+        .call("set_dry", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
         .catch((error) => this.log("Sending commmand 'set_dry' error: ", error));
     });
@@ -176,11 +177,11 @@ class MiSmartHumidifier extends Homey.Device {
   registerTargetRelativeHumidity(name) {
     this.registerCapabilityListener(name, async (value) => {
       let humidity = value * 100;
-      if (humidity > 0) {
+      if ([30, 40, 50, 60, 70, 80].includes(humidity)) {
         this.device
-          .call("Set_HumiValue", [humidity])
+          .call("set_limit_hum", [humidity])
           .then(() => this.log("Sending " + name + " commmand: " + value))
-          .catch((error) => this.log("Sending commmand 'Set_HumiValue' error: ", error));
+          .catch((error) => this.log("Sending commmand 'set_limit_hum' error: ", error));
       }
     });
   }
@@ -188,14 +189,14 @@ class MiSmartHumidifier extends Homey.Device {
   registerHumidifierMode(name) {
     this.registerCapabilityListener(name, async (value) => {
       this.device
-        .call("Set_HumidifierGears", [modesID[value]])
+        .call("set_dry", [value])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch((error) => this.log("Sending commmand 'Set_HumidifierGears' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_dry' error: ", error));
     });
   }
 
   registerHumidifierOnAction(name, action) {
-    action.registerRunListener(async (args, state) => {
+    action.action.registerRunListener(async (args, state) => {
       try {
         miio
           .device({
@@ -204,19 +205,21 @@ class MiSmartHumidifier extends Homey.Device {
           })
           .then((device) => {
             device
-              .call("Set_OnOff", [1])
+              .call("set_power", ["on"])
               .then(() => {
-                this.log("Set 'Set_OnOff': ON");
+                this.log("Set 'set_power': ON");
                 device.destroy();
               })
               .catch((error) => {
-                this.log("Set 'Set_OnOff' error: ", error);
+                this.log("Set 'set_power' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch((error) => this.log("Device error: ", error));
+          .catch((error) => {
+            this.log("miio connect error: " + error);
+          });
       } catch (error) {
-        this.log("Error: ", error);
+        this.log("catch error: " + error);
       }
     });
   }
@@ -231,19 +234,21 @@ class MiSmartHumidifier extends Homey.Device {
           })
           .then((device) => {
             device
-              .call("Set_OnOff", [0])
+              .call("set_power", ["off"])
               .then(() => {
-                this.log("Set 'Set_OnOff': OFF");
+                this.log("Set 'set_power': OFF");
                 device.destroy();
               })
               .catch((error) => {
-                this.log("Set 'Set_OnOff' error: ", error);
+                this.log("Set 'set_power' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch((error) => this.log("Device error: ", error));
+          .catch((error) => {
+            this.log("miio connect error: " + error);
+          });
       } catch (error) {
-        this.log("Error: ", error);
+        this.log("catch error: " + error);
       }
     });
   }
@@ -258,25 +263,23 @@ class MiSmartHumidifier extends Homey.Device {
           })
           .then((device) => {
             device
-              .call("Set_HumidifierGears", [modesID[args.modes]])
+              .call("set_dry", [args.modes])
               .then(() => {
-                this.log("Set 'Set_HumidifierGears': ", args.modes);
+                this.log("Set 'set_dry': ", args.modes);
                 device.destroy();
               })
               .catch((error) => {
-                this.log("Set 'Set_HumidifierGears' error: ", error);
+                this.log("Set 'set_dry' error: ", error.message);
                 device.destroy();
               });
           })
-          .catch((error) => this.log("Device error: ", error));
+          .catch((error) => {
+            this.log("miio connect error: " + error);
+          });
       } catch (error) {
-        this.log("Error: ", error);
+        this.log("catch error: " + error);
       }
     });
-  }
-
-  onAdded() {
-    this.log("Device added");
   }
 
   onDeleted() {
@@ -288,4 +291,4 @@ class MiSmartHumidifier extends Homey.Device {
   }
 }
 
-module.exports = MiSmartHumidifier;
+module.exports = MiHumidifierCA4;
