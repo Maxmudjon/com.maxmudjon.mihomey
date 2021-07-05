@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -666,7 +666,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7|dreame.vacuum.mc1808"
           }
         ]
       },
@@ -679,7 +679,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7|dreame.vacuum.mc1808"
           }
         ]
       },
@@ -692,7 +692,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7"
+            "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7|dreame.vacuum.mc1808"
           }
         ]
       },
@@ -2285,25 +2285,25 @@
             "name": "modes",
             "values": [
               {
-                "id": "auto",
+                "id": "0",
                 "label": {
                   "en": "Auto"
                 }
               },
               {
-                "id": "silent",
+                "id": "1",
                 "label": {
                   "en": "Silent"
                 }
               },
               {
-                "id": "medium",
+                "id": "2",
                 "label": {
                   "en": "Medium"
                 }
               },
               {
-                "id": "high",
+                "id": "3",
                 "label": {
                   "en": "High"
                 }
@@ -2762,20 +2762,93 @@
       },
       "values": [
         {
-          "id": "on",
+          "id": "0",
           "title": {
-            "en": "Dry"
+            "en": "Auto"
           }
         },
         {
-          "id": "off",
+          "id": "1",
           "title": {
-            "en": "Humidify"
+            "en": "Level 1"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Level 2"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Level 3"
           }
         }
       ],
       "getable": true,
       "setable": true
+    },
+    "vacuum_cleaner_device_fault": {
+      "type": "enum",
+      "title": {
+        "en": "Vacuum cleaner fault"
+      },
+      "desc": {
+        "en": "Vacuum cleaner fault"
+      },
+      "values": [
+        { "id": "0", "title": { "en": "normal" } },
+        { "id": "1", "title": { "en": "drop" } },
+        { "id": "2", "title": { "en": "cliff" } },
+        { "id": "3", "title": { "en": "bumper" } },
+        { "id": "4", "title": { "en": "gesture" } },
+        { "id": "5", "title": { "en": "bumper repeat" } },
+        { "id": "6", "title": { "en": "drop repeat" } },
+        { "id": "7", "title": { "en": "optical flow" } },
+        { "id": "8", "title": { "en": "no box" } },
+        { "id": "9", "title": { "en": "no tankbox" } },
+        { "id": "10", "title": { "en": "waterbox empty" } },
+        { "id": "11", "title": { "en": "box full" } },
+        { "id": "12", "title": { "en": "brush" } },
+        { "id": "13", "title": { "en": "side brush" } },
+        { "id": "14", "title": { "en": "fan" } },
+        { "id": "15", "title": { "en": "left wheel motor" } },
+        { "id": "16", "title": { "en": "right wheel motor" } },
+        { "id": "17", "title": { "en": "turn suffocate" } },
+        { "id": "18", "title": { "en": "forward suffocate" } },
+        { "id": "19", "title": { "en": "charger get" } },
+        { "id": "20", "title": { "en": "battery low" } },
+        { "id": "21", "title": { "en": "charge fault" } },
+        { "id": "22", "title": { "en": "battery percentage" } },
+        { "id": "23", "title": { "en": "heart" } },
+        { "id": "24", "title": { "en": "camera occlusion" } },
+        { "id": "25", "title": { "en": "camera fault" } },
+        { "id": "26", "title": { "en": "event battery" } },
+        { "id": "27", "title": { "en": "forward looking" } },
+        { "id": "28", "title": { "en": "gyroscope" } }
+      ],
+      "getable": true,
+      "setable": false
+    },
+    "vacuum_cleaner_1c_info": {
+      "type": "enum",
+      "title": {
+        "en": "Vacuum cleaner info"
+      },
+      "desc": {
+        "en": "Vacuum cleaner info"
+      },
+      "values": [
+        { "id": "1", "title": { "en": "Sweeping" } },
+        { "id": "2", "title": { "en": "Idle" } },
+        { "id": "3", "title": { "en": "Paused" } },
+        { "id": "4", "title": { "en": "Error" } },
+        { "id": "5", "title": { "en": "Go Charging" } },
+        { "id": "6", "title": { "en": "Charging" } }
+      ],
+      "getable": true,
+      "setable": false
     }
   },
   "drivers": [
@@ -11725,7 +11798,7 @@
         "en": "Smartmi Evaporative Humidifer 2"
       },
       "class": "sensor",
-      "capabilities": ["onoff", "onoff.dry", "dim", "humidifier_ca4_mode", "measure_temperature", "measure_humidity", "measure_water"],
+      "capabilities": ["onoff", "onoff.dry", "dim", "dim.target", "humidifier_ca4_mode", "measure_temperature", "measure_humidity", "measure_water"],
       "capabilitiesOptions": {
         "onoff": {
           "title": {
@@ -11734,13 +11807,22 @@
         },
         "onoff.dry": {
           "title": {
-            "en": "Swing mode"
+            "en": "Dry"
           }
         },
         "dim": {
           "title": {
+            "en": "Speed level"
+          },
+          "max": 100,
+          "min":1
+        },
+        "dim.target": {
+          "title": {
             "en": "Target Relative Humidity"
-          }
+          },
+          "max": 80,
+          "min": 30
         },
         "measure_water": {
           "title": {
@@ -11824,6 +11906,148 @@
       "images": {
         "large": "/drivers/mi_humidifier_ca4/assets/images/large.png",
         "small": "/drivers/mi_humidifier_ca4/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dreame.vacuum.mc1808",
+      "name": {
+        "en": "Xiaomi Mijia 1C"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": ["onoff", "button", "dim", "dim.water", "vacuum_cleaner_1c_info", "vacuum_cleaner_device_fault", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Clean"
+          }
+        },
+        "button": {
+          "title": {
+            "en": "Go to charging"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan speed"
+          },
+          "min": 0,
+          "max": 3,
+          "step": 1
+        },
+        "dim.water": {
+          "title": {
+            "en": "Mop mode"
+          },
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Xiaomi Mijia 1C settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Vacuum life settings"
+          },
+          "children": [
+            {
+              "id": "alarm_threshold",
+              "type": "number",
+              "label": {
+                "en": "Alarm threshold"
+              },
+              "hint": {
+                "en": "Work level to (brush, filter) below which the alarm will be activated."
+              },
+              "value": 20,
+              "attr": {
+                "min": 1,
+                "max": 90
+              }
+            },
+            {
+              "id": "main_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Main Cleaning Brush Life Level"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "side_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Side Cleaning Brush Life Level"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "filter_work_time",
+              "type": "label",
+              "label": {
+                "en": "Filter Life Level"
+              },
+              "value": "0%"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/dreame.vacuum.mc1808/assets/images/large.png",
+        "small": "/drivers/dreame.vacuum.mc1808/assets/images/small.png"
       },
       "pair": [
         {

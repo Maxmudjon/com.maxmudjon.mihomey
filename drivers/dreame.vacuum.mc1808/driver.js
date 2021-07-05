@@ -1,18 +1,18 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-class MiHumidifierCA4 extends Homey.Driver {
+class XiaomiMijia1C extends Homey.Driver {
   onInit() {
-    this.actions = {
-      humidifierOn: new Homey.FlowCardAction("humidifier_on").register(),
-      humidifierOff: new Homey.FlowCardAction("humidifier_off").register(),
-      humidifierMode: new Homey.FlowCardAction("humidifier_ca4_mode").register()
+    this.triggers = {
+      main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
+      side_brush: new Homey.FlowCardTriggerDevice("side_brush_work_time").register(),
+      filter: new Homey.FlowCardTriggerDevice("filter_work_time").register()
     };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Xiaomi Pure Evaporative Air Humidifier 2";
+    pairingDevice.name = "Xiaomi Mijia 1C";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -26,7 +26,7 @@ class MiHumidifierCA4 extends Homey.Driver {
             .then(value => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = value.mac;
-                const params = [{ siid: 2, piid: 1 }];
+                const params = [{ siid: 2, piid: 1, access: ["read", "notify"] }];
                 device
                   .call("get_properties", params, {
                     retries: 1
@@ -34,7 +34,7 @@ class MiHumidifierCA4 extends Homey.Driver {
                   .then(result => {
                     if (result && result[0].code === 0) {
                       let resultData = {
-                        state: result[0]
+                        battery: result[0].value
                       };
                       pairingDevice.settings.deviceIP = this.data.ip;
                       pairingDevice.settings.deviceToken = this.data.token;
@@ -52,7 +52,7 @@ class MiHumidifierCA4 extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Xiaomi Pure Evaporative Air Humidifier 2"
+                  notDevice: "It is not Xiaomi Mijia 1C"
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
@@ -72,10 +72,8 @@ class MiHumidifierCA4 extends Homey.Driver {
         });
     });
 
-    socket.on("done", (data, callback) => {
-      callback(null, pairingDevice);
-    });
+    socket.on("done", (data, callback) => callback(null, pairingDevice));
   }
 }
 
-module.exports = MiHumidifierCA4;
+module.exports = XiaomiMijia1C;
