@@ -130,6 +130,11 @@ Added support for Mi Gateways child devices.
 
 ## Version logs
 
+### 1.1.12 (10.07.2021)
+
+1.  fix Mi Air Purifier 3H.
+2.  added Mi Robot Vacuum-Mop 1T Vacuum Cleaner.
+
 ### 1.1.11 (05.07.2021)
 
 1.  added Mi Humidifier V2.
