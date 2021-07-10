@@ -2,23 +2,22 @@
 <link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
 
 <script>
-  Homey.setTitle("Add Mi LED Desk Lamp IP and Token");
+  Homey.setTitle("Add Mi Robot Vacuum-Mop 1T and Token");
   setTimeout(() => {
     Homey.setNavigationClose();
   }, 1);
   new Vue({
-    el: "#Yeelight",
-
+    el: "#MiRobotVacuumMop1T",
     methods: {
       connect() {
         let alert = document.getElementById(`status`);
-        var alertTitle = document.getElementsByClassName(`statusAlertShow`);
+        let alertTitle = document.getElementsByClassName(`statusAlertShow`);
         let addDevice = document.getElementById("addDevice");
-        let YeelightIP = document.getElementById(`YeelightIP`);
-        let YeelightToken = document.getElementById(`YeelightToken`);
-        let deviceUpdateTimer = document.getElementById(`deviceUpdateTimer`);
+        let deviceIP = document.getElementById(`deviceIP`);
+        let deviceToken = document.getElementById(`deviceToken`);
+        let deviceUpdateTime = document.getElementById(`deviceUpdateTime`);
 
-        let data = { ip: YeelightIP.value, token: YeelightToken.value, model: "yeelink.light.lamp1", timer: deviceUpdateTimer.value || 60 };
+        let data = { ip: deviceIP.value, token: deviceToken.value, model: "dreame.vacuum.p2041", timer: deviceUpdateTime.value || 60 };
         Homey.emit("connect", data, (error, result) => {
           if (error) {
             alert.classList.remove("alert-light");
@@ -52,22 +51,13 @@
             addDevice.style.setProperty("display", "none");
           }
 
-          if (result.bright) {
+          if (result.battery) {
             alert.classList.remove("alert-light");
             alert.classList.remove("alert-danger");
             alert.classList.remove("alert-warning");
             alert.classList.add("alert-success");
-            alertTitle[0].innerHTML = "successfully connected";
+            alertTitle[0].innerHTML = "Successfully connected";
             addDevice.style.removeProperty("display");
-          }
-
-          if (result.notDevice) {
-            alert.classList.remove("alert-light");
-            alert.classList.remove("alert-danger");
-            alert.classList.remove("alert-success");
-            alert.classList.add("alert-warning");
-            alertTitle[0].innerHTML = result.notDevice;
-            addDevice.style.setProperty("display", "none");
           }
         });
       },
@@ -78,14 +68,22 @@
   });
 </script>
 
-<div id="Yeelight">
-  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width:100%; margin-left: 0px; margin-right: 0px;">
-    <div class="input-group mb-3"><input type="text" class="form-control" id="YeelightIP" aria-describedby="basic-addon3" placeholder="IP Address" /></div>
-    <div class="input-group mb-3"><input type="text" class="form-control" id="YeelightToken" aria-describedby="basic-addon3" placeholder="Token" /></div>
+<div id="MiRobotVacuumMop1T">
+  <div class="row align-items-center alert alert-light" role="alert" id="status"
+    style="width:100%; margin-left: 0px; margin-right: 0px;">
+    <div class="input-group mb-3"><input type="text" class="form-control" id="deviceIP" aria-describedby="basic-addon3"
+        placeholder="IP Address" /></div>
+    <div class="input-group mb-3"><input type="text" class="form-control" id="deviceToken"
+        aria-describedby="basic-addon3" placeholder="Token" /></div>
     <div class="input-group mb-3"><small id="period" class="form-text text-muted">Polling period, seconds</small></div>
-    <div class="input-group mb-3"><input type="number" class="form-control" id="deviceUpdateTimer" aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" /></div>
-    <div class="col" style="padding-left: 0px;"><div class="statusAlertShow float-left">Not connected!</div></div>
-    <div class="col" style="padding-right: 0px;"><button @click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button></div>
+    <div class="input-group mb-3"><input type="number" class="form-control" id="deviceUpdateTime"
+        aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" /></div>
+    <div class="col" style="padding-left: 0px;">
+      <div class="statusAlertShow float-left">Not connected!</div>
+    </div>
+    <div class="col" style="padding-right: 0px;"><button @click="connect" type="button"
+        class="btn btn-primary float-right" style="height: auto;">Connect</button></div>
   </div>
-  <button @click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;" id="addDevice">Add device</button>
+  <button @click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;"
+    id="addDevice">Add device</button>
 </div>

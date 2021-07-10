@@ -3,19 +3,20 @@ const miio = require("miio");
 
 const params = [
   { siid: 2, piid: 1 },
+  { siid: 2, piid: 2 },
+  { siid: 2, piid: 3 },
   { siid: 3, piid: 1 },
-  { siid: 3, piid: 2 },
-  { siid: 26, piid: 1 },
-  { siid: 26, piid: 2 },
-  { siid: 27, piid: 1 },
-  { siid: 27, piid: 2 },
-  { siid: 28, piid: 1 },
-  { siid: 28, piid: 2 },
-  { siid: 18, piid: 6 },
-  { siid: 18, piid: 20 }
+  { siid: 9, piid: 1 },
+  { siid: 9, piid: 2 },
+  { siid: 10, piid: 1 },
+  { siid: 10, piid: 2 },
+  { siid: 11, piid: 1 },
+  { siid: 11, piid: 2 },
+  { siid: 4, piid: 4 },
+  { siid: 4, piid: 5 }
 ];
 
-class XiaomiMijia1C extends Homey.Device {
+class MiRobotVacuumMop1T extends Homey.Device {
   async onInit() {
     this.initialize = this.initialize.bind(this);
     this.driver = this.getDriver();
@@ -66,19 +67,19 @@ class XiaomiMijia1C extends Homey.Device {
             retries: 1
           })
           .then(result => {
-            const batteryResult = result.filter(r => r.siid == 2 && r.piid == 1)[0];
-            const deviceFaultResult = result.filter(r => r.siid == 3 && r.piid == 1)[0];
-            const deviceStatusResult = result.filter(r => r.siid == 3 && r.piid == 2)[0];
-            const deviceFanSpeedResult = result.filter(r => r.siid == 18 && r.piid == 6)[0];
-            const deviceMopSpeedResult = result.filter(r => r.siid == 18 && r.piid == 20)[0];
-            const deviceMainBrushProcentResult = result.filter(r => r.siid == 26 && r.piid == 2)[0];
-            const deviceFilterProcentResult = result.filter(r => r.siid == 27 && r.piid == 1)[0];
-            const deviceLeftBrushProcentResult = result.filter(r => r.siid == 28 && r.piid == 2)[0];
+            const batteryResult = result.filter(r => r.siid == 3 && r.piid == 1)[0];
+            const deviceFaultResult = result.filter(r => r.siid == 2 && r.piid == 2)[0];
+            const deviceStatusResult = result.filter(r => r.siid == 2 && r.piid == 1)[0];
+            const deviceFanSpeedResult = result.filter(r => r.siid == 4 && r.piid == 4)[0];
+            const deviceMopSpeedResult = result.filter(r => r.siid == 4 && r.piid == 5)[0];
+            const deviceMainBrushProcentResult = result.filter(r => r.siid == 9 && r.piid == 2)[0];
+            const deviceFilterProcentResult = result.filter(r => r.siid == 11 && r.piid == 1)[0];
+            const deviceLeftBrushProcentResult = result.filter(r => r.siid == 10 && r.piid == 2)[0];
 
             this.updateCapabilityValue("measure_battery", +batteryResult.value);
             this.updateCapabilityValue("alarm_battery", +batteryResult.value <= 20 ? true : false);
             this.updateCapabilityValue("vacuum_cleaner_device_fault", "" + deviceFaultResult.value);
-            this.updateCapabilityValue("vacuum_cleaner_1c_info", "" + deviceStatusResult.value);
+            this.updateCapabilityValue("vacuum_cleaner_1t_info", "" + deviceStatusResult.value);
             if (deviceStatusResult.value == 1) {
               this.updateCapabilityValue("onoff", true);
             } else if (deviceStatusResult.value == 6) {
@@ -124,19 +125,19 @@ class XiaomiMijia1C extends Homey.Device {
           retries: 1
         })
         .then(result => {
-          const batteryResult = result.filter(r => r.siid == 2 && r.piid == 1)[0];
-          const deviceFaultResult = result.filter(r => r.siid == 3 && r.piid == 1)[0];
-          const deviceStatusResult = result.filter(r => r.siid == 3 && r.piid == 2)[0];
-          const deviceFanSpeedResult = result.filter(r => r.siid == 18 && r.piid == 6)[0];
-          const deviceMopSpeedResult = result.filter(r => r.siid == 18 && r.piid == 20)[0];
-          const deviceMainBrushProcentResult = result.filter(r => r.siid == 26 && r.piid == 2)[0];
-          const deviceFilterProcentResult = result.filter(r => r.siid == 27 && r.piid == 1)[0];
-          const deviceLeftBrushProcentResult = result.filter(r => r.siid == 28 && r.piid == 2)[0];
+          const batteryResult = result.filter(r => r.siid == 3 && r.piid == 1)[0];
+          const deviceFaultResult = result.filter(r => r.siid == 2 && r.piid == 2)[0];
+          const deviceStatusResult = result.filter(r => r.siid == 2 && r.piid == 1)[0];
+          const deviceFanSpeedResult = result.filter(r => r.siid == 4 && r.piid == 4)[0];
+          const deviceMopSpeedResult = result.filter(r => r.siid == 4 && r.piid == 5)[0];
+          const deviceMainBrushProcentResult = result.filter(r => r.siid == 9 && r.piid == 2)[0];
+          const deviceFilterProcentResult = result.filter(r => r.siid == 11 && r.piid == 1)[0];
+          const deviceLeftBrushProcentResult = result.filter(r => r.siid == 10 && r.piid == 2)[0];
 
           this.updateCapabilityValue("measure_battery", +batteryResult.value);
           this.updateCapabilityValue("alarm_battery", +batteryResult.value <= 20 ? true : false);
           this.updateCapabilityValue("vacuum_cleaner_device_fault", "" + deviceFaultResult.value);
-          this.updateCapabilityValue("vacuum_cleaner_1c_info", "" + deviceStatusResult.value);
+          this.updateCapabilityValue("vacuum_cleaner_1t_info", "" + deviceStatusResult.value);
           if (deviceStatusResult.value == 1) {
             this.updateCapabilityValue("onoff", true);
           } else if (deviceStatusResult.value == 6) {
@@ -182,36 +183,17 @@ class XiaomiMijia1C extends Homey.Device {
     }
   }
 
-  convertMS(milliseconds) {
-    var day, hour, minute, seconds;
-    seconds = Math.floor(milliseconds / 1000);
-    minute = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    hour = Math.floor(minute / 60);
-    minute = minute % 60;
-    day = Math.floor(hour / 24);
-    hour = hour % 24;
-    return day + "Day, " + hour + "h, " + minute + "m, " + seconds + "s";
-  }
-
   onSettings(oldSettings, newSettings, changedKeys, callback) {
     if (changedKeys.includes("updateTimer") || changedKeys.includes("deviceIP") || changedKeys.includes("deviceToken")) {
       this.getVacuumStatus();
       callback(null, true);
-    }
-
-    if (changedKeys.includes("mopRoute")) {
-      this.device
-        .call("set_moproute", [newSettings.mopRoute])
-        .then(() => this.log("Sending " + this.getName() + " commmand: " + newSettings.mopRoute))
-        .catch(error => this.log("Sending commmand 'set_moproute'  error: ", error));
     }
   }
 
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async value => {
       if (value) {
-        const params = { siid: 3, aiid: 1, did: "call-3-1", in: [] };
+        const params = { siid: 2, aiid: 1, did: "call-2-1", in: [] };
 
         this.device
           .call("action", params, {
@@ -220,7 +202,7 @@ class XiaomiMijia1C extends Homey.Device {
           .then(() => this.log("Sending " + name + " commmand: " + value))
           .catch(error => this.log("Sending commmand 'action'  error: ", error));
       } else {
-        const params = { siid: 3, aiid: 2, did: "call-3-2", in: [] };
+        const params = { siid: 2, aiid: 2, did: "call-2-2", in: [] };
 
         this.device
           .call("action", params, {
@@ -234,7 +216,7 @@ class XiaomiMijia1C extends Homey.Device {
 
   registerButton(name) {
     this.registerCapabilityListener(name, async value => {
-      const params = { siid: 2, aiid: 1, did: "call-2-1", in: [] };
+      const params = { siid: 3, aiid: 1, did: "call-3-1", in: [] };
 
       this.device
         .call("action", params, {
@@ -247,7 +229,7 @@ class XiaomiMijia1C extends Homey.Device {
 
   registerCleaningSpeed(name) {
     this.registerCapabilityListener(name, async value => {
-      const params = [{ siid: 18, piid: 6, value }];
+      const params = [{ siid: 4, piid: 4, value }];
       this.device
         .call("set_properties", params, {
           retries: 1
@@ -259,7 +241,7 @@ class XiaomiMijia1C extends Homey.Device {
 
   registerCleaningWaterSpeed(name) {
     this.registerCapabilityListener(name, async value => {
-      const params = [{ siid: 18, piid: 20, value }];
+      const params = [{ siid: 4, piid: 5, value }];
       this.device
         .call("set_properties", params, {
           retries: 1
@@ -294,4 +276,4 @@ class XiaomiMijia1C extends Homey.Device {
   }
 }
 
-module.exports = XiaomiMijia1C;
+module.exports = MiRobotVacuumMop1T;

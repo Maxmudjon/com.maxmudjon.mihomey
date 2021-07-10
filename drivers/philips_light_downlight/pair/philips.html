@@ -19,7 +19,7 @@
         let deviceUpdateTimer = document.getElementById(`deviceUpdateTimer`);
 
         let data = { ip: PhilipsIP.value, token: PhilipsToken.value, model: "philips.light.downlight", timer: deviceUpdateTimer.value || 60 };
-        Homey.emit("connect", data, function(error, result) {
+        Homey.emit("connect", data, (error, result) => {
           if (error) {
             alert.classList.remove("alert-light");
             alert.classList.remove("alert-warning");

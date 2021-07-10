@@ -1,7 +1,7 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-class XiaomiMijia1C extends Homey.Driver {
+class MiRobotVacuumMop1T extends Homey.Driver {
   onInit() {
     this.triggers = {
       main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
@@ -12,7 +12,7 @@ class XiaomiMijia1C extends Homey.Driver {
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Xiaomi Mijia 1C";
+    pairingDevice.name = "Mi Robot Vacuum-Mop 1T";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -26,7 +26,7 @@ class XiaomiMijia1C extends Homey.Driver {
             .then(value => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = value.mac;
-                const params = [{ siid: 2, piid: 1 }];
+                const params = [{ siid: 3, piid: 1 }];
                 device
                   .call("get_properties", params, {
                     retries: 1
@@ -52,7 +52,7 @@ class XiaomiMijia1C extends Homey.Driver {
                   .catch(error => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Xiaomi Mijia 1C"
+                  notDevice: "It is not Mi Robot Vacuum-Mop 1T"
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
@@ -76,4 +76,4 @@ class XiaomiMijia1C extends Homey.Driver {
   }
 }
 
-module.exports = XiaomiMijia1C;
+module.exports = MiRobotVacuumMop1T;

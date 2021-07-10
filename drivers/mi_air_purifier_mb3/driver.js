@@ -26,12 +26,15 @@ class MiAirPurifierMB3 extends Homey.Driver {
             .call("miIO.info", [])
             .then((value) => {
               if (value.model == this.data.model) {
-                pairingDevice.data.id = "MA:P3:H0:" + value.mac + ":MA:P3:H0";
+                pairingDevice.data.id = value.mac;
+                const params = [{ siid: 2, piid: 4 }];
                 device
-                  .call("get_prop", ["power"])
-                  .then((value) => {
-                    let result = {
-                      state: value[0],
+                  .call("get_properties", params, {
+                    retries: 1
+                  })
+                  .then((result) => {
+                    let deviceResult = {
+                      state: result[0].value
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -43,7 +46,7 @@ class MiAirPurifierMB3 extends Homey.Driver {
                       pairingDevice.settings.updateTimer = parseInt(this.data.timer);
                     }
 
-                    callback(null, result);
+                    callback(null, deviceResult);
                   })
                   .catch((error) => callback(null, error));
               } else {

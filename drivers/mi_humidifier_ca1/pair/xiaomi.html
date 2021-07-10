@@ -24,7 +24,7 @@
           model: "zhimi.humidifier.ca1",
           timer: deviceUpdateTime.value || 60
         };
-        Homey.emit("connect", data, function(error, result) {
+        Homey.emit("connect", data, (error, result) => {
           if (error) {
             alert.classList.remove("alert-light");
             alert.classList.remove("alert-warning");

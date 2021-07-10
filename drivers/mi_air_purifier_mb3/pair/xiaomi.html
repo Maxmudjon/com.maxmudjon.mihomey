@@ -2,12 +2,12 @@
 <link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
 
 <script>
-  Homey.setTitle("Add Mi Air Purifier S2 IP and Token");
+  Homey.setTitle("Add Mi Air Purifier 3H IP and Token");
   setTimeout(() => {
     Homey.setNavigationClose();
   }, 1);
   new Vue({
-    el: "#MiAirPurifierS2",
+    el: "#MiAirPurifier3H",
 
     methods: {
       connect() {
@@ -18,8 +18,8 @@
         let deviceToken = document.getElementById(`deviceToken`);
         let deviceUpdateTime = document.getElementById(`deviceUpdateTime`);
 
-        let data = { ip: deviceIP.value, token: deviceToken.value, model: "zhimi.airpurifier.ma2", timer: deviceUpdateTime.value || 60 };
-        Homey.emit("connect", data, function(error, result) {
+        let data = { ip: deviceIP.value, token: deviceToken.value, model: "zhimi.airpurifier.mb3", timer: deviceUpdateTime.value || 60 };
+        Homey.emit("connect", data, (error, result) => {
           if (error) {
             alert.classList.remove("alert-light");
             alert.classList.remove("alert-warning");
@@ -69,7 +69,7 @@
   });
 </script>
 
-<div id="MiAirPurifierS2">
+<div id="MiAirPurifier3H">
   <div class="row align-items-center alert alert-light" role="alert" id="status" style="width:100%; margin-left: 0px; margin-right: 0px;">
     <div class="input-group mb-3"><input type="text" class="form-control" id="deviceIP" aria-describedby="basic-addon3" placeholder="IP Address" /></div>
     <div class="input-group mb-3"><input type="text" class="form-control" id="deviceToken" aria-describedby="basic-addon3" placeholder="Token" /></div>

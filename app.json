@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -2725,27 +2725,27 @@
       },
       "values": [
         {
-          "id": "auto",
+          "id": "0",
           "title": {
             "en": "Auto"
           }
         },
         {
-          "id": "silent",
+          "id": "1",
           "title": {
             "en": "Silent"
           }
         },
         {
-          "id": "favorite",
+          "id": "2",
           "title": {
             "en": "Favorite"
           }
         },
         {
-          "id": "none",
+          "id": "3",
           "title": {
-            "en": "Fan level"
+            "en": "None"
           }
         }
       ],
@@ -2846,6 +2846,26 @@
         { "id": "4", "title": { "en": "Error" } },
         { "id": "5", "title": { "en": "Go Charging" } },
         { "id": "6", "title": { "en": "Charging" } }
+      ],
+      "getable": true,
+      "setable": false
+    },
+    "vacuum_cleaner_1t_info": {
+      "type": "enum",
+      "title": {
+        "en": "Vacuum cleaner info"
+      },
+      "desc": {
+        "en": "Vacuum cleaner info"
+      },
+      "values": [
+        { "id": "1", "title": { "en": "Sweeping" } },
+        { "id": "2", "title": { "en": "Idle" } },
+        { "id": "3", "title": { "en": "Paused" } },
+        { "id": "4", "title": { "en": "Error" } },
+        { "id": "5", "title": { "en": "Go Charging" } },
+        { "id": "6", "title": { "en": "Charging" } },
+        { "id": "7", "title": { "en": "Mopping" } }
       ],
       "getable": true,
       "setable": false
@@ -11739,14 +11759,6 @@
               }
             },
             {
-              "id": "buzzer",
-              "type": "checkbox",
-              "value": true,
-              "label": {
-                "en": "Buzzer"
-              }
-            },
-            {
               "id": "childLock",
               "type": "checkbox",
               "value": true,
@@ -11815,7 +11827,7 @@
             "en": "Speed level"
           },
           "max": 100,
-          "min":1
+          "min": 1
         },
         "dim.target": {
           "title": {
@@ -12048,6 +12060,148 @@
       "images": {
         "large": "/drivers/dreame.vacuum.mc1808/assets/images/large.png",
         "small": "/drivers/dreame.vacuum.mc1808/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dreame.vacuum.p2041",
+      "name": {
+        "en": "Mi Robot Vacuum-Mop 1T"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": ["onoff", "button", "dim", "dim.water", "vacuum_cleaner_1t_info", "vacuum_cleaner_device_fault", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Clean"
+          }
+        },
+        "button": {
+          "title": {
+            "en": "Go to charging"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan speed"
+          },
+          "min": 0,
+          "max": 3,
+          "step": 1
+        },
+        "dim.water": {
+          "title": {
+            "en": "Mop mode"
+          },
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Robot Vacuum-Mop 1T settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Vacuum life settings"
+          },
+          "children": [
+            {
+              "id": "alarm_threshold",
+              "type": "number",
+              "label": {
+                "en": "Alarm threshold"
+              },
+              "hint": {
+                "en": "Work level to (brush, filter) below which the alarm will be activated."
+              },
+              "value": 20,
+              "attr": {
+                "min": 1,
+                "max": 90
+              }
+            },
+            {
+              "id": "main_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Main Cleaning Brush Life Level"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "side_brush_work_time",
+              "type": "label",
+              "label": {
+                "en": "Side Cleaning Brush Life Level"
+              },
+              "value": "0%"
+            },
+            {
+              "id": "filter_work_time",
+              "type": "label",
+              "label": {
+                "en": "Filter Life Level"
+              },
+              "value": "0%"
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/dreame.vacuum.p2041/assets/images/large.png",
+        "small": "/drivers/dreame.vacuum.p2041/assets/images/small.png"
       },
       "pair": [
         {
