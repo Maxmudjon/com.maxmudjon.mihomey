@@ -2416,6 +2416,57 @@
             ]
           }
         ]
+      },
+      {
+        "id": "zhimi_fan_za5_mode",
+        "title": {
+          "en": "Set fan mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi.fan.za5"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Natural Wind"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Straight Wind"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zhimi_fan_za5_horizontal_angle",
+        "title": {
+          "en": "Set horizontal angle"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi.fan.za5"
+          },
+          {
+            "name": "angle",
+            "type": "text",
+            "placeholder": {
+              "en": "Angle"
+            }
+          }
+        ]
       }
     ]
   },
@@ -3093,6 +3144,31 @@
           "id": "2",
           "title": {
             "en": "Favorite"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "zhimi_fan_za5_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Fan mode"
+      },
+      "desc": {
+        "en": "Fan mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Natural Wind"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Straight Wind"
           }
         }
       ],
@@ -13038,6 +13114,128 @@
       "images": {
         "large": "/drivers/zhimi.airpurifier.mb4/assets/images/large.png",
         "small": "/drivers/zhimi.airpurifier.mb4/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhimi.fan.za5",
+      "name": {
+        "en": "Mi Smart Standing Fan 3"
+      },
+      "class": "fan",
+      "capabilities": ["onoff", "onoff.swing", "dim", "dim.angle", "zhimi_fan_za5_mode", "measure_humidity", "measure_temperature"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.swing": {
+          "title": {
+            "en": "Horizontal Swing"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan level"
+          },
+          "max": 4,
+          "min": 1
+        },
+        "dim.angle": {
+          "title": {
+            "en": "Horizontal Angle"
+          },
+          "max": 120,
+          "min": 30
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Standing Fan 3 settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/zhimi.fan.za5/assets/images/large.png",
+        "small": "/drivers/zhimi.fan.za5/assets/images/small.png"
       },
       "pair": [
         {
