@@ -78,6 +78,8 @@ Added support for Mi Gateways child devices.
 - Mi Smart Evaporative Humidifer.
 - Mi Smart Standing Fan 2 Lite.
 - Dreame Bot L10 Pro.
+- Roborock S6 Pure.
+- Mi Air Purifier 3C.
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -138,7 +140,9 @@ Added support for Mi Gateways child devices.
 1.  added Mi Smart Evaporative Humidifer.
 2.  added Mi Smart Standing Fan 2 Lite.
 3.  added Dreame Bot L10 Pro.
-4.  minor fixes.
+4.  added Roborock S6 Pure.
+5.  added Mi Air Purifier 3C.
+6.  minor fixes.
 
 ### 1.1.12 (10.07.2021)
 

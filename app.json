@@ -2379,6 +2379,43 @@
             ]
           }
         ]
+      },
+      {
+        "id": "zhimi_airpurifier_mb4_mode",
+        "title": {
+          "en": "Set air purifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=zhimi.airpurifier.mb4"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Sleep"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Favorite"
+                }
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -2988,6 +3025,74 @@
           "id": "1",
           "title": {
             "en": "Sleep"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "roborock_vacuum_a08_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Vacuum Mode"
+      },
+      "desc": {
+        "en": "Vacuum Mode"
+      },
+      "values": [
+        {
+          "id": "101",
+          "title": {
+            "en": "Silent"
+          }
+        },
+        {
+          "id": "102",
+          "title": {
+            "en": "Basic"
+          }
+        },
+        {
+          "id": "103",
+          "title": {
+            "en": "Strong"
+          }
+        },
+        {
+          "id": "104",
+          "title": {
+            "en": "Full Speed"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "zhimi_airpurifier_mb4_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Air purifier mode"
+      },
+      "desc": {
+        "en": "Air purifier mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Sleep"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Favorite"
           }
         }
       ],
@@ -12736,6 +12841,203 @@
       "images": {
         "large": "/drivers/dreame.vacuum.p2029/assets/images/large.png",
         "small": "/drivers/dreame.vacuum.p2029/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "roborock.vacuum.a08",
+      "name": {
+        "en": "Roborock S6 Pure"
+      },
+      "class": "vacuumcleaner",
+      "capabilities": ["onoff", "button", "roborock_vacuum_a08_mode", "measure_battery", "alarm_battery"],
+      "energy": {
+        "batteries": ["OTHER"]
+      },
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Clean"
+          }
+        },
+        "button": {
+          "title": {
+            "en": "Go to charging"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan speed"
+          },
+          "min": 0,
+          "max": 3,
+          "step": 1
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Roborock S6 Pure settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/roborock.vacuum.a08/assets/images/large.png",
+        "small": "/drivers/roborock.vacuum.a08/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zhimi.airpurifier.mb4",
+      "name": {
+        "en": "Mi Air Purifier 3C"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "zhimi_airpurifier_mb4_mode", "measure_pm25"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Favorite speed"
+          },
+          "max": 2200,
+          "min": 300
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Air Purifier 3C settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/zhimi.airpurifier.mb4/assets/images/large.png",
+        "small": "/drivers/zhimi.airpurifier.mb4/assets/images/small.png"
       },
       "pair": [
         {
