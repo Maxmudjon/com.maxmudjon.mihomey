@@ -7,12 +7,12 @@ class MiRockRoboVacuumT6 extends Homey.Driver {
       main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
       side_brush: new Homey.FlowCardTriggerDevice("side_brush_work_time").register(),
       filter: new Homey.FlowCardTriggerDevice("filter_work_time").register(),
-      sensor: new Homey.FlowCardTriggerDevice("sensor_dirty_time").register()
+      sensor: new Homey.FlowCardTriggerDevice("sensor_dirty_time").register(),
     };
 
     this.actions = {
       vacuumZoneCleaner: new Homey.FlowCardAction("vacuumZoneCleaner").register(),
-      vacuumGoToTarget: new Homey.FlowCardAction("vacuumGoToTarget").register()
+      vacuumGoToTarget: new Homey.FlowCardAction("vacuumGoToTarget").register(),
     };
   }
 
@@ -22,21 +22,21 @@ class MiRockRoboVacuumT6 extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "MI:VC:T6:" + value.mac + ":MI:VC:T6";
                 device
                   .call("get_status", [])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      battery: value[0]["battery"]
+                      battery: value[0]["battery"],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -50,18 +50,18 @@ class MiRockRoboVacuumT6 extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Roborock Vacuum T6"
+                  notDevice: "It is not Mi Roborock Vacuum T6",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -73,7 +73,7 @@ class MiRockRoboVacuumT6 extends Homey.Driver {
         });
     });
 
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

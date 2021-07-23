@@ -21,7 +21,7 @@
           ip: deviceIP.value,
           token: deviceToken.value,
           model: "deerma.humidifier.mjjsq",
-          timer: deviceUpdateTime.value || 60
+          timer: deviceUpdateTime.value || 60,
         };
         Homey.emit("connect", data, (error, result) => {
           if (error) {
@@ -68,18 +68,18 @@
       },
       addDevice() {
         Homey.showView("done");
-      }
-    }
+      },
+    },
   });
 </script>
 
 <div id="MiSmartHumidifier">
-  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width:100%; margin-left: 0px; margin-right: 0px;">
+  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width: 100%; margin-left: 0px; margin-right: 0px;">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" id="deviceIP" aria-describedby="basic-addon3" placeholder="IP Address" />
+      <input type="text" class="form-control" id="deviceIP" aria-describedby="basic-addon3" placeholder="IP Address" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
     </div>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" id="deviceToken" aria-describedby="basic-addon3" placeholder="Token" />
+      <input type="text" class="form-control" id="deviceToken" aria-describedby="basic-addon3" placeholder="Token" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
     </div>
     <div class="input-group mb-3">
       <small id="period" class="form-text text-muted">Polling period, seconds</small>

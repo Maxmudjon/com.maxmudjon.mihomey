@@ -6,8 +6,8 @@ class MiSmartPlugWiFiWith2USB extends Homey.Driver {
     this.actions = {
       usbOn: new Homey.FlowCardAction("power_usb_on").register(),
       usbOff: new Homey.FlowCardAction("power_usb_off").register(),
-  };
-}
+    };
+  }
 
   onPair(socket) {
     let pairingDevice = {};
@@ -15,21 +15,21 @@ class MiSmartPlugWiFiWith2USB extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "PL:UG:V3:" + value.mac + ":PL:UG:V3";
                 device
                   .call("get_prop", ["power"])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      power: value[0]
+                      power: value[0],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -43,18 +43,18 @@ class MiSmartPlugWiFiWith2USB extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Smart Plug WiFi With 2 USB"
+                  notDevice: "It is not Mi Smart Plug WiFi With 2 USB",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(function(error) {
+        .catch(function (error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -65,7 +65,7 @@ class MiSmartPlugWiFiWith2USB extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

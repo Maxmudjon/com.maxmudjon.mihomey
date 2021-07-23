@@ -41,7 +41,7 @@ class MiAirPurifierMB3 extends Homey.Device {
   registerCapabilities() {
     this.registerOnOffButton("onoff");
     this.registerFavoriteLevel("dim");
-    this.registerAirPurifierMode("air_purifier_mode");
+    this.registerAirPurifierMode("air_purifier_mb3_mode");
   }
 
   getPurifierStatus() {
@@ -62,6 +62,7 @@ class MiAirPurifierMB3 extends Homey.Device {
             retries: 1,
           })
           .then((result) => {
+            console.log(result);
             const deviceFaultResult = result.filter((r) => r.siid == 2 && r.piid == 1)[0];
             const deviceStatusResult = result.filter((r) => r.siid == 2 && r.piid == 2)[0];
             const deviceFanLevelResult = result.filter((r) => r.siid == 2 && r.piid == 4)[0];
@@ -216,7 +217,8 @@ class MiAirPurifierMB3 extends Homey.Device {
 
   registerAirPurifierMode(name) {
     this.registerCapabilityListener(name, async (value) => {
-      const params = [{ siid: 2, piid: 5, value }];
+      const params = [{ siid: 2, piid: 5, value: +value }];
+
       this.device
         .call("set_properties", params, { retries: 1 })
         .then(() => this.log("Sending " + name + " commmand: " + value))
@@ -293,7 +295,8 @@ class MiAirPurifierMB3 extends Homey.Device {
             token: args.device.getSetting("deviceToken"),
           })
           .then((device) => {
-            const params = [{ siid: 2, piid: 5, value: +args.modes }];
+            const modes = { auto: 0, silent: 1, favorite: 2, none: 3 };
+            const params = [{ siid: 2, piid: 5, value: +modes[args.modes] }];
             device
               .call("set_properties", params, { retries: 1 })
               .then(() => {

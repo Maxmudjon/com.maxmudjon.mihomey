@@ -1,6 +1,6 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -2227,13 +2227,13 @@
               {
                 "id": "silent",
                 "label": {
-                  "en": "Silent"
+                  "en": "Night"
                 }
               },
               {
                 "id": "favorite",
                 "label": {
-                  "en": "Favorite"
+                  "en": "Manual"
                 }
               },
               {
@@ -2306,6 +2306,74 @@
                 "id": "3",
                 "label": {
                   "en": "High"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "deerma_humidifier_jsq4_mode",
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deerma.humidifier.jsq4"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Level 1"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Level 2"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Humidity"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "deerma_fan_1c_mode",
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deerma.humidifier.jsq4"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Straight Wind"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Sleep"
                 }
               }
             ]
@@ -2733,19 +2801,19 @@
         {
           "id": "1",
           "title": {
-            "en": "Silent"
+            "en": "Night"
           }
         },
         {
           "id": "2",
           "title": {
-            "en": "Favorite"
+            "en": "Manual"
           }
         },
         {
           "id": "3",
           "title": {
-            "en": "None"
+            "en": "Fan level"
           }
         }
       ],
@@ -2869,6 +2937,62 @@
       ],
       "getable": true,
       "setable": false
+    },
+    "deerma_humidifier_jsq4_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "Humidifier Mode"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Level 1"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Level 2"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Humidity"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "deerma_fan_1c_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "Humidifier Mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Straight Wind"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Sleep"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
     }
   },
   "drivers": [
@@ -9336,7 +9460,18 @@
         "en": "Mi Robot"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time"
+      ],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -9529,7 +9664,19 @@
         "en": "Mi Roborock"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time", "button.consumable"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time",
+        "button.consumable"
+      ],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -9731,7 +9878,18 @@
         "en": "Mi Robot 1S"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time"
+      ],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -9924,7 +10082,19 @@
         "en": "Mi Roborock Vacuum T6"
       },
       "class": "vacuumcleaner",
-      "capabilities": ["onoff", "onoff.findme", "dim", "vacuumcleaner_state", "measure_battery", "alarm_battery", "alarm_main_brush_work_time", "alarm_side_brush_work_time", "alarm_filter_work_time", "alarm_sensor_dirty_time", "alarm_motion"],
+      "capabilities": [
+        "onoff",
+        "onoff.findme",
+        "dim",
+        "vacuumcleaner_state",
+        "measure_battery",
+        "alarm_battery",
+        "alarm_main_brush_work_time",
+        "alarm_side_brush_work_time",
+        "alarm_filter_work_time",
+        "alarm_sensor_dirty_time",
+        "alarm_motion"
+      ],
       "energy": {
         "batteries": ["OTHER"]
       },
@@ -12202,6 +12372,228 @@
       "images": {
         "large": "/drivers/dreame.vacuum.p2041/assets/images/large.png",
         "small": "/drivers/dreame.vacuum.p2041/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deerma.humidifier.jsq4",
+      "name": {
+        "en": "Mi Smart Evaporative Humidifer"
+      },
+      "class": "sensor",
+      "capabilities": ["onoff", "dim", "deerma_humidifier_jsq4_mode", "measure_temperature", "measure_humidity", "alarm_water"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed level"
+          },
+          "max": 70,
+          "min": 40
+        },
+        "alarm_water": {
+          "title": {
+            "en": "No water"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Evaporative Humidifer"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/deerma.humidifier.jsq4/assets/images/large.png",
+        "small": "/drivers/deerma.humidifier.jsq4/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dmaker.fan.1c",
+      "name": {
+        "en": "Mi Smart Standing Fan 2 Lite"
+      },
+      "class": "fan",
+      "capabilities": ["onoff", "onoff.swing", "dim", "deerma_fan_1c_mode"],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.swing": {
+          "title": {
+            "en": "Horizontal Swing"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan level"
+          },
+          "max": 1,
+          "min": 3
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Standing Fan 2 Lite"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/dmaker.fan.1c/assets/images/large.png",
+        "small": "/drivers/dmaker.fan.1c/assets/images/small.png"
       },
       "pair": [
         {

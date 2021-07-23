@@ -1,8 +1,8 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const initFlowAction = action => ({
-  action: new Homey.FlowCardAction(action).register()
+const initFlowAction = (action) => ({
+  action: new Homey.FlowCardAction(action).register(),
 });
 
 class MiAirFreshVA2 extends Homey.Driver {
@@ -11,7 +11,7 @@ class MiAirFreshVA2 extends Homey.Driver {
       airFreshOn: initFlowAction("air_fresh_on"),
       airFreshOff: initFlowAction("air_fresh_off"),
       airFreshMode: initFlowAction("air_fresh_mode"),
-      airFreshSpeed: initFlowAction("air_fresh_speed")
+      airFreshSpeed: initFlowAction("air_fresh_speed"),
     };
   }
 
@@ -21,21 +21,21 @@ class MiAirFreshVA2 extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "MA:FV:A2:" + value.mac + ":MA:FV:A2";
                 device
                   .call("get_prop", ["power"])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      state: value[0]
+                      state: value[0],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -49,18 +49,18 @@ class MiAirFreshVA2 extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Air Fresh VA2"
+                  notDevice: "It is not Mi Air Fresh VA2",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -72,7 +72,7 @@ class MiAirFreshVA2 extends Homey.Driver {
         });
     });
 
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

@@ -73,15 +73,19 @@
       },
       addDevice() {
         Homey.showView("done");
-      }
-    }
+      },
+    },
   });
 </script>
 
 <div id="Yeelight">
-  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width:100%; margin-left: 0px; margin-right: 0px;">
-    <div class="input-group mb-3"><input type="text" class="form-control" id="YeelightIP" aria-describedby="basic-addon3" placeholder="IP Address" /></div>
-    <div class="input-group mb-3"><input type="text" class="form-control" id="YeelightToken" aria-describedby="basic-addon3" placeholder="Token" /></div>
+  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width: 100%; margin-left: 0px; margin-right: 0px;">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="YeelightIP" aria-describedby="basic-addon3" placeholder="IP Address" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="YeelightToken" aria-describedby="basic-addon3" placeholder="Token" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
+    </div>
     <div class="input-group mb-3"><small id="period" class="form-text text-muted">Polling period, seconds</small></div>
     <div class="input-group mb-3"><input type="number" class="form-control" id="deviceUpdateTimer" aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" /></div>
     <div class="col" style="padding-left: 0px;"><div class="statusAlertShow float-left">Not connected!</div></div>

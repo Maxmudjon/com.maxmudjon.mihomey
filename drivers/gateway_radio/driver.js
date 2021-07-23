@@ -1,16 +1,16 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const initFlowAction = radio => ({
-  radio: new Homey.FlowCardAction(radio).register()
+const initFlowAction = (radio) => ({
+  radio: new Homey.FlowCardAction(radio).register(),
 });
 
-const initFlowAction2 = customRadioListSend => ({
-  customRadioListSend: new Homey.FlowCardAction(customRadioListSend).register()
+const initFlowAction2 = (customRadioListSend) => ({
+  customRadioListSend: new Homey.FlowCardAction(customRadioListSend).register(),
 });
 
-const initToggleFlowAction = toggle => ({
-  toggle: new Homey.FlowCardAction(toggle).register()
+const initToggleFlowAction = (toggle) => ({
+  toggle: new Homey.FlowCardAction(toggle).register(),
 });
 
 class GatewayRadio extends Homey.Driver {
@@ -18,7 +18,7 @@ class GatewayRadio extends Homey.Driver {
     this.actions = {
       playRadio: initFlowAction("play_radio"),
       customRadioListSend: initFlowAction2("customRadioListSend"),
-      toggle: initToggleFlowAction("play_toggle")
+      toggle: initToggleFlowAction("play_toggle"),
     };
   }
 
@@ -29,21 +29,21 @@ class GatewayRadio extends Homey.Driver {
     pairingDevice.data = {};
     pairingDevice.capabilities = [];
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "FM:" + value.mac + ":FM";
                 device
                   .call("get_prop_fm", [])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      volume: value.current_volume
+                      volume: value.current_volume,
                     };
                     if (process.env.HOMEY_VERSION.replace(/\W/g, "") >= "200") {
                       pairingDevice.capabilities.push("speaker_playing");
@@ -69,18 +69,18 @@ class GatewayRadio extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Gateway with radio"
+                  notDevice: "It is not Mi Gateway with radio",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -91,7 +91,7 @@ class GatewayRadio extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

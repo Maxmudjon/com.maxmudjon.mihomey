@@ -1,14 +1,14 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const initFlowAction = action => ({
-  action: new Homey.FlowCardAction(action).register()
+const initFlowAction = (action) => ({
+  action: new Homey.FlowCardAction(action).register(),
 });
 
 class PhilipsDownlight extends Homey.Driver {
   onInit() {
     this.actions = {
-      philipsScenes: initFlowAction("philips_scenes")
+      philipsScenes: initFlowAction("philips_scenes"),
     };
   }
 
@@ -18,21 +18,21 @@ class PhilipsDownlight extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "PH:DL:" + value.mac + ":PH:LI:BU";
                 device
                   .call("get_prop", ["bright"])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      bright: value[0]
+                      bright: value[0],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -46,18 +46,18 @@ class PhilipsDownlight extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Philips Downlight"
+                  notDevice: "It is not Philips Downlight",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -68,7 +68,7 @@ class PhilipsDownlight extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

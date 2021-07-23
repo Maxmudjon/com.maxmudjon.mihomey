@@ -4,7 +4,7 @@ const miio = require("miio");
 class CHINGMISmartPowerStrip extends Homey.Driver {
   onInit() {
     this.triggers = {
-      meterAmpere: new Homey.FlowCardTriggerDevice("meterAmpere").register()
+      meterAmpere: new Homey.FlowCardTriggerDevice("meterAmpere").register(),
     };
   }
 
@@ -14,21 +14,21 @@ class CHINGMISmartPowerStrip extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "CH:PS:" + value.mac + ":CH:PS";
                 device
                   .call("get_prop", ["power"])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      power: value[0]
+                      power: value[0],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -42,18 +42,18 @@ class CHINGMISmartPowerStrip extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not CHINGMI Smart Power Strip"
+                  notDevice: "It is not CHINGMI Smart Power Strip",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -64,7 +64,7 @@ class CHINGMISmartPowerStrip extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

@@ -1,14 +1,14 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const initFlowAction = favoriteFlow => ({
-  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register()
+const initFlowAction = (favoriteFlow) => ({
+  favoriteFlow: new Homey.FlowCardAction(favoriteFlow).register(),
 });
 
 class YeelightLightStrip extends Homey.Driver {
   onInit() {
     this.actions = {
-      favoriteFlow: initFlowAction("favorite_flow_color1_bulb")
+      favoriteFlow: initFlowAction("favorite_flow_color1_bulb"),
     };
   }
 
@@ -18,21 +18,21 @@ class YeelightLightStrip extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model || value.model == "yeelink.light.strip2") {
                 pairingDevice.data.id = "YL:LS:" + value.mac + ":YL:LS";
                 device
                   .call("get_prop", ["bright"])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      bright: value[0]
+                      bright: value[0],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -46,18 +46,18 @@ class YeelightLightStrip extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Yeelight Light Strip"
+                  notDevice: "It is not Yeelight Light Strip",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(function(error) {
+        .catch(function (error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -68,7 +68,7 @@ class YeelightLightStrip extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

@@ -2,7 +2,7 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.11 - Supported devices:
+## Version 1.1.13 - Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
@@ -75,6 +75,8 @@ Added support for Mi Gateways child devices.
 - Mi Mijia LDS Vacuum Cleaner.
 - Mi Mijia 1C Vacuum Cleaner.
 - Mi Humidifier V2.
+- Mi Smart Evaporative Humidifer.
+- Mi Smart Standing Fan 2 Lite.
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -129,6 +131,12 @@ Added support for Mi Gateways child devices.
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
 
 ## Version logs
+
+### 1.1.13 (23.07.2021)
+
+1.  added Mi Smart Evaporative Humidifer.
+2.  added Mi Smart Standing Fan 2 Lite.
+3.  minor fixes.
 
 ### 1.1.12 (10.07.2021)
 

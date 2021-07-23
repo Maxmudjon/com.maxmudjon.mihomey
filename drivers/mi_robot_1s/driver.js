@@ -7,13 +7,13 @@ class MiRobot1S extends Homey.Driver {
       main_brush: new Homey.FlowCardTriggerDevice("main_brush_work_time").register(),
       side_brush: new Homey.FlowCardTriggerDevice("side_brush_work_time").register(),
       filter: new Homey.FlowCardTriggerDevice("filter_work_time").register(),
-      sensor: new Homey.FlowCardTriggerDevice("sensor_dirty_time").register()
+      sensor: new Homey.FlowCardTriggerDevice("sensor_dirty_time").register(),
     };
 
     this.actions = {
       vacuumZoneCleaner: new Homey.FlowCardAction("vacuumZoneCleaner").register(),
       vacuumGoToTarget: new Homey.FlowCardAction("vacuumGoToTarget").register(),
-      vacuumStartRoomCleaning: new Homey.FlowCardAction("vacuumStartRoomCleaning").register()
+      vacuumStartRoomCleaning: new Homey.FlowCardAction("vacuumStartRoomCleaning").register(),
     };
   }
 
@@ -23,21 +23,21 @@ class MiRobot1S extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = "MI:VC:1S:" + value.mac + ":MI:VC:1S";
                 device
                   .call("get_status", [])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      battery: value[0]["battery"]
+                      battery: value[0]["battery"],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -51,18 +51,18 @@ class MiRobot1S extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Robot 1S"
+                  notDevice: "It is not Mi Robot 1S",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -74,7 +74,7 @@ class MiRobot1S extends Homey.Driver {
         });
     });
 
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

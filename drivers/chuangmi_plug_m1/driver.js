@@ -8,21 +8,21 @@ class MiSmartPlugWiFi extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               if (value.model == this.data.model || value.model == "chuangmi.plug.m3" || value.model == "chuangmi.plug.hmi205") {
                 pairingDevice.data.id = "PL:UG:M1:" + value.mac + ":PL:UG:M1";
                 device
                   .call("get_prop", ["power"])
-                  .then(value => {
+                  .then((value) => {
                     let result = {
-                      power: value[0]
+                      power: value[0],
                     };
                     pairingDevice.settings.deviceIP = this.data.ip;
                     pairingDevice.settings.deviceToken = this.data.token;
@@ -36,18 +36,18 @@ class MiSmartPlugWiFi extends Homey.Driver {
 
                     callback(null, result);
                   })
-                  .catch(error => callback(null, error));
+                  .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Smart Plug WiFi"
+                  notDevice: "It is not Mi Smart Plug WiFi",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
               }
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(function(error) {
+        .catch(function (error) {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -58,7 +58,7 @@ class MiSmartPlugWiFi extends Homey.Driver {
           }
         });
     });
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }

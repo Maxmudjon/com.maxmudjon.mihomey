@@ -8,20 +8,20 @@ class GatewaySecurity extends Homey.Driver {
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
-    socket.on("connect", function(data, callback) {
+    socket.on("connect", (data, callback) => {
       this.data = data;
       miio
         .device({ address: data.ip, token: data.token })
-        .then(device => {
+        .then((device) => {
           device
             .call("miIO.info", [])
-            .then(value => {
+            .then((value) => {
               pairingDevice.data.id = "SE:CU:RI:TY:" + value.mac + ":SE:CU:RI:TY";
               device
                 .call("get_arming", [])
-                .then(value => {
+                .then((value) => {
                   let result = {
-                    state: value[0]
+                    state: value[0],
                   };
                   pairingDevice.settings.gatewayIP = this.data.ip;
                   pairingDevice.settings.gatewayToken = this.data.token;
@@ -35,11 +35,11 @@ class GatewaySecurity extends Homey.Driver {
 
                   callback(null, result);
                 })
-                .catch(error => callback(null, error));
+                .catch((error) => callback(null, error));
             })
-            .catch(error => callback(null, error));
+            .catch((error) => callback(null, error));
         })
-        .catch(error => {
+        .catch((error) => {
           if (error == "Error: Could not connect to device, handshake timeout") {
             callback(null, "timeout");
           }
@@ -51,7 +51,7 @@ class GatewaySecurity extends Homey.Driver {
         });
     });
 
-    socket.on("done", function(data, callback) {
+    socket.on("done", (data, callback) => {
       callback(null, pairingDevice);
     });
   }
