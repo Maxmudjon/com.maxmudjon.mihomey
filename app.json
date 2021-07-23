@@ -12517,8 +12517,8 @@
           "title": {
             "en": "Fan level"
           },
-          "max": 1,
-          "min": 3
+          "max": 3,
+          "min": 1
         }
       },
       "settings": [
