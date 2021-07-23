@@ -77,6 +77,7 @@ Added support for Mi Gateways child devices.
 - Mi Humidifier V2.
 - Mi Smart Evaporative Humidifer.
 - Mi Smart Standing Fan 2 Lite.
+- Dreame Bot L10 Pro.
 
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
 ![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
@@ -132,11 +133,12 @@ Added support for Mi Gateways child devices.
 
 ## Version logs
 
-### 1.1.13 (23.07.2021)
+### 1.1.13 (24.07.2021)
 
 1.  added Mi Smart Evaporative Humidifer.
 2.  added Mi Smart Standing Fan 2 Lite.
-3.  minor fixes.
+3.  added Dreame Bot L10 Pro.
+4.  minor fixes.
 
 ### 1.1.12 (10.07.2021)
 

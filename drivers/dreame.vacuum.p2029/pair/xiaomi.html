@@ -1,0 +1,87 @@
+<script src="../../../assets/vue.min.js"></script>
+<link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
+
+<script>
+  Homey.setTitle("Add Dreame Bot L10 Pro and Token");
+  setTimeout(() => {
+    Homey.setNavigationClose();
+  }, 1);
+  new Vue({
+    el: "#DreameBotL10Pro",
+    methods: {
+      connect() {
+        let alert = document.getElementById(`status`);
+        let alertTitle = document.getElementsByClassName(`statusAlertShow`);
+        let addDevice = document.getElementById("addDevice");
+        let deviceIP = document.getElementById(`deviceIP`);
+        let deviceToken = document.getElementById(`deviceToken`);
+        let deviceUpdateTime = document.getElementById(`deviceUpdateTime`);
+
+        let data = { ip: deviceIP.value, token: deviceToken.value, model: "dreame.vacuum.p2029", timer: deviceUpdateTime.value || 60 };
+        Homey.emit("connect", data, (error, result) => {
+          if (error) {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-danger");
+            alertTitle[0].innerHTML = "Error";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result == "timeout") {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-danger");
+            alert.classList.add("alert-warning");
+            alertTitle[0].innerHTML = "Timeout or device offline";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result == "offline") {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-danger");
+            alertTitle[0].innerHTML = "Offline";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result == "wrongToken") {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-danger");
+            alertTitle[0].innerHTML = "Wrong token";
+            addDevice.style.setProperty("display", "none");
+          }
+
+          if (result.battery) {
+            alert.classList.remove("alert-light");
+            alert.classList.remove("alert-danger");
+            alert.classList.remove("alert-warning");
+            alert.classList.add("alert-success");
+            alertTitle[0].innerHTML = "Successfully connected";
+            addDevice.style.removeProperty("display");
+          }
+        });
+      },
+      addDevice() {
+        Homey.showView("done");
+      },
+    },
+  });
+</script>
+
+<div id="DreameBotL10Pro">
+  <div class="row align-items-center alert alert-light" role="alert" id="status" style="width: 100%; margin-left: 0px; margin-right: 0px;">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="deviceIP" aria-describedby="basic-addon3" placeholder="IP Address" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="deviceToken" aria-describedby="basic-addon3" placeholder="Token" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
+    </div>
+    <div class="input-group mb-3"><small id="period" class="form-text text-muted">Polling period, seconds</small></div>
+    <div class="input-group mb-3"><input type="number" class="form-control" id="deviceUpdateTime" aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" /></div>
+    <div class="col" style="padding-left: 0px;">
+      <div class="statusAlertShow float-left">Not connected!</div>
+    </div>
+    <div class="col" style="padding-right: 0px;"><button @click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button></div>
+  </div>
+  <button @click="addDevice" type="button" class="btn btn-primary btn-lg btn-block" style="height: auto; display: none;" id="addDevice">Add device</button>
+</div>
