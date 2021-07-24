@@ -2,137 +2,930 @@
 
 Added support for Mi Gateways child devices.
 
-## Version 1.1.13 - Supported devices:
+## Supported devices:
 
 ### Zigbee subdevices Xiaomi Gateway
 
-- Double Button Wirelles Remote Switch (DuplexButton86).
-- Motion Sensor 1 version (MotionSensor).
-- Leak Sensor (WaterDetector).
-- Plug zigbee (PlugBase).
-- Contact Sensor (MagnetSensor).
-- Button Switch (Switch).
-- Mi Temperature and Humidity Sensor (Sensor_HT).
-- Aqara Smart Light Switch With Neutral (SingleSwitchLN).
-- Aqara Wirelles Single Switch (SingleButton86).
-- Aqara Wall Outlet (PlugBase86).
-- Aqara Smart Light Switch With Neutral (DoubleSwitchLN).
-- Aqara Smart Light Switch (DoubleSwitch).
-- Aqara Smart Light Switch (SingleSwitch).
-- Aqara Temperature and Humidity Sensor (WeatherSensor).
-- Aqara Door and Window Sensor (MagnetSensor2).
-- Aqara Motion Sensor (MotionSensor2).
-- Mi / Aqara Cube (Cube).
-- Aqara Curtain Motor / B1 (Curtain).
-- Aqara Button Switch (SwitchSensor).
-- Mijia Gateway (Gateway).
-- MiJia Gas Leak Detector (NatgasDetector).
-- MiJia Smoke Detector (SmokeDetector).
-- Aqara Wireless Remote Switch Double Button (DuplexButton862) (advanced 2018)
-- Aqara Button Switch (SwitchSensor) (advanced 2018).
-- Aqara Lock (Lock).
-- Aqara Vibration sensor (Vibration).
-- Aqara Roller Shade Controller (Curtain).
-- Aqara Relay 2 Channel (Relay).
-- Aqara Light Bulb (LightBulb).
+<table style="padding:10px">
+  <tr >
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946343p9ry5h53.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wireless Remote Switch (Double Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_86sw2.v1
+    </td>
+  </tr>
+  <tr >
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1568790679hbjrf231.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Motion Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_motion.v2
+    </td>
+  </tr>
+  <tr >
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946555t15edvj2.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Water Leak Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_wleak.aq1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946293zvbn9tzx.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Plug
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.plug.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946067z8jchf67.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Door & window sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_magnet.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946044p2uihvbh.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Wireless switch
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_switch.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946270wfcy8jua.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Temperature and Humidity Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_ht.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946545s16n05q0.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wall Switch (With Neutral, Single Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.ctrl_ln1.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946333a76monsx.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wireless Remote Switch (Single Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_86sw1.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_15519465083oa0hgqn.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wall Outlet
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.ctrl_86plug.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551947140bbugrsl6.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wall Outlet
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.ctrl_86plug.aq1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946536z6u1u389.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wall Switch (With Neutral, Double Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.ctrl_ln2.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_155194623082wls1kr.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wall Switch (No Neutral, Double Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.ctrl_neutral2.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946259jy9di8hy.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wall Switch(No Neutral, Single Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.ctrl_neutral1.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946494759k1632.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Temperature and Humidity Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.weather.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_15519469912gr3ftq9.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Door and Window Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_magnet.aq2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1568790644fgbf0c5c.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Motion Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_motion.aq2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551947188rn59rojq.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Cube
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_cube.aqgl01
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946247k2gcxq7f.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Cube
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_cube.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946352fxx9kq9i.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Curtain Controller
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.curtain.v1 
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_154606566067bdjjah.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Curtain Controller B1
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.curtain.hagl04
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551947013mg7h4wzp.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wireless Mini Switch
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_switch.aq2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946283d9yib9nj.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Control Hub
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.gateway.v3 
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946487gcml3k1d.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Natural Gas Detector
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_natgas.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_16079974799011kqXxjPL.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=0OiozLLGB63gfdbZJiVh+c4BXFs="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Smoke Detector
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_smoke.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1539350975nors6d25.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wireless Remote Switch (Single Rocker)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.remote.b186acn01
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_15519471092bonrxkp.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wireless Mini Switch(Advanced)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.sensor_switch.aq3
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551947038rl1nd6io.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Door Lock
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.lock.aq1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946564yrxg0o11.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Vibration Sensor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.vibration.aq1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551946896xaxvvfyu.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Roller Shade Controller
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.curtain.aq2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551947200lmxx1aec.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara Wireless Relay Controller(2 Channels)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.relay.c2acn01
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_155194716661a3j77e.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Aqara LED Light Bulb (Tunable White)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: lumi.light.aqcn02
+    </td>
+  </tr>
+</table>
 
 ### Wifi devices
 
-- Yeelight Color Bulb V1/V2/V3.
-- Yeelight White Bulb.
-- Yeelight Ceiling Lamp.
-- Yeelight Bedside Lamp V1/V2.
-- Yeelight Light Strip V1/V2.
-- Yeelight Jiaoyue 650.
-- Yeelight Jiaoyue 450.
-- Yeelight Crystal Pendant Lamp
-- Mi LED Desk Lamp.
-- Philips Eyecare Desk Lapmp 2.
-- Philips Eyecare Ceiling Lamp.
-- Philips Light Bulb.
-- Philips Zhirui Smart LED Bulb E14 Candle Lamp.
-- Philips Zhirui Smart LED Bulb E14 Candle Lamp White Crystal.
-- Philips Downlight.
-- Philips Zhirui Bedside Lamp.
-- Mi Smart Plug WiFi.
-- Mi Smart Plug With USB WiFi.
-- Mi Smart Plug With 2 USB WiFi.
-- Mi Smart Power Strip.
-- CHINGMI Smart Power Strip.
-- Mi Air Purifier S2.
-- Mi Air Purifier Pro V6/V7.
-- Mi Air Fresh VA2/VA4.
-- Mi Humidifier V1.
-- Mi Humidifier V2.
-- Mi Vacuum Cleaner (gen 1).
-- Mi Vacuum Cleaner V2 (gen 2).
-- Mi Air Quality Monitor (gen 2).
-- Mi Vacuum Cleaner 1S.
-- Mi Air Purifier (MJXFJ-300-G1).
-- Mi Roborock Vacuum Cleaner T6.
-- Mi IR remote controller.
-- Mi Air Humidifier 2.
-- Mi Mijia LDS Vacuum Cleaner.
-- Mi Mijia 1C Vacuum Cleaner.
-- Mi Humidifier V2.
-- Mi Smart Evaporative Humidifer.
-- Mi Smart Standing Fan 2 Lite.
-- Dreame Bot L10 Pro.
-- Roborock S6 Pure.
-- Mi Air Purifier 3C.
-- Mi Smart Standing Fan 3.
-
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiMotionSensor.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/LeakSensor.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiPlugZigbee.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiContactSensor.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiButtonSwtich.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiTempHumSensor.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchWithNeutralSingleRocker.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/SingleButton86.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSmartSocketZiGBee.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchWithNeutralDoubleRocker2.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchDoubleRocker.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWallSwitchSingleRocker.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraWeather.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraDoorAndWindow.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraMotion.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiCube.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraCurtainMotor.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitch.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MijiaGateway.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/XioamiMiJiaNatGasDetector.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/XiaomiMijiaSmokeDetectorH.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/DuplexButton86-2018.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraButtonSwitchWithShake.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraLock.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/AqaraVibration.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightColorBulb.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightWhiteBulb.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightCeilingLamp.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsEyeCareDeskLamp2.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiLEDDeskLamp.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsEyeCareCeilingLamp.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightBedsideLamp.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightLightStrip.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsLightBulb.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPlugWiFi.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPlugWithUSBWiFi.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPlugWith2USBWiFi.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiSmartPowerStrip.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/CHINGMISmartPowerStrip.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/YeelightJiaoyue650.jpg)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiAirPurifierS2.jpg)
-![](<https://raw.githubusercontent.com/Maxmudjon/images/master/MiVacuumCleaner(gen1).png>)
-![](<https://raw.githubusercontent.com/Maxmudjon/images/master/MiVacuumCleaner(gen2).png>)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiE14Candle.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiE14CandleCrystal.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsDownlight.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/PhilipsZhiruiBedsideLamp.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiAirPurifierPro.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV2.png)
-![](https://raw.githubusercontent.com/Maxmudjon/images/master/MiHumidiferV1.png)
+<table style="padding:10px">
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948909vbd5j1i0.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight Color Bulb
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.color1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_155194885368w4m2yf.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight Bulb
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.mono1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_76a320138443dc8279275910d82855ff.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight Ceiling Light
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.ceiling1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_7cdda2ef7b962532d372605cfdd8c6cf.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips EyeCare connected desk lamp gen2.
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.sread1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948734led4fxvy.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi LED Desk Lamp
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.lamp1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_3568754428ab7e71aaa816869bf95987.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips connected ceiling
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.ceiling
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948682ge5xsee7.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Bedside Lamp
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.bslamp1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948048cwdnysig.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Bedside Lamp 2
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.bslamp2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948702kcy7aei4.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight Lightstrip
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.strip1 
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_475f7d736df3cdf5d850c051128bf1ad.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips ZhiRui E27 bulb
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.bulb
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_15519413774cpoz0pm.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Power Plug
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: chuangmi.plug.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_155194170474bxs1ua.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        MIJIA Smart Plug Enhanced
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: chuangmi.plug.v3
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551941390qc7g2hc2.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Plug Mini
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: chuangmi.plug.m1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_47c848570745985ba031b93b93d02ac2.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Power Strip
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zimi.powerstrip.v2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_1c82837fed232993f52db9658c0c5bfb.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        CHINGMI Smart Power Strip
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: qmi.powerstrip.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948534mz3wch5k.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight LED Ceiling Light
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.ceiling4
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_155194424297hgeila.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Air Purifier 2S
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airpurifier.ma2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_15535655910xzcfjkb.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Robot Vacuum 1S
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: roborock.vacuum.m1s
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1506499816h06qkus7.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Roborock S5
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: roborock.vacuum.s5
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.awssgp0.fds.api.mi-img.com/miio.files/developer_156618079541qv9zd6.pn"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Roborock S5 Max
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: roborock.vacuum.s5e
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1546580485sxep1twx.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Roborock T6
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: roborock.vacuum.t6
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_430f65a6257b260001e0f7f15b4a6742.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Robot Vacuum
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: rockrobo.vacuum.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.alsgp0.fds.api.mi-img.com/iotweb-product-center/developer_1575612793853JIRYdIrl.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=8Xqmrqek6Tk00nrcMRI6oKXQZhM="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Roborock S6 Pure
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: roborock.vacuum.a08
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_156211621715fdn2i1.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Robot Vacuum-Mop P
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: viomi.vacuum.v7
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_1562239124014kEE2hXem.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;Expires=9223372036854775807\u0026amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;Signature=LHFf3Lj4/j38SuwXmdXKjL1oC7E="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Robot Vacuum Mop
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: dreame.vacuum.mc1808
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cnbj1.fds.api.xiaomi.com/iotweb-product-center/f58b107bc1d94c64f37c09f97a18c45b_2.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=XfZBIf+qEbyd3fXwhRw/OWVJWWs="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Dreame Bot L10 Pro
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: dreame.vacuum.p2029
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_1595550567373KNWQrT3w.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=sR2byTXPsSvHX7sGh6ySEhBd68s="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Robot Vacuum-Mop 1T
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: dreame.vacuum.p2041
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_c041b020930cfc8c53fcf80eb8528a9c.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Multifunction Air Monitor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: cgllc.airmonitor.b1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1539170389edjvgmza.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Qingping Air Monitor
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: cgllc.airmonitor.s1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1542871940fn9a3b3y.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Humidifier
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: deerma.humidifier.mjjsq
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_1616123889270TXVYhdbh.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=5T5b+1cPif2eB8B5nNynHgF4yq4="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Evaporative Humidifer
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: deerma.humidifier.jsq4
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1531708489ilxgbnv4.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Fresh Air Ventilator
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: dmaker.airfresh.t2017
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.awssgp0.fds.api.mi-img.com/miio.files/developer_1573710547nq1me2nm.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Standing Fan 2 Lite
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: dmaker.fan.1c
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551941430cajjuyzy.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Universal Remote
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: chuangmi.ir.v2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.awssgp0.fds.api.mi-img.com/miio.files/developer_15504816557tej1pj6.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Air Purifier 3/3H
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airpurifier.mb3
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551943914sscoo74r.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Air Purifier Pro
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airpurifier.v6
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551944689505i5ubr.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Air Purifier Pro
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airpurifier.v7
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551944227gt6o909y.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Evaporative Humidifier
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.humidifier.ca1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_1575251878117y5EMNnGn.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=7p+gvkuvQGzvZfg5o7VWVrE4TRA="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Evaporative Humidifer 2
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.humidifier.ca4
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.awsde0-fusion.fds.api.mi-img.com/iotweb-product-center/developer_1566881006690Xccq6g7F.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=hGrzbHprrc2iBCFqLjolW7fR4b8="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Evaporative Humidifier
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.humidifier.cb1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551942372ku1b0iu0.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Humidifier
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.humidifier.v1
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1512351483jqwjpd70.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips ZhiRui E14 candle lamp Frosted version
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.candle
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1512353567w8o3cgnv.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips ZhiRui E14 candle lamp crystal version
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.candle2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1516848116ixz0e345.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips ZhiRui downlight
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.downlight
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1521017976wskcy6vy.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Philips ZhiRui bedside lamp
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.moonlight
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1500887836qfgbqwws.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight LED Ceiling Light
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.ceiling3
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1551948038jfv5e1mv.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Yeelight Crystal Pendant Lamp
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: yeelink.light.ceiling10
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1516348195gs703nrn.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Ventilation System
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airfresh.va2
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_1566281755171dzW21vhZ.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026amp;Expires=9223372036854775807\u0026amp;Signature=yXr5/qAPL7K30I0EpL1lvzEBC2Q="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Fresh Air System (Heating)
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airfresh.va4
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.alsgp0.fds.api.mi-img.com/iotweb-product-center/developer_15922027781200Uar15Vi.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=ESayscpl/Ky5GjRLqZYZydMMpZg="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Air Purifier 3C
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.airpurifier.mb4
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/iotweb-product-center/developer_1577772535191ODLLij7b.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW\u0026Expires=9223372036854775807\u0026Signature=xlGDGzJZzxiNeBZiYvZ9jtGyosg="  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Standing Fan 3
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.fan.za5
+    </td>
+  </tr>
+</table>
 
 ## Version logs
 
