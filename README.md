@@ -929,6 +929,10 @@ Added support for Mi Gateways child devices.
 
 ## Version logs
 
+### 1.1.14 (26.07.2021)
+
+1.  Transformed to Homey Compose.
+
 ### 1.1.13 (24.07.2021)
 
 1.  added Mi Smart Evaporative Humidifer.
