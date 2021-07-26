@@ -1,0 +1,31 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Vacuum cleaner mode"
+  },
+  "desc": {
+    "en": "Vacuum cleaner mode"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Vacuum"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Vacuum + Mop"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Mop"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

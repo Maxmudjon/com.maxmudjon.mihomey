@@ -1,0 +1,72 @@
+{
+  "name": {
+    "en": "Xiaomi Gateway Security"
+  },
+  "class": "homealarm",
+  "capabilities": [
+    "homealarm_state"
+  ],
+  "capabilitiesOptions": {
+    "homealarm_state": {
+      "title": {
+        "en": "Security"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Gateway settings"
+      },
+      "children": [
+        {
+          "id": "gatewayIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "gatewayToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Gateway Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Gateway update timer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/gateway_security/assets/images/large.png",
+    "small": "/drivers/gateway_security/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "gateways",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "gateways"
+      }
+    }
+  ]
+}

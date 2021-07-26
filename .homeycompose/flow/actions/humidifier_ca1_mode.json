@@ -1,0 +1,42 @@
+{
+  "title": {
+    "en": "Set humidifier mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=mi_humidifier_ca1|mi_humidifier_cb1"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "auto",
+          "label": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "silent",
+          "label": {
+            "en": "Silent"
+          }
+        },
+        {
+          "id": "medium",
+          "label": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "label": {
+            "en": "High"
+          }
+        }
+      ]
+    }
+  ]
+}

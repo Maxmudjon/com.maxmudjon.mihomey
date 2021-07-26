@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Cube free fall"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=cube"
+    }
+  ]
+}

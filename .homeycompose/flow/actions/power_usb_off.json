@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Power USB turn off"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=chuangmi_plug_v1|chuangmi_plug_v3"
+    }
+  ]
+}

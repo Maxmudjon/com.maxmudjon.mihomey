@@ -1,0 +1,86 @@
+{
+  "name": {
+    "en": "Aqara Wall Switch, With Neutral, Double Rocker"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff.1",
+    "onoff.2"
+  ],
+  "capabilitiesOptions": {
+    "onoff.1": {
+      "title": {
+        "en": "Left On/Off"
+      },
+      "greyout": false
+    },
+    "onoff.2": {
+      "title": {
+        "en": "Right On/Off"
+      },
+      "greyout": false
+    }
+  },
+  "images": {
+    "large": "/drivers/ctrl_ln2.aq1/assets/images/large.png",
+    "small": "/drivers/ctrl_ln2.aq1/assets/images/small.png"
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Device information"
+      },
+      "children": [
+        {
+          "id": "deviceSid",
+          "type": "label",
+          "label": {
+            "en": "Device sid"
+          },
+          "value": "0123456789abcd"
+        },
+        {
+          "id": "deviceFromGatewaySid",
+          "type": "label",
+          "label": {
+            "en": "Gateway sid"
+          },
+          "value": "0123456789ab"
+        },
+        {
+          "id": "deviceModelName",
+          "type": "label",
+          "label": {
+            "en": "Device model"
+          },
+          "value": "lumi.device"
+        },
+        {
+          "id": "deviceModelCodeName",
+          "type": "label",
+          "label": {
+            "en": "Device model code"
+          },
+          "value": "AABBCC01LM"
+        }
+      ]
+    }
+  ],
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      },
+      "options": {
+        "singular": false
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

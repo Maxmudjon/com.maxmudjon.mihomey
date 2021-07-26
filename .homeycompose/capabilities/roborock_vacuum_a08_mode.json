@@ -1,0 +1,37 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Vacuum Mode"
+  },
+  "desc": {
+    "en": "Vacuum Mode"
+  },
+  "values": [
+    {
+      "id": "101",
+      "title": {
+        "en": "Silent"
+      }
+    },
+    {
+      "id": "102",
+      "title": {
+        "en": "Basic"
+      }
+    },
+    {
+      "id": "103",
+      "title": {
+        "en": "Strong"
+      }
+    },
+    {
+      "id": "104",
+      "title": {
+        "en": "Full Speed"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

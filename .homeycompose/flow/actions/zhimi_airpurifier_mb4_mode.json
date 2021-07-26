@@ -1,0 +1,36 @@
+{
+  "title": {
+    "en": "Set air purifier mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zhimi.airpurifier.mb4"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Sleep"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Favorite"
+          }
+        }
+      ]
+    }
+  ]
+}

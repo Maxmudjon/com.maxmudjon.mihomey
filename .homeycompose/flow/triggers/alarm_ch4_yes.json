@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Natural gas leak detected"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=natgas_sensor"
+    }
+  ]
+}

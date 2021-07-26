@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Night Mode is !{{on|off}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "placeholder": {
+        "en": "Select Yeelight"
+      },
+      "filter": "driver_id=yeelight_light_ceiling4"
+    }
+  ]
+}

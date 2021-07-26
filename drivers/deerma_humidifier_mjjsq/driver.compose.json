@@ -1,0 +1,117 @@
+{
+  "name": {
+    "en": "Mi Smart Humidifier"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "humidifier_deerma_mode",
+    "measure_temperature",
+    "measure_humidity",
+    "alarm_water",
+    "alarm_motion.tank"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Set humidity"
+      }
+    },
+    "alarm_water": {
+      "title": {
+        "en": "Water level"
+      }
+    },
+    "alarm_motion.tank": {
+      "title": {
+        "en": "Water tank status"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Smart Humidifier settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "LED"
+          }
+        },
+        {
+          "id": "buzzer",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Buzzer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/deerma_humidifier_mjjsq/assets/images/large.png",
+    "small": "/drivers/deerma_humidifier_mjjsq/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

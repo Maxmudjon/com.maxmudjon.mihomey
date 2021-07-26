@@ -1,0 +1,81 @@
+{
+  "name": {
+    "en": "Mi ClearGlass Air Detector",
+    "nl": ""
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_humidity",
+    "measure_pm25",
+    "measure_co2",
+    "measure_voc",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi ClearGlass Air Detector settings",
+        "nl": ""
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address",
+            "nl": ""
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token",
+            "nl": ""
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer",
+            "nl": ""
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/cgllc_airmonitor_s1/assets/images/large.png",
+    "small": "/drivers/cgllc_airmonitor_s1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "name": {
+    "en": "Mi Smart Plug With USB WiFi"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_temperature",
+    "onoff.usb",
+    "onoff.led"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "onoff.usb": {
+      "title": {
+        "en": "USB power"
+      }
+    },
+    "measure_temperature": {
+      "title": {
+        "en": "Temperature"
+      }
+    },
+    "onoff.led": {
+      "title": {
+        "en": "WiFi LED"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Smart Plug With USB WiFi settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/chuangmi_plug_v1/assets/images/large.png",
+    "small": "/drivers/chuangmi_plug_v1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Power is !{{on|off}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=plug"
+    }
+  ]
+}

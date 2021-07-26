@@ -1,0 +1,26 @@
+{
+  "name": "com.maxmudjon.mihomey",
+  "version": "1.1.14",
+  "description": "Added support for Mi Gateways child devices.",
+  "main": "api.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "mem": "^5.1.1",
+    "mimorelinks": "^1.2.1",
+    "miio": "^0.15.6"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxmudjon/com.maxmudjon.mihomey.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxmudjon/com.maxmudjon.mihomey/issues"
+  },
+  "homepage": "https://github.com/Maxmudjon/com.maxmudjon.mihomey#readme"
+}

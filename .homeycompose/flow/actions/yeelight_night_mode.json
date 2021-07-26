@@ -1,0 +1,43 @@
+{
+  "title": {
+    "en": "Set night mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=yeelight_light_ceiling4"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "on",
+          "label": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "toggle",
+          "label": {
+            "en": "Toggle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "smoothTime",
+      "type": "text",
+      "placeholder": {
+        "en": "seconds"
+      }
+    }
+  ]
+}

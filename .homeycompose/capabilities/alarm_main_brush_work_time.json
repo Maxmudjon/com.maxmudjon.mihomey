@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Time left main brush"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/main_brush_icon.svg"
+}

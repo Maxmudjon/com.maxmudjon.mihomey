@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Pressure"
+  },
+  "type": "number",
+  "units": {
+    "en": "mm Hg"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/weather_temp_hum_sensor/assets/pressure_hhmg_sensor_icon.svg"
+}

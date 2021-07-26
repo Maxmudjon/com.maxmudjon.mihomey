@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Both click press button switch"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=db86_switch_advanced"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Power off"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4"
+    }
+  ]
+}

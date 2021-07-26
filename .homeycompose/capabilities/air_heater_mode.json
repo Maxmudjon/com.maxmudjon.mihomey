@@ -1,0 +1,37 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Air Purifier Heating Mode"
+  },
+  "desc": {
+    "en": "Air Purifier Heating Mode"
+  },
+  "values": [
+    {
+      "id": "off",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {
+      "id": "low",
+      "title": {
+        "en": "Low"
+      }
+    },
+    {
+      "id": "medium",
+      "title": {
+        "en": "Medium"
+      }
+    },
+    {
+      "id": "high",
+      "title": {
+        "en": "High"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

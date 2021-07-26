@@ -1,0 +1,19 @@
+{
+  "title": {
+    "en": "Send IR code"
+  },
+  "args": [
+    {
+      "name": "code",
+      "type": "text",
+      "placeholder": {
+        "en": "code"
+      }
+    },
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=ir_remote"
+    }
+  ]
+}

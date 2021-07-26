@@ -1,0 +1,253 @@
+{
+  "name": {
+    "en": "Xiaomi Gateway 3 Radio"
+  },
+  "class": "speaker",
+  "capabilities": [],
+  "capabilitiesOptions": {
+    "speaker_playing": {
+      "title": {
+        "en": "Radio"
+      }
+    },
+    "volume_set": {
+      "title": {
+        "en": "Volume"
+      }
+    },
+    "speaker_prev": {
+      "title": {
+        "en": "Prev"
+      }
+    },
+    "speaker_next": {
+      "title": {
+        "en": "Next"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Gateway settings"
+      },
+      "children": [
+        {
+          "id": "gatewayIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "gatewayToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Gateway Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Gateway update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Gateway favorite radio list"
+      },
+      "children": [
+        {
+          "id": "favorite0ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "1 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite1ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "2 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite2ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "3 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite3ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "4 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite4ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "5 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite5ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "6 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite6ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "7 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite7ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "8 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite8ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "9 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite9ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "10 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite10ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "11 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite11ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "12 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite12ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "13 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite13ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "14 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite14ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "15 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite15ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "16 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite16ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "17 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite17ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "18 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite18ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "19 - Favorite Radio"
+          }
+        },
+        {
+          "id": "favorite19ID",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "20 - Favorite Radio"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/gateway_radio/assets/images/large.png",
+    "small": "/drivers/gateway_radio/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "gateways",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "gateways"
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Time left sensor"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/sensor_dirty_icon.svg"
+}

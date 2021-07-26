@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Power is !{{on|off}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "placeholder": {
+        "en": "Select Humidifier"
+      },
+      "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Air Purifier Mode"
+  },
+  "desc": {
+    "en": "Air Purifier Mode"
+  },
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Auto"
+      }
+    },
+    {
+      "id": "sleep",
+      "title": {
+        "en": "Sleep"
+      }
+    },
+    {
+      "id": "favorite",
+      "title": {
+        "en": "Favorite"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

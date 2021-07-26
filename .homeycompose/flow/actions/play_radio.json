@@ -1,0 +1,148 @@
+{
+  "title": {
+    "en": "Favorite radio lists"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=gateway_radio"
+    },
+    {
+      "type": "dropdown",
+      "name": "favoriteID",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "1 - favorite radio"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "2 - favorite radio"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "3 - favorite radio"
+          }
+        },
+        {
+          "id": "3",
+          "label": {
+            "en": "4 - favorite radio"
+          }
+        },
+        {
+          "id": "4",
+          "label": {
+            "en": "5 - favorite radio"
+          }
+        },
+        {
+          "id": "5",
+          "label": {
+            "en": "6 - favorite radio"
+          }
+        },
+        {
+          "id": "6",
+          "label": {
+            "en": "7 - favorite radio"
+          }
+        },
+        {
+          "id": "7",
+          "label": {
+            "en": "8 - favorite radio"
+          }
+        },
+        {
+          "id": "8",
+          "label": {
+            "en": "9 - favorite radio"
+          }
+        },
+        {
+          "id": "9",
+          "label": {
+            "en": "10 - favorite radio"
+          }
+        },
+        {
+          "id": "10",
+          "label": {
+            "en": "11 - favorite radio"
+          }
+        },
+        {
+          "id": "11",
+          "label": {
+            "en": "12 - favorite radio"
+          }
+        },
+        {
+          "id": "12",
+          "label": {
+            "en": "13 - favorite radio"
+          }
+        },
+        {
+          "id": "13",
+          "label": {
+            "en": "14 - favorite radio"
+          }
+        },
+        {
+          "id": "13",
+          "label": {
+            "en": "15 - favorite radio"
+          }
+        },
+        {
+          "id": "15",
+          "label": {
+            "en": "16 - favorite radio"
+          }
+        },
+        {
+          "id": "16",
+          "label": {
+            "en": "17 - favorite radio"
+          }
+        },
+        {
+          "id": "17",
+          "label": {
+            "en": "18 - favorite radio"
+          }
+        },
+        {
+          "id": "18",
+          "label": {
+            "en": "19 - favorite radio"
+          }
+        },
+        {
+          "id": "19",
+          "label": {
+            "en": "20 - favorite radio"
+          }
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "name": "volume",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
+}

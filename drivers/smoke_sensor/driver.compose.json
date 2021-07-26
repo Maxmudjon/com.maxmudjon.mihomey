@@ -1,0 +1,109 @@
+{
+  "name": {
+    "en": "MiJia Smoke Detector"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_smoke",
+    "measure_smoke_density",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [
+      "CR123A"
+    ]
+  },
+  "capabilitiesOptions": {
+    "alarm_smoke": {
+      "title": {
+        "en": "Smoke detected"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Duration of the smoke detected alarm"
+      },
+      "children": [
+        {
+          "id": "alarm_duration_number",
+          "type": "number",
+          "label": {
+            "en": "Disable after"
+          },
+          "hint": {
+            "en": "Here you can specify after what time the alarm signal from the smoke detected sensor will be stopped, if a smoke detected is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+          },
+          "value": 60,
+          "attr": {
+            "min": 60,
+            "max": 86400
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Device information"
+      },
+      "children": [
+        {
+          "id": "deviceSid",
+          "type": "label",
+          "label": {
+            "en": "Device sid"
+          },
+          "value": "0123456789abcd"
+        },
+        {
+          "id": "deviceFromGatewaySid",
+          "type": "label",
+          "label": {
+            "en": "Gateway sid"
+          },
+          "value": "0123456789ab"
+        },
+        {
+          "id": "deviceModelName",
+          "type": "label",
+          "label": {
+            "en": "Device model"
+          },
+          "value": "lumi.device"
+        },
+        {
+          "id": "deviceModelCodeName",
+          "type": "label",
+          "label": {
+            "en": "Device model code"
+          },
+          "value": "AABBCC01LM"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/smoke_sensor/assets/images/large.png",
+    "small": "/drivers/smoke_sensor/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      },
+      "options": {
+        "singular": false
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

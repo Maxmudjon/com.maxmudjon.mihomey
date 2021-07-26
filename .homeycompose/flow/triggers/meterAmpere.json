@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "The ampere changed"
+  },
+  "tokens": [
+    {
+      "name": "ampere",
+      "type": "number",
+      "title": {
+        "en": "Ampere"
+      },
+      "example": 0
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zimi_powerstrip_v2|qmi_powerstrip_v1"
+    }
+  ]
+}

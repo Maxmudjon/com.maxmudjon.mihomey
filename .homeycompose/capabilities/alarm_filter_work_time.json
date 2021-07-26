@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Time left filter"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/mi_rockrobo_vacuum_v1/assets/hepa_filter_icon.svg"
+}

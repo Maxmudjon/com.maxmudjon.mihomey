@@ -1,0 +1,135 @@
+{
+  "name": {
+    "en": "Mi Air Fresh VA2",
+    "nl": ""
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "air_fresh_mode",
+    "measure_temperature",
+    "measure_humidity",
+    "measure_pm25",
+    "measure_co2"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power",
+        "nl": ""
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Speed",
+        "nl": ""
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Air Fresh VA2 settings",
+        "nl": ""
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address",
+            "nl": ""
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token",
+            "nl": ""
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer",
+            "nl": ""
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings",
+        "nl": ""
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "LED",
+            "nl": ""
+          }
+        },
+        {
+          "id": "buzzer",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Buzzer",
+            "nl": ""
+          }
+        },
+        {
+          "id": "childLock",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Child Lock",
+            "nl": ""
+          }
+        },
+        {
+          "id": "f1_hour_used",
+          "type": "label",
+          "label": {
+            "en": "Filter life",
+            "nl": ""
+          },
+          "value": "0%"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/zhimi_airfresh_va2/assets/images/large.png",
+    "small": "/drivers/zhimi_airfresh_va2/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

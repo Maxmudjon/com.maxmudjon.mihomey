@@ -1,0 +1,131 @@
+{
+  "name": {
+    "en": "Mi Temperature and Humidity Sensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_humidity",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [
+      "CR2032"
+    ]
+  },
+  "capabilitiesOptions": {
+    "measure_temperature": {
+      "title": {
+        "en": "Temperature"
+      }
+    },
+    "measure_humidity": {
+      "title": {
+        "en": "Humidity"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Device information"
+      },
+      "children": [
+        {
+          "id": "deviceSid",
+          "type": "label",
+          "label": {
+            "en": "Device sid"
+          },
+          "value": "0123456789abcd"
+        },
+        {
+          "id": "deviceFromGatewaySid",
+          "type": "label",
+          "label": {
+            "en": "Gateway sid"
+          },
+          "value": "0123456789ab"
+        },
+        {
+          "id": "deviceModelName",
+          "type": "label",
+          "label": {
+            "en": "Device model"
+          },
+          "value": "lumi.device"
+        },
+        {
+          "id": "deviceModelCodeName",
+          "type": "label",
+          "label": {
+            "en": "Device model code"
+          },
+          "value": "AABBCC01LM"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "addOrTakeOffset",
+          "type": "radio",
+          "label": {
+            "en": "Offset"
+          },
+          "value": "add",
+          "values": [
+            {
+              "id": "add",
+              "label": {
+                "en": "Add offset"
+              }
+            },
+            {
+              "id": "take",
+              "label": {
+                "en": "Take offset"
+              }
+            }
+          ]
+        },
+        {
+          "id": "offset",
+          "type": "number",
+          "label": {
+            "en": "Offset"
+          },
+          "value": 0,
+          "min": 0,
+          "max": 5
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/temp_hum_sensor/assets/images/large.png",
+    "small": "/drivers/temp_hum_sensor/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      },
+      "options": {
+        "singular": false
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

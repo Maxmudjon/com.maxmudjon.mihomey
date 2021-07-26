@@ -1,0 +1,61 @@
+{
+  "title": {
+    "en": "Set air fresh mode",
+    "nl": ""
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zhimi_airfresh_va2|zhimi_airfresh_va4"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "auto",
+          "label": {
+            "en": "Auto",
+            "nl": ""
+          }
+        },
+        {
+          "id": "silent",
+          "label": {
+            "en": "Silent",
+            "nl": ""
+          }
+        },
+        {
+          "id": "interval",
+          "label": {
+            "en": "Interval",
+            "nl": ""
+          }
+        },
+        {
+          "id": "low",
+          "label": {
+            "en": "Low",
+            "nl": ""
+          }
+        },
+        {
+          "id": "middle",
+          "label": {
+            "en": "Middle",
+            "nl": ""
+          }
+        },
+        {
+          "id": "strong",
+          "label": {
+            "en": "Strong",
+            "nl": ""
+          }
+        }
+      ]
+    }
+  ]
+}

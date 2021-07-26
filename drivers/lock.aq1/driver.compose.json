@@ -1,0 +1,461 @@
+{
+  "name": {
+    "en": "Aqara Lock"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion.finger",
+    "alarm_motion.code",
+    "alarm_motion.card",
+    "alarm_motion.wrongID",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [
+      "AAA",
+      "AAA",
+      "AAA",
+      "AAA",
+      "AAA",
+      "AAA",
+      "AAA",
+      "AAA"
+    ]
+  },
+  "capabilitiesOptions": {
+    "alarm_motion.finger": {
+      "title": {
+        "en": "Finger"
+      }
+    },
+    "alarm_motion.code": {
+      "title": {
+        "en": "Code"
+      }
+    },
+    "alarm_motion.card": {
+      "title": {
+        "en": "Card"
+      }
+    },
+    "alarm_motion.wrongID": {
+      "title": {
+        "en": "Wrong ID"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Alarm duration for lock status"
+      },
+      "children": [
+        {
+          "id": "alarm_duration_number",
+          "type": "number",
+          "label": {
+            "en": "Disable after"
+          },
+          "hint": {
+            "en": "Here you can specify after what time the alarm signal from the motion sensor will be stopped, if a motion is detected it is not detected. Usually this is for 60 seconds, you can set from 60 to 86400 seconds."
+          },
+          "value": 60,
+          "attr": {
+            "min": 60,
+            "max": 86400
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Device information"
+      },
+      "children": [
+        {
+          "id": "deviceSid",
+          "type": "label",
+          "label": {
+            "en": "Device sid"
+          },
+          "value": "0123456789abcd"
+        },
+        {
+          "id": "deviceFromGatewaySid",
+          "type": "label",
+          "label": {
+            "en": "Gateway sid"
+          },
+          "value": "0123456789ab"
+        },
+        {
+          "id": "deviceModelName",
+          "type": "label",
+          "label": {
+            "en": "Device model"
+          },
+          "value": "lumi.device"
+        },
+        {
+          "id": "deviceModelCodeName",
+          "type": "label",
+          "label": {
+            "en": "Device model code"
+          },
+          "value": "AABBCC01LM"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Lock users"
+      },
+      "children": [
+        {
+          "id": "lock0UserName",
+          "type": "text",
+          "label": {
+            "en": "1 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user0FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user0CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user0CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock1UserName",
+          "type": "text",
+          "label": {
+            "en": "2 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user1FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user1CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user1CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock2UserName",
+          "type": "text",
+          "label": {
+            "en": "3 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user2FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user2CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user2CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock3UserName",
+          "type": "text",
+          "label": {
+            "en": "4 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user3FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user3CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user3CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock4UserName",
+          "type": "text",
+          "label": {
+            "en": "5 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user4FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user4CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user4CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock5UserName",
+          "type": "text",
+          "label": {
+            "en": "6 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user5FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user5CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user5CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock6UserName",
+          "type": "text",
+          "label": {
+            "en": "7 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user6FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user6CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user6CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock7UserName",
+          "type": "text",
+          "label": {
+            "en": "8 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user7FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user7CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user7CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock8UserName",
+          "type": "text",
+          "label": {
+            "en": "9 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user8FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user8CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user8CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "lock9UserName",
+          "type": "text",
+          "label": {
+            "en": "10 - User name"
+          },
+          "value": ""
+        },
+        {
+          "id": "user9FingerID",
+          "type": "text",
+          "label": {
+            "en": "Finger ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user9CodeID",
+          "type": "text",
+          "label": {
+            "en": "Code ID"
+          },
+          "value": ""
+        },
+        {
+          "id": "user9CardID",
+          "type": "text",
+          "label": {
+            "en": "Card ID"
+          },
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/lock.aq1/assets/images/large.png",
+    "small": "/drivers/lock.aq1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      },
+      "options": {
+        "singular": false
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

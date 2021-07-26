@@ -1,0 +1,49 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Vacuum cleaner info"
+  },
+  "desc": {
+    "en": "Vacuum cleaner info"
+  },
+  "values": [
+    {
+      "id": "1",
+      "title": {
+        "en": "Sweeping"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Idle"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Paused"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Error"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Go Charging"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Charging"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false
+}

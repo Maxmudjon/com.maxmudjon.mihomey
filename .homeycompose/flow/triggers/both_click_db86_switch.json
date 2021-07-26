@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Both buttons clicked"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=db86_switch"
+    }
+  ]
+}

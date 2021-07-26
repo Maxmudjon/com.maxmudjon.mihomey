@@ -1,0 +1,175 @@
+{
+  "name": {
+    "en": "Mi Robot"
+  },
+  "class": "vacuumcleaner",
+  "capabilities": [
+    "onoff",
+    "onoff.findme",
+    "dim",
+    "vacuumcleaner_state",
+    "measure_battery",
+    "alarm_battery",
+    "alarm_main_brush_work_time",
+    "alarm_side_brush_work_time",
+    "alarm_filter_work_time",
+    "alarm_sensor_dirty_time"
+  ],
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Clean"
+      }
+    },
+    "onoff.findme": {
+      "title": {
+        "en": "Find me"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Speed"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Robot settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Vacuum life settings"
+      },
+      "children": [
+        {
+          "id": "alarm_threshold",
+          "type": "number",
+          "label": {
+            "en": "Alarm threshold"
+          },
+          "hint": {
+            "en": "Work time to (brush, filter) below which the alarm will be activated."
+          },
+          "value": 20,
+          "attr": {
+            "min": 1,
+            "max": 90
+          }
+        },
+        {
+          "id": "main_brush_work_time",
+          "type": "label",
+          "label": {
+            "en": "Main brush work time"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "side_brush_work_time",
+          "type": "label",
+          "label": {
+            "en": "Side brush work time"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "filter_work_time",
+          "type": "label",
+          "label": {
+            "en": "Filter work time"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "sensor_dirty_time",
+          "type": "label",
+          "label": {
+            "en": "Sensor dirty time"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "total_work_time",
+          "type": "label",
+          "label": {
+            "en": "Total work time"
+          },
+          "value": "0"
+        },
+        {
+          "id": "total_cleared_area",
+          "type": "label",
+          "label": {
+            "en": "Total cleared area"
+          },
+          "value": "0"
+        },
+        {
+          "id": "total_clean_count",
+          "type": "label",
+          "label": {
+            "en": "Total clean count"
+          },
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/mi_rockrobo_vacuum_v1/assets/images/large.png",
+    "small": "/drivers/mi_rockrobo_vacuum_v1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

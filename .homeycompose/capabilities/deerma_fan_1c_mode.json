@@ -1,0 +1,25 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Humidifier Mode"
+  },
+  "desc": {
+    "en": "Humidifier Mode"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Straight Wind"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Sleep"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

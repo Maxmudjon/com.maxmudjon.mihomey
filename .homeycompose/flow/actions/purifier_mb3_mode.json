@@ -1,0 +1,42 @@
+{
+  "title": {
+    "en": "Set purifier mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=mi_air_purifier_mb3"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "auto",
+          "label": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "silent",
+          "label": {
+            "en": "Night"
+          }
+        },
+        {
+          "id": "favorite",
+          "label": {
+            "en": "Manual"
+          }
+        },
+        {
+          "id": "none",
+          "label": {
+            "en": "Fan level"
+          }
+        }
+      ]
+    }
+  ]
+}

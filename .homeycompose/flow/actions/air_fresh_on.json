@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Power on",
+    "nl": ""
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zhimi_airfresh_va2|zhimi_airfresh_va4"
+    }
+  ]
+}

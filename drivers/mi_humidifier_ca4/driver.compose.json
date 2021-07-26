@@ -1,0 +1,138 @@
+{
+  "name": {
+    "en": "Smartmi Evaporative Humidifer 2"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "onoff.dry",
+    "dim",
+    "dim.target",
+    "humidifier_ca4_mode",
+    "measure_temperature",
+    "measure_humidity",
+    "measure_water"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "onoff.dry": {
+      "title": {
+        "en": "Dry"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Speed level"
+      },
+      "max": 100,
+      "min": 1
+    },
+    "dim.target": {
+      "title": {
+        "en": "Target Relative Humidity"
+      },
+      "max": 80,
+      "min": 30
+    },
+    "measure_water": {
+      "title": {
+        "en": "Water level"
+      },
+      "units": {
+        "en": "%"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Smartmi Evaporative Humidifer 2 settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "LED"
+          }
+        },
+        {
+          "id": "buzzer",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Buzzer"
+          }
+        },
+        {
+          "id": "childLock",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Child Lock"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/mi_humidifier_ca4/assets/images/large.png",
+    "small": "/drivers/mi_humidifier_ca4/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

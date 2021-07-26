@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Ambilight brightness"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=philips_light_sread1"
+    },
+    {
+      "type": "range",
+      "name": "level",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
+}

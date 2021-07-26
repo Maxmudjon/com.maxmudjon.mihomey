@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Left switch power on"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=ctrl_ln2.aq1|ctrl_neutral2|relay_c2acn01"
+    }
+  ]
+}

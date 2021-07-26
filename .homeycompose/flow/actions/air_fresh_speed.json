@@ -1,0 +1,23 @@
+{
+  "title": {
+    "en": "Set air fresh speed",
+    "nl": ""
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zhimi_airfresh_va2"
+    },
+    {
+      "type": "range",
+      "name": "speed",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "On free fall"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=vibration_sensor"
+    }
+  ]
+}

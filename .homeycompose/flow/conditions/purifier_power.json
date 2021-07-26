@@ -1,0 +1,15 @@
+{
+  "title": {
+    "en": "Power is !{{on|off}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "placeholder": {
+        "en": "Select Purifier"
+      },
+      "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|mi_air_purifier_v7"
+    }
+  ]
+}

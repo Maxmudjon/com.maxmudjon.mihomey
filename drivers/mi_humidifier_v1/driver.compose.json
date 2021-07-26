@@ -1,0 +1,105 @@
+{
+  "name": {
+    "en": "Mi Humidifier V1"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "humidifier_mode",
+    "measure_temperature",
+    "measure_humidity"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Target Relative Humidity"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Humidifier V1 settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "LED"
+          }
+        },
+        {
+          "id": "buzzer",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Buzzer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/mi_humidifier_v1/assets/images/large.png",
+    "small": "/drivers/mi_humidifier_v1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

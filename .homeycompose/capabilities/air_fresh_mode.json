@@ -1,0 +1,57 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Air Fresh Mode",
+    "nl": ""
+  },
+  "desc": {
+    "en": "Air Fresh Mode",
+    "nl": ""
+  },
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Auto",
+        "nl": ""
+      }
+    },
+    {
+      "id": "silent",
+      "title": {
+        "en": "Silent",
+        "nl": ""
+      }
+    },
+    {
+      "id": "interval",
+      "title": {
+        "en": "Interval",
+        "nl": ""
+      }
+    },
+    {
+      "id": "low",
+      "title": {
+        "en": "Low",
+        "nl": ""
+      }
+    },
+    {
+      "id": "middle",
+      "title": {
+        "en": "Middle",
+        "nl": ""
+      }
+    },
+    {
+      "id": "strong",
+      "title": {
+        "en": "Strong",
+        "nl": ""
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

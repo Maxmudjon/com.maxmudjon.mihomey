@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "Set humidifier mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=deerma.humidifier.jsq4"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Straight Wind"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Sleep"
+          }
+        }
+      ]
+    }
+  ]
+}

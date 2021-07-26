@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Gas Density"
+  },
+  "type": "number",
+  "units": {
+    "en": "kg/m3"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/natgas_sensor/assets/measure_gas_density_icon.svg"
+}

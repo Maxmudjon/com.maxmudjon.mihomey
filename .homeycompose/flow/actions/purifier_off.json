@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Power off"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=mi_air_purifier_ma2|mi_air_purifier_v6|dmaker_airfresh_t2017|mi_air_purifier_v7"
+    }
+  ]
+}

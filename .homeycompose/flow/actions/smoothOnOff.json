@@ -1,0 +1,43 @@
+{
+  "title": {
+    "en": "Smooth on/off/toggle light"
+  },
+  "args": [
+    {
+      "type": "dropdown",
+      "name": "smoothMode",
+      "values": [
+        {
+          "id": "on",
+          "label": {
+            "en": "on"
+          }
+        },
+        {
+          "id": "off",
+          "label": {
+            "en": "off"
+          }
+        },
+        {
+          "id": "toggle",
+          "label": {
+            "en": "toggle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "smoothTime",
+      "type": "text",
+      "placeholder": {
+        "en": "seconds"
+      }
+    },
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=yeelight_light_color1|yeelight_light_ceiling10"
+    }
+  ]
+}

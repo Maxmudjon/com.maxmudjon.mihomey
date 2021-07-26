@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Ampere"
+  },
+  "type": "number",
+  "decimals": 2,
+  "units": {
+    "en": "A"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/qmi_powerstrip_v1/assets/meter_ampere.svg"
+}

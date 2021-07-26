@@ -1,0 +1,125 @@
+{
+  "name": {
+    "en": "Mi Air Purifier 3H"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "air_purifier_mb3_mode",
+    "measure_temperature",
+    "measure_humidity",
+    "measure_pm25"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Fan level"
+      },
+      "max": 3,
+      "min": 1,
+      "step": 1
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Air Purifier 3H settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "LED"
+          }
+        },
+        {
+          "id": "childLock",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Child Lock"
+          }
+        },
+        {
+          "id": "filter1_life",
+          "type": "label",
+          "label": {
+            "en": "Filter life"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "purify_volume",
+          "type": "label",
+          "label": {
+            "en": "Air Cleared (m3)"
+          },
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/mi_air_purifier_mb3/assets/images/large.png",
+    "small": "/drivers/mi_air_purifier_mb3/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

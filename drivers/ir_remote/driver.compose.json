@@ -1,0 +1,94 @@
+{
+  "name": {
+    "en": "Mi IR"
+  },
+  "class": "other",
+  "capabilities": [
+    "onoff"
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Device settings"
+      },
+      "children": [
+        {
+          "id": "deviceIp",
+          "type": "text",
+          "label": {
+            "en": "Device IP"
+          },
+          "hint": {
+            "en": "Enter Mi IR remote controller IP address."
+          },
+          "value": ""
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "label": {
+            "en": "Device Token"
+          },
+          "hint": {
+            "en": "Enter Mi IR remote controller token."
+          },
+          "value": ""
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Configure sending codes"
+      },
+      "children": [
+        {
+          "id": "replay",
+          "type": "number",
+          "label": {
+            "en": "Replay"
+          },
+          "value": 1,
+          "min": 1,
+          "max": 10
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/ir_remote/assets/images/large.png",
+    "small": "/drivers/ir_remote/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "deviceTypes"
+    },
+    {
+      "id": "devices",
+      "navigation": {
+        "prev": "deviceTypes"
+      }
+    },
+    {
+      "id": "deviceCharacteristics",
+      "navigation": {
+        "next": "keys",
+        "prev": "devices"
+      }
+    },
+    {
+      "id": "keys",
+      "navigation": {
+        "next": "done",
+        "prev": "deviceCharacteristics"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "devices"
+      }
+    }
+  ]
+}

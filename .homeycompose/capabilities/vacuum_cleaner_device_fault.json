@@ -1,0 +1,187 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Vacuum cleaner fault"
+  },
+  "desc": {
+    "en": "Vacuum cleaner fault"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "normal"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "drop"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "cliff"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "bumper"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "gesture"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "bumper repeat"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "drop repeat"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "optical flow"
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "en": "no box"
+      }
+    },
+    {
+      "id": "9",
+      "title": {
+        "en": "no tankbox"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "en": "waterbox empty"
+      }
+    },
+    {
+      "id": "11",
+      "title": {
+        "en": "box full"
+      }
+    },
+    {
+      "id": "12",
+      "title": {
+        "en": "brush"
+      }
+    },
+    {
+      "id": "13",
+      "title": {
+        "en": "side brush"
+      }
+    },
+    {
+      "id": "14",
+      "title": {
+        "en": "fan"
+      }
+    },
+    {
+      "id": "15",
+      "title": {
+        "en": "left wheel motor"
+      }
+    },
+    {
+      "id": "16",
+      "title": {
+        "en": "right wheel motor"
+      }
+    },
+    {
+      "id": "17",
+      "title": {
+        "en": "turn suffocate"
+      }
+    },
+    {
+      "id": "18",
+      "title": {
+        "en": "forward suffocate"
+      }
+    },
+    {
+      "id": "19",
+      "title": {
+        "en": "charger get"
+      }
+    },
+    {
+      "id": "20",
+      "title": {
+        "en": "battery low"
+      }
+    },
+    {
+      "id": "21",
+      "title": {
+        "en": "charge fault"
+      }
+    },
+    {
+      "id": "22",
+      "title": {
+        "en": "battery percentage"
+      }
+    },
+    {
+      "id": "23",
+      "title": {
+        "en": "heart"
+      }
+    },
+    {
+      "id": "24",
+      "title": {
+        "en": "camera occlusion"
+      }
+    },
+    {
+      "id": "25",
+      "title": {
+        "en": "camera fault"
+      }
+    },
+    {
+      "id": "26",
+      "title": {
+        "en": "event battery"
+      }
+    },
+    {
+      "id": "27",
+      "title": {
+        "en": "forward looking"
+      }
+    },
+    {
+      "id": "28",
+      "title": {
+        "en": "gyroscope"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false
+}

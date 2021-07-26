@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Set purifier speed"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=mi_air_purifier_mb3"
+    },
+    {
+      "type": "range",
+      "name": "speed",
+      "min": 0.01,
+      "max": 0.03,
+      "step": 0.01,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
+}

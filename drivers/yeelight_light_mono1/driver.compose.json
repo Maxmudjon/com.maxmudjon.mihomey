@@ -1,0 +1,78 @@
+{
+  "name": {
+    "en": "Yeelight White Bulb"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Brightness"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Yeelight White Bulb settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/yeelight_light_mono1/assets/images/large.png",
+    "small": "/drivers/yeelight_light_mono1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "yeelight",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "yeelight"
+      }
+    }
+  ]
+}

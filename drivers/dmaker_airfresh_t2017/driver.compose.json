@@ -1,0 +1,160 @@
+{
+  "name": {
+    "en": "Mi Air Purifier (MJXFJ-300-G1)"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "air_purifier_t2017_mode",
+    "onoff.ptc",
+    "air_heater_mode",
+    "measure_temperature",
+    "measure_pm25",
+    "measure_co2"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Speed"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Air Purifier (MJXFJ-300-G1) settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "display",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Display"
+          }
+        },
+        {
+          "id": "sound",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Sound"
+          }
+        },
+        {
+          "id": "childLock",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Child Lock"
+          }
+        },
+        {
+          "id": "filter_efficient",
+          "type": "label",
+          "label": {
+            "en": "Filter life"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "filter_intermediate",
+          "type": "label",
+          "label": {
+            "en": "Filter life 2"
+          },
+          "value": "0"
+        },
+        {
+          "id": "screen_direction",
+          "type": "dropdown",
+          "value": "forward",
+          "label": {
+            "en": "Screen Direction"
+          },
+          "values": [
+            {
+              "id": "forward",
+              "label": {
+                "en": "Normal"
+              }
+            },
+            {
+              "id": "left",
+              "label": {
+                "en": "-90"
+              }
+            },
+            {
+              "id": "right",
+              "label": {
+                "en": "+90"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/dmaker_airfresh_t2017/assets/images/large.png",
+    "small": "/drivers/dmaker_airfresh_t2017/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

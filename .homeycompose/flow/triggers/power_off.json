@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Power off"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=plug|ctrl_ln1.aq1|ctrl_neutral1"
+    }
+  ]
+}

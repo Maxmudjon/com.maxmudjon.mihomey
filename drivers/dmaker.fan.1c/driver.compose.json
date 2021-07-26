@@ -1,0 +1,119 @@
+{
+  "name": {
+    "en": "Mi Smart Standing Fan 2 Lite"
+  },
+  "class": "fan",
+  "capabilities": [
+    "onoff",
+    "onoff.swing",
+    "dim",
+    "deerma_fan_1c_mode"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "onoff.swing": {
+      "title": {
+        "en": "Horizontal Swing"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Fan level"
+      },
+      "max": 3,
+      "min": 1
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Smart Standing Fan 2 Lite"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "LED"
+          }
+        },
+        {
+          "id": "buzzer",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Buzzer"
+          }
+        },
+        {
+          "id": "childLock",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Child Lock"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/dmaker.fan.1c/assets/images/large.png",
+    "small": "/drivers/dmaker.fan.1c/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

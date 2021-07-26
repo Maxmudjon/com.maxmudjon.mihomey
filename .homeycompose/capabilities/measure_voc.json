@@ -1,0 +1,14 @@
+{
+  "title": {
+    "en": "VOC",
+    "nl": ""
+  },
+  "type": "number",
+  "units": {
+    "en": "mg/m3",
+    "nl": ""
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/cgllc_airmonitor_b1/assets/measure_voc_icon.svg"
+}

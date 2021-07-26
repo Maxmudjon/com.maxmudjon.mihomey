@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "Auto Adjust Color Temperature"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=philips_light_ceiling"
+    },
+    {
+      "type": "dropdown",
+      "name": "ac",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "enable"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "disable"
+          }
+        }
+      ]
+    }
+  ]
+}

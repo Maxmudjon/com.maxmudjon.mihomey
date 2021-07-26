@@ -1,0 +1,42 @@
+{
+  "title": {
+    "en": "Set humidifier mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=deerma_humidifier_mjjsq"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "low",
+          "label": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "medium",
+          "label": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "high",
+          "label": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "humidity",
+          "label": {
+            "en": "Humidity"
+          }
+        }
+      ]
+    }
+  ]
+}

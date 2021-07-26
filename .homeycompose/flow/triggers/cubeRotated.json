@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Cube rotated"
+  },
+  "tokens": [
+    {
+      "name": "cube_rotated",
+      "type": "number",
+      "title": {
+        "en": "cube rotated"
+      },
+      "example": 0
+    }
+  ],
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=cube"
+    }
+  ]
+}

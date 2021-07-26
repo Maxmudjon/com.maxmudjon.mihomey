@@ -1,0 +1,152 @@
+{
+  "name": {
+    "en": "Mi Robot Vacuum-Mop 1T"
+  },
+  "class": "vacuumcleaner",
+  "capabilities": [
+    "onoff",
+    "button",
+    "dim",
+    "dim.water",
+    "vacuum_cleaner_1t_info",
+    "vacuum_cleaner_device_fault",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Clean"
+      }
+    },
+    "button": {
+      "title": {
+        "en": "Go to charging"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Fan speed"
+      },
+      "min": 0,
+      "max": 3,
+      "step": 1
+    },
+    "dim.water": {
+      "title": {
+        "en": "Mop mode"
+      },
+      "min": 1,
+      "max": 3,
+      "step": 1
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Mi Robot Vacuum-Mop 1T settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Vacuum life settings"
+      },
+      "children": [
+        {
+          "id": "alarm_threshold",
+          "type": "number",
+          "label": {
+            "en": "Alarm threshold"
+          },
+          "hint": {
+            "en": "Work level to (brush, filter) below which the alarm will be activated."
+          },
+          "value": 20,
+          "attr": {
+            "min": 1,
+            "max": 90
+          }
+        },
+        {
+          "id": "main_brush_work_time",
+          "type": "label",
+          "label": {
+            "en": "Main Cleaning Brush Life Level"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "side_brush_work_time",
+          "type": "label",
+          "label": {
+            "en": "Side Cleaning Brush Life Level"
+          },
+          "value": "0%"
+        },
+        {
+          "id": "filter_work_time",
+          "type": "label",
+          "label": {
+            "en": "Filter Life Level"
+          },
+          "value": "0%"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/dreame.vacuum.p2041/assets/images/large.png",
+    "small": "/drivers/dreame.vacuum.p2041/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

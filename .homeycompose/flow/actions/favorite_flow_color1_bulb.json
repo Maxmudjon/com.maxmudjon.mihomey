@@ -1,0 +1,120 @@
+{
+  "title": {
+    "en": "Favorite Flows"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=yeelight_light_color1|yeelight_light_bslamp1|yeelight_light_strip1"
+    },
+    {
+      "type": "dropdown",
+      "name": "favoriteFlowID",
+      "values": [
+        {
+          "id": "flash_notify",
+          "label": {
+            "en": "Flash Notify"
+          }
+        },
+        {
+          "id": "sunset",
+          "label": {
+            "en": "Sunset"
+          }
+        },
+        {
+          "id": "sunrise",
+          "label": {
+            "en": "Sunrise"
+          }
+        },
+        {
+          "id": "disco",
+          "label": {
+            "en": "Disco"
+          }
+        },
+        {
+          "id": "dating_night",
+          "label": {
+            "en": "Dating Night"
+          }
+        },
+        {
+          "id": "romance",
+          "label": {
+            "en": "Romance"
+          }
+        },
+        {
+          "id": "candle_flicker",
+          "label": {
+            "en": "Candle Flicker"
+          }
+        },
+        {
+          "id": "happy_birthday",
+          "label": {
+            "en": "Happy Birthday"
+          }
+        },
+        {
+          "id": "police_1",
+          "label": {
+            "en": "Police 1"
+          }
+        },
+        {
+          "id": "police_2",
+          "label": {
+            "en": "Police 2"
+          }
+        },
+        {
+          "id": "alarm",
+          "label": {
+            "en": "Alarm"
+          }
+        },
+        {
+          "id": "gaming",
+          "label": {
+            "en": "Gaming"
+          }
+        },
+        {
+          "id": "calm",
+          "label": {
+            "en": "Calm"
+          }
+        },
+        {
+          "id": "rainbow",
+          "label": {
+            "en": "Rainbow"
+          }
+        },
+        {
+          "id": "flash_notify_red",
+          "label": {
+            "en": "Flash Notify RED"
+          }
+        },
+        {
+          "id": "flash_notify_green",
+          "label": {
+            "en": "Flash Notify GREEN"
+          }
+        },
+        {
+          "id": "flash_notify_blue",
+          "label": {
+            "en": "Flash Notify BLUE"
+          }
+        }
+      ]
+    }
+  ]
+}

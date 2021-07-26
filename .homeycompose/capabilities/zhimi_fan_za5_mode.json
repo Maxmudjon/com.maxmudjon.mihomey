@@ -1,0 +1,25 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Fan mode"
+  },
+  "desc": {
+    "en": "Fan mode"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Natural Wind"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Straight Wind"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

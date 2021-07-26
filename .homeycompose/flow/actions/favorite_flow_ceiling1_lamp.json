@@ -1,0 +1,42 @@
+{
+  "title": {
+    "en": "Favorite Flows"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=yeelight_light_ceiling1|yeelight_light_lamp1|yeelight_light_ceiling4|yeelight_light_ceiling3"
+    },
+    {
+      "type": "dropdown",
+      "name": "favoriteFlowID",
+      "values": [
+        {
+          "id": "flash_notify_mono",
+          "label": {
+            "en": "Flash Notify"
+          }
+        },
+        {
+          "id": "sunset_ceiling",
+          "label": {
+            "en": "Sunset"
+          }
+        },
+        {
+          "id": "sunrise_ceiling",
+          "label": {
+            "en": "Sunrise"
+          }
+        },
+        {
+          "id": "candle_flicker",
+          "label": {
+            "en": "Candle Flicker"
+          }
+        }
+      ]
+    }
+  ]
+}

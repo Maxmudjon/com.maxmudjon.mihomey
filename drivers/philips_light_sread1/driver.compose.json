@@ -1,0 +1,90 @@
+{
+  "name": {
+    "en": "Philips EyeCare Desk Lamp 2"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "onoff.eyecare",
+    "onoff.ambilight"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Brightness"
+      }
+    },
+    "onoff.eyecare": {
+      "title": {
+        "en": "Eyecare"
+      }
+    },
+    "onoff.ambilight": {
+      "title": {
+        "en": "Ambilight"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Philips EyeCare Desk Lamp 2 settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/philips_light_sread1/assets/images/large.png",
+    "small": "/drivers/philips_light_sread1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "philips",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "philips"
+      }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "name": {
+    "en": "CHINGMI Smart Power Strip"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_power",
+    "meter_ampere",
+    "measure_temperature",
+    "measure_voltage"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    },
+    "measure_power": {
+      "title": {
+        "en": "Watt"
+      }
+    },
+    "measure_temperature": {
+      "title": {
+        "en": "Temperature"
+      }
+    },
+    "measure_voltage": {
+      "title": {
+        "en": "Voltage"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "CHINGMI Smart Power Strip settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/qmi_powerstrip_v1/assets/images/large.png",
+    "small": "/drivers/qmi_powerstrip_v1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

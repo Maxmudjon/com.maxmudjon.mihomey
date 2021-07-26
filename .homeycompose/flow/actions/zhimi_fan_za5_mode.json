@@ -1,0 +1,30 @@
+{
+  "title": {
+    "en": "Set fan mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=zhimi.fan.za5"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Natural Wind"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Straight Wind"
+          }
+        }
+      ]
+    }
+  ]
+}

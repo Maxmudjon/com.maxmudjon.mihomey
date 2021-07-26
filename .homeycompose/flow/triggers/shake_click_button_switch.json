@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Shake air button switch"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=button_switch.aq3"
+    }
+  ]
+}

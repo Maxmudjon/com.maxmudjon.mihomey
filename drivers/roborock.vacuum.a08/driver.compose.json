@@ -1,0 +1,94 @@
+{
+  "name": {
+    "en": "Roborock S6 Pure"
+  },
+  "class": "vacuumcleaner",
+  "capabilities": [
+    "onoff",
+    "button",
+    "roborock_vacuum_a08_mode",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [
+      "OTHER"
+    ]
+  },
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Clean"
+      }
+    },
+    "button": {
+      "title": {
+        "en": "Go to charging"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Fan speed"
+      },
+      "min": 0,
+      "max": 3,
+      "step": 1
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Roborock S6 Pure settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/roborock.vacuum.a08/assets/images/large.png",
+    "small": "/drivers/roborock.vacuum.a08/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

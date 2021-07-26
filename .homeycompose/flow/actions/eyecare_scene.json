@@ -1,0 +1,36 @@
+{
+  "title": {
+    "en": "Eyecare scenes"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=philips_light_sread1"
+    },
+    {
+      "type": "dropdown",
+      "name": "scene",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Teens Study"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Adults Reading"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Phone/Computer"
+          }
+        }
+      ]
+    }
+  ]
+}

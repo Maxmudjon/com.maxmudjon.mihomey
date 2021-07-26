@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Smoke Density"
+  },
+  "type": "number",
+  "units": {
+    "en": "kg/m3"
+  },
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/smoke_sensor/assets/measure_smoke_density_icon.svg"
+}

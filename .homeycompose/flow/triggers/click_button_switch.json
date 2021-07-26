@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Single click button switch"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=button_switch|button_switch.aq2|button_switch.aq3"
+    }
+  ]
+}

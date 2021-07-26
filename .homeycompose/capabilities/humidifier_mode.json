@@ -1,0 +1,31 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Humidifier Mode"
+  },
+  "desc": {
+    "en": "Humidifier Mode"
+  },
+  "values": [
+    {
+      "id": "silent",
+      "title": {
+        "en": "Silent"
+      }
+    },
+    {
+      "id": "medium",
+      "title": {
+        "en": "Medium"
+      }
+    },
+    {
+      "id": "high",
+      "title": {
+        "en": "High"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

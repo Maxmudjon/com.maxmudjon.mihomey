@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "Alarm time left side brush"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=mi_rockrobo_vacuum_v1|mi_rockrobo_vacuum_s5|mi_robot_1s|mi_rockrobo_vacuum_t6|viomi_vacuum_v7|dreame.vacuum.mc1808|dreame.vacuum.p2041|dreame.vacuum.p2029"
+    }
+  ]
+}

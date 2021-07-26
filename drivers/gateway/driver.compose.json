@@ -1,0 +1,129 @@
+{
+  "name": {
+    "en": "Xiaomi Gateway 3"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_hue",
+    "light_saturation",
+    "measure_luminance",
+    "button"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Gateway light"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Brightness"
+      }
+    },
+    "measure_luminance": {
+      "title": {
+        "en": "Lux"
+      }
+    },
+    "button": {
+      "title": {
+        "en": "Join"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Capability update time"
+      },
+      "children": [
+        {
+          "id": "update_luminance_number",
+          "type": "number",
+          "label": {
+            "en": "Update after"
+          },
+          "hint": {
+            "en": "Here you can specify the refresh interval for capabilities. Usually it is 60 seconds, you can set from 1 to 86400 seconds."
+          },
+          "value": 60,
+          "attr": {
+            "min": 1,
+            "max": 86400
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Device information"
+      },
+      "children": [
+        {
+          "id": "gatewaySid",
+          "type": "label",
+          "label": {
+            "en": "Device sid"
+          },
+          "value": "0123456789abcd"
+        },
+        {
+          "id": "deviceIp",
+          "type": "label",
+          "label": {
+            "en": "Gateway IP"
+          },
+          "value": "255.255.255.255"
+        },
+        {
+          "id": "deviceModelName",
+          "type": "label",
+          "label": {
+            "en": "Device model"
+          },
+          "value": "lumi.device"
+        },
+        {
+          "id": "deviceModelCodeName",
+          "type": "label",
+          "label": {
+            "en": "Device model code"
+          },
+          "value": "AABBC01LM"
+        },
+        {
+          "id": "deviceProtoVersion",
+          "type": "label",
+          "label": {
+            "en": "Device proto version"
+          },
+          "value": "0.0.0"
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/gateway/assets/images/large.png",
+    "small": "/drivers/gateway/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      },
+      "options": {
+        "singular": false
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

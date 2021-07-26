@@ -1,0 +1,9 @@
+{
+  "title": {
+    "en": "Gas detected"
+  },
+  "type": "boolean",
+  "getable": true,
+  "setable": false,
+  "icon": "/drivers/natgas_sensor/assets/natgas_sensor_icon.svg"
+}
