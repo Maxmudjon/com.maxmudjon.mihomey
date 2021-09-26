@@ -1,17 +1,7 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-const params = [
-  { did: "get", siid: 2, piid: 1 },
-  { did: "get", siid: 2, piid: 2 },
-  { did: "get", siid: 2, piid: 3 },
-  { did: "get", siid: 2, piid: 7 },
-  { did: "get", siid: 3, piid: 1 },
-  { did: "get", siid: 2, piid: 11 },
-  { did: "get", siid: 2, piid: 12 },
-];
-
-class MiSmartStandingFan2Lite extends Homey.Device {
+class MiSmartStandingFan2S extends Homey.Device {
   async onInit() {
     this.initialize = this.initialize.bind(this);
     this.driver = this.getDriver();
@@ -28,14 +18,15 @@ class MiSmartStandingFan2Lite extends Homey.Device {
 
   registerActions() {
     const { actions } = this.driver;
-    this.registerFanModeAction("deerma_fan_1c_mode", actions.fanMode);
+
+    this.registeHorizontalAngleAction("zhimi_fan_za5_horizontal_angle", actions.horizontalAngle);
   }
 
   registerCapabilities() {
     this.registerOnOffButton("onoff");
     this.registerOnOffSwingButton("onoff.swing");
     this.registerFanLevel("dim");
-    this.registerFanMode("deerma_fan_1c_mode");
+    this.registerAngleLevel("dim.swing");
   }
 
   getFanStatus() {
@@ -48,24 +39,16 @@ class MiSmartStandingFan2Lite extends Homey.Device {
         this.device = device;
 
         this.device
-          .call("get_properties", params, { retries: 1 })
+          .call("get_prop", ["power", "angle", "angle_enable", "speed_level", "natural_level", "child_lock", "poweroff_time", "buzzer", "led_b"])
           .then((result) => {
-            const powerResult = result.filter((r) => r.siid == 2 && r.piid == 1)[0];
-            const deviceFanLevelResult = result.filter((r) => r.siid == 2 && r.piid == 2)[0];
-            const swingResult = result.filter((r) => r.siid == 2 && r.piid == 3)[0];
-            const deviceModeResult = result.filter((r) => r.siid == 2 && r.piid == 7)[0];
-            const devicePhyicalLockResult = result.filter((r) => r.siid == 3 && r.piid == 1)[0];
-            const deviceBuzzerResult = result.filter((r) => r.siid == 2 && r.piid == 11)[0];
-            const deviceLedBrightnessResult = result.filter((r) => r.siid == 2 && r.piid == 12)[0];
+            this.updateCapabilityValue("onoff", result[0] == "on");
+            this.updateCapabilityValue("dim.angle", +result[1]);
+            this.updateCapabilityValue("onoff.swing", result[2] == "on");
+            this.updateCapabilityValue("dim", +result[3]);
 
-            this.updateCapabilityValue("onoff", powerResult.value);
-            this.updateCapabilityValue("onoff.swing", swingResult.value);
-            this.updateCapabilityValue("deerma_fan_1c_mode", "" + deviceModeResult.value);
-            this.updateCapabilityValue("dim", +deviceFanLevelResult.value);
-
-            this.setSettings({ led: !!deviceLedBrightnessResult.value });
-            this.setSettings({ buzzer: deviceBuzzerResult.value });
-            this.setSettings({ childLock: devicePhyicalLockResult.value });
+            this.setSettings({ childLock: result[5] == "on" });
+            this.setSettings({ buzzer: !!result[7] });
+            this.setSettings({ led: !!result[8] });
           })
           .catch((error) => this.log("Sending commmand 'get_properties' error: ", error));
 
@@ -85,27 +68,19 @@ class MiSmartStandingFan2Lite extends Homey.Device {
     clearInterval(this.updateInterval);
     this.updateInterval = setInterval(() => {
       this.device
-        .call("get_properties", params, { retries: 1 })
+        .call("get_prop", ["power", "angle", "angle_enable", "speed_level", "natural_level", "child_lock", "poweroff_time", "buzzer", "led_b"])
         .then((result) => {
           if (!this.getAvailable()) {
             this.setAvailable();
           }
-          const powerResult = result.filter((r) => r.siid == 2 && r.piid == 1)[0];
-          const deviceFanLevelResult = result.filter((r) => r.siid == 2 && r.piid == 2)[0];
-          const swingResult = result.filter((r) => r.siid == 2 && r.piid == 3)[0];
-          const deviceModeResult = result.filter((r) => r.siid == 2 && r.piid == 7)[0];
-          const devicePhyicalLockResult = result.filter((r) => r.siid == 3 && r.piid == 1)[0];
-          const deviceBuzzerResult = result.filter((r) => r.siid == 2 && r.piid == 11)[0];
-          const deviceLedBrightnessResult = result.filter((r) => r.siid == 2 && r.piid == 12)[0];
+          this.updateCapabilityValue("onoff", result[0] == "on");
+          this.updateCapabilityValue("dim.angle", +result[1]);
+          this.updateCapabilityValue("onoff.swing", result[2] == "on");
+          this.updateCapabilityValue("dim", +result[3]);
 
-          this.updateCapabilityValue("onoff", powerResult.value);
-          this.updateCapabilityValue("onoff.swing", swingResult.value);
-          this.updateCapabilityValue("deerma_fan_1c_mode", "" + deviceModeResult.value);
-          this.updateCapabilityValue("dim", +deviceFanLevelResult.value);
-
-          this.setSettings({ led: !!deviceLedBrightnessResult.value });
-          this.setSettings({ buzzer: deviceBuzzerResult.value });
-          this.setSettings({ childLock: devicePhyicalLockResult.value });
+          this.setSettings({ childLock: result[5] == "on" });
+          this.setSettings({ buzzer: !!result[7] });
+          this.setSettings({ led: !!result[8] });
         })
         .catch((error) => {
           this.log("Sending commmand error: ", error);
@@ -138,39 +113,39 @@ class MiSmartStandingFan2Lite extends Homey.Device {
 
     if (changedKeys.includes("led")) {
       this.device
-        .call("set_properties", [{ did: "set", siid: 2, piid: 12, value: newSettings.led }], { retries: 1 })
+        .call("set_led_b", [newSettings.led ? 1 : 0])
         .then(() => {
           this.log("Sending " + this.getName() + " commmand: " + newSettings.led);
           callback(null, true);
         })
         .catch((error) => {
-          this.log("Sending commmand 'set_properties' error: ", error);
+          this.log("Sending commmand 'set_led_b' error: ", error);
           callback(error, false);
         });
     }
 
     if (changedKeys.includes("buzzer")) {
       this.device
-        .call("set_properties", [{ did: "set", siid: 2, piid: 11, value: newSettings.buzzer }], { retries: 1 })
+        .call("set_buzzer", [newSettings.buzzer ? 1 : 0])
         .then(() => {
           this.log("Sending " + this.getName() + " commmand: " + newSettings.buzzer);
           callback(null, true);
         })
         .catch((error) => {
-          this.log("Sending commmand 'set_properties' error: ", error);
+          this.log("Sending commmand 'set_buzzer' error: ", error);
           callback(error, false);
         });
     }
 
     if (changedKeys.includes("childLock")) {
       this.device
-        .call("set_properties", [{ did: "set", siid: 3, piid: 1, value: newSettings.childLock }], { retries: 1 })
+        .call("set_child_lock", [newSettings.childLock ? "on" : "off"])
         .then(() => {
           this.log("Sending " + this.getName() + " commmand: " + newSettings.childLock);
           callback(null, true);
         })
         .catch((error) => {
-          this.log("Sending commmand 'set_properties' error: ", error);
+          this.log("Sending commmand 'set_child_lock' error: ", error);
           callback(error, false);
         });
     }
@@ -179,40 +154,31 @@ class MiSmartStandingFan2Lite extends Homey.Device {
   registerOnOffButton(name) {
     this.registerCapabilityListener(name, async (value) => {
       this.device
-        .call("set_properties", [{ did: "set", siid: 2, piid: 1, value }], { retries: 1 })
+        .call("set_power", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch((error) => this.log("Sending commmand 'set_properties' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_power' error: ", error));
     });
   }
 
   registerOnOffSwingButton(name) {
     this.registerCapabilityListener(name, async (value) => {
       this.device
-        .call("set_properties", [{ did: "set", siid: 2, piid: 3, value }], { retries: 1 })
+        .call("set_angle_enable", [value ? "on" : "off"])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch((error) => this.log("Sending commmand 'set_properties' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_angle_enable' error: ", error));
     });
   }
 
   registerFanLevel(name) {
     this.registerCapabilityListener(name, async (value) => {
       this.device
-        .call("set_properties", [{ did: "set", siid: 2, piid: 2, value: +value }], { retries: 1 })
+        .call("set_speed_level", [value])
         .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch((error) => this.log("Sending commmand 'set_properties' error: ", error));
+        .catch((error) => this.log("Sending commmand 'set_speed_level' error: ", error));
     });
   }
 
-  registerFanMode(name) {
-    this.registerCapabilityListener(name, async (value) => {
-      this.device
-        .call("set_properties", [{ did: "set", siid: 2, piid: 7, value: +value }], { retries: 1 })
-        .then(() => this.log("Sending " + name + " commmand: " + value))
-        .catch((error) => this.log("Sending commmand 'set_properties' error: ", error));
-    });
-  }
-
-  registerFanModeAction(name, action) {
+  registeHorizontalAngleAction(name, action) {
     action.registerRunListener(async (args, state) => {
       try {
         miio
@@ -222,13 +188,13 @@ class MiSmartStandingFan2Lite extends Homey.Device {
           })
           .then((device) => {
             device
-              .call("set_properties", [{ did: "set", siid: 2, piid: 7, value: +args.modes }], { retries: 1 })
+              .call("set_angle", [args.angle])
               .then(() => {
-                this.log("Set 'set_properties': ", args.modes);
+                this.log("Set 'set_angle': ", args.angle);
                 device.destroy();
               })
               .catch((error) => {
-                this.log("Set 'set_properties' error: ", error.message);
+                this.log("Set 'set_angle' error: ", error.message);
                 device.destroy();
               });
           })
@@ -250,4 +216,4 @@ class MiSmartStandingFan2Lite extends Homey.Device {
   }
 }
 
-module.exports = MiSmartStandingFan2Lite;
+module.exports = MiSmartStandingFan2S;

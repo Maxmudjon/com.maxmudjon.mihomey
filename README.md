@@ -925,9 +925,48 @@ Added support for Mi Gateways child devices.
         Model: zhimi.fan.za5
     </td>
   </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1565061433vz2c6tms.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mijia Philips Color Bulb
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: philips.light.cbulb
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://cdn.awssgp0.fds.api.mi-img.com/miio.files/developer_1584598944z7vf4g16.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Mi Smart Antibacterial Humidifier
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: deerma.humidifier.jsq
+    </td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #6e7681"> 
+        <img src="https://static.home.mi.com/app/image/get/file/developer_1541408255kg3xtr1j.png"  alt="1" width = 100px height = 100px >
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Smartmi Standing Fan 2S
+    </td>
+    <td style="border: 1px solid #6e7681">
+        Model: zhimi.fan.za4
+    </td>
+  </tr>
 </table>
 
 ## Version logs
+
+### 1.1.15 (26.09.2021)
+
+1.  added Mijia Philips Color Bulb.
+2.  added Mi Smart Antibacterial Humidifier.
+3.  added Smartmi Standing Fan 2S.
 
 ### 1.1.14 (26.07.2021)
 

@@ -9,7 +9,7 @@ const params = [
   { siid: 6, piid: 1 },
   { siid: 7, piid: 2 },
   { siid: 8, piid: 1 },
-  { siid: 9, piid: 2 },
+  { siid: 9, piid: 3 },
 ];
 
 class MiAirPurifier3C extends Homey.Device {

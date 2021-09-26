@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -1058,7 +1058,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=deerma.humidifier.jsq4"
+            "filter": "driver_id=deerma.humidifier.jsq4|deerma.humidifier.jsq"
           },
           {
             "type": "dropdown",
@@ -2434,7 +2434,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=zhimi.fan.za5"
+            "filter": "driver_id=zhimi.fan.za5|zhimi.fan.za4"
           },
           {
             "name": "angle",
@@ -3985,6 +3985,120 @@
         }
       ],
       "id": "db86_switch_advanced"
+    },
+    {
+      "name": {
+        "en": "Mi Smart Antibacterial Humidifier"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "deerma_humidifier_jsq4_mode",
+        "measure_temperature",
+        "measure_humidity",
+        "alarm_water"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Speed level"
+          },
+          "max": 70,
+          "min": 40
+        },
+        "alarm_water": {
+          "title": {
+            "en": "No water"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Antibacterial Humidifier settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/deerma.humidifier.jsq/assets/images/large.png",
+        "small": "/drivers/deerma.humidifier.jsq/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "connect",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "connect"
+          }
+        }
+      ],
+      "id": "deerma.humidifier.jsq"
     },
     {
       "name": {
@@ -8356,6 +8470,88 @@
     },
     {
       "name": {
+        "en": "Mijia Philips Color Bulb"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_temperature"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Brightness"
+          },
+          "min": 0.01
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mijia Philips Color Bulb settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/philips.light.cbulb/assets/images/large.png",
+        "small": "/drivers/philips.light.cbulb/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "philips",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "philips"
+          }
+        }
+      ],
+      "id": "philips.light.cbulb"
+    },
+    {
+      "name": {
         "en": "Philips Light Bulb"
       },
       "class": "light",
@@ -11123,6 +11319,133 @@
         }
       ],
       "id": "zhimi.airpurifier.mb4"
+    },
+    {
+      "name": {
+        "en": "Mi Smart Standing Fan 2S"
+      },
+      "class": "fan",
+      "capabilities": [
+        "onoff",
+        "onoff.swing",
+        "dim",
+        "dim.angle"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "onoff.swing": {
+          "title": {
+            "en": "Horizontal Swing"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Fan level"
+          },
+          "max": 100,
+          "min": 1
+        },
+        "dim.angle": {
+          "title": {
+            "en": "Horizontal Angle"
+          },
+          "max": 120,
+          "min": 30
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Standing Fan 2S settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            },
+            {
+              "id": "childLock",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Child Lock"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/zhimi.fan.za4/assets/images/large.png",
+        "small": "/drivers/zhimi.fan.za4/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ],
+      "id": "zhimi.fan.za4"
     },
     {
       "name": {

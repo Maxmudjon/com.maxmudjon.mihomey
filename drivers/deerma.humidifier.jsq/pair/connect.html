@@ -1,0 +1,68 @@
+<script src="../../../assets/vue.min.js"></script>
+<link rel="stylesheet" href="../../../assets/bootstrap.min.css" />
+
+<script>
+  Homey.setTitle("Add Mi Smart Antibacterial Humidifier IP and Token");
+  setTimeout(() => {
+    Homey.setNavigationClose();
+  }, 1);
+  new Vue({
+    el: "#deviceConnection",
+    data() {
+      return {
+        ip: "",
+        token: "",
+        timer: 60,
+        deviceClass: "alert-light",
+        addDeviceButton: false,
+        message: "Not connected!",
+      };
+    },
+    methods: {
+      connect() {
+        let data = { ip: this.ip, token: this.token, timer: this.timer || 60 };
+
+        Homey.emit("connect", data, (error, result) => {
+          if (error) {
+            this.deviceClass = "alert-danger";
+            this.message = error.message;
+            this.addDeviceButton = false;
+          }
+
+          if (result) {
+            this.deviceClass = "alert-success";
+            this.message = "Successfully connected";
+            this.addDeviceButton = true;
+          }
+        });
+      },
+      addDevice() {
+        Homey.showView("done");
+      },
+    },
+  });
+</script>
+
+<div id="deviceConnection">
+  <div class="row align-items-center alert" role="alert" :class="deviceClass" style="width: 100%; margin-left: 0px; margin-right: 0px;">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" v-model="ip" aria-describedby="basic-addon3" placeholder="IP Address" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" v-model="token" aria-describedby="basic-addon3" placeholder="Token" style="border: 1px solid #ced4da; padding: 0.375rem 0.75rem;" />
+    </div>
+    <div class="input-group mb-3">
+      <small id="period" class="form-text text-muted">Polling period, seconds</small>
+    </div>
+    <div class="input-group mb-3">
+      <input type="number" class="form-control" v-model="timer" aria-describedby="basic-addon3" placeholder="60" min="5" max="3600" />
+    </div>
+    <div class="col" style="padding-left: 0px;">
+      <div class="float-left">{{message}}</div>
+    </div>
+    <div class="col" style="padding-right: 0px;">
+      <button @click="connect" type="button" class="btn btn-primary float-right" style="height: auto;">Connect</button>
+    </div>
+  </div>
+  <button @click="addDevice" type="button" v-if="addDeviceButton" class="btn btn-primary btn-lg btn-block" style="height: auto;" id="addDevice">Add device</button>
+</div>

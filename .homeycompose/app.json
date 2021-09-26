@@ -1,18 +1,26 @@
 {
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
     "en": "Mi Homey"
   },
   "tags": {
-    "en": ["mihomey", "mi", "Xiaomi", "gateway", "mi hub"]
+    "en": [
+      "mihomey",
+      "mi",
+      "Xiaomi",
+      "gateway",
+      "mi hub"
+    ]
   },
   "description": {
     "en": "Adds support for Mi Gateways child devices and Mi WiFi devices"
   },
-  "category": ["tools"],
+  "category": [
+    "tools"
+  ],
   "brandColor": "#FF6700",
   "permissions": [],
   "images": {

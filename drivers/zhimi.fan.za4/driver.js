@@ -1,16 +1,16 @@
 const Homey = require("homey");
 const miio = require("miio");
 
-class MiSmartStandingFan2Lite extends Homey.Driver {
+class MiSmartStandingFan2S extends Homey.Driver {
   onInit() {
     this.actions = {
-      fanMode: new Homey.FlowCardAction("deerma_fan_1c_mode").register(),
+      horizontalAngle: new Homey.FlowCardAction("zhimi_fan_za5_horizontal_angle").register(),
     };
   }
 
   onPair(socket) {
     let pairingDevice = {};
-    pairingDevice.name = "Mi Smart Standing Fan 2 Lite";
+    pairingDevice.name = "Mi Smart Standing Fan 2S";
     pairingDevice.settings = {};
     pairingDevice.data = {};
 
@@ -24,15 +24,13 @@ class MiSmartStandingFan2Lite extends Homey.Driver {
             .then((value) => {
               if (value.model == this.data.model) {
                 pairingDevice.data.id = value.mac;
-                const params = [{ did: "get", siid: 2, piid: 1 }];
+
                 device
-                  .call("get_properties", params, {
-                    retries: 1,
-                  })
+                  .call("get_prop", ["power"])
                   .then((result) => {
-                    if (result && result[0].code === 0) {
+                    if (result && result[0]) {
                       let resultData = {
-                        state: result[0],
+                        power: result[0],
                       };
                       pairingDevice.settings.deviceIP = this.data.ip;
                       pairingDevice.settings.deviceToken = this.data.token;
@@ -50,7 +48,7 @@ class MiSmartStandingFan2Lite extends Homey.Driver {
                   .catch((error) => callback(null, error));
               } else {
                 let result = {
-                  notDevice: "It is not Mi Smart Standing Fan 2 Lite",
+                  notDevice: "It is not Mi Smart Standing Fan 2S",
                 };
                 pairingDevice.data.id = null;
                 callback(null, result);
@@ -76,4 +74,4 @@ class MiSmartStandingFan2Lite extends Homey.Driver {
   }
 }
 
-module.exports = MiSmartStandingFan2Lite;
+module.exports = MiSmartStandingFan2S;
