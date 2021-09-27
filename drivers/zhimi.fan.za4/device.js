@@ -26,7 +26,7 @@ class MiSmartStandingFan2S extends Homey.Device {
     this.registerOnOffButton("onoff");
     this.registerOnOffSwingButton("onoff.swing");
     this.registerFanLevel("dim");
-    this.registerAngleLevel("dim.swing");
+    this.registerAngleLevel("dim.angle");
   }
 
   getFanStatus() {
@@ -41,6 +41,7 @@ class MiSmartStandingFan2S extends Homey.Device {
         this.device
           .call("get_prop", ["power", "angle", "angle_enable", "speed_level", "natural_level", "child_lock", "poweroff_time", "buzzer", "led_b"])
           .then((result) => {
+            this.log('getFanStatus ', result)
             this.updateCapabilityValue("onoff", result[0] == "on");
             this.updateCapabilityValue("dim.angle", +result[1]);
             this.updateCapabilityValue("onoff.swing", result[2] == "on");
@@ -73,6 +74,8 @@ class MiSmartStandingFan2S extends Homey.Device {
           if (!this.getAvailable()) {
             this.setAvailable();
           }
+
+          this.log('updateTimer ', result)
           this.updateCapabilityValue("onoff", result[0] == "on");
           this.updateCapabilityValue("dim.angle", +result[1]);
           this.updateCapabilityValue("onoff.swing", result[2] == "on");
@@ -171,8 +174,20 @@ class MiSmartStandingFan2S extends Homey.Device {
 
   registerFanLevel(name) {
     this.registerCapabilityListener(name, async (value) => {
+      
       this.device
-        .call("set_speed_level", [value])
+        .call("set_speed_level", [+(value.toFixed())])
+        .then(() => this.log("Sending " + name + " commmand: " + value))
+        .catch((error) => this.log("Sending commmand 'set_speed_level' error: ", error));
+    });
+  }
+
+  registerAngleLevel(name) {
+    this.registerCapabilityListener(name, async (value) => {
+
+      this.log('ANGLE.DIM value ',value)
+      this.device
+        .call("set_angle", [+(value.toFixed())])
         .then(() => this.log("Sending " + name + " commmand: " + value))
         .catch((error) => this.log("Sending commmand 'set_speed_level' error: ", error));
     });
