@@ -27,6 +27,12 @@
         {
           "id": "3",
           "label": {
+            "en": "Level 3"
+          }
+        },
+        {
+          "id": "4",
+          "label": {
             "en": "Humidity"
           }
         }
