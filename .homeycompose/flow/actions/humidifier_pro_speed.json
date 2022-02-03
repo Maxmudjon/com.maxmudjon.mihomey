@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Set humidifier speed"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=leshow.humidifier.jsq1"
+    },
+    {
+      "type": "range",
+      "name": "speed",
+      "min": 40,
+      "max": 70,
+      "step": 1,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
+}

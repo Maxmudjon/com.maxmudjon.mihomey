@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.maxmudjon.mihomey",
-  "version": "1.1.15",
+  "version": "1.1.17",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "name": {
@@ -1089,6 +1089,49 @@
       },
       {
         "title": {
+          "en": "Set fan level"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deerma.humidifier.jsq5"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Level 1"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Level 2"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Level 3"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Humidity"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "deerma_humidifier_jsq5_fan_level"
+      },
+      {
+        "title": {
           "en": "Eyecare scenes"
         },
         "args": [
@@ -1505,7 +1548,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4|humidifier_on|leshow.humidifier.jsq1"
           }
         ],
         "id": "humidifier_off"
@@ -1518,10 +1561,70 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4"
+            "filter": "driver_id=mi_humidifier_v1|mi_humidifier_ca1|deerma_humidifier_mjjsq|mi_humidifier_cb1|mi_humidifier_ca4|leshow.humidifier.jsq1"
           }
         ],
         "id": "humidifier_on"
+      },
+      {
+        "title": {
+          "en": "Set humidifier mode"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=leshow.humidifier.jsq1"
+          },
+          {
+            "type": "dropdown",
+            "name": "modes",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Const Humidity"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Strong"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Sleep"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "humidifier_pro_mode"
+      },
+      {
+        "title": {
+          "en": "Set humidifier speed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=leshow.humidifier.jsq1"
+          },
+          {
+            "type": "range",
+            "name": "speed",
+            "min": 40,
+            "max": 70,
+            "step": 1,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ],
+        "id": "humidifier_pro_speed"
       },
       {
         "title": {
@@ -4216,6 +4319,120 @@
     },
     {
       "name": {
+        "en": "Mi Smart Antibacterial Humidifier (new)"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "deerma_humidifier_jsq5_fan_level",
+        "measure_temperature",
+        "measure_humidity",
+        "alarm_water"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Target humidity"
+          },
+          "max": 70,
+          "min": 40
+        },
+        "alarm_water": {
+          "title": {
+            "en": "No water"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Mi Smart Antibacterial Humidifier (new)"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "LED"
+              }
+            },
+            {
+              "id": "buzzer",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Buzzer"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/deerma.humidifier.jsq5/assets/images/large.png",
+        "small": "/drivers/deerma.humidifier.jsq5/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ],
+      "id": "deerma.humidifier.jsq5"
+    },
+    {
+      "name": {
         "en": "Mi Smart Humidifier"
       },
       "class": "sensor",
@@ -5623,6 +5840,112 @@
         }
       ],
       "id": "ir_remote"
+    },
+    {
+      "name": {
+        "en": "XiaoMi Humidifier Pro"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "leshow_humidifier_jsq1_mode",
+        "measure_humidity",
+        "measure_water"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Switch Status"
+          }
+        },
+        "dim": {
+          "title": {
+            "en": "Target Humidity"
+          },
+          "max": 70,
+          "min": 40,
+          "step": 1
+        },
+        "measure_water": {
+          "title": {
+            "en": "Water level"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "XiaoMi Humidifier Pro settings"
+          },
+          "children": [
+            {
+              "id": "deviceIP",
+              "type": "text",
+              "value": "192.168.xxx.xxx",
+              "label": {
+                "en": "IP Address"
+              }
+            },
+            {
+              "id": "deviceToken",
+              "type": "text",
+              "value": "",
+              "label": {
+                "en": "Device Token"
+              }
+            },
+            {
+              "id": "updateTimer",
+              "type": "number",
+              "value": 60,
+              "attr": {
+                "min": 5,
+                "max": 3600
+              },
+              "label": {
+                "en": "Device update timer"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Extra settings"
+          },
+          "children": [
+            {
+              "id": "led",
+              "type": "checkbox",
+              "value": true,
+              "label": {
+                "en": "Screen brightness"
+              }
+            }
+          ]
+        }
+      ],
+      "images": {
+        "large": "/drivers/leshow.humidifier.jsq1/assets/images/large.png",
+        "small": "/drivers/leshow.humidifier.jsq1/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "xiaomi",
+          "navigation": {
+            "next": "done"
+          }
+        },
+        {
+          "id": "done",
+          "navigation": {
+            "prev": "xiaomi"
+          }
+        }
+      ],
+      "id": "leshow.humidifier.jsq1"
     },
     {
       "name": {
@@ -12237,6 +12560,43 @@
       "getable": true,
       "setable": true
     },
+    "deerma_humidifier_jsq5_fan_level": {
+      "type": "enum",
+      "title": {
+        "en": "Fan level"
+      },
+      "desc": {
+        "en": "Fan level"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Level 1"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Level 2"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Level 3"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Humidity"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
     "humidifier_ca1_mode": {
       "type": "enum",
       "title": {
@@ -12373,6 +12733,37 @@
           "id": "high",
           "title": {
             "en": "High"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "leshow_humidifier_jsq1_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Humidifier Mode"
+      },
+      "desc": {
+        "en": "XiaoMi Humidifier Pro Mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Const Humidity"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Strong"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Sleep"
           }
         }
       ],

@@ -1,0 +1,105 @@
+{
+  "name": {
+    "en": "XiaoMi Humidifier Pro"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "leshow_humidifier_jsq1_mode",
+    "measure_humidity",
+    "measure_water"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Switch Status"
+      }
+    },
+    "dim": {
+      "title": {
+        "en": "Target Humidity"
+      },
+      "max": 70,
+      "min": 40,
+      "step": 1
+    },
+    "measure_water": {
+      "title": {
+        "en": "Water level"
+      }
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "XiaoMi Humidifier Pro settings"
+      },
+      "children": [
+        {
+          "id": "deviceIP",
+          "type": "text",
+          "value": "192.168.xxx.xxx",
+          "label": {
+            "en": "IP Address"
+          }
+        },
+        {
+          "id": "deviceToken",
+          "type": "text",
+          "value": "",
+          "label": {
+            "en": "Device Token"
+          }
+        },
+        {
+          "id": "updateTimer",
+          "type": "number",
+          "value": 60,
+          "attr": {
+            "min": 5,
+            "max": 3600
+          },
+          "label": {
+            "en": "Device update timer"
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Extra settings"
+      },
+      "children": [
+        {
+          "id": "led",
+          "type": "checkbox",
+          "value": true,
+          "label": {
+            "en": "Screen brightness"
+          }
+        }
+      ]
+    }
+  ],
+  "images": {
+    "large": "/drivers/leshow.humidifier.jsq1/assets/images/large.png",
+    "small": "/drivers/leshow.humidifier.jsq1/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "xiaomi",
+      "navigation": {
+        "next": "done"
+      }
+    },
+    {
+      "id": "done",
+      "navigation": {
+        "prev": "xiaomi"
+      }
+    }
+  ]
+}

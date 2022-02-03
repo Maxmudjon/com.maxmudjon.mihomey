@@ -962,6 +962,11 @@ Added support for Mi Gateways child devices.
 
 ## Version logs
 
+### 1.1.17 (03.02.2022)
+
+1.  added Mi Smart Antibacterial Humidifier (new).
+2.  added XiaoMi Humidifier Pro.
+
 ### 1.1.15 (26.09.2021)
 
 1.  added Mijia Philips Color Bulb.

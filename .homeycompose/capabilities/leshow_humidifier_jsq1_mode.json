@@ -1,0 +1,31 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Humidifier Mode"
+  },
+  "desc": {
+    "en": "XiaoMi Humidifier Pro Mode"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Const Humidity"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Strong"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Sleep"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

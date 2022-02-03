@@ -1,0 +1,36 @@
+{
+  "title": {
+    "en": "Set humidifier mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=leshow.humidifier.jsq1"
+    },
+    {
+      "type": "dropdown",
+      "name": "modes",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Const Humidity"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Strong"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Sleep"
+          }
+        }
+      ]
+    }
+  ]
+}
